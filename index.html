@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sulthan Zahran Ma'ruf</title>
+<meta name="description" content="AI engineer building voice agents, harnesses, and automation. Currently at LG Sinarmas.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%2309090b'/><circle cx='8' cy='8' r='3.2' fill='%2310b981'/></svg>">
+<style>
+:root {
+  --bg: #09090b;
+  --surface: #101014;
+  --line: #232329;
+  --text: #e4e4e7;
+  --muted: #8b8b94;
+  --accent: #10b981;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "JetBrains Mono", monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { color-scheme: dark; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { max-width: 760px; margin: 0 auto; padding: 96px 24px 80px; }
+
+/* header */
+.name { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+.tag {
+  margin-top: 10px; color: var(--muted); max-width: 60ch;
+}
+.tag .hl { color: var(--accent); }
+.contact { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 18px; }
+.contact a { color: var(--muted); text-decoration: none; font-size: 14px; }
+.contact a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+
+/* sections */
+section { margin-top: 72px; }
+.section-label {
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 22px;
+}
+.section-label::after {
+  content: ""; display: block; width: 100%; height: 1px;
+  background: var(--line); margin-top: 12px;
+}
+
+/* registry rows */
+.reg { list-style: none; }
+.reg li {
+  display: grid; grid-template-columns: 210px 1fr auto; gap: 16px;
+  align-items: baseline; padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+}
+.reg li:last-child { border-bottom: none; }
+.reg .dom { color: var(--text); text-decoration: none; }
+.reg .dom:hover { color: var(--accent); }
+.reg .desc { color: var(--muted); font-size: 13.5px; }
+.reg .arrow { color: var(--muted); font-size: 13px; }
+.reg li:hover .arrow { color: var(--accent); }
+
+/* blog teaser (hidden until JS renders it) */
+#teaser { display: none; }
+#teaser.show { display: block; }
+.posts { list-style: none; }
+.posts li { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.posts li:last-child { border-bottom: none; }
+.posts a { color: var(--text); text-decoration: none; }
+.posts a:hover { color: var(--accent); }
+.posts .date { color: var(--muted); font-size: 12.5px; margin-right: 14px; }
+
+/* footer */
+footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 640px) {
+  .wrap { padding: 64px 18px 64px; }
+  .reg li { grid-template-columns: 1fr; gap: 3px; padding: 14px 0; }
+  .reg .arrow { display: none; }
+  section { margin-top: 56px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="name">Sulthan Zahran Ma'ruf</div>
+    <p class="tag">AI engineer building <span class="hl">voice agents</span>, harnesses, and automation. Currently at LG Sinarmas.</p>
+    <nav class="contact" aria-label="Contact">
+      <a href="mailto:zsulthan9@gmail.com">email</a>
+      <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github</a>
+      <a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2 class="section-label">projects</h2>
+    <ul class="reg">
+      <li><a class="dom" href="https://honjang.zahranm.cloud">honjang.zahranm.cloud</a><span class="desc">EN↔KO real-time voice translator</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://aquaflow.zahranm.cloud">aquaflow.zahranm.cloud</a><span class="desc">smart water-metering dashboard</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://wiki.zahranm.cloud">wiki.zahranm.cloud</a><span class="desc">LGES battery knowledge wiki</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://relay.zahranm.cloud">relay.zahranm.cloud</a><span class="desc">AI-native CRM platform</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://cv-search.zahranm.cloud">cv-search.zahranm.cloud</a><span class="desc">LLM-assisted CV search prototype</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://daybreak.zahranm.cloud">daybreak.zahranm.cloud</a><span class="desc">multi-agent dashboard</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://teach.zahranm.cloud">teach.zahranm.cloud</a><span class="desc">lesson hosting</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://hkbp.zahranm.cloud">hkbp.zahranm.cloud</a><span class="desc">HKBP Jatinegara community app</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://zahranm.cloud/recruit">zahranm.cloud/recruit</a><span class="desc">recruiter pitch generator</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://blog.zahranm.cloud">blog.zahranm.cloud</a><span class="desc">writing</span><span class="arrow">↗</span></li>
+      <li><a class="dom" href="https://labs.zahranm.cloud">labs.zahranm.cloud</a><span class="desc">personal corner</span><span class="arrow">↗</span></li>
+    </ul>
+  </section>
+
+  <section id="teaser">
+    <h2 class="section-label">latest from the blog</h2>
+    <ul class="posts" id="posts"></ul>
+  </section>
+
+  <footer>
+    <span>sulthan zahran ma'ruf</span>
+    <span>zahranm.cloud</span>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var postsEl = document.getElementById("posts");
+  var teaserEl = document.getElementById("teaser");
+  var cacheKey = "zahran-blog-posts";
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) { cached = null; }
+
+  function render(items) {
+    if (!items || !items.length) return;
+    postsEl.innerHTML = "";
+    items.slice(0, 3).forEach(function (item) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = item.link;
+      a.textContent = item.title;
+      li.appendChild(a);
+      postsEl.appendChild(li);
+    });
+    teaserEl.classList.add("show");
+  }
+
+  function isoToDate(s) {
+    var d = new Date(s);
+    if (isNaN(d)) return "";
+    return d.toISOString().slice(0, 10);
+  }
+
+  function parseRSS(xml) {
+    var doc;
+    try {
+      var parser = new DOMParser();
+      doc = parser.parseFromString(xml, "text/xml");
+      if (doc.querySelector("parsererror")) return [];
+    } catch (e) { return []; }
+    var items = Array.prototype.slice.call(doc.querySelectorAll("item"));
+    return items.map(function (item) {
+      var title = (item.querySelector("title") || {}).textContent || "";
+      var link = (item.querySelector("link") || {}).textContent || "";
+      var pubDate = (item.querySelector("pubDate") || {}).textContent || "";
+      return { title: title, link: link, date: isoToDate(pubDate) };
+    }).filter(function (i) { return i.title && i.link; });
+  }
+
+  if (cached && cached.items && Date.now() - cached.ts < 15 * 60 * 1000) {
+    render(cached.items);
+    return;
+  }
+
+  fetch("https://blog.zahranm.cloud/feed/", { mode: "cors" })
+    .then(function (res) { if (!res.ok) throw new Error("feed " + res.status); return res.text(); })
+    .then(function (xml) {
+      var items = parseRSS(xml);
+      if (!items.length) return;
+      try { localStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), items: items })); } catch (e) {}
+      render(items);
+    })
+    .catch(function () { /* feed unreachable: section stays hidden */ });
+})();
+</script>
+</body>
+</html>
