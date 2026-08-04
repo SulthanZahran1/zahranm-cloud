@@ -1,0 +1,4 @@
+VPS-only secrets, never committed
+blog/.env
+blog/data/
+.scratch/

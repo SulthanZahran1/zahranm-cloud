@@ -1,0 +1,12 @@
+services:
+  hub:
+    build: .
+    image: zahranm-hub:latest
+    container_name: hub
+    restart: unless-stopped
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
