@@ -65,7 +65,7 @@ section { margin-top: 72px; }
 
 /* embedded panels */
 .embed { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
-.embed iframe { display: block; width: 100%; height: 440px; border: 0; background: #fff; }
+.embed iframe { display: block; width: 100%; height: 440px; min-height: 440px; border: 0; background: #fff; }
 .gh-card { background: #f4f4f5; border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
 .gh-card img { display: block; width: 100%; height: auto; }
 .gh-link { display: inline-block; margin-top: 12px; color: var(--muted); font-size: 13px; text-decoration: none; }
@@ -158,6 +158,22 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   var cacheKey = "zahran-blog-posts";
   var cached = null;
   try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) { cached = null; }
+
+  /* Auto-size the same-origin /recruit iframe to its content so the
+     Generate button is never clipped on mobile. */
+  var embed = document.querySelector(".embed iframe");
+  function fitEmbed() {
+    if (!embed || !embed.contentDocument) return;
+    var doc = embed.contentDocument;
+    var h = doc.body ? doc.body.scrollHeight : 0;
+    if (h > 0) embed.style.height = h + "px";
+  }
+  if (embed) {
+    embed.addEventListener("load", function () {
+      fitEmbed();
+      window.addEventListener("resize", fitEmbed);
+    });
+  }
 
   function render(items) {
     if (!items || !items.length) return;
