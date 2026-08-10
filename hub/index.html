@@ -57,12 +57,45 @@ section { margin-top: 72px; }
   border-bottom: 1px solid var(--line);
 }
 .reg li:last-child { border-bottom: none; }
-.reg.compact li { grid-template-columns: 1fr auto; }
 .reg .dom { color: var(--text); text-decoration: none; }
 .reg .dom:hover { color: var(--accent); }
 .reg .desc { color: var(--muted); font-size: 13.5px; }
 .reg .arrow { color: var(--muted); font-size: 13px; }
 .reg li:hover .arrow { color: var(--accent); }
+
+/* circle cards */
+.circle-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.circle-grid a {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+.circle-grid a:hover {
+  border-color: var(--accent);
+  background: #14141a;
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+.circle-grid a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.circle-grid .arrow { color: var(--muted); font-size: 13px; }
+.circle-grid a:hover .arrow { color: var(--accent); }
 
 /* embedded panels */
 .embed { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
@@ -89,6 +122,8 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   .wrap { padding: 64px 18px 64px; }
   .reg li { grid-template-columns: 1fr; gap: 3px; padding: 14px 0; }
   .reg .arrow { display: none; }
+  .circle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .circle-grid a { min-height: 52px; padding: 12px; }
   section { margin-top: 56px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -142,17 +177,17 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
 
   <section>
     <h2 class="section-label">circle</h2>
-    <ul class="reg compact">
-      <li><a class="dom" href="https://drepram.com">Drepram</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://daffascript.dev">Daffa</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://elianiva.com">Dicha</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://hamardikan.com">Dika</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://ikta.dev">Ikta</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://mus.sh">Mustafa</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://nurrizkyimani.github.io">Nurrizky</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://secona.dev">Vito</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://wutzz.space">Wutsqo</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://zahranm.cloud">Zahran</a><span class="arrow">↗</span></li>
+    <ul class="circle-grid">
+      <li><a class="dom" href="https://drepram.com">Drepram <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://daffascript.dev">Daffa <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://elianiva.com">Dicha <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://hamardikan.com">Dika <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://ikta.dev">Ikta <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://mus.sh">Mustafa <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://nurrizkyimani.github.io">Nurrizky <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://secona.dev">Vito <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://wutzz.space">Wutsqo <span class="arrow">↗</span></a></li>
+      <li><a class="dom" href="https://zahranm.cloud">Zahran <span class="arrow">↗</span></a></li>
     </ul>
   </section>
 
