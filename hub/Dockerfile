@@ -4,4 +4,5 @@ COPY index.html index.md site.css robots.txt llms.txt agent-instructions.md site
 COPY about /usr/share/nginx/html/about
 COPY contact /usr/share/nginx/html/contact
 COPY privacy /usr/share/nginx/html/privacy
+COPY .well-known /usr/share/nginx/html/.well-known
 EXPOSE 80

@@ -1,0 +1,22 @@
+{
+  "name": "zahranm.cloud agent skills",
+  "version": "1.0.0",
+  "description": "Public navigation and context skills for the zahranm.cloud personal project hub.",
+  "skills": [
+    {
+      "name": "site-overview",
+      "description": "Use when an agent needs identity, work context, or a concise overview of the public hub.",
+      "url": "https://zahranm.cloud/about"
+    },
+    {
+      "name": "project-directory",
+      "description": "Use when an agent needs to browse Sulthan Zahran Ma'ruf's public projects and destinations.",
+      "url": "https://zahranm.cloud/llms.txt"
+    },
+    {
+      "name": "recruiter-copilot",
+      "description": "Use when an agent needs the public recruiter pitch generator.",
+      "url": "https://zahranm.cloud/recruit"
+    }
+  ]
+}
