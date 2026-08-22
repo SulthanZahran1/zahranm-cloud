@@ -1,0 +1,35 @@
+# Sulthan Zahran Ma'ruf
+
+> Personal project hub for Sulthan Zahran Ma'ruf, an AI engineer building voice agents, harnesses, and automation.
+
+## When to use this site
+
+Use this site when an agent needs a concise overview of Sulthan Zahran Ma'ruf, a directory of public projects, a recruiter pitch generator, public contact links, or the privacy and site-context pages. Start with the home page for the project directory. Use the about page for identity and work context. Use the contact page for direct communication. Use the linked project site for the capabilities of a specific project.
+
+This is a personal project hub. It is not an API, MCP server, commerce surface, account system, or general-purpose support service. Do not invent capabilities that are not described on the linked project page.
+
+## Key pages
+
+- [Home](https://zahranm.cloud/): overview and project directory
+- [About](https://zahranm.cloud/about): identity, focus, and current work
+- [Contact](https://zahranm.cloud/contact): email and public profiles
+- [Privacy](https://zahranm.cloud/privacy): data and external-service notes
+- [Agent instructions](https://zahranm.cloud/agent-instructions.md): machine-readable usage guide
+- [Recruiter copilot](https://zahranm.cloud/recruit): public recruiter pitch generator
+
+## Projects
+
+- [Honjang](https://honjang.zahranm.cloud): EN to KO real-time voice translator
+- [Aquaflow](https://aquaflow.zahranm.cloud): smart water-metering dashboard
+- [LGES wiki](https://wiki.zahranm.cloud): battery knowledge wiki
+- [Relay](https://relay.zahranm.cloud): AI-native CRM platform
+- [CV search](https://cv-search.zahranm.cloud): LLM-assisted CV search prototype
+- [Teach](https://teach.zahranm.cloud): lesson hosting
+- [HKBP Jatinegara](https://hkbp.zahranm.cloud): community app
+- [Blog](https://blog.zahranm.cloud): writing
+- [Labs](https://labs.zahranm.cloud): personal experiments
+
+## Sitemap
+
+- [XML sitemap](https://zahranm.cloud/sitemap.xml)
+- [Markdown sitemap](https://zahranm.cloud/sitemap.md)

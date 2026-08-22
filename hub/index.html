@@ -5,7 +5,55 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sulthan Zahran Ma'ruf</title>
 <meta name="description" content="AI engineer building voice agents, harnesses, and automation. Currently at LG Sinarmas.">
+<link rel="canonical" href="https://zahranm.cloud/">
+<link rel="alternate" type="text/markdown" href="/index.md">
+<meta property="og:title" content="Sulthan Zahran Ma'ruf">
+<meta property="og:description" content="AI engineer building voice agents, harnesses, and automation.">
+<meta property="og:type" content="profile">
+<meta property="og:image" content="https://zahranm.cloud/og.svg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%2309090b'/><circle cx='8' cy='8' r='3.2' fill='%2310b981'/></svg>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://zahranm.cloud/#person",
+      "name": "Sulthan Zahran Ma'ruf",
+      "url": "https://zahranm.cloud/",
+      "jobTitle": "AI engineer",
+      "description": "AI engineer building voice agents, harnesses, and automation.",
+      "email": "mailto:zsulthan9@gmail.com",
+      "sameAs": [
+        "https://github.com/SulthanZahran1",
+        "https://www.linkedin.com/in/sulthan-zahran-ui"
+      ],
+      "worksFor": {"@type": "Organization", "name": "LG Sinarmas"}
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://zahranm.cloud/#organization",
+      "name": "Zahranm Cloud",
+      "url": "https://zahranm.cloud/",
+      "description": "Personal project hub for Sulthan Zahran Ma'ruf.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "general inquiries",
+        "email": "mailto:zsulthan9@gmail.com",
+        "url": "https://zahranm.cloud/contact"
+      },
+      "address": {"@type": "PostalAddress", "addressCountry": "ID"}
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://zahranm.cloud/#website",
+      "name": "Zahranm Cloud",
+      "url": "https://zahranm.cloud/",
+      "publisher": {"@id": "https://zahranm.cloud/#person"}
+    }
+  ]
+}
+</script>
 <style>
 :root {
   --bg: #09090b;
@@ -117,6 +165,9 @@ section { margin-top: 72px; }
 
 /* footer */
 footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 14px; }
+.footer-links a { color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 640px) {
   .wrap { padding: 64px 18px 64px; }
@@ -135,7 +186,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
 <div class="wrap">
 
   <header>
-    <div class="name">Sulthan Zahran Ma'ruf</div>
+    <h1 class="name">Sulthan Zahran Ma'ruf</h1>
     <p class="tag">AI engineer building <span class="hl">voice agents</span>, harnesses, and automation. Currently at LG Sinarmas.</p>
     <nav class="contact" aria-label="Contact">
       <a href="mailto:zsulthan9@gmail.com">email</a>
@@ -192,6 +243,11 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   <footer>
     <span>sulthan zahran ma'ruf</span>
     <span>zahranm.cloud</span>
+    <nav class="footer-links" aria-label="Site information">
+      <a href="/about">about</a>
+      <a href="/contact">contact</a>
+      <a href="/privacy">privacy</a>
+    </nav>
   </footer>
 
 </div>

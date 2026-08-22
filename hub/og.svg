@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Sulthan Zahran Ma'ruf</title>
+  <desc id="desc">AI engineer building voice agents, harnesses, and automation.</desc>
+  <rect width="1200" height="630" fill="#09090b"/>
+  <rect x="72" y="72" width="1056" height="486" rx="16" fill="#101014" stroke="#232329" stroke-width="2"/>
+  <circle cx="150" cy="166" r="28" fill="#10b981"/>
+  <text x="112" y="310" fill="#e4e4e7" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="48" font-weight="600">Sulthan Zahran Ma'ruf</text>
+  <text x="112" y="374" fill="#8b8b94" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="25">AI engineer building voice agents, harnesses, and automation.</text>
+  <text x="112" y="490" fill="#10b981" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">zahranm.cloud</text>
+</svg>
