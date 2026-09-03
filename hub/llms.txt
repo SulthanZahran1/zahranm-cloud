@@ -19,15 +19,15 @@ This is a personal project hub. It is not an API, MCP server, commerce surface, 
 
 ## Projects
 
-- [Honjang](https://honjang.zahranm.cloud): EN to KO real-time voice translator
+- [Honjang](https://honjang.zahranm.cloud): EN to KO real-time voice translator ([github](https://github.com/SulthanZahran1/honjang))
 - [DCIM](https://dcim.zahranm.cloud): data center infrastructure management demo
 - [Aquaflow](https://aquaflow.zahranm.cloud): smart water-metering dashboard
-- [LGES wiki](https://wiki.zahranm.cloud): battery knowledge wiki
+- [LGES wiki](https://wiki.zahranm.cloud): battery knowledge wiki ([github](https://github.com/SulthanZahran1/lgensol-wiki))
 - [Relay](https://relay.zahranm.cloud): AI-native CRM platform
-- [CV search](https://cv-search.zahranm.cloud): LLM-assisted CV search prototype
+- [CV search](https://cv-search.zahranm.cloud): LLM-assisted CV search prototype ([github](https://github.com/SulthanZahran1/cv-search-prototype))
 - [Teach](https://teach.zahranm.cloud): lesson hosting
-- [HKBP Jatinegara](https://hkbp.zahranm.cloud): community app
-- [Blog](https://blog.zahranm.cloud): writing
+- [HKBP Jatinegara](https://hkbp.zahranm.cloud): community app ([github](https://github.com/SulthanZahran1/hkbp-jatinegara))
+- [Blog](https://blog.zahranm.cloud): writing ([github](https://github.com/SulthanZahran1/zahranm-cloud))
 - [Labs](https://labs.zahranm.cloud): personal experiments
 
 ## Sitemap

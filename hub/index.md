@@ -15,15 +15,16 @@ The recruiter copilot is a public pitch generator for creating concise role-spec
 
 ## Projects
 
-- https://honjang.zahranm.cloud: EN to KO real-time voice translator
+- https://honjang.zahranm.cloud: EN to KO real-time voice translator ([github](https://github.com/SulthanZahran1/honjang))
 - https://dcim.zahranm.cloud: data center infrastructure management demo
 - https://aquaflow.zahranm.cloud: smart water-metering dashboard
-- https://wiki.zahranm.cloud: LGES battery knowledge wiki
+- https://wiki.zahranm.cloud: LGES battery knowledge wiki ([github](https://github.com/SulthanZahran1/lgensol-wiki))
 - https://relay.zahranm.cloud: AI-native CRM platform
-- https://cv-search.zahranm.cloud: LLM-assisted CV search prototype
+- https://cv-search.zahranm.cloud: LLM-assisted CV search prototype ([github](https://github.com/SulthanZahran1/cv-search-prototype))
 - https://teach.zahranm.cloud: lesson hosting
-- https://hkbp.zahranm.cloud: HKBP Jatinegara community app
-- https://blog.zahranm.cloud: writing
+- https://hkbp.zahranm.cloud: HKBP Jatinegara community app ([github](https://github.com/SulthanZahran1/hkbp-jatinegara))
+- https://zahranm.cloud/recruit: recruiter pitch generator ([github](https://github.com/SulthanZahran1/jd-pitcher))
+- https://blog.zahranm.cloud: writing ([github](https://github.com/SulthanZahran1/zahranm-cloud))
 - https://labs.zahranm.cloud: personal corner
 
 ## Contact
