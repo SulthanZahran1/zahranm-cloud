@@ -2,7 +2,7 @@
 title: Sulthan Zahran Ma'ruf
 description: AI engineer building voice agents, harnesses, and automation.
 canonical_url: https://zahranm.cloud/
-last_updated: 2026-08-22
+last_updated: 2026-09-03
 ---
 
 # Sulthan Zahran Ma'ruf
@@ -16,6 +16,7 @@ The recruiter copilot is a public pitch generator for creating concise role-spec
 ## Projects
 
 - https://honjang.zahranm.cloud: EN to KO real-time voice translator
+- https://dcim.zahranm.cloud: data center infrastructure management demo
 - https://aquaflow.zahranm.cloud: smart water-metering dashboard
 - https://wiki.zahranm.cloud: LGES battery knowledge wiki
 - https://relay.zahranm.cloud: AI-native CRM platform

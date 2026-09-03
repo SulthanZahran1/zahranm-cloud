@@ -20,6 +20,7 @@ This is a personal project hub. It is not an API, MCP server, commerce surface, 
 ## Projects
 
 - [Honjang](https://honjang.zahranm.cloud): EN to KO real-time voice translator
+- [DCIM](https://dcim.zahranm.cloud): data center infrastructure management demo
 - [Aquaflow](https://aquaflow.zahranm.cloud): smart water-metering dashboard
 - [LGES wiki](https://wiki.zahranm.cloud): battery knowledge wiki
 - [Relay](https://relay.zahranm.cloud): AI-native CRM platform
