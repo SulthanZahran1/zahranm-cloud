@@ -1,14 +1,14 @@
 :root {
-  --bg: #09090b;
-  --surface: #101014;
-  --line: #232329;
-  --text: #e4e4e7;
-  --muted: #8b8b94;
-  --accent: #10b981;
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --line: #e4e4e7;
+  --text: #18181b;
+  --muted: #6b6b74;
+  --accent: #0d9467;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "JetBrains Mono", monospace;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { color-scheme: dark; }
+html { color-scheme: light; }
 body {
   background: var(--bg);
   color: var(--text);
