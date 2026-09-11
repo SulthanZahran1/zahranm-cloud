@@ -311,7 +311,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   <section>
     <h2 class="section-label">recruiter copilot</h2>
     <div class="embed">
-      <iframe src="/recruit" title="Recruiter Pitch Generator" loading="lazy"></iframe>
+      <iframe src="/recruit/" title="Recruiter Pitch Generator" loading="lazy"></iframe>
     </div>
   </section>
 
@@ -565,8 +565,13 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
       var date = new Date(target.getAttribute("data-date") + "T00:00:00Z");
       tip.textContent = dayWord(count) + " on " + fmtShort(date);
       var r = target.getBoundingClientRect();
-      tip.style.left = Math.round(r.left + r.width / 2 - tip.offsetWidth / 2) + "px";
-      tip.style.top = Math.round(r.top - tip.offsetHeight - 6) + "px";
+      var vw = document.documentElement.clientWidth;
+      var left = r.left + r.width / 2 - tip.offsetWidth / 2;
+      left = Math.max(6, Math.min(left, vw - tip.offsetWidth - 6));
+      var top = r.top - tip.offsetHeight - 6;
+      if (top < 6) top = r.bottom + 6;
+      tip.style.left = Math.round(left) + "px";
+      tip.style.top = Math.round(top) + "px";
       tip.classList.add("show");
     }
     function hide() { tip.classList.remove("show"); }
