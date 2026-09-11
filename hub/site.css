@@ -24,6 +24,11 @@ body {
 .contact { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 18px; }
 .contact a, .page-nav a { color: var(--muted); text-decoration: none; font-size: 14px; }
 .contact a:hover, .page-nav a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
 .page-nav { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 18px; }
 section { margin-top: 72px; }
 .section-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 22px; }

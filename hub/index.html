@@ -85,6 +85,11 @@ body {
 .contact { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 18px; }
 .contact a { color: var(--muted); text-decoration: none; font-size: 14px; }
 .contact a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
 
 /* sections */
 section { margin-top: 72px; }
@@ -176,13 +181,17 @@ section { margin-top: 72px; }
   color: var(--muted);
   white-space: nowrap;
 }
-.cal-body { display: flex; gap: 6px; }
+.cal-body { display: flex; gap: 6px; width: max-content; min-width: 100%; }
 .cal-weekdays {
   display: grid;
   grid-template-rows: repeat(7, minmax(0, 1fr));
   gap: 3px;
   width: 24px;
   flex: none;
+  position: sticky;
+  left: 0;
+  background: #fff;
+  z-index: 1;
 }
 .cal-weekdays span { font-size: 9px; color: var(--muted); line-height: 1; display: flex; align-items: center; }
 .cal-grid {
@@ -200,13 +209,12 @@ section { margin-top: 72px; }
   max-height: 16px;
   border-radius: 2px;
   background: #ececef;
-  outline: none;
 }
+.cal-grid:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 .cal-grid .day[data-level="1"] { background: #c7f0df; }
 .cal-grid .day[data-level="2"] { background: #8fdcba; }
 .cal-grid .day[data-level="3"] { background: #4cc293; }
 .cal-grid .day[data-level="4"] { background: #0d9467; }
-.cal-grid .day:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .cal-tip {
   position: fixed;
   z-index: 40;
@@ -288,7 +296,10 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   .circle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .circle-grid a { min-height: 52px; padding: 12px; }
   section { margin-top: 56px; }
-  .cal-stats .num { font-size: 17px; }
+  .cal-stats { grid-template-columns: 1fr; }
+  .cal-stats div { padding: 10px 4px; }
+  .cal-stats div + div { border-left: 0; border-top: 1px solid var(--line); }
+  .cal-stats .num { display: inline; font-size: 17px; margin-right: 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
@@ -374,7 +385,8 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   try { cached = JSON.parse(localStorage.getItem(cacheKey)); } catch (e) { cached = null; }
 
   /* Auto-size the same-origin /recruit iframe to its content so the
-     Generate button is never clipped on mobile. */
+     Generate button is never clipped on mobile. A ResizeObserver tracks
+     the inner document because the iframe grows after a pitch renders. */
   var embed = document.querySelector(".embed iframe");
   function fitEmbed() {
     if (!embed || !embed.contentDocument) return;
@@ -386,6 +398,12 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
     embed.addEventListener("load", function () {
       fitEmbed();
       window.addEventListener("resize", fitEmbed);
+      try {
+        var inner = embed.contentWindow;
+        if (inner && typeof inner.ResizeObserver === "function" && embed.contentDocument.body) {
+          new inner.ResizeObserver(fitEmbed).observe(embed.contentDocument.body);
+        }
+      } catch (e) { /* cross-origin or unsupported: load+resize fallback stays */ }
     });
   }
 
@@ -471,51 +489,10 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
     var weeks = Math.ceil(cells.length / 7);
     while (cells.length < weeks * 7) cells.push(null);
 
-    /* Month labels: first week-column where a new month starts. */
-    var monthAt = {};
-    for (var w = 0; w < weeks; w++) {
-      for (var r = 0; r < 7; r++) {
-        var c = cells[w * 7 + r];
-        if (c && c.count >= 0) {
-          var m = new Date(c.date + "T00:00:00Z").getUTCMonth();
-          if (!(m in monthAt)) monthAt[m] = w;
-          break;
-        }
-      }
-    }
-
-    var html = "";
-    html += '<div class="cal-scroll"><div class="cal-months"><span class="cal-spacer"></span>';
-    html += '<div class="cal-month-cells" style="--cal-weeks:' + weeks + '">';
-    for (var w2 = 0; w2 < weeks; w2++) {
-      var label = "";
-      for (var mi = 0; mi < 12; mi++) {
-        if (monthAt[mi] === w2) { label = MONTHS[mi]; break; }
-      }
-      html += "<span>" + label + "</span>";
-    }
-    html += "</div></div>";
-
-    html += '<div class="cal-body"><div class="cal-weekdays" aria-hidden="true">';
-    ["", "Mon", "", "Wed", "", "Fri", ""].forEach(function (lbl) {
-      html += "<span>" + lbl + "</span>";
-    });
-    html += '</div><div class="cal-grid" role="img" aria-label="GitHub contributions in the last year">';
-    cells.forEach(function (c) {
-      if (!c) {
-        html += '<span class="day" style="visibility:hidden"></span>';
-      } else {
-        html += '<span class="day" tabindex="0" data-level="' + c.level + '"' +
-                ' data-date="' + c.date + '" data-count="' + c.count + '"></span>';
-      }
-    });
-    html += "</div></div></div>";
-
+    /* Stats first: the grid's accessible name summarizes them. */
     var total = data.total && typeof data.total.lastYear === "number"
       ? data.total.lastYear
       : days.reduce(function (a, d) { return a + d.count; }, 0);
-
-    /* Streaks (chronological; the API returns days in order). */
     var longest = 0, bestStart = -1, bestEnd = -1, run = 0, start = -1;
     days.forEach(function (d, i) {
       if (d.count > 0) {
@@ -537,6 +514,51 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
       trailing = lastContrib - tStart + 1;
     }
 
+    /* Month labels: label the week-column that contains the 1st of a month
+       (GitHub's own convention), plus the column of the first returned day.
+       Keyed per occurrence so a month spanning two years labels twice. */
+    var weekLabels = new Array(weeks);
+    weekLabels[0] = MONTHS[first.getUTCMonth()];
+    days.forEach(function (d, i) {
+      var dt = new Date(d.date + "T00:00:00Z");
+      if (dt.getUTCDate() === 1) {
+        var col = Math.floor((lead + i) / 7);
+        weekLabels[col] = MONTHS[dt.getUTCMonth()];
+      }
+    });
+
+    var html = "";
+    html += '<div class="cal-scroll"><div class="cal-months"><span class="cal-spacer"></span>';
+    html += '<div class="cal-month-cells" style="--cal-weeks:' + weeks + '">';
+    for (var w2 = 0; w2 < weeks; w2++) {
+      html += "<span>" + (weekLabels[w2] || "") + "</span>";
+    }
+    html += "</div></div>";
+
+    var gridLabel = "GitHub contributions in the last year: " + total +
+      " contributions, longest streak " + longest + " days" +
+      (bestStart >= 0 ? " (" + fmtShort(new Date(days[bestStart].date + "T00:00:00Z")) +
+        " - " + fmtShort(new Date(days[bestEnd].date + "T00:00:00Z")) + ")" : "") +
+      ", current streak " + trailing + " days. Day-by-day detail available on github.com/SulthanZahran1.";
+
+    /* One tab stop: the grid itself. Cells are presentational (role=img on the
+       container); the label carries the summary so keyboard users are not
+       forced through hundreds of empty stops. */
+    html += '<div class="cal-body"><div class="cal-weekdays" aria-hidden="true">';
+    ["", "Mon", "", "Wed", "", "Fri", ""].forEach(function (lbl) {
+      html += "<span>" + lbl + "</span>";
+    });
+    html += '</div><div class="cal-grid" role="img" tabindex="0" aria-label="' + gridLabel + '">';
+    cells.forEach(function (c) {
+      if (!c) {
+        html += '<span class="day" style="visibility:hidden"></span>';
+      } else {
+        html += '<span class="day" data-level="' + c.level + '"' +
+                ' data-date="' + c.date + '" data-count="' + c.count + '"></span>';
+      }
+    });
+    html += "</div></div></div>";
+
     html += '<div class="cal-stats">';
     html += '<div><span class="num">' + total + "</span>contributions in the last year</div>";
     html += '<div><span class="num">' + longest + "</span>longest streak" +
@@ -557,7 +579,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   function bindTooltip() {
     var tip = document.createElement("div");
     tip.className = "cal-tip";
-    tip.setAttribute("role", "status");
+    tip.setAttribute("aria-hidden", "true");
     document.body.appendChild(tip);
 
     function show(target) {
@@ -583,11 +605,6 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
     el.addEventListener("mouseout", function (e) {
       if (e.target.closest(".day[data-count]")) hide();
     });
-    el.addEventListener("focusin", function (e) {
-      var t = e.target.closest(".day[data-count]");
-      if (t) show(t);
-    });
-    el.addEventListener("focusout", hide);
     window.addEventListener("scroll", hide, { passive: true });
   }
 
