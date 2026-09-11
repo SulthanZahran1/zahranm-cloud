@@ -61,7 +61,7 @@
   --line: #e4e4e7;
   --text: #18181b;
   --muted: #6b6b74;
-  --accent: #0d9467;
+  --accent: #0b7a56;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "JetBrains Mono", monospace;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -150,74 +150,120 @@ section { margin-top: 72px; }
 /* embedded panels */
 .embed { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .embed iframe { display: block; width: 100%; height: 440px; min-height: 440px; border: 0; background: #fff; }
-.gh-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
-.gh-card img { display: block; width: 100%; height: auto; }
+.gh-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 14px; }
 .gh-link { display: inline-block; margin-top: 12px; color: var(--muted); font-size: 13px; text-decoration: none; }
 .gh-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 
-/* github-calendar.js (Bloggify, MIT) re-themed to hub light tokens */
+/* github contributions (custom renderer on github-contributions-api.jogruber.de) */
 #gh-calendar {
   font-family: var(--mono);
-  min-height: 243px;
-  text-align: center;
+  min-height: 200px;
   margin: 0 auto;
+  text-align: left;
 }
-#gh-calendar .calendar-graph { padding: 5px 0 0; text-align: center; }
-#gh-calendar table.ContributionCalendar-grid td { padding: 4pt; }
-#gh-calendar table.ContributionCalendar-grid td span.sr-only,
-#gh-calendar .width-full > .float-left,
-#gh-calendar img.spinner,
-#gh-calendar h2.f4.text-normal.mb-3,
-#gh-calendar tool-tip { display: none; }
-#gh-calendar .ContributionCalendar-day[data-level='0'] { background-color: #ececef; }
-#gh-calendar .ContributionCalendar-day[data-level='1'] { background-color: #c7f0df; }
-#gh-calendar .ContributionCalendar-day[data-level='2'] { background-color: #8fdcba; }
-#gh-calendar .ContributionCalendar-day[data-level='3'] { background-color: #4cc293; }
-#gh-calendar .ContributionCalendar-day[data-level='4'] { background-color: #0d9467; }
-#gh-calendar .calendar-graph text.wday,
-#gh-calendar .calendar-graph text.month,
-#gh-calendar text.ContributionCalendar-label { fill: var(--muted); font-size: 10px; }
-#gh-calendar .contrib-column {
-  padding: 15px 0;
-  text-align: center;
-  border-left: 1px solid var(--line);
-  border-top: 1px solid var(--line);
-  font-size: 11px;
+.cal-scroll { overflow-x: auto; scrollbar-width: thin; }
+.cal-months { display: flex; gap: 6px; margin-bottom: 6px; align-items: end; }
+.cal-spacer { width: 24px; flex: none; }
+.cal-month-cells {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--cal-weeks, 53), minmax(9px, 1fr));
+  gap: 3px;
 }
-#gh-calendar .contrib-column-first { border-left: 0; }
-#gh-calendar .contrib-column .text-muted { color: var(--muted); }
-#gh-calendar .contrib-number { font-weight: 400; color: var(--text); font-size: 20px; }
-#gh-calendar .contrib-footer { font-size: 11px; padding: 0 10px 12px; text-align: left; width: 100%; height: 26px; box-sizing: border-box; }
-#gh-calendar .left.text-muted { float: left; margin-left: 9px; color: var(--muted); }
-#gh-calendar .left.text-muted a, #gh-calendar .monospace a { color: var(--accent); text-decoration: none; }
-#gh-calendar .day-tooltip {
+.cal-month-cells span {
+  font-size: 10px;
+  color: var(--muted);
   white-space: nowrap;
-  position: absolute;
-  z-index: 99999;
-  padding: 10px;
+}
+.cal-body { display: flex; gap: 6px; }
+.cal-weekdays {
+  display: grid;
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+  width: 24px;
+  flex: none;
+}
+.cal-weekdays span { font-size: 9px; color: var(--muted); line-height: 1; display: flex; align-items: center; }
+.cal-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(9px, 1fr);
+  grid-template-rows: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+.cal-grid .day {
+  width: 100%;
+  aspect-ratio: 1;
+  max-height: 16px;
+  border-radius: 2px;
+  background: #ececef;
+  outline: none;
+}
+.cal-grid .day[data-level="1"] { background: #c7f0df; }
+.cal-grid .day[data-level="2"] { background: #8fdcba; }
+.cal-grid .day[data-level="3"] { background: #4cc293; }
+.cal-grid .day[data-level="4"] { background: #0d9467; }
+.cal-grid .day:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cal-tip {
+  position: fixed;
+  z-index: 40;
+  padding: 6px 9px;
   font-size: 12px;
-  color: #d4d4d8;
-  text-align: center;
-  background: rgba(24, 24, 27, .92);
+  color: #fafafa;
+  background: rgba(24, 24, 27, .95);
   border-radius: 6px;
-  display: none;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  white-space: nowrap;
 }
-#gh-calendar .day-tooltip strong { color: #ffffff; }
-#gh-calendar .day-tooltip.is-visible { display: block; }
-#gh-calendar .day-tooltip:after {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  box-sizing: border-box;
-  margin: 0 0 0 -5px;
-  content: " ";
-  border: 5px solid transparent;
-  border-top-color: rgba(24, 24, 27, .92);
+.cal-tip.show { opacity: 1; }
+.cal-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
 }
-#gh-calendar .cal-loading { color: var(--muted); font-size: 13.5px; margin: 0; }
+.cal-stats div {
+  padding: 12px 4px 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+.cal-stats div + div { border-left: 1px solid var(--line); }
+.cal-stats .num {
+  display: block;
+  font-size: 19px;
+  color: var(--text);
+  line-height: 1.3;
+}
+.cal-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: var(--muted);
+}
+.cal-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  display: inline-block;
+}
+.cal-legend i[data-level="0"] { background: #ececef; }
+.cal-legend i[data-level="1"] { background: #c7f0df; }
+.cal-legend i[data-level="2"] { background: #8fdcba; }
+.cal-legend i[data-level="3"] { background: #4cc293; }
+.cal-legend i[data-level="4"] { background: #0d9467; }
+.cal-loading { color: var(--muted); font-size: 13.5px; margin: 0; }
+.cal-error { color: var(--muted); font-size: 13.5px; margin: 0; }
+.cal-error a { color: var(--accent); }
 
 /* blog teaser (hidden until JS renders it) */
 #teaser { display: none; }
@@ -242,11 +288,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   .circle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .circle-grid a { min-height: 52px; padding: 12px; }
   section { margin-top: 56px; }
-  #gh-calendar { overflow-x: auto; }
-}
-@media (max-width: 520px) {
-  #gh-calendar table.ContributionCalendar-grid { width: 100% !important; }
-  #gh-calendar .contrib-column { display: block; width: 100%; border-top: 0; padding: 10px 0; }
+  .cal-stats .num { font-size: 17px; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
@@ -399,127 +441,169 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
     .catch(function () { /* feed unreachable: section stays hidden */ });
 })();
 </script>
-<script src="/github-calendar.min.js"></script>
 <script>
 (function () {
   var el = document.getElementById("gh-calendar");
-  if (!el || typeof GitHubCalendar !== "function") return;
+  if (!el) return;
 
-  function esc(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
-  function dayDesc(td) {
-    /* The browser foster-parents <tool-tip> out of the table during HTML
-       parsing, so match by id/for instead of DOM position. */
-    var tip = el.querySelector("tool-tip[for=\"" + td.id + "\"]");
-    return tip ? tip.textContent.trim() : "";
-  }
-
-  function dayCells() {
-    return Array.prototype.slice.call(el.querySelectorAll("td.ContributionCalendar-day[data-date]"));
-  }
-
+  var API = "https://github-contributions-api.jogruber.de/v4/SulthanZahran1?y=last";
+  var CACHE_KEY = "zahran-gh-cal";
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  function fmtDate(d) {
+
+  function fmtShort(d) {
     return MONTHS[d.getUTCMonth()] + " " + d.getUTCDate() + ", " + d.getUTCFullYear();
   }
+  function dayWord(n) {
+    return n === 1 ? "1 contribution" : n + " contributions";
+  }
 
-  /* github-calendar.js parses GitHub's legacy SVG graph; GitHub now serves an
-     HTML table, so tooltips bind to nothing and stats come out zeroed. Rebuild
-     both from the same fetched payload (tool-tip elements carry the counts). */
-  function fixCompat() {
-    if (el.dataset.calCompat) return;
-    el.dataset.calCompat = "1";
+  function render(data) {
+    var days = data.contributions || [];
+    if (!days.length) throw new Error("empty payload");
 
-    var tooltip = el.querySelector(".day-tooltip");
-    if (!tooltip) {
-      tooltip = document.createElement("div");
-      tooltip.className = "day-tooltip";
-      el.appendChild(tooltip);
+    /* Grid: columns are ISO weeks, rows are Sun..Sat. Pad the leading days so
+       the first column aligns to Sunday. */
+    var first = new Date(days[0].date + "T00:00:00Z");
+    var lead = first.getUTCDay();
+    var cells = [];
+    for (var p = 0; p < lead; p++) cells.push(null);
+    days.forEach(function (d) { cells.push(d); });
+    var weeks = Math.ceil(cells.length / 7);
+    while (cells.length < weeks * 7) cells.push(null);
+
+    /* Month labels: first week-column where a new month starts. */
+    var monthAt = {};
+    for (var w = 0; w < weeks; w++) {
+      for (var r = 0; r < 7; r++) {
+        var c = cells[w * 7 + r];
+        if (c && c.count >= 0) {
+          var m = new Date(c.date + "T00:00:00Z").getUTCMonth();
+          if (!(m in monthAt)) monthAt[m] = w;
+          break;
+        }
+      }
     }
-    dayCells().forEach(function (td) {
-      td.addEventListener("mouseenter", function () {
-        var text = dayDesc(td) || "";
-        if (!text) return;
-        tooltip.innerHTML = "<strong>" + esc(text) + "</strong>";
-        tooltip.classList.add("is-visible");
-        var r = td.getBoundingClientRect();
-        tooltip.style.left = Math.round(r.left + window.pageXOffset - tooltip.offsetWidth / 2 + r.width / 2) + "px";
-        tooltip.style.top = Math.round(r.bottom + window.pageYOffset - tooltip.offsetHeight - 6) + "px";
-      });
-      td.addEventListener("mouseleave", function () {
-        tooltip.classList.remove("is-visible");
-      });
-    });
 
-    var firstNum = el.querySelector(".contrib-column-first .contrib-number");
-    if (!firstNum || !/0 total/.test(firstNum.textContent)) return;
-    /* GitHub's table is row-major per weekday (Sundays first), so DOM order
-       is not chronological. Sort by ISO date string before streak math. */
-    var sorted = dayCells().sort(function (a, b) {
-      return a.getAttribute("data-date") < b.getAttribute("data-date") ? -1 : 1;
+    var html = "";
+    html += '<div class="cal-scroll"><div class="cal-months"><span class="cal-spacer"></span>';
+    html += '<div class="cal-month-cells" style="--cal-weeks:' + weeks + '">';
+    for (var w2 = 0; w2 < weeks; w2++) {
+      var label = "";
+      for (var mi = 0; mi < 12; mi++) {
+        if (monthAt[mi] === w2) { label = MONTHS[mi]; break; }
+      }
+      html += "<span>" + label + "</span>";
+    }
+    html += "</div></div>";
+
+    html += '<div class="cal-body"><div class="cal-weekdays" aria-hidden="true">';
+    ["", "Mon", "", "Wed", "", "Fri", ""].forEach(function (lbl) {
+      html += "<span>" + lbl + "</span>";
     });
-    var dates = sorted.map(function (c) { return new Date(c.getAttribute("data-date")); });
-    var counts = sorted.map(function (td) {
-      var m = dayDesc(td).match(/(\d+) contributions? on/i);
-      return m ? parseInt(m[1], 10) : 0;
+    html += '</div><div class="cal-grid" role="img" aria-label="GitHub contributions in the last year">';
+    cells.forEach(function (c) {
+      if (!c) {
+        html += '<span class="day" style="visibility:hidden"></span>';
+      } else {
+        html += '<span class="day" tabindex="0" data-level="' + c.level + '"' +
+                ' data-date="' + c.date + '" data-count="' + c.count + '"></span>';
+      }
     });
-    var total = 0, longest = 0, run = 0, runStart = -1, bestStart = -1, bestEnd = -1, start = -1, trailing = 0;
-    counts.forEach(function (c, i) {
-      if (c > 0) {
+    html += "</div></div></div>";
+
+    var total = data.total && typeof data.total.lastYear === "number"
+      ? data.total.lastYear
+      : days.reduce(function (a, d) { return a + d.count; }, 0);
+
+    /* Streaks (chronological; the API returns days in order). */
+    var longest = 0, bestStart = -1, bestEnd = -1, run = 0, start = -1;
+    days.forEach(function (d, i) {
+      if (d.count > 0) {
         if (start < 0) start = i;
-        total += c;
         run++;
         if (run > longest) { longest = run; bestStart = start; bestEnd = i; }
-        trailing = run;
-      } else {
-        run = 0; start = -1;
-      }
+      } else { run = 0; start = -1; }
     });
-    var nums = el.querySelectorAll(".contrib-number");
-    function lastMuted(n) {
-      var subs = n.parentElement.querySelectorAll(".text-muted");
-      return subs.length ? subs[subs.length - 1] : null;
+    /* Current streak: run ending at the most recent contributing day (today
+       may legitimately still be at zero). */
+    var lastContrib = -1;
+    for (var i2 = days.length - 1; i2 >= 0; i2--) {
+      if (days[i2].count > 0) { lastContrib = i2; break; }
     }
-    if (nums[0]) nums[0].textContent = total + " total";
-    if (nums[1] && nums[1].parentElement) {
-      nums[1].textContent = longest + " days";
-      var muted1 = lastMuted(nums[1]);
-      if (muted1 && /Rock/.test(muted1.textContent) && bestStart >= 0) {
-        muted1.textContent = fmtDate(dates[bestStart]) + " - " + fmtDate(dates[bestEnd]);
-      } else if (muted1 && /Rock/.test(muted1.textContent)) {
-        muted1.textContent = "No contributions in the last year";
-      }
+    var trailing = 0, tStart = -1;
+    if (lastContrib >= 0) {
+      tStart = lastContrib;
+      while (tStart > 0 && days[tStart - 1].count > 0) tStart--;
+      trailing = lastContrib - tStart + 1;
     }
-    if (nums[2] && nums[2].parentElement) {
-      nums[2].textContent = trailing + " days";
-      var muted2 = lastMuted(nums[2]);
-      if (muted2 && /Rock/.test(muted2.textContent) && trailing > 0) {
-        muted2.textContent = "up to " + fmtDate(dates[dates.length - 1]);
-      } else if (muted2 && /Rock/.test(muted2.textContent)) {
-        muted2.textContent = "No contributions in the last year";
-      }
-    }
+
+    html += '<div class="cal-stats">';
+    html += '<div><span class="num">' + total + "</span>contributions in the last year</div>";
+    html += '<div><span class="num">' + longest + "</span>longest streak" +
+            (bestStart >= 0 ? "<br>" + fmtShort(new Date(days[bestStart].date + "T00:00:00Z")) +
+             " - " + fmtShort(new Date(days[bestEnd].date + "T00:00:00Z")) : "") + "</div>";
+    html += '<div><span class="num">' + trailing + "</span>current streak" +
+            (lastContrib >= 0 ? "<br>up to " + fmtShort(new Date(days[lastContrib].date + "T00:00:00Z")) : "") + "</div>";
+    html += "</div>";
+
+    html += '<div class="cal-legend" aria-hidden="true"><span>Less</span>';
+    for (var lv = 0; lv <= 4; lv++) html += '<i data-level="' + lv + '"></i>';
+    html += "<span>More</span></div>";
+
+    el.innerHTML = html;
+    bindTooltip();
   }
 
-  function whenRendered(fn) {
-    if (dayCells().length) { fn(); return; }
-    var tries = 0;
-    var iv = setInterval(function () {
-      if (dayCells().length) { clearInterval(iv); fn(); }
-      else if (++tries > 60) { clearInterval(iv); }
-    }, 200);
+  function bindTooltip() {
+    var tip = document.createElement("div");
+    tip.className = "cal-tip";
+    tip.setAttribute("role", "status");
+    document.body.appendChild(tip);
+
+    function show(target) {
+      var count = parseInt(target.getAttribute("data-count"), 10);
+      var date = new Date(target.getAttribute("data-date") + "T00:00:00Z");
+      tip.textContent = dayWord(count) + " on " + fmtShort(date);
+      var r = target.getBoundingClientRect();
+      tip.style.left = Math.round(r.left + r.width / 2 - tip.offsetWidth / 2) + "px";
+      tip.style.top = Math.round(r.top - tip.offsetHeight - 6) + "px";
+      tip.classList.add("show");
+    }
+    function hide() { tip.classList.remove("show"); }
+
+    el.addEventListener("mouseover", function (e) {
+      var t = e.target.closest(".day[data-count]");
+      if (t) show(t);
+    });
+    el.addEventListener("mouseout", function (e) {
+      if (e.target.closest(".day[data-count]")) hide();
+    });
+    el.addEventListener("focusin", function (e) {
+      var t = e.target.closest(".day[data-count]");
+      if (t) show(t);
+    });
+    el.addEventListener("focusout", hide);
+    window.addEventListener("scroll", hide, { passive: true });
   }
 
-  try {
-    var ret = GitHubCalendar("#gh-calendar", "SulthanZahran1", { responsive: true, tooltips: true });
-    if (ret && typeof ret.then === "function") {
-      ret.then(function () { whenRendered(fixCompat); }).catch(function () {});
-    } else {
-      whenRendered(fixCompat);
-    }
-  } catch (e) { /* graph unreachable: loading text stays */ }
+  function showError() {
+    el.innerHTML = '<p class="cal-error">Contribution graph is temporarily unavailable. ' +
+      'See <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github.com/SulthanZahran1</a>.</p>';
+  }
+
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem(CACHE_KEY)); } catch (e) { cached = null; }
+  if (cached && cached.ts && Date.now() - cached.ts < 6 * 60 * 60 * 1000 && cached.data) {
+    try { render(cached.data); return; } catch (e) { /* fall through to fetch */ }
+  }
+
+  fetch(API)
+    .then(function (res) { if (!res.ok) throw new Error("http " + res.status); return res.json(); })
+    .then(function (data) {
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
+      render(data);
+    })
+    .catch(showError);
 })();
 </script>
 </body>
