@@ -289,26 +289,13 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
 .footer-links a { color: var(--muted); text-decoration: none; }
 .footer-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 
-/* mascot: a quiet flourish in the footer, deliberately small and low-contrast so it
-   never competes with the page content */
-.mascot-corner {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto;
-  min-height: 40px;
+/* The cursor companion lives in a fixed layer the script creates, so it can travel
+   the whole viewport rather than being pinned here. Its resting spot is bottom-right;
+   this reserves that corner so it never sits on top of the footer links. */
+@media (min-width: 641px) {
+  footer { padding-right: 76px; }
 }
-.mascot-corner #mascot-slot { display: block; width: 40px; height: 40px; }
-.mascot-corner #mascot-slot > button { transform: scale(0.4545); transform-origin: 0 0; }
-.mascot-note {
-  color: var(--muted);
-  font-size: 11.5px;
-  white-space: nowrap;
-}
-@media (max-width: 640px) {
-  .mascot-corner { margin-left: 0; width: 100%; }
-  .mascot-note { white-space: normal; }
-}
+.mascot-note { color: var(--muted); font-size: 11.5px; }
 
 @media (max-width: 640px) {
   .wrap { padding: 64px 18px 64px; }
@@ -393,10 +380,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
       <a href="/contact">contact</a>
       <a href="/privacy">privacy</a>
     </nav>
-    <span class="mascot-corner" aria-hidden="false">
-      <span id="mascot-slot"></span>
-      <span class="mascot-note">it follows your cursor</span>
-    </span>
+    <span class="mascot-note">a cat follows your cursor</span>
   </footer>
 
 </div>
