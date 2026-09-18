@@ -118,40 +118,6 @@ section { margin-top: 72px; }
 .reg .gh { color: var(--muted); text-decoration: none; font-size: 13px; }
 .reg .gh:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 
-/* circle cards */
-.circle-grid {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-.circle-grid a {
-  display: flex;
-  min-height: 58px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
-  color: var(--text);
-  text-decoration: none;
-  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
-}
-.circle-grid a:hover {
-  border-color: var(--accent);
-  background: #f4f4f5;
-  color: var(--accent);
-  transform: translateY(-1px);
-}
-.circle-grid a:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-}
-.circle-grid .arrow { color: var(--muted); font-size: 13px; }
-.circle-grid a:hover .arrow { color: var(--accent); }
-
 /* embedded panels */
 .embed { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .embed iframe { display: block; width: 100%; height: 440px; min-height: 440px; border: 0; background: #fff; }
@@ -297,8 +263,6 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
   .wrap { padding: 64px 18px 64px; }
   .reg li { grid-template-columns: 1fr; gap: 3px; padding: 14px 0; }
   .reg .arrow { display: none; }
-  .circle-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .circle-grid a { min-height: 52px; padding: 12px; }
   section { margin-top: 56px; }
   .cal-stats { grid-template-columns: 1fr; }
   .cal-stats div { padding: 10px 4px; }
@@ -351,15 +315,6 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line);
       <li><a class="dom" href="https://zahranm.cloud/recruit">zahranm.cloud/recruit</a><span class="desc">recruiter pitch generator</span><a class="gh" href="https://github.com/SulthanZahran1/jd-pitcher">github</a><span class="arrow">↗</span></li>
       <li><a class="dom" href="https://blog.zahranm.cloud">blog.zahranm.cloud</a><span class="desc">writing</span><a class="gh" href="https://github.com/SulthanZahran1/zahranm-cloud">github</a><span class="arrow">↗</span></li>
       <li><a class="dom" href="https://labs.zahranm.cloud">labs.zahranm.cloud</a><span class="desc">personal corner</span><span class="arrow">↗</span></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2 class="section-label">circle</h2>
-    <ul class="circle-grid">
-      <li><a class="dom" href="https://ikta.dev">Ikta <span class="arrow">↗</span></a></li>
-      <li><a class="dom" href="https://mus.sh">Mustafa <span class="arrow">↗</span></a></li>
-      <li><a class="dom" href="https://drepram.com">Andre <span class="arrow">↗</span></a></li>
     </ul>
   </section>
 
