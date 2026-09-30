@@ -118,7 +118,7 @@ All self-hosted on one VPS behind Traefik. Gated demos are available on request.
 | [cv-search](https://cv-search.zahranm.cloud) | Résumé search: Gemini extraction with fallbacks, hybrid retrieval, optional LLM rerank | access token | [github](https://github.com/SulthanZahran1/cv-search-prototype) |
 | [dcim](https://dcim.zahranm.cloud) | Data-center infrastructure management built on NetBox with a React front end | login | |
 | [hkbp](https://hkbp.zahranm.cloud) | Church admin system moved from Laravel to Vue and Go, with a self-hosted OIDC login | members | [github](https://github.com/SulthanZahran1/hkbp-jatinegara) |
-| [honjang](https://honjang.zahranm.cloud) | English–Korean real-time voice translator (see above) | offline | [github](https://github.com/SulthanZahran1/honjang) |
+| [honjang](https://honjang.zahranm.cloud) | English–Korean real-time voice translator (see above) | live | [github](https://github.com/SulthanZahran1/honjang) |
 | [labs](https://labs.zahranm.cloud) | Personal corner: small prototypes and experiments | live | |
 | [blog](https://blog.zahranm.cloud) | Writing | soon | [github](https://github.com/SulthanZahran1/zahranm-cloud) |
 
