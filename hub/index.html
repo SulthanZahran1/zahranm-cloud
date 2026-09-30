@@ -65,7 +65,6 @@
 </script>
 <style>
 @font-face { font-family: "Plex Sans"; src: url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Plex Sans"; src: url(/fonts/ibm-plex-sans-latin-400-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: "Plex Sans"; src: url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
 @font-face { font-family: "Plex Sans"; src: url(/fonts/ibm-plex-sans-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
 @font-face { font-family: "Plex Cond"; src: url(/fonts/ibm-plex-sans-condensed-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
@@ -83,195 +82,298 @@
   --accent: #0b7a56;
   --accent-soft: #d9efe5;
   --signal: #b4480c;
+  /* console (dark instrument surfaces) */
+  --c-bg: #121316;
+  --c-panel: #1b1d21;
+  --c-line: #2c2f35;
+  --c-text: #e9e7e1;
+  --c-dim: #9a9ca3;
+  --c-green: #34d399;
+  --c-amber: #f5b454;
+  --c-red: #f87171;
+  --c-blue: #7cb7ff;
   --sans: "Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --cond: "Plex Cond", "Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --mono: "Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --gutter: 24px;
-  --max: 1080px;
+  --max: 1160px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { color-scheme: light; scroll-behavior: smooth; scroll-padding-top: 72px; }
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
 a { color: inherit; }
-a:focus-visible, [tabindex]:focus-visible, button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
-}
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.dark :focus-visible, .console :focus-visible { outline-color: var(--c-green); }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
-.mono { font-family: var(--mono); }
 .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: var(--paper); padding: 6px 10px; z-index: 50; }
 .skip:focus { left: 8px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mono { font-family: var(--mono); }
 
-/* top bar */
-.bar {
-  position: sticky; top: 0; z-index: 20;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: saturate(1.2) blur(8px);
-  -webkit-backdrop-filter: saturate(1.2) blur(8px);
-  border-bottom: 1px solid transparent;
-  transition: border-color .2s ease;
-}
+/* ── top bar ─────────────────────────────────────────── */
+.bar { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-bottom: 1px solid transparent; transition: border-color .2s; }
 .bar.scrolled { border-bottom-color: var(--line); }
 .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
-.mark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--mono); font-size: 13px; letter-spacing: .02em; }
-.mark svg { flex: none; }
+.mark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--mono); font-size: 13px; }
 .bar nav { display: flex; gap: 22px; font-family: var(--mono); font-size: 13px; }
-.bar nav a { text-decoration: none; color: var(--muted); }
+.bar nav a { text-decoration: none; color: var(--muted); padding: 8px 0; }
 .bar nav a:hover { color: var(--ink); }
 
-/* hero */
-.hero { padding: 88px 0 40px; }
-.eyebrow {
-  font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase;
-  color: var(--muted); display: flex; align-items: baseline; gap: 10px;
-}
-.eyebrow .dot { flex: none; transform: translateY(-1px); }
-.eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
-.hero h1 {
-  font-family: var(--cond); font-weight: 600;
-  font-size: clamp(38px, 12.3vw, 100px);
-  line-height: .96; letter-spacing: -.025em;
-  margin-top: 22px; max-width: 16ch;
-}
+/* ── hero ────────────────────────────────────────────── */
+.hero { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: 48px; align-items: center; padding: 64px 0 40px; }
+.eyebrow { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 10px; align-items: baseline; }
+.eyebrow .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); transform: translateY(-1px); animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 7px transparent; } }
+.hero h1 { font-family: var(--cond); font-weight: 600; font-size: clamp(44px, 6vw, 80px); line-height: .95; letter-spacing: -.025em; margin-top: 20px; }
 .hero h1 em { font-style: normal; color: var(--accent); }
-.lede { margin-top: 28px; font-size: clamp(17px, 1.9vw, 20px); line-height: 1.55; color: var(--ink-2); max-width: 60ch; }
-.lede strong { font-weight: 500; color: var(--ink); }
-.cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--mono); font-size: 13.5px; text-decoration: none;
-  padding: 10px 16px; border-radius: 999px; border: 1px solid var(--ink);
-  transition: background .15s ease, color .15s ease;
-}
+.lede { margin-top: 22px; font-size: 18px; color: var(--ink-2); max-width: 44ch; }
+.cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13.5px; text-decoration: none; padding: 11px 16px; border-radius: 999px; border: 1px solid var(--ink); transition: background .15s, color .15s; }
 .btn.primary { background: var(--ink); color: var(--paper); }
 .btn.primary:hover { background: var(--accent); border-color: var(--accent); }
 .btn.ghost:hover { background: var(--ink); color: var(--paper); }
 .links { display: inline-flex; gap: 16px; margin-left: 6px; font-family: var(--mono); font-size: 13.5px; }
-.links a { color: var(--muted); text-decoration: none; }
+.links a { color: var(--muted); text-decoration: none; padding: 6px 0; }
 .links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 
-/* signature waveform */
-.scope { margin-top: 56px; position: relative; }
-.scope svg { display: block; width: 100%; height: 88px; overflow: visible; }
-.scope .grid line { stroke: var(--line-2); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.scope .trace { fill: none; stroke: var(--ink); stroke-width: 1.6; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
-.scope svg.draw { clip-path: inset(0 100% 0 0); animation: reveal 2.4s cubic-bezier(.6,.05,.3,1) .2s forwards; }
-@keyframes reveal { to { clip-path: inset(0 0 0 0); } }
+/* ── agent console (hero) ───────────────────────────── */
+.console { background: var(--c-bg); color: var(--c-text); border-radius: 18px; box-shadow: 0 30px 60px -30px rgba(22,23,26,.55), 0 0 0 1px #000; overflow: hidden; font-family: var(--mono); font-size: 12.5px; }
+.c-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--c-line); color: var(--c-dim); }
+.c-head .lights { display: inline-flex; gap: 6px; }
+.c-head .lights i { width: 9px; height: 9px; border-radius: 50%; background: #3a3d44; }
+.c-head .lights i:first-child { background: var(--c-red); } .c-head .lights i:nth-child(2) { background: var(--c-amber); } .c-head .lights i:nth-child(3) { background: var(--c-green); }
+.c-head .ttl { color: var(--c-text); }
+.c-head .sim { margin-left: auto; font-size: 11px; padding: 2px 8px; border: 1px solid var(--c-line); border-radius: 999px; }
+.c-body { padding: 16px; display: grid; gap: 14px; }
+.c-tasks { display: flex; flex-wrap: wrap; gap: 6px; }
+.c-tasks button { padding: 7px 11px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-dim); font-size: 12px; transition: all .15s; }
+.c-tasks button:hover { color: var(--c-text); border-color: #4a4e56; }
+.c-tasks button[aria-pressed="true"] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
+.bubble { max-width: 88%; padding: 10px 12px; border-radius: 12px; font-family: var(--sans); font-size: 14px; line-height: 1.45; }
+.bubble .chan { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--c-dim); margin-bottom: 3px; letter-spacing: .04em; text-transform: uppercase; }
+.bubble.user { background: #24352d; justify-self: end; border-bottom-right-radius: 4px; }
+.bubble.agent { background: var(--c-panel); border: 1px solid var(--c-line); border-bottom-left-radius: 4px; min-height: 58px; }
+.bubble.agent .typing { display: inline-flex; gap: 4px; }
+.bubble.agent .typing i { width: 5px; height: 5px; border-radius: 50%; background: var(--c-dim); animation: blink 1s infinite; }
+.bubble.agent .typing i:nth-child(2) { animation-delay: .15s; } .bubble.agent .typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes blink { 50% { opacity: .25; } }
+.trace { background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 12px; padding: 10px 12px 8px; }
+.trace-head { display: grid; grid-template-columns: 178px 1fr 54px; gap: 10px; color: var(--c-dim); font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; padding-bottom: 6px; border-bottom: 1px dashed var(--c-line); }
+.t-rows { position: relative; min-height: 164px; }
+.t-row { display: grid; grid-template-columns: 178px 1fr 54px; gap: 10px; align-items: center; height: 27px; opacity: 0; transform: translateX(-4px); transition: opacity .25s, transform .25s; }
+.t-row.on { opacity: 1; transform: none; }
+.t-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.t-name .k { display: inline-block; width: 34px; font-size: 10px; color: var(--c-dim); }
+.legend { display: flex; gap: 6px; align-items: center; text-transform: none; letter-spacing: 0; }
+.legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+.legend .lg-llm { background: var(--c-blue); } .legend .lg-tool { background: var(--c-green); margin-left: 6px; }
+.t-track { position: relative; height: 10px; }
+.t-bar { position: absolute; top: 0; height: 10px; border-radius: 3px; background: var(--c-blue); width: 0; }
+.t-row[data-kind="tool"] .t-bar { background: var(--c-green); }
+.t-row[data-kind="gw"] .t-bar { background: var(--c-amber); }
+.t-ms { text-align: right; color: var(--c-dim); font-size: 11px; }
+.playhead { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(233,231,225,.35); left: 0; pointer-events: none; }
+.c-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--c-line); border-radius: 12px; overflow: hidden; }
+.c-stats div { padding: 9px 10px; color: var(--c-dim); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; }
+.c-stats div + div { border-left: 1px solid var(--c-line); }
+.c-stats b { display: block; font-weight: 500; font-size: 16px; color: var(--c-text); letter-spacing: 0; text-transform: none; }
+.c-review { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--c-dim); min-height: 32px; }
+.c-review button { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--c-line); color: var(--c-text); font-size: 12px; }
+.c-review button:hover:not([disabled]) { border-color: var(--c-green); color: var(--c-green); }
+.c-review button[disabled] { opacity: .45; cursor: default; }
+.c-review .note { color: var(--c-green); }
+.c-foot { padding: 10px 16px; border-top: 1px solid var(--c-line); color: var(--c-dim); font-size: 11px; display: flex; justify-content: space-between; gap: 10px; }
+.c-foot button { color: var(--c-text); text-decoration: underline; text-underline-offset: 3px; }
 
-/* proof strip */
-.proof {
-  margin-top: 56px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line);
-}
-.proof div { padding: 18px 18px 20px 0; }
-.proof div + div { padding-left: 18px; border-left: 1px solid var(--line); }
-.proof .n { font-family: var(--cond); font-weight: 600; font-size: 38px; line-height: 1; letter-spacing: -.02em; display: block; }
-.proof .n small { font-size: .55em; letter-spacing: 0; margin-left: 2px; }
-.proof .l { display: block; margin-top: 8px; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+/* ── outcome strip ─────────────────────────────────── */
+.flex-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); margin-top: 28px; }
+.flex-strip > div { padding: 22px 20px 22px 0; }
+.flex-strip > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.flex-strip .n { font-family: var(--cond); font-weight: 600; font-size: clamp(36px, 4.4vw, 54px); line-height: 1; letter-spacing: -.02em; display: block; }
+.flex-strip .n small { font-size: .5em; margin-left: 3px; letter-spacing: 0; }
+.flex-strip .l { display: block; margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.4; }
 
-/* sections */
-section.block { padding-top: 104px; }
-.head { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: baseline; margin-bottom: 36px; }
-.head .idx { font-family: var(--mono); font-size: 12.5px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
-.head h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(30px, 4.2vw, 46px); line-height: 1.05; letter-spacing: -.02em; }
-.head p { grid-column: 2; color: var(--muted); max-width: 62ch; margin-top: -8px; }
+/* ── sections ───────────────────────────────────────── */
+section.block { padding-top: 110px; }
+.head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 30px; flex-wrap: wrap; }
+.head .idx { display: block; font-family: var(--mono); font-size: 12.5px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+.head h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(34px, 4.8vw, 58px); line-height: 1; letter-spacing: -.02em; }
+.head p { color: var(--muted); max-width: 40ch; font-size: 15px; }
 
-/* case studies */
-.cases { display: grid; gap: 16px; }
-.case {
-  display: grid; grid-template-columns: 180px 1fr; gap: 24px;
-  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
-  padding: 28px 28px 26px;
-}
-.case .meta { font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.7; }
-.case .meta b { display: block; font-weight: 500; color: var(--ink); font-size: 12.5px; margin-bottom: 4px; }
-.case .meta .tag {
-  display: inline-block; margin-top: 10px; padding: 2px 8px; border-radius: 999px;
-  border: 1px solid var(--line); font-size: 11px; letter-spacing: .02em;
-}
-.case .tag.live { border-color: var(--accent); color: var(--accent); }
-.case h3 { font-family: var(--cond); font-weight: 600; font-size: 27px; line-height: 1.12; letter-spacing: -.01em; max-width: 30ch; }
-.case .body > p { margin-top: 12px; color: var(--ink-2); max-width: 68ch; }
-.facts { list-style: none; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px 22px; }
-.facts li { border-top: 1px solid var(--line-2); padding-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.45; }
-.facts li strong { display: block; font-family: var(--mono); font-weight: 500; color: var(--ink); font-size: 15px; margin-bottom: 2px; }
-.stack { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
-.stack li { font-family: var(--mono); font-size: 11.5px; padding: 3px 8px; border-radius: 6px; background: var(--bg); color: var(--ink-2); }
-.case-links { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; font-family: var(--mono); font-size: 13px; }
-.case-links a { color: var(--accent); text-decoration: none; }
-.case-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.case-links .note { color: var(--muted); }
-.case.feature { border-color: var(--ink); }
+/* ── bento work grid ────────────────────────────────── */
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+.tile { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.tile.dark { background: var(--c-bg); color: var(--c-text); border-color: #000; }
+.span-7 { grid-column: span 7; } .span-5 { grid-column: span 5; } .span-6 { grid-column: span 6; } .span-12 { grid-column: span 12; }
+.t-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.kicker { font-family: var(--mono); font-size: 11.5px; color: var(--muted); letter-spacing: .04em; }
+.dark .kicker { color: var(--c-dim); }
+.tile h3 { font-family: var(--cond); font-weight: 600; font-size: 28px; line-height: 1.05; letter-spacing: -.01em; margin-top: 6px; }
+.tile .sub { color: var(--ink-2); font-size: 15px; max-width: 52ch; }
+.dark .sub { color: #c9c7c0; }
+.badge { flex: none; font-family: var(--mono); font-size: 11px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.dark .badge { border-color: var(--c-line); color: var(--c-dim); }
+.badge.live { border-color: var(--accent); color: var(--accent); }
+.dark .badge.live { border-color: var(--c-green); color: var(--c-green); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+.chips li { font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: 6px; background: var(--bg); color: var(--ink-2); }
+.dark .chips li { background: var(--c-panel); color: var(--c-dim); }
+.tlinks { display: flex; flex-wrap: wrap; gap: 16px; font-family: var(--mono); font-size: 13px; margin-top: auto; }
+.tlinks a { color: var(--accent); text-decoration: none; padding: 4px 0; }
+.dark .tlinks a { color: var(--c-green); }
+.tlinks a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.wins { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.wins li { border-radius: 12px; padding: 12px; background: var(--bg); }
+.dark .wins li { background: var(--c-panel); }
+.wins b { display: block; font-family: var(--cond); font-weight: 600; font-size: 26px; line-height: 1.05; letter-spacing: -.01em; }
+.wins span { display: block; font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+.dark .wins span { color: var(--c-dim); }
 
-/* timing diagram */
-.td { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px 14px; }
+/* gateway diagram */
+.gw svg { width: 100%; height: auto; display: block; }
+.gw .wire { fill: none; stroke: var(--c-line); stroke-width: 1.5; }
+.gw .wire.hot { stroke: var(--c-amber); }
+.gw .node rect, .gw .node circle { fill: var(--c-panel); stroke: var(--c-line); }
+.gw .node text { fill: var(--c-text); font-family: var(--mono); font-size: 12px; }
+.gw .prov { cursor: pointer; }
+.gw .prov:hover rect, .gw .prov.hot rect { stroke: var(--c-green); }
+.gw .prov:focus-visible { outline: none; }
+.gw .prov:focus-visible rect { stroke: var(--c-green); stroke-width: 2; }
+.gw .hub path { fill: #2a2413; stroke: var(--c-amber); stroke-width: 1.5; }
+.gw .hub text { fill: var(--c-amber); font-family: var(--mono); font-size: 11px; }
+.gw .packet { fill: var(--c-green); filter: drop-shadow(0 0 6px var(--c-green)); }
+.gw .lock { fill: none; stroke: var(--c-amber); stroke-width: 1.6; transition: stroke .2s; }
+.gw .lock.open { stroke: var(--c-green); }
+.gw-btns { display: none; flex-wrap: wrap; gap: 6px; }
+.gw-btns button { font-family: var(--mono); font-size: 12px; padding: 8px 11px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-text); }
+.gw-btns button[aria-pressed="true"] { border-color: var(--c-green); color: var(--c-green); }
+.gw-log { font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); background: var(--c-panel); border-radius: 10px; padding: 10px 12px; min-height: 92px; line-height: 1.6; }
+.gw-log .ok { color: var(--c-green); } .gw-log .key { color: var(--c-amber); }
+
+/* mutation playground */
+.mut { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 14px; }
+.code { background: var(--c-bg); color: var(--c-text); border-radius: 12px; padding: 14px 16px; font-family: var(--mono); font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre; }
+.code .kw { color: #c792ea; } .code .fn { color: var(--c-blue); } .code .ty { color: var(--c-amber); } .code .cm { color: #6b6f78; }
+.code .mt { border-radius: 4px; padding: 1px 2px; transition: background .2s, color .2s; }
+.code .mt.mutated { background: var(--c-red); color: #1b0b0b; }
+.code .added { background: rgba(52,211,153,.12); display: inline-block; width: 100%; animation: fadein .4s; }
+@keyframes fadein { from { opacity: 0; } }
+.tests { list-style: none; display: grid; gap: 6px; margin-top: 2px; }
+.tests li { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; padding: 7px 10px; border-radius: 8px; background: var(--bg); }
+.tests li .r { font-weight: 500; }
+.tests li.pass .r { color: var(--accent); } .tests li.fail .r { color: #b91c1c; }
+.mutants { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.mutants button { text-align: left; border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; font-family: var(--mono); font-size: 12px; background: var(--paper); transition: border-color .15s; }
+.mutants button:hover { border-color: var(--ink); }
+.mutants button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.mutants button .st { display: block; margin-top: 3px; font-size: 11px; color: var(--muted); }
+.mutants button.killed .st { color: var(--accent); } .mutants button.survived .st { color: #b91c1c; }
+.mut-ctl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.mut-ctl button { font-family: var(--mono); font-size: 12.5px; padding: 9px 13px; border-radius: 999px; border: 1px solid var(--ink); }
+.mut-ctl button.primary { background: var(--ink); color: var(--paper); }
+.mut-ctl button[disabled] { opacity: .4; cursor: default; }
+.score { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.meter { flex: 1; height: 8px; border-radius: 99px; background: var(--line-2); overflow: hidden; min-width: 80px; }
+.meter i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .5s cubic-bezier(.2,.8,.2,1); }
+.verdict { font-size: 14px; min-height: 42px; color: var(--ink-2); }
+.verdict b { font-weight: 600; }
+
+/* honjang */
+.listeners { display: flex; flex-wrap: wrap; gap: 6px; }
+.listeners button { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-dim); font-family: var(--mono); font-size: 12px; }
+.listeners button[aria-pressed="true"] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
+.hj-say { font-family: var(--sans); font-size: 15px; color: var(--c-dim); }
+.hj-ko { font-size: 24px; line-height: 1.35; min-height: 66px; font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", var(--sans); }
+.hj-ko .ck { transition: color .3s, background .3s; border-radius: 4px; color: #4a4d55; }
+.hj-ko .ck.on { color: var(--c-text); }
+.hj-ko .ck.speaking { background: rgba(52,211,153,.18); color: var(--c-green); }
+.hj-level { font-family: var(--mono); font-size: 11px; color: var(--c-amber); }
+.lanes { display: grid; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--c-dim); }
+.lane { display: grid; grid-template-columns: 48px 1fr; gap: 8px; align-items: center; }
+.lane .tr { position: relative; height: 12px; background: var(--c-panel); border-radius: 4px; overflow: hidden; }
+.lane .seg { position: absolute; top: 0; bottom: 0; border-radius: 4px; width: 0; }
+.lane .seg.stt { background: var(--c-blue); } .lane .seg.llm { background: #c792ea; } .lane .seg.tts { background: var(--c-green); }
+.lanes .mark300 { position: relative; height: 16px; margin-left: 56px; }
+.lanes .mark300 span { position: absolute; transform: translateX(-50%); color: var(--c-amber); white-space: nowrap; opacity: 0; transition: opacity .3s; }
+.lanes .mark300 span.on { opacity: 1; }
+.play { align-self: start; font-family: var(--mono); font-size: 12.5px; padding: 8px 13px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-text); }
+.play:hover { border-color: var(--c-green); color: var(--c-green); }
+
+/* factory line */
+.line svg { width: 100%; height: auto; display: block; }
+.line .track { fill: none; stroke: var(--line); stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+.line .belt { fill: none; stroke: #b9b4a5; stroke-width: 2; stroke-dasharray: 6 8; animation: belt 1.2s linear infinite; }
+@keyframes belt { to { stroke-dashoffset: -28; } }
+.line .st rect { fill: var(--paper); stroke: var(--ink); stroke-width: 1.3; }
+.line .st text { font-family: var(--mono); font-size: 10.5px; fill: var(--ink); }
+.line .agv { fill: var(--accent); }
+.line .fx-big { font-family: var(--cond); font-weight: 600; font-size: 26px; fill: var(--ink); }
+.line .fx-small { font-family: var(--mono); font-size: 10.5px; fill: var(--muted); }
+.line .agv.b { fill: var(--signal); }
+
+/* bella tile */
+.bella-flow { display: grid; gap: 8px; font-family: var(--mono); font-size: 12px; }
+.bella-flow div { display: flex; align-items: center; gap: 8px; padding: 9px 11px; background: var(--c-panel); border-radius: 10px; color: var(--c-dim); }
+.bella-flow b { color: var(--c-text); font-weight: 500; }
+.bella-flow i { font-style: normal; color: var(--c-green); }
+
+/* ── experience ─────────────────────────────────────── */
+.td { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 22px 22px 16px; }
 #timeline { display: block; width: 100%; height: auto; font-family: var(--mono); }
 #timeline .lane-label { font-size: 11px; fill: var(--muted); letter-spacing: .04em; }
 #timeline .base { stroke: var(--ink); stroke-width: 1.2; fill: none; }
-#timeline .bus { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
+#timeline .span { cursor: pointer; }
+#timeline .span:focus { outline: none; }
+#timeline .bus { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; transition: fill .15s; }
 #timeline .bus.hot { fill: var(--accent-soft); stroke: var(--accent); }
 #timeline .bus.warm { fill: #fbe6d6; stroke: var(--signal); }
-#timeline .bus-text { font-size: 11px; fill: var(--ink); }
+#timeline .span:hover .bus, #timeline .span:focus-visible .bus { fill: #ece9df; stroke-width: 2; }
+#timeline .span.sel .bus { fill: var(--ink); }
+#timeline .span.sel .bus-text { fill: var(--paper); }
+#timeline .bus-text { font-size: 11px; fill: var(--ink); pointer-events: none; }
 #timeline .bus-text.above { font-size: 10px; fill: var(--muted); }
-#timeline .bus-text.above.warm { fill: var(--signal); }
-#timeline .bus-text.above.hot { fill: var(--accent); }
+#timeline .span.sel .bus-text.above { fill: var(--ink); font-weight: 500; }
 #timeline .clk { stroke: var(--muted); stroke-width: 1; fill: none; }
 #timeline .year { font-size: 10.5px; fill: var(--muted); }
 #timeline .gridline { stroke: var(--line-2); stroke-width: 1; }
 #timeline .now { stroke: var(--signal); stroke-width: 1.2; stroke-dasharray: 3 3; }
 #timeline .now-text { font-size: 10.5px; fill: var(--signal); }
-.td-caption { margin-top: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.td-hint { margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.roles { margin-top: 16px; }
+.role { display: grid; grid-template-columns: 220px 1fr; gap: 24px; background: var(--ink); color: var(--paper); border-radius: 20px; padding: 24px; }
+.js .role[hidden] { display: none; }
+.no-js .role + .role { margin-top: 12px; }
+.role .when { font-family: var(--mono); font-size: 12.5px; color: #b7b5ae; }
+.role .org { display: block; margin-top: 6px; font-size: 14px; color: #d8d6cf; }
+.role h3 { font-family: var(--cond); font-weight: 600; font-size: 28px; line-height: 1.05; }
+.role ul { margin-top: 10px; list-style: none; display: grid; gap: 6px; }
+.role li { padding-left: 18px; position: relative; color: #e9e7e1; }
+.role li::before { content: "→"; position: absolute; left: 0; color: var(--c-green); }
+.skills { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+.skills li { font-family: var(--mono); font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); background: var(--paper); }
+.skills li.ai { border-color: var(--accent); color: var(--accent); }
 
-.roles { margin-top: 28px; list-style: none; }
-.roles > li { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
-.roles .when { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 3px; }
-.roles h3 { font-size: 17px; font-weight: 600; }
-.roles h3 span { font-weight: 400; color: var(--muted); }
-.roles p { margin-top: 6px; color: var(--ink-2); max-width: 70ch; }
-.roles ul { margin-top: 8px; padding-left: 18px; color: var(--ink-2); max-width: 70ch; }
-.roles ul li { padding: 2px 0; }
-.roles ul li::marker { color: var(--accent); }
-
-/* how I work */
-.work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.work-grid > div { border-top: 1px solid var(--ink); padding-top: 16px; }
-.work-grid h3 { font-size: 16.5px; font-weight: 600; }
-.work-grid p { margin-top: 8px; color: var(--ink-2); font-size: 15px; }
-.skills { margin-top: 40px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 22px; }
-.skills h3 { font-family: var(--mono); font-weight: 500; font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
-.skills p { margin-top: 6px; font-size: 14.5px; color: var(--ink-2); }
-
-/* index registry */
-.reg { list-style: none; border-top: 1px solid var(--ink); }
-.reg li {
-  display: grid; grid-template-columns: 240px 1fr 110px 64px; gap: 16px;
-  align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line);
-}
-.reg .dom { font-family: var(--mono); font-size: 14px; color: var(--ink); text-decoration: none; }
-.reg .dom:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
-.reg .desc { color: var(--ink-2); font-size: 14.5px; }
-.reg .st { font-family: var(--mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; }
-.reg .st::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; background: var(--line); }
-.reg .st.live::before { background: var(--accent); }
-.reg .st.gated::before { background: #c9a227; }
-.reg .gh { font-family: var(--mono); font-size: 12.5px; color: var(--muted); text-decoration: none; text-align: right; }
-.reg .gh:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
-
-/* recruiter copilot */
+/* ── copilot ───────────────────────────────────────── */
 .copilot { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start; }
 .copilot .pitch p { color: var(--ink-2); }
-.copilot .pitch p + p { margin-top: 12px; font-size: 14px; color: var(--muted); }
-.embed { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
+.copilot .pitch p + p { margin-top: 12px; font-size: 13.5px; color: var(--muted); }
+.embed { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #fff; }
 .embed iframe { display: block; width: 100%; height: 440px; min-height: 440px; border: 0; background: #fff; }
+
+/* ── index tiles ────────────────────────────────────── */
+.idx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; list-style: none; }
+.idx-grid li { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s, transform .15s; }
+.idx-grid li:hover { border-color: var(--ink); transform: translateY(-2px); }
+.idx-grid .nm { font-family: var(--mono); font-size: 15px; font-weight: 500; text-decoration: none; }
+.idx-grid .nm::after { content: ""; position: absolute; inset: 0; border-radius: 16px; }
+.idx-grid .ds { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+.idx-grid .ft { margin-top: auto; padding-top: 6px; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.idx-grid .ft a { position: relative; z-index: 1; color: var(--muted); text-decoration: none; padding: 4px 0; }
+.idx-grid .ft a:hover { color: var(--accent); text-decoration: underline; }
+.st::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: 0; background: var(--line); }
+.st.live::before { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.st.gated::before { background: #c9a227; }
 
 /* github contributions (custom renderer on github-contributions-api.jogruber.de) */
 .gh-card { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 14px; }
@@ -305,81 +407,86 @@ section.block { padding-top: 104px; }
 .cal-loading, .cal-error { color: var(--muted); font-size: 13.5px; margin: 0; }
 .cal-error a { color: var(--accent); }
 
-/* blog teaser */
-.minihead { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+
+.gh-card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 18px 18px 14px; }
+.gh-link { display: inline-block; margin-top: 12px; color: var(--muted); font-family: var(--mono); font-size: 12.5px; text-decoration: none; }
+.gh-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+
 #teaser { display: none; }
 #teaser.show { display: block; }
+.minihead { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
 .posts { list-style: none; }
+.posts a { display: block; padding: 12px 0; border-bottom: 1px solid var(--line-2); text-decoration: none; }
+.posts a:hover { color: var(--accent); }
 
-/* contact */
-.contact-block { padding: 120px 0 40px; }
-.contact-block h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(40px, 6.4vw, 76px); line-height: .98; letter-spacing: -.025em; max-width: 19ch; }
-.contact-block .mail {
-  display: inline-block; margin-top: 28px; font-family: var(--mono); font-size: clamp(17px, 2.4vw, 24px);
-  text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px;
-}
-.contact-block .mail:hover { color: var(--accent); }
-.contact-block p { margin-top: 18px; color: var(--muted); max-width: 56ch; }
+/* ── contact ───────────────────────────────────────── */
+.contact-block { margin-top: 120px; background: var(--ink); color: var(--paper); border-radius: 28px; padding: clamp(28px, 6vw, 72px); position: relative; overflow: hidden; }
+.contact-block h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(40px, 6.4vw, 84px); line-height: .96; letter-spacing: -.025em; max-width: 14ch; position: relative; }
+.contact-block h2 em { font-style: normal; color: var(--c-green); }
+.contact-block .mail { position: relative; display: inline-block; margin-top: 30px; font-family: var(--mono); font-size: clamp(17px, 2.4vw, 26px); text-decoration: none; border-bottom: 2px solid var(--c-green); padding-bottom: 2px; }
+.contact-block .mail:hover { color: var(--c-green); }
+.contact-block .alt { position: relative; margin-top: 18px; display: flex; gap: 18px; font-family: var(--mono); font-size: 13.5px; }
+.contact-block .alt a { color: #b7b5ae; text-decoration: none; padding: 6px 0; }
+.contact-block .alt a:hover { color: var(--paper); }
+.contact-block svg.bgwave { position: absolute; right: -40px; bottom: -10px; width: 60%; opacity: .16; }
+.contact-block svg.bgwave path { fill: none; stroke: var(--c-green); stroke-width: 2; }
 
-footer { margin-top: 64px; padding: 20px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
-.footer-links a { color: var(--muted); text-decoration: none; }
+.footer-links a { color: var(--muted); text-decoration: none; padding: 4px 0; }
 .footer-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
-.mascot-note { color: var(--muted); font-size: 11.5px; }
 
-@media (min-width: 641px) {
-  .hero h1 { font-size: clamp(48px, 8.4vw, 100px); }
-}
-@media (max-width: 900px) {
-  .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .proof div:nth-child(3) { padding-left: 0; border-left: 0; }
-  .proof div:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .head, .case, .roles > li { grid-template-columns: 1fr; gap: 10px; }
-  .head p { grid-column: 1; margin-top: 0; }
-  .work-grid { grid-template-columns: 1fr; }
-  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* ── responsive ─────────────────────────────────────── */
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 48px; }
+  .lede { max-width: 56ch; }
+  .span-7, .span-5, .span-6 { grid-column: span 12; }
   .copilot { grid-template-columns: 1fr; }
-  .reg li { grid-template-columns: 1fr auto; gap: 2px 12px; }
-  .reg .desc { grid-column: 1 / -1; grid-row: 2; }
-  .reg .gh { grid-column: 2; grid-row: 1; }
-  .reg .st { grid-column: 1 / -1; grid-row: 3; margin-top: 4px; }
+  .role { grid-template-columns: 1fr; gap: 10px; }
+}
+@media (max-width: 760px) {
+  .flex-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .flex-strip > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .flex-strip > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .mut { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   :root { --gutter: 16px; }
   .bar nav { gap: 14px; font-size: 12px; }
   .bar nav .opt { display: none; }
-  .hero { padding-top: 56px; }
   .links { margin-left: 0; width: 100%; }
-  section.block { padding-top: 80px; }
-  .case { padding: 22px 18px; }
-  .case h3 { font-size: 23px; }
-  .skills { grid-template-columns: 1fr; }
+  .c-body { padding: 12px; }
+  .trace-head, .t-row { grid-template-columns: 128px 1fr 44px; gap: 8px; }
+  .legend { font-size: 9.5px; }
+  .t-name .k { display: none; }
+  .c-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .c-stats div:nth-child(3) { border-left: 0; }
+  .c-stats div:nth-child(n+3) { border-top: 1px solid var(--c-line); }
+  .tile { padding: 18px; border-radius: 18px; }
+  .tile h3 { font-size: 24px; }
+  .wins { grid-template-columns: 1fr 1fr; }
+  .wins b { font-size: 22px; }
+  .mutants { grid-template-columns: 1fr; }
+  .gw-btns { display: flex; }
+  section.block { padding-top: 84px; }
   .cal-stats { grid-template-columns: 1fr; }
   .cal-stats div { padding: 10px 4px; }
   .cal-stats div + div { border-left: 0; border-top: 1px solid var(--line); }
   .cal-stats .num { display: inline; font-size: 17px; margin-right: 6px; }
-  .contact-block { padding-top: 88px; }
+  .contact-block { margin-top: 88px; border-radius: 20px; }
 }
-@media (max-width: 640px) {
-  .bar nav a, .links a, .case-links a, .reg .gh, .footer-links a { display: inline-block; padding: 10px 0; }
-  .bar nav a { padding: 16px 0; }
-}
-/* keep the nav clear of the cat mascot pinned to the top-right corner */
-@media (max-width: 1320px) { .bar .wrap { padding-right: 112px; } }
-@media (max-width: 640px) { .bar .wrap { padding-right: 76px; } }
-@media (max-width: 480px) {
-  .mark { font-size: 12px; gap: 8px; }
-  .bar nav { gap: 14px; }
+@media (max-width: 380px) {
   .bar nav a[href="#experience"] { display: none; }
+  .hj-ko { font-size: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  * { transition: none !important; animation: none !important; }
-  .scope svg.draw { clip-path: none; }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 </style>
 </head>
-<body>
+<body class="no-js">
+<script>document.body.className = "js";</script>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="bar" id="bar">
@@ -401,143 +508,204 @@ footer { margin-top: 64px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 <div class="wrap">
 
   <section class="hero" aria-labelledby="hero-title">
-    <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf · AI engineer · Indonesia</span></p>
-    <h1 id="hero-title">I build AI agents <br class="br">that <em>do real work.</em></h1>
-    <p class="lede">I'm an <strong>AI engineer</strong>. At Metatech I build agents and the infrastructure they need in production: <strong>a tool gateway</strong> that lets them act on real accounts, <strong>observability</strong> that shows what each turn did and what it cost, and <strong>mutation testing</strong> for the tests they write. Before agents, I shipped smart-factory software for EV-battery lines at LG Sinarmas, so I build as if downtime is expensive.</p>
-    <div class="cta">
-      <a class="btn primary" href="#work">See the work ↓</a>
-      <a class="btn ghost" href="#copilot">Recruiter? Get a pitch</a>
-      <span class="links">
-        <a href="mailto:zsulthan9@gmail.com">email</a>
-        <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github</a>
-        <a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin</a>
-      </span>
+    <div>
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf · AI engineer · Indonesia</span></p>
+      <h1 id="hero-title">I build AI agents that <em>do real work.</em></h1>
+      <p class="lede">Agents that act on real accounts, the gateway they act through, and the console that shows what they did. Try&nbsp;one&nbsp;→</p>
+      <div class="cta">
+        <a class="btn primary" href="#work">See the work ↓</a>
+        <a class="btn ghost" href="#copilot">Recruiter? Get a pitch</a>
+        <span class="links">
+          <a href="mailto:zsulthan9@gmail.com">email</a>
+          <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github</a>
+          <a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin</a>
+        </span>
+      </div>
     </div>
 
-    <div class="scope" aria-hidden="true">
-      <svg class="draw" viewBox="0 0 1200 80" preserveAspectRatio="none">
-        <g class="grid">
-          <line x1="0" y1="40" x2="1200" y2="40"/>
-        </g>
-        <path class="trace" d="M0 66 L40 66 L40 14 L76 14 L76 66 L146 66 L146 14 L168 14 L168 66 L186 66 L186 14 L240 14 L240 66 L286 66 L286 14 L316 14 L316 66 L356 66 L356 14 L376 14 L376 66 L394.6 66 L394.6 14 L411.9 14 L411.9 66 L428 66 L428 14 L442.9 14 L442.9 66 L456.9 66 L456.9 14 L469.8 14 L469.8 66 L481.8 66 L481.8 14 L493 14 L493 66 L503.4 66 L503.4 14 L513.4 14 L513.4 66 L523.4 66 L523.4 14 L533.4 14 L533.4 66 L543.4 66 L543.4 14 L553.4 14 L553.4 66 L563.4 66 L563.4 14 L573.4 14 L573.4 66 L583.4 66 L583.4 14 L593.4 14 L593.4 66 L603.4 66 L603.4 14 L613.4 14 L613.4 66 L623.4 66 L623.4 14 L633.4 14 L633.4 66 L643.4 66 L643.4 14 L653.4 14 L653.4 66 L663.4 66 L663.4 14 L673.4 14 L673.4 66 L683.4 66 L683.4 14 L693.4 14 L693.4 66 L703.4 66 L703.4 40 L703.4 40 L705.4 38.6 L707.4 38.2 L709.4 42.4 L711.4 45.6 L713.4 40.6 L715.4 32.3 L717.4 33.5 L719.4 45.1 L721.4 51.4 L723.4 42.1 L725.4 28.5 L727.4 30 L729.4 45.6 L731.4 54.2 L733.4 43.5 L735.4 28.1 L737.4 28.9 L739.4 44.4 L741.4 53.1 L743.4 44 L745.4 30.9 L747.4 31.1 L749.4 42.3 L751.4 48.4 L753.4 42.9 L755.4 35.7 L757.4 36.1 L759.4 40.5 L761.4 41.5 L763.4 40.4 L765.4 39.5 L767.4 39.3 L769.4 40.1 L771.4 40.8 L773.4 40.4 L775.4 39.5 L777.4 38 L779.4 40 L781.4 46 L783.4 45.2 L785.4 34.3 L787.4 28 L789.4 38.8 L791.4 54.4 L793.4 51.8 L795.4 31.2 L797.4 20.4 L799.4 36.5 L801.4 59.1 L803.4 56.6 L805.4 30.9 L807.4 16.8 L809.4 34.1 L811.4 59.4 L813.4 58.2 L815.4 32.8 L817.4 18.2 L819.4 33.1 L821.4 55.6 L823.4 55.7 L825.4 35.9 L827.4 24.3 L829.4 34.3 L831.4 49 L833.4 49.2 L835.4 38.7 L837.4 33.7 L839.4 37.9 L841.4 41.5 L843.4 40.7 L845.4 39.9 L847.4 39.2 L849.4 39.6 L851.4 40.5 L853.4 40.7 L855.4 40 L857.4 39.3 L859.4 39.5 L861.4 41.2 L863.4 43.5 L865.4 40.4 L867.4 34.4 L869.4 35.1 L871.4 43.8 L873.4 48.9 L875.4 41.7 L877.4 31.2 L879.4 32.3 L881.4 44.1 L883.4 50.2 L885.4 42.5 L887.4 32.2 L889.4 33.1 L891.4 42.4 L893.4 46.7 L895.4 41.8 L897.4 36.7 L899.4 37.6 L901.4 40.3 L903.4 40.8 L905.4 40.3 L907.4 39.4 L909.4 39.3 L911.4 40.1 L913.4 40.8 L915.4 40.4 L917.4 39.5 L919.4 39.3 L921.4 40.1 L923.4 40.8 L925.4 40.4 L927.4 38.8 L929.4 36.3 L931.4 39.9 L933.4 47.3 L935.4 46 L937.4 33.9 L939.4 27.2 L941.4 38.6 L943.4 54.9 L945.4 52.3 L947.4 31.1 L949.4 19.7 L951.4 36.2 L953.4 59.8 L955.4 57.5 L957.4 30.5 L959.4 15.1 L961.4 33.4 L963.4 61.4 L965.4 60.7 L967.4 31.9 L969.4 14.1 L971.4 31.3 L973.4 59.7 L975.4 60.8 L977.4 34.4 L979.4 17 L981.4 30.8 L983.4 55.3 L985.4 57.6 L987.4 37.2 L989.4 23.1 L991.4 32.4 L993.4 49.3 L995.4 51.3 L997.4 39.3 L999.4 31.6 L1001.4 36.2 L1003.4 42.9 L1005.4 42.8 L1007.4 40 L1009.4 39.3 L1011.4 39.5 L1013.4 40.4 L1015.4 40.8 L1017.4 40.1 L1019.4 39.3 L1021.4 39.5 L1023.4 40.4 L1025.4 42.5 L1027.4 40.9 L1029.4 33.7 L1031.4 33.1 L1033.4 44.2 L1035.4 52 L1037.4 43.3 L1039.4 29.2 L1041.4 29.8 L1043.4 43.7 L1045.4 50.8 L1047.4 43.1 L1049.4 34.4 L1051.4 35.8 L1053.4 40.6 L1055.4 40.8 L1057.4 40.3 L1059.4 39.4 L1061.4 39.3 L1063.4 40.1 L1065.4 40.8 L1067.4 40.4 L1069.4 39.5 L1071.4 39.3 L1073.4 40 L1075.4 40.8 L1077.4 41.2 L1079.4 37.5 L1081.4 34.1 L1083.4 39.8 L1085.4 49.4 L1087.4 47.4 L1089.4 32.9 L1091.4 25.5 L1093.4 38.3 L1095.4 55.6 L1097.4 52.5 L1099.4 31.4 L1101.4 21 L1103.4 36.4 L1105.4 56.9 L1107.4 54.4 L1109.4 32.8 L1111.4 21.9 L1113.4 35.4 L1115.4 53.3 L1117.4 51.9 L1119.4 35.9 L1121.4 28.2 L1123.4 36.5 L1125.4 46.4 L1127.4 45.3 L1129.4 39.1 L1131.4 37.9 L1133.4 39.7 L1135.4 40.6 L1137.4 40.7 L1139.4 39.9 L1141.4 39.2 L1143.4 39.6 L1145.4 40.5 L1147.4 40.7 L1149.4 40 L1151.4 38.2 L1153.4 38.2 L1155.4 42.5 L1157.4 45.1 L1159.4 40.1 L1161.4 33.3 L1163.4 35 L1165.4 44.4 L1167.4 48.6 L1169.4 41 L1171.4 31.8 L1173.4 33.8 L1175.4 43.9 L1177.4 48.1 L1179.4 41.4 L1181.4 34.1 L1183.4 35.6 L1185.4 41.8 L1187.4 43.7 L1189.4 40.7 L1191.4 39 L1193.4 39.4 L1195.4 40.2 L1197.4 40.8 L1199.4 40.3"/>
-      </svg>
-    </div>
-
-    <div class="proof">
-      <div><span class="n">8 <small>weeks</small></span><span class="l">from empty repo to an in-house Rust tool gateway that lets agents act on real accounts</span></div>
-      <div><span class="n">2,000+</span><span class="l">commits to Bella, an AI chief of staff: the agent worker and its observability console</span></div>
-      <div><span class="n">3 <small>testers</small></span><span class="l">mutation testers for Rust, Go and Dart, built to check the tests agents write</span></div>
-      <div><span class="n">4.1M</span><span class="l">log entries analysed in 104 s by my incident tool at LG. Diagnosis went from hours or days to minutes</span></div>
+    <div class="console" id="console" aria-label="Simulated agent run">
+      <div class="c-head">
+        <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="ttl">agent console</span>
+        <span class="sim">simulated run</span>
+      </div>
+      <div class="c-body">
+        <div class="c-tasks" role="group" aria-label="Pick a request for the agent">
+          <button type="button" data-s="0" aria-pressed="true">Move my 3pm</button>
+          <button type="button" data-s="1" aria-pressed="false">What needs me today?</button>
+          <button type="button" data-s="2" aria-pressed="false">Brief me for tomorrow</button>
+        </div>
+        <div class="bubble user"><span class="chan" id="c-chan">WhatsApp</span><span id="c-prompt">Move my 3pm with Andi to tomorrow, same time, and let him know.</span></div>
+        <div class="trace" role="img" id="c-trace-wrap" aria-label="Execution trace">
+          <div class="trace-head" aria-hidden="true"><span>span</span><span class="legend"><i class="lg-llm"></i>model <i class="lg-tool"></i>tool via gateway</span><span style="text-align:right">time</span></div>
+          <div class="t-rows" id="c-rows"></div>
+        </div>
+        <div class="c-stats" aria-hidden="true">
+          <div><b id="c-lat">0 ms</b>latency</div>
+          <div><b id="c-tools">0</b>tool calls</div>
+          <div><b id="c-tok">0</b>tokens</div>
+          <div><b id="c-cost">Rp 0</b>cost</div>
+        </div>
+        <div class="bubble agent" id="c-reply" aria-live="polite"><span class="chan">agent</span><span id="c-reply-text"><span class="typing" aria-label="working"><i></i><i></i><i></i></span></span></div>
+        <div class="c-review" id="c-review">
+          <span>Review this turn:</span>
+          <button type="button" data-v="good" disabled>✓ correct</button>
+          <button type="button" data-v="bad" disabled>✗ wrong</button>
+          <span class="note" id="c-note" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="c-foot"><span>Modelled on the observability console I built for Bella.</span><button type="button" id="c-replay">replay ↺</button></div>
     </div>
   </section>
 
+  <div class="flex-strip" aria-label="Outcomes">
+    <div><span class="n" data-count="50" data-pre="Rp" data-suf="B+">Rp50B+</span><span class="l">in B2B revenue generated with the messaging engine and monitoring I built</span></div>
+    <div><span class="n" data-count="8" data-suf=" wks">8 wks</span><span class="l">to replace a paid integrations vendor with our own agent tool gateway</span></div>
+    <div><span class="n" data-count="50" data-suf=" h/day">50 h/day</span><span class="l">of person-hours saved by one internal app I shipped at LG</span></div>
+    <div><span class="n">1 of 4</span><span class="l">engineers selected for a two-month deployment to a battery plant in Korea</span></div>
+  </div>
+
   <section class="block" id="work" aria-labelledby="work-title">
     <div class="head">
-      <span class="idx">01 · selected work</span>
-      <h2 id="work-title">Things I've built that other people depend on</h2>
-      <p>Employer work is described, not linked. Personal projects link to source.</p>
+      <div><span class="idx">01 · selected work</span><h2 id="work-title">Don't read about it. Play with it.</h2></div>
+      <p>Each tile is a small working model of something I built. Employer systems are simulated, personal projects link to source.</p>
     </div>
 
-    <div class="cases">
+    <div class="bento">
 
-      <article class="case feature">
-        <div class="meta">
-          <b>sambungapi</b>
-          Metatech · 2026<br>primary engineer
-          <br><span class="tag">private · employer</span>
+      <!-- sambungapi -->
+      <article class="tile dark span-7 gw" aria-labelledby="gw-title">
+        <div class="t-top">
+          <div><span class="kicker">sambungapi · Metatech · primary engineer</span><h3 id="gw-title">The gateway agents act through</h3></div>
+          <span class="badge">private</span>
         </div>
-        <div class="body">
-          <h3>An in-house Rust gateway that lets AI agents act on real accounts</h3>
-          <p>Our agents reach Gmail, calendars and chat apps through OAuth-connected tools, and that layer was rented from a vendor. I rebuilt it in-house as a single static Rust binary with its own <span class="mono">/v1</span> API, hosted OAuth connect pages, and a step-by-step migration runbook for the agent platform. OAuth tokens are encrypted in our own Postgres instead of a vendor's.</p>
-          <ul class="facts">
-            <li><strong>8 weeks</strong>from empty repo to a production gateway: 3,100+ commits, 326 test files</li>
-            <li><strong>AES-256-GCM at rest</strong>for every stored token, with multi-org tenancy and CSRF protection</li>
-            <li><strong>Durable outbox</strong>drained by a separate worker mode, so events survive restarts</li>
-          </ul>
-          <ul class="stack" aria-label="Stack"><li>Rust</li><li>axum</li><li>PostgreSQL</li><li>OAuth 2.0</li><li>Google &amp; Microsoft Graph APIs</li></ul>
+        <p class="sub">Agents call one API; the gateway holds every OAuth token encrypted, unlocks it only for the call, and talks to the provider. Built in-house in 8 weeks to replace a paid vendor. <b>Click a provider.</b></p>
+        <svg viewBox="0 0 600 250" id="gw-svg" role="group" aria-label="Gateway diagram: agent, gateway with encrypted token vault, and seven providers">
+          <g id="gw-wires"></g>
+          <g class="node" aria-hidden="true"><rect x="12" y="100" width="104" height="50" rx="10"/><text x="64" y="122" text-anchor="middle">AI agent</text><text x="64" y="138" text-anchor="middle" style="fill:#9a9ca3;font-size:10px">tool call</text></g>
+          <g class="hub" aria-hidden="true">
+            <path d="M250 70 L330 70 L360 125 L330 180 L250 180 L220 125 Z"/>
+            <text x="290" y="112" text-anchor="middle">sambungapi</text>
+            <g transform="translate(279 122)"><rect class="lock" id="gw-lock" x="2" y="10" width="18" height="14" rx="3"/><path class="lock" id="gw-shackle" d="M6 10 V6 a5 5 0 0 1 10 0 V10"/></g>
+            <text x="290" y="164" text-anchor="middle" style="font-size:9.5px">encrypted vault</text>
+          </g>
+          <g id="gw-provs"></g>
+          <circle class="packet" id="gw-packet" r="5" cx="-20" cy="-20"/>
+        </svg>
+        <div class="gw-btns" id="gw-btns" role="group" aria-label="Call a provider"></div>
+        <div class="gw-log" id="gw-log" aria-live="polite"><span class="key">$</span> waiting for a tool call…</div>
+        <ul class="chips" aria-label="Stack"><li>Rust</li><li>axum</li><li>PostgreSQL</li><li>OAuth 2.0</li><li>durable outbox</li><li>multi-tenant</li></ul>
+      </article>
+
+      <!-- Bella -->
+      <article class="tile dark span-5" aria-labelledby="bella-title">
+        <div class="t-top">
+          <div><span class="kicker">Bella · Metatech · core engineer</span><h3 id="bella-title">An AI chief of staff for a whole company</h3></div>
+          <span class="badge">private</span>
+        </div>
+        <p class="sub">Staff message it on WhatsApp, web or Lark; it handles email, meetings and cross-department updates within each person's permissions. I work on the engine that runs every turn and built the monitoring behind it.</p>
+        <div class="bella-flow" aria-label="How a request flows">
+          <div><b>WhatsApp · Lark · web</b> → request</div>
+          <div><b>worker</b> → plans, calls tools <i>●</i></div>
+          <div><b>gateway</b> → Gmail, Calendar, Lark</div>
+          <div><b>console</b> → cost, trace, human review</div>
+        </div>
+        <ul class="wins">
+          <li><b>Minutes</b><span>to catch failures with the monitoring I built</span></li>
+          <li><b>Rp50B+</b><span>B2B revenue, together with the messaging engine I built</span></li>
+        </ul>
+        <div class="tlinks"><a href="#console">↑ the console up top simulates it</a></div>
+      </article>
+
+      <!-- mutation testing -->
+      <article class="tile span-12" aria-labelledby="mut-title">
+        <div class="t-top">
+          <div><span class="kicker">rust_mutant · dart-mutant · gopher_mutant · open source</span><h3 id="mut-title">Would your tests catch a bug? Break the code and see.</h3></div>
+          <span class="badge live">on crates.io</span>
+        </div>
+        <p class="sub">Coding agents write a lot of tests. Mutation testing plants small bugs ("mutants") and checks the tests notice. Pick a mutant or run them all, then add the test that's missing.</p>
+        <div class="mut">
+          <div>
+<pre class="code" aria-label="Code under test"><span class="kw">fn</span> <span class="fn">can_vote</span>(age: <span class="ty">u32</span>) -&gt; <span class="ty">bool</span> {
+    <span class="mt" id="m-body">age <span class="mt" id="m-op">&gt;=</span> <span class="mt" id="m-num">18</span></span>
+}
+
+<span class="cm">// tests</span>
+<span class="fn">assert!</span>(can_vote(<span class="ty">30</span>));   <span class="cm">// adults vote</span>
+<span class="fn">assert!</span>(!can_vote(<span class="ty">10</span>));  <span class="cm">// children don't</span>
+<span id="m-added"></span></pre>
+            <ul class="tests" id="m-tests" aria-label="Test results"></ul>
+          </div>
+          <div style="display:grid;gap:12px;align-content:start">
+            <div class="mutants" id="m-list" role="group" aria-label="Mutants"></div>
+            <div class="score"><span id="m-score">mutation score —</span><span class="meter" aria-hidden="true"><i id="m-meter"></i></span></div>
+            <div class="mut-ctl">
+              <button type="button" class="primary" id="m-runall">▶ run all mutants</button>
+              <button type="button" id="m-add">+ add boundary test</button>
+              <button type="button" id="m-reset">reset</button>
+            </div>
+            <p class="verdict" id="m-verdict" aria-live="polite">Pick a mutant to plant it in the code.</p>
+          </div>
+        </div>
+        <div class="tlinks">
+          <a href="https://github.com/SulthanZahran1/rust_mutant" target="_blank" rel="noreferrer">rust_mutant ↗</a>
+          <a href="https://crates.io/crates/rust-mutant" target="_blank" rel="noreferrer">crates.io ↗</a>
+          <a href="https://github.com/SulthanZahran1/dart-mutant" target="_blank" rel="noreferrer">dart-mutant (Homebrew) ↗</a>
+          <a href="https://github.com/SulthanZahran1/gopher_mutant" target="_blank" rel="noreferrer">gopher_mutant ↗</a>
         </div>
       </article>
 
-      <article class="case">
-        <div class="meta">
-          <b>Bella</b>
-          Metatech · 2026<br>core engineer, team of several
-          <br><span class="tag">private · employer</span>
+      <!-- honjang -->
+      <article class="tile dark span-6" aria-labelledby="hj-title">
+        <div class="t-top">
+          <div><span class="kicker">honjang · personal · voice</span><h3 id="hj-title">Real-time English → Korean that knows who you're talking to</h3></div>
+          <span class="badge live">live</span>
         </div>
-        <div class="body">
-          <h3>An AI chief of staff across WhatsApp, Gmail, Calendar and Lark, and the observability console behind it</h3>
-          <p>Bella takes requests in the channels a company already uses and carries them out with pluggable reasoning engines. My work centres on the worker that executes agent turns. I also built most of the observability console: each turn's cost, an execution waterfall, and a human-review loop that turns real conversations into labelled ground-truth datasets.</p>
-          <ul class="facts">
-            <li><strong>2,000+ commits</strong>of mine, mostly in the agent worker</li>
-            <li><strong>120+ ADRs</strong>written or revised, out of the team's ~340</li>
-            <li><strong>Review → dataset</strong>human review turns production conversations into ground truth</li>
-          </ul>
-          <ul class="stack" aria-label="Stack"><li>TypeScript</li><li>Hono</li><li>React</li><li>Go</li><li>MongoDB</li><li>Redis</li><li>LLM tool-use</li></ul>
+        <div class="listeners" role="group" aria-label="Who are you talking to?">
+          <button type="button" data-l="0" aria-pressed="false">a friend</button>
+          <button type="button" data-l="1" aria-pressed="true">a shopkeeper</button>
+          <button type="button" data-l="2" aria-pressed="false">your boss</button>
         </div>
-      </article>
-
-      <article class="case">
-        <div class="meta">
-          <b>*_mutant</b>
-          personal · 2026<br>author
-          <br><span class="tag live">open source</span>
+        <p class="hj-say">“Could you tell me where the station is?”</p>
+        <p class="hj-ko" lang="ko" id="hj-ko" aria-live="polite"></p>
+        <span class="hj-level" id="hj-level"></span>
+        <div class="lanes" aria-hidden="true">
+          <div class="lane"><span>hear</span><span class="tr"><span class="seg stt" id="hj-stt"></span></span></div>
+          <div class="lane"><span>think</span><span class="tr"><span class="seg llm" id="hj-llm"></span></span></div>
+          <div class="lane"><span>speak</span><span class="tr"><span class="seg tts" id="hj-tts"></span></span></div>
+          <div class="mark300"><span id="hj-300">▲ audio starts mid-sentence (~300 ms budget)</span></div>
         </div>
-        <div class="body">
-          <h3>Mutation testers for Rust, Go and Dart, for checking the tests agents write</h3>
-          <p>Mutation testing tells you whether your tests would catch a real bug, but it's slow and noisy. rust_mutant and dart-mutant run only the tests that cover a mutated line. rust_mutant also compares LLVM IR to throw out mutants that compile to identical code. Coding agents write a lot of tests now, and this is how I check whether those tests are any good.</p>
-          <ul class="facts">
-            <li><strong>rust_mutant 1.0.1</strong>on crates.io, with checksummed installers</li>
-            <li><strong>dart-mutant</strong>17 operators, Homebrew tap, prebuilt binaries for 4 platforms</li>
-            <li><strong>gopher_mutant</strong>21 operator classes for Go</li>
-          </ul>
-          <ul class="stack" aria-label="Stack"><li>Rust</li><li>LLVM IR</li><li>coverage instrumentation</li></ul>
-          <p class="case-links">
-            <a href="https://github.com/SulthanZahran1/rust_mutant" target="_blank" rel="noreferrer">rust_mutant ↗</a>
-            <a href="https://crates.io/crates/rust-mutant" target="_blank" rel="noreferrer">crates.io ↗</a>
-            <a href="https://github.com/SulthanZahran1/dart-mutant" target="_blank" rel="noreferrer">dart-mutant ↗</a>
-            <a href="https://github.com/SulthanZahran1/gopher_mutant" target="_blank" rel="noreferrer">gopher_mutant ↗</a>
-          </p>
+        <button type="button" class="play" id="hj-play">▶ stream it</button>
+        <div class="tlinks">
+          <a href="https://honjang.zahranm.cloud" target="_blank" rel="noreferrer">try the live app ↗</a>
+          <a href="https://github.com/SulthanZahran1/honjang" target="_blank" rel="noreferrer">source ↗</a>
         </div>
       </article>
 
-      <article class="case">
-        <div class="meta">
-          <b>Smart-factory AMHS</b>
-          LG Sinarmas · 2024–now<br>software engineer
-          <br><span class="tag">industrial</span>
+      <!-- factory -->
+      <article class="tile span-6 line" aria-labelledby="fx-title">
+        <div class="t-top">
+          <div><span class="kicker">LG Sinarmas · EV-battery plant · 2024–now</span><h3 id="fx-title">Software that keeps battery lines moving, 24/7</h3></div>
+          <span class="badge">industrial</span>
         </div>
-        <div class="body">
-          <h3>Keeping EV-battery lines moving: MES, dispatching and material handling</h3>
-          <p>I build and integrate the software between the manufacturing execution system, real-time dispatching and the vehicles and conveyors that move material between processes. I also bridge Indonesian factory operations and the Korean engineering team. When a stall needs diagnosing, I use the Timing Diagram Analyzer I wrote: it turns millions of material-handling log entries into a timing view, which is also why this site's timeline is a timing diagram.</p>
-          <ul class="facts">
-            <li><strong>4,120,953 entries</strong>analysed in 104 s. Diagnosis went from hours or days to minutes, and the whole team uses it</li>
-            <li><strong>1 of 4 engineers</strong>selected for a two-month deployment to LG Energy Solution Ochang, Korea</li>
-            <li><strong>15+ integration issues</strong>across AGVs, conveyors and stockers, fixed before production</li>
-            <li><strong>KO–EN RAG</strong>cross-language retrieval over Korean and English factory documentation</li>
-          </ul>
-          <ul class="stack" aria-label="Stack"><li>C# / .NET</li><li>WPF</li><li>React</li><li>Python</li><li>SQL Server</li><li>Oracle</li><li>SECS/GEM</li><li>LangChain</li></ul>
-        </div>
-      </article>
-
-      <article class="case">
-        <div class="meta">
-          <b>honjang</b>
-          personal · 2026<br>author
-          <br><span class="tag">open source</span>
-        </div>
-        <div class="body">
-          <h3>A real-time English–Korean voice translator that tracks honorifics</h3>
-          <p>Korean speech changes with who you're talking to, and literal translation misses that. honjang streams speech through recognition, an LLM and speech synthesis, with barge-in, a walkie-talkie mode and an always-on agent mode. LLM output streams to speech in chunks split at Korean clause boundaries, so audio can start before the sentence is done.</p>
-          <ul class="facts">
-            <li><strong>~300 ms</strong>design budget to first audio with clause-level streaming</li>
-            <li><strong>&lt; Rp2,000/min</strong>cost ceiling, with speech, LLM and voice each costed per minute</li>
-          </ul>
-          <ul class="stack" aria-label="Stack"><li>Expo</li><li>FastAPI</li><li>WebSocket</li><li>Deepgram Nova-3</li><li>OpenRouter</li><li>ElevenLabs</li></ul>
-          <p class="case-links">
-            <a href="https://honjang.zahranm.cloud" target="_blank" rel="noreferrer">live demo ↗</a>
-            <a href="https://github.com/SulthanZahran1/honjang" target="_blank" rel="noreferrer">source ↗</a>
-          </p>
-        </div>
+        <svg viewBox="0 0 520 170" aria-hidden="true">
+          <path id="fx-path" class="track" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
+          <path class="belt" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
+          <text x="260" y="94" text-anchor="middle" class="fx-big">8 lines · 24/7</text>
+          <text x="260" y="112" text-anchor="middle" class="fx-small">EV-battery production</text>
+          <g class="st"><rect x="60" y="14" width="96" height="24" rx="5"/><text x="108" y="30" text-anchor="middle">stocker</text></g>
+          <g class="st"><rect x="212" y="14" width="96" height="24" rx="5"/><text x="260" y="30" text-anchor="middle">process</text></g>
+          <g class="st"><rect x="364" y="14" width="96" height="24" rx="5"/><text x="412" y="30" text-anchor="middle">conveyor</text></g>
+          <g class="st"><rect x="212" y="132" width="96" height="24" rx="5"/><text x="260" y="148" text-anchor="middle">dispatch (RTD)</text></g>
+          <g id="fx-agvs"></g>
+        </svg>
+        <ul class="wins">
+          <li><b>50 h/day</b><span>person-hours saved by one of 8+ internal apps</span></li>
+          <li><b>3 h → 15 min</b><span>IoT sensor monitoring cycle, automated</span></li>
+          <li><b>Days → minutes</b><span>incident diagnosis with the log analyzer I wrote</span></li>
+          <li><b>15+ issues</b><span>fixed at the Korean plant before production started</span></li>
+        </ul>
+        <ul class="chips" aria-label="Stack"><li>MES</li><li>RTD</li><li>AMHS</li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
       </article>
 
     </div>
@@ -545,108 +713,78 @@ footer { margin-top: 64px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 
   <section class="block" id="experience" aria-labelledby="exp-title">
     <div class="head">
-      <span class="idx">02 · experience</span>
-      <h2 id="exp-title">2019 to now, drawn as a timing diagram</h2>
-      <p>Each lane is a signal and each box is a value it held. The dashed line is now.</p>
+      <div><span class="idx">02 · experience</span><h2 id="exp-title">Career as a timing diagram</h2></div>
+      <p>Each lane is a signal, each box a role. Click one.</p>
     </div>
-
     <figure class="td">
-      <svg id="timeline" viewBox="0 0 1000 285" role="img" aria-label="Career timing diagram from 2019 to 2026. Metatech, AI agents, from April 2026 to now; LG Sinarmas from April 2024 to now, including a Korea deployment August to October 2025; FAAN Lab research assistant late 2023 to early 2024; PLC internship mid 2022 and instrumentation engineer early 2024; B.Sc. Physics at Universitas Indonesia 2019 to 2023."></svg>
-      <figcaption class="td-caption" id="td-caption">Full details below.</figcaption>
+      <svg id="timeline" viewBox="0 0 1000 285" role="group" aria-label="Career timing diagram, 2019 to now. Each role is a button that shows details below."></svg>
+      <figcaption class="td-hint" id="td-caption">Dashed line = now.</figcaption>
     </figure>
 
-    <ul class="roles">
-      <li>
-        <span class="when">Apr 2026 → now</span>
-        <div>
-          <h3>Software Engineer <span>· Metatech · part-time, remote</span></h3>
-          <p>AI agents, the observability tools that watch them, and the messaging infrastructure they run on.</p>
-        </div>
-      </li>
-      <li>
-        <span class="when">Apr 2024 → now</span>
-        <div>
-          <h3>Software Engineer <span>· LG Sinarmas Technology Solutions · Karawang</span></h3>
-          <p>Smart-factory software (MES, real-time dispatching, AMHS) for an EV-battery plant.</p>
-          <ul>
-            <li>Shipped 8+ internal applications; one saves 50 person-hours a day.</li>
-            <li>Designed the team's onboarding program and trained 15+ software engineers.</li>
-            <li>Built the Timing Diagram Analyzer (4.1M log entries in 104 s) and a Korean–English RAG pipeline over factory documentation.</li>
-            <li>Liaison between Indonesian factory operations and the Korean engineering HQ.</li>
-          </ul>
-        </div>
-      </li>
-      <li>
-        <span class="when">Aug → Oct 2025</span>
-        <div>
-          <h3>AMHS Integration Specialist <span>· LG Energy Solution Ochang · South Korea</span></h3>
-          <p>Selected as one of four engineers for a two-month deployment to integrate material handling before production. Fixed 15+ pre-production issues across AGVs, conveyors and stockers.</p>
-        </div>
-      </li>
-      <li>
-        <span class="when">Jan → Mar 2024</span>
-        <div>
-          <h3>Instrumentation Engineer <span>· PT Polychemie Asia Pacific Permai</span></h3>
-          <p>Project-based instrumentation work.</p>
-        </div>
-      </li>
-      <li>
-        <span class="when">Oct 2023 → Mar 2024</span>
-        <div>
-          <h3>Software Engineering Research Assistant <span>· FAAN Laboratory, Physics, Universitas Indonesia</span></h3>
-          <p>Built lab software that improved the synthesis–testing cycle by roughly 800%.</p>
-        </div>
-      </li>
-      <li>
-        <span class="when">Aug 2019 → Jul 2023</span>
-        <div>
-          <h3>B.Sc. Physics, Instrumentation <span>· Universitas Indonesia</span></h3>
-          <ul>
-            <li>4th place at IndySCC22, the only team from Southeast Asia.</li>
-            <li>Programming lead for the KRTMI robotics contest, UI Robotics Team.</li>
-            <li>PLC intern at PT Sugitama Intiarto, Jun → Jul 2022.</li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </section>
+    <div class="roles" id="roles">
+      <div class="role" id="role-metatech">
+        <div><span class="when">Apr 2026 → now</span><span class="org">Metatech · part-time, remote</span></div>
+        <div><h3>Software Engineer, AI agents</h3><ul>
+          <li>Built sambungapi, the in-house gateway our agents use to act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira. It replaced a paid vendor in 8 weeks.</li>
+          <li>Core engineer on Bella, an AI chief of staff that works across WhatsApp, Gmail, Calendar and Lark.</li>
+          <li>Built the messaging engine that moves messages between apps and chat platforms, and the monitoring that catches failures in minutes. Together they generate Rp50B+ in B2B revenue.</li>
+        </ul></div>
+      </div>
+      <div class="role" id="role-lg">
+        <div><span class="when">Apr 2024 → now</span><span class="org">LG Sinarmas Technology Solutions · Karawang</span></div>
+        <div><h3>Software Engineer, smart factory</h3><ul>
+          <li>MES, real-time dispatching and material handling for an EV-battery plant running 8 lines, 24/7.</li>
+          <li>Shipped 8+ internal apps; one saves 50 person-hours a day.</li>
+          <li>Built a log analyzer that cut incident diagnosis from hours or days to minutes, and a Korean–English RAG over factory documentation.</li>
+          <li>Designed the team's onboarding and trained 15+ engineers.</li>
+        </ul></div>
+      </div>
+      <div class="role" id="role-korea">
+        <div><span class="when">Aug → Oct 2025</span><span class="org">LG Energy Solution Ochang · South Korea</span></div>
+        <div><h3>AMHS Integration Specialist</h3><ul>
+          <li>One of four engineers selected for a two-month deployment.</li>
+          <li>Caught and fixed 15+ integration issues across AGVs, conveyors and stockers before production.</li>
+        </ul></div>
+      </div>
+      <div class="role" id="role-poly">
+        <div><span class="when">Jan → Mar 2024</span><span class="org">PT Polychemie Asia Pacific Permai</span></div>
+        <div><h3>Instrumentation Engineer</h3><ul>
+          <li>Prototyped digital temperature and flow monitoring for a plant where readings were written down by hand.</li>
+        </ul></div>
+      </div>
+      <div class="role" id="role-faan">
+        <div><span class="when">Oct 2023 → Mar 2024</span><span class="org">FAAN Laboratory, Physics, Universitas Indonesia</span></div>
+        <div><h3>Research Assistant, software</h3><ul>
+          <li>Built the lab's spectroscopy analysis app, improving the synthesis–testing cycle by ~800%.</li>
+        </ul></div>
+      </div>
+      <div class="role" id="role-plc">
+        <div><span class="when">Jun → Jul 2022</span><span class="org">PT Sugitama Intiarto</span></div>
+        <div><h3>PLC Intern</h3><ul><li>First contact with industrial control software.</li></ul></div>
+      </div>
+      <div class="role" id="role-ui">
+        <div><span class="when">Aug 2019 → Jul 2023</span><span class="org">Universitas Indonesia</span></div>
+        <div><h3>B.Sc. Physics, Instrumentation</h3><ul>
+          <li>4th place at IndySCC22 (supercomputing), the only team from Southeast Asia.</li>
+          <li>Programming lead for the UI Robotics Team at KRTMI.</li>
+        </ul></div>
+      </div>
+    </div>
 
-  <section class="block" id="approach" aria-labelledby="approach-title">
-    <div class="head">
-      <span class="idx">03 · how I work</span>
-      <h2 id="approach-title">I write code with agents, and build the checks that catch their mistakes</h2>
-    </div>
-    <div class="work-grid">
-      <div>
-        <h3>Decisions go on paper</h3>
-        <p>Every hard-to-reverse choice gets an ADR. On Bella the team keeps ~340, and I've written or revised 120+. Agents and new teammates both read the reasoning, not just the code.</p>
-      </div>
-      <div>
-        <h3>Test the tests</h3>
-        <p>Agents write a lot of tests, so I measure whether those tests would catch a real bug. That's why I built mutation testers.</p>
-      </div>
-      <div>
-        <h3>Measure before you trust</h3>
-        <p>On a factory floor, a bad deploy stops a production line. I carry that into software: build the observability first, and don't trust anything until it's measured.</p>
-      </div>
-    </div>
-    <div class="skills">
-      <div><h3>AI / agents</h3><p>tool-use &amp; MCP, RAG, agent harnesses, LLM observability, voice pipelines</p></div>
-      <div><h3>Languages</h3><p>Rust, Go, TypeScript, Python, C#, SQL</p></div>
-      <div><h3>Industrial</h3><p>MES, AMHS, RTD, PLC, SECS/GEM, AGV integration</p></div>
-      <div><h3>Infra</h3><p>PostgreSQL, MongoDB, Redis, Docker, Traefik, Linux</p></div>
-    </div>
+    <ul class="skills" aria-label="Skills">
+      <li class="ai">AI agents</li><li class="ai">tool use &amp; MCP</li><li class="ai">RAG</li><li class="ai">LLM observability</li><li class="ai">voice pipelines</li><li class="ai">evals &amp; mutation testing</li>
+      <li>Rust</li><li>Go</li><li>TypeScript</li><li>Python</li><li>C#</li><li>SQL</li><li>PostgreSQL</li><li>MongoDB</li><li>Redis</li><li>Docker</li><li>Traefik</li>
+    </ul>
   </section>
 
   <section class="block" id="copilot" aria-labelledby="copilot-title">
     <div class="head">
-      <span class="idx">04 · for recruiters</span>
-      <h2 id="copilot-title">Paste a job description, get a pitch</h2>
+      <div><span class="idx">03 · for recruiters</span><h2 id="copilot-title">Paste a job description, get a pitch</h2></div>
     </div>
     <div class="copilot">
       <div class="pitch">
         <p>This copilot reads your role and writes a short, specific case for why my background fits. It's instructed to cite only evidence from my work profile.</p>
-        <p>It's a small Go service with rate limits. Submitted descriptions and generated pitches are logged; IPs are stored only as hashes. <a href="https://github.com/SulthanZahran1/jd-pitcher" target="_blank" rel="noreferrer">Source ↗</a></p>
+        <p>A small Go service with rate limits. Submitted descriptions and generated pitches are logged; IPs are stored only as hashes. <a href="https://github.com/SulthanZahran1/jd-pitcher" target="_blank" rel="noreferrer">Source ↗</a></p>
       </div>
       <div class="embed">
         <iframe src="/recruit/?embed=1" title="Recruiter Pitch Generator" loading="lazy"></iframe>
@@ -656,29 +794,27 @@ footer { margin-top: 64px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 
   <section class="block" id="index" aria-labelledby="index-title">
     <div class="head">
-      <span class="idx">05 · index</span>
-      <h2 id="index-title">Everything running on zahranm.cloud</h2>
+      <div><span class="idx">04 · index</span><h2 id="index-title">Everything running on zahranm.cloud</h2></div>
       <p>All self-hosted on one VPS behind Traefik. Gated demos are available on request.</p>
     </div>
-    <ul class="reg">
-      <li><a class="dom" href="https://zahranm.cloud/recruit">zahranm.cloud/recruit</a><span class="desc">Recruiter pitch generator: job description in, evidence-backed pitch out</span><span class="st live">live</span><a class="gh" href="https://github.com/SulthanZahran1/jd-pitcher">source</a></li>
-      <li><a class="dom" href="https://relay.zahranm.cloud">relay</a><span class="desc">AI-native CRM on an event-driven workflow engine: sessions, tickets, web chat</span><span class="st live">live</span><span></span></li>
-      <li><a class="dom" href="https://teach.zahranm.cloud">teach</a><span class="desc">Harness Engineering: a lesson series on building an agent harness, modelled on Nous Research's Hermes</span><span class="st live">live</span><span></span></li>
-      <li><a class="dom" href="https://aquaflow.zahranm.cloud">aquaflow</a><span class="desc">Prepaid smart water metering with resident, building-manager and operator roles</span><span class="st live">live demo</span><span></span></li>
-      <li><a class="dom" href="https://emrisearch.zahranm.cloud">emrisearch</a><span class="desc">GUI for the emrisearch pipeline: inspect extreme-mass-ratio-inspiral search runs without writing Python</span><span class="st live">live</span><a class="gh" href="https://github.com/SulthanZahran1/emrisearch-gui">source</a></li>
-      <li><a class="dom" href="https://wiki.zahranm.cloud">wiki</a><span class="desc">LLM-compiled wiki built from 556 public LG Energy Solution blog posts, with chat and a graph view</span><span class="st gated">access token</span><a class="gh" href="https://github.com/SulthanZahran1/lgensol-wiki">source</a></li>
-      <li><a class="dom" href="https://cv-search.zahranm.cloud">cv-search</a><span class="desc">Résumé search: Gemini extraction with fallbacks, hybrid retrieval, optional LLM rerank</span><span class="st gated">access token</span><a class="gh" href="https://github.com/SulthanZahran1/cv-search-prototype">source</a></li>
-      <li><a class="dom" href="https://dcim.zahranm.cloud">dcim</a><span class="desc">Data-center infrastructure management built on NetBox with a React front end</span><span class="st gated">login</span><span></span></li>
-      <li><a class="dom" href="https://hkbp.zahranm.cloud">hkbp</a><span class="desc">Church admin system moved from Laravel to Vue and Go, with a self-hosted OIDC login</span><span class="st gated">members</span><a class="gh" href="https://github.com/SulthanZahran1/hkbp-jatinegara">source</a></li>
-      <li><a class="dom" href="https://honjang.zahranm.cloud">honjang</a><span class="desc">English–Korean real-time voice translator (see above)</span><span class="st live">live</span><a class="gh" href="https://github.com/SulthanZahran1/honjang">source</a></li>
-      <li><a class="dom" href="https://blog.zahranm.cloud">blog</a><span class="desc">Writing</span><span class="st">soon</span><a class="gh" href="https://github.com/SulthanZahran1/zahranm-cloud">source</a></li>
+    <ul class="idx-grid">
+      <li><a class="nm" href="https://honjang.zahranm.cloud">honjang</a><span class="ds">English–Korean real-time voice translator with honorifics</span><span class="ft"><span class="st live">live</span><a href="https://github.com/SulthanZahran1/honjang">source</a></span></li>
+      <li><a class="nm" href="https://zahranm.cloud/recruit">recruit</a><span class="ds">Recruiter pitch generator: job description in, pitch out</span><span class="ft"><span class="st live">live</span><a href="https://github.com/SulthanZahran1/jd-pitcher">source</a></span></li>
+      <li><a class="nm" href="https://relay.zahranm.cloud">relay</a><span class="ds">AI-native CRM on an event-driven workflow engine</span><span class="ft"><span class="st live">live</span></span></li>
+      <li><a class="nm" href="https://teach.zahranm.cloud">teach</a><span class="ds">Harness Engineering: lessons on building an agent harness, modelled on Nous Research's Hermes</span><span class="ft"><span class="st live">live</span></span></li>
+      <li><a class="nm" href="https://wiki.zahranm.cloud">wiki</a><span class="ds">LLM-compiled wiki from 556 public LG Energy Solution blog posts, with chat and a graph</span><span class="ft"><span class="st gated">access token</span><a href="https://github.com/SulthanZahran1/lgensol-wiki">source</a></span></li>
+      <li><a class="nm" href="https://cv-search.zahranm.cloud">cv-search</a><span class="ds">Résumé search: Gemini extraction, hybrid retrieval, LLM rerank</span><span class="ft"><span class="st gated">access token</span><a href="https://github.com/SulthanZahran1/cv-search-prototype">source</a></span></li>
+      <li><a class="nm" href="https://emrisearch.zahranm.cloud">emrisearch</a><span class="ds">GUI for inspecting extreme-mass-ratio-inspiral search runs without Python</span><span class="ft"><span class="st live">live</span><a href="https://github.com/SulthanZahran1/emrisearch-gui">source</a></span></li>
+      <li><a class="nm" href="https://aquaflow.zahranm.cloud">aquaflow</a><span class="ds">Prepaid smart water metering for residents, managers and operators</span><span class="ft"><span class="st live">live demo</span></span></li>
+      <li><a class="nm" href="https://dcim.zahranm.cloud">dcim</a><span class="ds">Data-center infrastructure management on NetBox with a React front end</span><span class="ft"><span class="st gated">login</span></span></li>
+      <li><a class="nm" href="https://hkbp.zahranm.cloud">hkbp</a><span class="ds">Church admin system moved from Laravel to Vue and Go, with self-hosted OIDC</span><span class="ft"><span class="st gated">members</span><a href="https://github.com/SulthanZahran1/hkbp-jatinegara">source</a></span></li>
+      <li><a class="nm" href="https://blog.zahranm.cloud">blog</a><span class="ds">Writing</span><span class="ft"><span class="st">soon</span><a href="https://github.com/SulthanZahran1/zahranm-cloud">source</a></span></li>
     </ul>
   </section>
 
   <section class="block" id="activity" aria-labelledby="activity-title">
     <div class="head">
-      <span class="idx">06 · activity</span>
-      <h2 id="activity-title">Commit history, public and private</h2>
+      <div><span class="idx">05 · activity</span><h2 id="activity-title">Shipping, most days</h2></div>
     </div>
     <div id="gh-calendar" class="gh-card"><p class="cal-loading">loading contributions…</p></div>
     <a class="gh-link" href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github.com/SulthanZahran1 ↗</a>
@@ -690,9 +826,10 @@ footer { margin-top: 64px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   </section>
 
   <section class="contact-block" id="contact" aria-labelledby="contact-title">
-    <h2 id="contact-title">Building agents that touch real systems? Let's talk.</h2>
+    <svg class="bgwave" viewBox="0 0 600 160" aria-hidden="true"><path d="M0 120 L60 120 L60 40 L120 40 L120 120 L170 120 L170 40 L200 40 L200 120 L230 120 L230 40 L250 40 L250 120 L270 120 L270 40 L285 40 L285 120 L300 120 C320 60 330 150 345 80 C360 20 370 140 385 90 C400 50 410 120 425 85 C440 60 455 110 470 88 C490 70 510 100 530 86 C555 76 575 92 600 84"/></svg>
+    <h2 id="contact-title">Building agents that touch <em>real systems?</em></h2>
     <a class="mail" href="mailto:zsulthan9@gmail.com">zsulthan9@gmail.com</a>
-    <p>Agents, the tools and infrastructure around them, or the evals that tell you whether they actually work. Tell me what you're working on and what's in the way.</p>
+    <div class="alt"><a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github ↗</a><a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin ↗</a></div>
   </section>
 
   <footer>
@@ -703,118 +840,505 @@ footer { margin-top: 64px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <a href="/privacy">privacy</a>
       <a href="/llms.txt">llms.txt</a>
     </nav>
-    <span class="mascot-note">a cat watches your cursor</span>
   </footer>
 
 </div>
 </main>
 
 <script>
+var REDUCED = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 /* sticky bar hairline */
 (function () {
   var bar = document.getElementById("bar");
-  function onScroll() { bar.classList.toggle("scrolled", window.scrollY > 8); }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+  function f() { bar.classList.toggle("scrolled", window.scrollY > 8); }
+  window.addEventListener("scroll", f, { passive: true }); f();
+})();
+
+/* run fn once when el scrolls into view */
+function whenVisible(el, fn) {
+  if (!el) return;
+  if (!("IntersectionObserver" in window)) { fn(); return; }
+  var io = new IntersectionObserver(function (es) {
+    if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); fn(); }
+  }, { threshold: 0.35 });
+  io.observe(el);
+}
+</script>
+
+<script>
+/* ── Agent console: a scripted replay of one agent turn, drawn the way the
+   observability console shows it (waterfall of LLM and tool spans). ── */
+(function () {
+  var S = [
+    { chan: "WhatsApp", prompt: "Move my 3pm with Andi to tomorrow, same time, and let him know.",
+      spans: [
+        ["llm", "plan", 0, 540],
+        ["tool", "calendar.upcoming", 560, 860, 1],
+        ["llm", "pick new slot", 880, 1310],
+        ["tool", "calendar.update", 1330, 1720, 1],
+        ["tool", "gmail.send", 1740, 2080, 1],
+        ["llm", "reply", 2100, 2480]
+      ], tok: 3412, cost: 38,
+      reply: "Done. “Sync with Andi” is now tomorrow 15:00–15:30, and I emailed him the new time." },
+    { chan: "Lark", prompt: "What in my inbox actually needs me today?",
+      spans: [
+        ["llm", "plan", 0, 420],
+        ["tool", "gmail.unread", 440, 900, 1],
+        ["llm", "triage 23 emails", 920, 1780],
+        ["tool", "calendar.upcoming", 1800, 2050, 1],
+        ["llm", "reply", 2070, 2520]
+      ], tok: 9870, cost: 104,
+      reply: "3 need you: the vendor contract (due 17:00), Rina's budget question, and a reschedule request that clashes with your 14:00. The other 20 can wait." },
+    { chan: "web", prompt: "Brief me for tomorrow's meetings.",
+      spans: [
+        ["llm", "plan", 0, 380],
+        ["tool", "calendar.upcoming", 400, 700, 1],
+        ["tool", "gmail.search ×4", 720, 1350, 1],
+        ["tool", "lark.docs", 720, 1180, 1],
+        ["llm", "write brief", 1370, 2360],
+        ["llm", "reply", 2380, 2700]
+      ], tok: 14250, cost: 151,
+      reply: "4 meetings tomorrow. Heads-up: the 10:00 with Finance will ask about Q3 variance. Last thread and the doc are linked in your brief." }
+  ];
+  var rowsEl = document.getElementById("c-rows");
+  var promptEl = document.getElementById("c-prompt"), chanEl = document.getElementById("c-chan");
+  var replyEl = document.getElementById("c-reply-text");
+  var lat = document.getElementById("c-lat"), tools = document.getElementById("c-tools"), tok = document.getElementById("c-tok"), cost = document.getElementById("c-cost");
+  var review = document.getElementById("c-review"), note = document.getElementById("c-note");
+  var traceWrap = document.getElementById("c-trace-wrap");
+  var btns = [].slice.call(document.querySelectorAll(".c-tasks button"));
+  var cur = 0, raf = 0, token = 0;
+  var TYPING = '<span class="typing" aria-label="working"><i></i><i></i><i></i></span>';
+
+  function fmt(n) { return n.toLocaleString("en-US"); }
+
+  function run(i) {
+    cancelAnimationFrame(raf); token++;
+    var my = token, s = S[i]; cur = i;
+    btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
+    chanEl.textContent = s.chan; promptEl.textContent = s.prompt;
+    replyEl.innerHTML = TYPING; note.textContent = "";
+    [].forEach.call(review.querySelectorAll("button"), function (b) { b.disabled = true; });
+    var total = s.spans[s.spans.length - 1][3];
+    traceWrap.setAttribute("aria-label", "Execution trace: " + s.spans.map(function (p) { return (p[0] === "llm" ? "model " : "tool ") + p[1] + " " + (p[3] - p[2]) + " ms"; }).join(", ") + ". Total " + total + " ms.");
+    rowsEl.innerHTML = "";
+    var head = document.createElement("div"); head.className = "playhead"; head.setAttribute("aria-hidden", "true");
+    var rows = s.spans.map(function (p) {
+      var r = document.createElement("div");
+      r.className = "t-row"; r.dataset.kind = p[4] ? "tool" : "llm";
+      r.innerHTML = '<span class="t-name"><span class="k">' + (p[4] ? "tool" : "llm") + "</span>" + p[1] +
+        '</span><span class="t-track"><span class="t-bar" style="left:' + (p[2] / total * 100) + '%"></span></span><span class="t-ms">' + (p[3] - p[2]) + "ms</span>";
+      r.setAttribute("aria-hidden", "true");
+      rowsEl.appendChild(r); return r;
+    });
+    var track0 = rows[0].querySelector(".t-track");
+    rowsEl.appendChild(head);
+    var nTools = s.spans.filter(function (p) { return p[4]; }).length;
+
+    function frame(t) {
+      if (my !== token) return;
+      rows.forEach(function (r, k) {
+        var p = s.spans[k];
+        if (t >= p[2]) r.classList.add("on");
+        var w = Math.max(0, Math.min(t, p[3]) - p[2]) / total * 100;
+        r.querySelector(".t-bar").style.width = w + "%";
+      });
+      var f = Math.min(1, t / total);
+      var trackLeft = track0.offsetLeft, trackW = track0.offsetWidth;
+      head.style.left = (trackLeft + f * trackW) + "px";
+      lat.textContent = fmt(Math.round(Math.min(t, total))) + " ms";
+      tools.textContent = s.spans.filter(function (p) { return p[4] && t >= p[3]; }).length;
+      tok.textContent = fmt(Math.round(s.tok * f));
+      cost.textContent = "Rp " + Math.round(s.cost * f);
+    }
+    function done() {
+      frame(total); head.style.opacity = "0";
+      tools.textContent = nTools;
+      replyEl.textContent = s.reply;
+      [].forEach.call(review.querySelectorAll("button"), function (b) { b.disabled = false; });
+    }
+    if (REDUCED) { done(); return; }
+    var SPEED = 1.35, t0 = performance.now() + 450;
+    (function loop(now) {
+      if (my !== token) return;
+      var t = (now - t0) / SPEED;
+      if (t < 0) { raf = requestAnimationFrame(loop); return; }
+      if (t >= total) { done(); return; }
+      frame(t); raf = requestAnimationFrame(loop);
+    })(performance.now());
+  }
+
+  btns.forEach(function (b, j) { b.addEventListener("click", function () { run(j); }); });
+  document.getElementById("c-replay").addEventListener("click", function () { run(cur); });
+  review.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b || b.disabled) return;
+    [].forEach.call(review.querySelectorAll("button"), function (x) { x.disabled = true; });
+    note.textContent = b.dataset.v === "good"
+      ? "Saved as a ground-truth example. Future versions get tested against it."
+      : "Flagged for review, then added to the eval set as a failure case.";
+  });
+  run(0);
 })();
 </script>
+
 <script>
-/* Career timing diagram. Lanes are signals; each span is a bus value
-   (hexagon-ended box). Spans too narrow for their label get the label above
-   the lane. Narrow screens redraw a recent window instead of scrolling. */
+/* count-up for the outcome strip */
+(function () {
+  var strip = document.querySelector(".flex-strip");
+  whenVisible(strip, function () {
+    if (REDUCED) return;
+    [].forEach.call(strip.querySelectorAll("[data-count]"), function (el) {
+      var end = +el.dataset.count, pre = el.dataset.pre || "", suf = el.dataset.suf || "", t0 = performance.now();
+      (function step(now) {
+        var f = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - f, 3);
+        el.textContent = pre + Math.round(end * e) + suf;
+        if (f < 1) requestAnimationFrame(step);
+      })(t0);
+    });
+  });
+})();
+</script>
+
+<script>
+/* ── Gateway diagram: click a provider, watch a call go agent → vault → provider. ── */
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("gw-svg");
+  if (!svg) return;
+  var provs = [
+    ["Google", "calendar.update"], ["Microsoft", "outlook.send"], ["GitHub", "issues.create"],
+    ["Slack", "chat.post"], ["Notion", "pages.append"], ["Linear", "issue.update"], ["Jira", "issue.transition"]
+  ];
+  var wires = document.getElementById("gw-wires"), pg = document.getElementById("gw-provs");
+  var packet = document.getElementById("gw-packet"), log = document.getElementById("gw-log");
+  var lock = document.getElementById("gw-lock"), shackle = document.getElementById("gw-shackle");
+  function el(tag, a, parent) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); (parent || svg).appendChild(n); return n; }
+  var inWire = el("path", { d: "M116 125 L220 125", "class": "wire" }, wires);
+  var outWires = [], nodes = [];
+  provs.forEach(function (p, i) {
+    var y = 22 + i * 32;
+    outWires.push(el("path", { d: "M360 125 C420 125 420 " + (y + 11) + " 470 " + (y + 11), "class": "wire" }, wires));
+    var g = el("g", { "class": "node prov", tabindex: "0", role: "button", "aria-label": "Call " + p[0] + " through the gateway" }, pg);
+    el("rect", { x: 470, y: y, width: 118, height: 22, rx: 6 }, g);
+    var t = el("text", { x: 529, y: y + 15, "text-anchor": "middle" }, g); t.textContent = p[0];
+    nodes.push(g);
+    var hb = document.createElement("button"); hb.type = "button"; hb.textContent = p[0]; hb.setAttribute("aria-pressed", "false");
+    hb.addEventListener("click", function () { userTouched = true; call(i); });
+    document.getElementById("gw-btns").appendChild(hb);
+    g.addEventListener("click", function () { call(i); });
+    g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); call(i); } });
+  });
+  var busy = 0, userTouched = false;
+  function along(path, dur, cb, my) {
+    var L = path.getTotalLength(), t0 = performance.now();
+    (function step(now) {
+      if (my !== busy) return;
+      var f = Math.min(1, (now - t0) / dur), pt = path.getPointAtLength(f * L);
+      packet.setAttribute("cx", pt.x); packet.setAttribute("cy", pt.y);
+      if (f < 1) requestAnimationFrame(step); else cb();
+    })(t0);
+  }
+  function back(path, dur, cb, my) {
+    var L = path.getTotalLength(), t0 = performance.now();
+    (function step(now) {
+      if (my !== busy) return;
+      var f = Math.min(1, (now - t0) / dur), pt = path.getPointAtLength((1 - f) * L);
+      packet.setAttribute("cx", pt.x); packet.setAttribute("cy", pt.y);
+      if (f < 1) requestAnimationFrame(step); else cb();
+    })(t0);
+  }
+  function setLock(open) { lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
+  function call(i) {
+    var my = ++busy, p = provs[i], w = outWires[i];
+    nodes.forEach(function (n, j) { n.classList.toggle("hot", j === i); });
+    [].forEach.call(document.querySelectorAll("#gw-btns button"), function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
+    outWires.forEach(function (x, j) { x.classList.toggle("hot", j === i); }); inWire.classList.add("hot");
+    var lines = [
+      '<span class="key">→</span> agent calls <b>' + p[1] + "</b> for org acme",
+      '<span class="key">🔑</span> vault: token decrypted in memory, for this call only',
+      '<span class="key">→</span> ' + p[0] + " API",
+      '<span class="ok">← 200 OK</span> · event written to durable outbox · plaintext token dropped'
+    ];
+    function show(n) { log.innerHTML = lines.slice(0, n).join("<br>"); }
+    if (REDUCED) { show(4); setLock(false); return; }
+    show(1); setLock(false);
+    along(inWire, 500, function () {
+      setLock(true); show(2);
+      setTimeout(function () {
+        if (my !== busy) return;
+        show(3);
+        along(w, 600, function () {
+          show(4);
+          back(w, 500, function () { setLock(false); back(inWire, 450, function () { packet.setAttribute("cx", -20); }, my); }, my);
+        }, my);
+      }, 450);
+    }, my);
+  }
+  svg.addEventListener("pointerdown", function () { userTouched = true; });
+  whenVisible(svg, function () {
+    var k = 0;
+    (function demo() {
+      if (userTouched) return;
+      call(k % provs.length); k++;
+      setTimeout(demo, 3800);
+    })();
+  });
+  [].forEach.call(nodes, function (n) { n.addEventListener("focus", function () { userTouched = true; }); });
+})();
+</script>
+
+<script>
+/* ── Mutation playground: real evaluation of each mutant against the tests. ── */
+(function () {
+  var M = [
+    { id: "m1", label: ">=  →  <", target: "m-op", text: "<", f: function (a) { return a < 18; } },
+    { id: "m2", label: ">=  →  >", target: "m-op", text: ">", f: function (a) { return a > 18; } },
+    { id: "m3", label: "18  →  19", target: "m-num", text: "19", f: function (a) { return a >= 19; } },
+    { id: "m4", label: "body  →  true", target: "m-body", text: "true", f: function () { return true; } }
+  ];
+  var T = [
+    { name: "can_vote(30)", arg: 30, want: true },
+    { name: "!can_vote(10)", arg: 10, want: false }
+  ];
+  var BOUNDARY = { name: "can_vote(18)", arg: 18, want: true };
+  var listEl = document.getElementById("m-list"), testsEl = document.getElementById("m-tests");
+  var verdict = document.getElementById("m-verdict"), scoreEl = document.getElementById("m-score"), meter = document.getElementById("m-meter");
+  var addBtn = document.getElementById("m-add"), runAll = document.getElementById("m-runall");
+  var body = document.getElementById("m-body"), bodyHTML = body.innerHTML, added = document.getElementById("m-added");
+  var state = {}, tests = T.slice(), timer = 0;
+
+  var btns = M.map(function (m) {
+    var b = document.createElement("button");
+    b.type = "button"; b.setAttribute("aria-pressed", "false");
+    b.innerHTML = "mutant: " + m.label.replace(/</g, "&lt;").replace(/>/g, "&gt;") + '<span class="st">not run</span>';
+    b.addEventListener("click", function () { clearTimeout(timer); apply(m, true); });
+    listEl.appendChild(b); return b;
+  });
+
+  function plant(m) {
+    body.innerHTML = bodyHTML;
+    [].forEach.call(body.querySelectorAll(".mt"), function (x) { x.classList.remove("mutated"); });
+    body.classList.remove("mutated");
+    if (!m) return;
+    var t = document.getElementById(m.target);
+    t.textContent = m.text; t.classList.add("mutated");
+  }
+  function renderTests(m) {
+    testsEl.innerHTML = "";
+    var fails = 0;
+    tests.forEach(function (t) {
+      var got = m ? m.f(t.arg) : t.arg >= 18, ok = got === t.want;
+      if (!ok) fails++;
+      var li = document.createElement("li");
+      li.className = ok ? "pass" : "fail";
+      li.innerHTML = "<span>assert!(" + t.name + ")</span><span class=\"r\">" + (ok ? "pass" : "FAIL") + "</span>";
+      testsEl.appendChild(li);
+    });
+    return fails;
+  }
+  function score() {
+    var run = M.filter(function (m) { return state[m.id]; });
+    if (!run.length) { scoreEl.textContent = "mutation score —"; meter.style.width = "0"; return; }
+    var killed = run.filter(function (m) { return state[m.id] === "killed"; }).length;
+    var pct = Math.round(killed / M.length * 100);
+    scoreEl.textContent = "mutation score " + killed + "/" + M.length;
+    meter.style.width = pct + "%";
+  }
+  function apply(m, announce) {
+    btns.forEach(function (b, i) { b.setAttribute("aria-pressed", String(M[i] === m)); });
+    plant(m);
+    var fails = renderTests(m);
+    var res = fails ? "killed" : "survived";
+    state[m.id] = res;
+    var b = btns[M.indexOf(m)];
+    b.className = res; b.querySelector(".st").textContent = res === "killed" ? "killed ✓ a test caught it" : "survived ✗ no test noticed";
+    score();
+    if (announce) {
+      verdict.innerHTML = res === "killed"
+        ? "<b>Killed.</b> " + fails + " test" + (fails > 1 ? "s" : "") + " failed on the planted bug, as they should."
+        : "<b>Survived.</b> The code is wrong but every test still passes. " + (tests.length < 3 ? "Nothing checks age 18 exactly. Add the boundary test." : "");
+    }
+    return res;
+  }
+  runAll.addEventListener("click", function () {
+    clearTimeout(timer);
+    var i = 0;
+    (function next() {
+      apply(M[i], false); i++;
+      if (i < M.length) { timer = setTimeout(next, REDUCED ? 0 : 650); return; }
+      var surv = M.filter(function (m) { return state[m.id] === "survived"; }).length;
+      verdict.innerHTML = surv
+        ? "<b>" + surv + " of 4 mutants survived.</b> The tests pass, yet they'd miss real bugs at the boundary. Add the missing test."
+        : "<b>All 4 mutants killed.</b> These tests actually pin the behaviour down.";
+    })();
+  });
+  addBtn.addEventListener("click", function () {
+    if (tests.length > 2) return;
+    tests.push(BOUNDARY);
+    added.innerHTML = '<span class="added"><span class="fn">assert!</span>(can_vote(<span class="ty">18</span>));   <span class="cm">// new: the boundary</span></span>';
+    addBtn.disabled = true;
+    var any = M.some(function (m) { return state[m.id]; });
+    if (any) { runAll.click(); } else { verdict.innerHTML = "<b>Boundary test added.</b> Now run the mutants again."; }
+  });
+  document.getElementById("m-reset").addEventListener("click", function () {
+    clearTimeout(timer); state = {}; tests = T.slice(); added.innerHTML = ""; addBtn.disabled = false;
+    btns.forEach(function (b) { b.className = ""; b.setAttribute("aria-pressed", "false"); b.querySelector(".st").textContent = "not run"; });
+    plant(null); renderTests(null); score();
+    verdict.textContent = "Pick a mutant to plant it in the code.";
+  });
+  renderTests(null);
+})();
+</script>
+
+<script>
+/* ── honjang: honorific level follows the listener; speech streams by clause. ── */
+(function () {
+  var L = [
+    { chunks: ["역이 어디 있는지 ", "알려 줄래?"], level: "반말 · casual" },
+    { chunks: ["역이 어디 있는지 ", "알려 주실 수 있어요?"], level: "해요체 · polite" },
+    { chunks: ["역이 어디에 있는지 ", "알려 주시겠습니까?"], level: "합쇼체 · formal" }
+  ];
+  var ko = document.getElementById("hj-ko"), lvl = document.getElementById("hj-level");
+  var stt = document.getElementById("hj-stt"), llm = document.getElementById("hj-llm"), tts = document.getElementById("hj-tts"), m300 = document.getElementById("hj-300");
+  var btns = [].slice.call(document.querySelectorAll(".listeners button"));
+  var cur = 1, tok = 0;
+  function seg(el, a, b) { el.style.left = a + "%"; el.style.width = Math.max(0, b - a) + "%"; }
+  function render(i, phase) {
+    var c = L[i].chunks;
+    ko.innerHTML = c.map(function (t, k) {
+      var cls = "ck" + (phase > k ? " on" : "") + (phase === k + 1 && phase < 3 ? " speaking" : "");
+      return '<span class="' + cls + '">' + t + "</span>";
+    }).join("");
+    lvl.textContent = L[i].level;
+  }
+  function play(i) {
+    var my = ++tok; cur = i;
+    btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
+    if (REDUCED) { render(i, 3); seg(stt, 0, 45); seg(llm, 20, 70); seg(tts, 38, 100); m300.style.left = "38%"; m300.classList.add("on"); return; }
+    render(i, 0); seg(stt, 0, 0); seg(llm, 0, 0); seg(tts, 0, 0); m300.classList.remove("on"); m300.style.left = "38%";
+    var t0 = performance.now(), D = 2600;
+    (function step(now) {
+      if (my !== tok) return;
+      var p = Math.min(100, (now - t0) / D * 100);
+      seg(stt, 0, Math.min(p, 45));
+      if (p > 20) seg(llm, 20, Math.min(p, 70));
+      if (p > 38) { seg(tts, 38, p); m300.classList.add("on"); }
+      render(i, p > 70 ? 3 : p > 55 ? 2 : p > 38 ? 1 : 0);
+      if (p < 100) requestAnimationFrame(step); else render(i, 3);
+    })(t0);
+  }
+  btns.forEach(function (b, j) { b.addEventListener("click", function () { play(j); }); });
+  document.getElementById("hj-play").addEventListener("click", function () { play(cur); });
+  render(cur, 3);
+  whenVisible(ko, function () { play(cur); });
+})();
+</script>
+
+<script>
+/* factory line: AGVs circulating the loop */
+(function () {
+  var NS = "http://www.w3.org/2000/svg", g = document.getElementById("fx-agvs");
+  if (!g || REDUCED) return;
+  [0, 0.25, 0.5, 0.75].forEach(function (off, i) {
+    var r = document.createElementNS(NS, "rect");
+    r.setAttribute("width", 18); r.setAttribute("height", 11); r.setAttribute("x", -9); r.setAttribute("y", -5.5); r.setAttribute("rx", 3);
+    r.setAttribute("class", "agv" + (i % 2 ? " b" : ""));
+    var a = document.createElementNS(NS, "animateMotion");
+    a.setAttribute("dur", "9s"); a.setAttribute("repeatCount", "indefinite"); a.setAttribute("rotate", "auto");
+    a.setAttribute("begin", (-off * 9) + "s");
+    var mp = document.createElementNS(NS, "mpath"); mp.setAttribute("href", "#fx-path");
+    a.appendChild(mp); r.appendChild(a); g.appendChild(r);
+  });
+})();
+</script>
+
+<script>
+/* ── Career timing diagram: lanes are signals, spans are clickable roles. ── */
 (function () {
   var svg = document.getElementById("timeline");
   if (!svg) return;
-  var caption = document.getElementById("td-caption");
   var NS = "http://www.w3.org/2000/svg";
   function ym(y, m) { return y + (m - 1) / 12; }
   var today = new Date();
   var NOW = Math.min(today.getFullYear() + (today.getMonth() + today.getDate() / 31) / 12, 2026.95);
-
   var lanes = [
-    { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "Metatech", "hot"]] },
-    { label: "FACTORY", spans: [[ym(2024, 4), ym(2025, 8), "LG Sinarmas", ""], [ym(2025, 8), ym(2025, 11), "Korea", "warm"], [ym(2025, 11), NOW, "LG Sinarmas", ""]] },
-    { label: "LAB",     spans: [[ym(2023, 10), ym(2024, 4), "FAAN Lab", ""]] },
-    { label: "FIELD",   spans: [[ym(2022, 6), ym(2022, 8), "PLC intern", ""], [ym(2024, 1), ym(2024, 4), "Instrumentation", ""]] },
-    { label: "EDU",     spans: [[ym(2019, 8), ym(2023, 8), "B.Sc. Physics · Universitas Indonesia", ""]] }
+    { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "Metatech", "hot", "metatech"]] },
+    { label: "FACTORY", spans: [[ym(2024, 4), ym(2025, 8), "LG Sinarmas", "", "lg"], [ym(2025, 8), ym(2025, 11), "Korea", "warm", "korea"], [ym(2025, 11), NOW, "LG Sinarmas", "", "lg"]] },
+    { label: "LAB",     spans: [[ym(2023, 10), ym(2024, 4), "FAAN Lab", "", "faan"]] },
+    { label: "FIELD",   spans: [[ym(2022, 6), ym(2022, 8), "PLC intern", "", "plc"], [ym(2024, 1), ym(2024, 4), "Instrumentation", "", "poly"]] },
+    { label: "EDU",     spans: [[ym(2019, 8), ym(2023, 8), "B.Sc. Physics · Universitas Indonesia", "", "ui"]] }
   ];
+  var roles = [].slice.call(document.querySelectorAll(".role"));
+  var selected = "metatech";
+
+  function select(key, focusPanel) {
+    selected = key;
+    roles.forEach(function (r) { r.hidden = r.id !== "role-" + key; });
+    [].forEach.call(svg.querySelectorAll(".span"), function (g) { g.classList.toggle("sel", g.dataset.key === key); g.setAttribute("aria-pressed", String(g.dataset.key === key)); });
+  }
 
   function draw() {
     var narrow = svg.parentNode.clientWidth < 640;
-    var W = narrow ? 560 : 1000;
-    var T0 = narrow ? 2023.6 : 2019.5, T1 = NOW + (narrow ? 0.12 : 0.2);
-    var X0 = narrow ? 70 : 96, X1 = W - 12;
-    var top = 50, laneH = 42, half = 11, H = top + lanes.length * laneH + 28;
+    var W = narrow ? 420 : 1000;
+    var T0 = narrow ? 2023.75 : 2019.5, T1 = NOW + (narrow ? 0.12 : 0.2);
+    var X0 = narrow ? 62 : 96, X1 = W - 10;
+    var shown = lanes.filter(function (l) { return l.spans.some(function (s) { return s[1] > T0; }); });
+    var top = 50, laneH = 42, half = 11, H = top + shown.length * laneH + 28;
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-    if (caption) caption.textContent = narrow ? "Showing 2023 onward. Full history below." : "Full details below.";
-
+    document.getElementById("td-caption").textContent = narrow ? "Showing 2024 onward; the full history is on wider screens. Dashed line = now." : "Dashed line = now.";
     function x(t) { return X0 + (Math.max(t, T0) - T0) / (T1 - T0) * (X1 - X0); }
-    function el(tag, attrs, text) {
+    function el(tag, attrs, text, parent) {
       var n = document.createElementNS(NS, tag);
       for (var k in attrs) n.setAttribute(k, attrs[k]);
       if (text) n.textContent = text;
-      svg.appendChild(n);
-      return n;
+      (parent || svg).appendChild(n); return n;
     }
-
-    /* clock lane: one period per year */
     el("text", { x: 0, y: 26, "class": "lane-label" }, "YEAR");
     var d = "";
     for (var yr = Math.ceil(T0); yr <= Math.floor(NOW); yr++) {
       var a = x(yr), b = x(Math.min(yr + 0.5, T1)), c = x(Math.min(yr + 1, T1));
       d += "M" + a + " 14 L" + a + " 30 L" + b + " 30 L" + b + " 14 L" + c + " 14 ";
-      el("line", { x1: a, y1: 36, x2: a, y2: top + lanes.length * laneH, "class": "gridline" });
+      el("line", { x1: a, y1: 36, x2: a, y2: top + shown.length * laneH, "class": "gridline" });
       el("text", { x: a + 4, y: 11, "class": "year" }, String(yr));
     }
     el("path", { d: d, "class": "clk" });
-
-    lanes.forEach(function (lane, i) {
+    shown.forEach(function (lane, i) {
       var cy = top + i * laneH + laneH / 2;
       el("text", { x: 0, y: cy + 4, "class": "lane-label" }, lane.label);
-      var visible = lane.spans.filter(function (s) { return s[1] > T0; });
-      /* low baseline, broken by spans */
+      var vis = lane.spans.filter(function (s) { return s[1] > T0; });
       var cursor = X0, base = "";
-      visible.forEach(function (s) {
-        var sx = x(s[0]), ex = x(s[1]);
-        if (sx > cursor) base += "M" + cursor + " " + (cy + half) + " L" + sx + " " + (cy + half) + " ";
-        cursor = Math.max(cursor, ex);
-      });
+      vis.forEach(function (s) { var sx = x(s[0]); if (sx > cursor) base += "M" + cursor + " " + (cy + half) + " L" + sx + " " + (cy + half) + " "; cursor = Math.max(cursor, x(s[1])); });
       if (cursor < x(NOW)) base += "M" + cursor + " " + (cy + half) + " L" + x(NOW) + " " + (cy + half);
       if (base) el("path", { d: base, "class": "base" });
-
-      visible.forEach(function (s) {
-        var sx = x(s[0]), ex = x(s[1]), w = ex - sx;
-        var cls = "bus" + (s[3] ? " " + s[3] : "");
-        var slant = Math.min(5, w / 3);
+      vis.forEach(function (s) {
+        var sx = x(s[0]), ex = x(s[1]), w = ex - sx, slant = Math.min(5, w / 3);
         var openStart = s[0] < T0, openEnd = s[1] >= NOW - 0.001;
+        var g = el("g", { "class": "span", tabindex: "0", role: "button", "data-key": s[4], "aria-label": s[2] + ": show details" });
         var p = "M" + (openStart ? sx + " " + (cy - half) : sx + " " + cy + " L" + (sx + slant) + " " + (cy - half)) +
                 " L" + (openEnd ? ex : ex - slant) + " " + (cy - half) +
                 (openEnd ? " L" + ex + " " + (cy + half) : " L" + ex + " " + cy + " L" + (ex - slant) + " " + (cy + half)) +
                 " L" + (openStart ? sx : sx + slant) + " " + (cy + half) + " Z";
-        el("path", { d: p, "class": cls });
-        var t = el("text", { x: sx + 9, y: cy + 4, "class": "bus-text" }, s[2]);
-        if (t.getComputedTextLength() + 16 > w) {
-          t.setAttribute("x", sx + 2);
-          t.setAttribute("y", cy - half - 5);
-          t.setAttribute("class", "bus-text above" + (s[3] ? " " + s[3] : ""));
-        }
+        el("path", { d: p, "class": "bus" + (s[3] ? " " + s[3] : "") }, null, g);
+        /* generous invisible hit area for narrow spans */
+        el("rect", { x: sx - 4, y: cy - half - 16, width: Math.max(w + 8, 60), height: half * 2 + 18, fill: "transparent" }, null, g);
+        var t = el("text", { x: sx + 9, y: cy + 4, "class": "bus-text" }, s[2], g);
+        if (t.getComputedTextLength() + 16 > w) { t.setAttribute("x", sx + 2); t.setAttribute("y", cy - half - 5); t.setAttribute("class", "bus-text above"); }
+        g.addEventListener("click", function () { select(s[4]); });
+        g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(s[4]); } });
       });
     });
-
     var nx = x(NOW);
-    el("line", { x1: nx, y1: 8, x2: nx, y2: top + lanes.length * laneH + 4, "class": "now" });
-    el("text", { x: nx - 4, y: top + lanes.length * laneH + 18, "class": "now-text", "text-anchor": "end" }, "now");
+    el("line", { x1: nx, y1: 8, x2: nx, y2: top + shown.length * laneH + 4, "class": "now" });
+    el("text", { x: nx - 4, y: top + shown.length * laneH + 18, "class": "now-text", "text-anchor": "end" }, "now");
+    select(selected);
   }
-
   draw();
-  var lastNarrow = svg.parentNode.clientWidth < 640, pending = 0;
+  var lastNarrow = svg.parentNode.clientWidth < 640, pend = 0;
   window.addEventListener("resize", function () {
-    cancelAnimationFrame(pending);
-    pending = requestAnimationFrame(function () {
-      var n = svg.parentNode.clientWidth < 640;
-      if (n !== lastNarrow) { lastNarrow = n; draw(); }
-    });
+    cancelAnimationFrame(pend);
+    pend = requestAnimationFrame(function () { var n = svg.parentNode.clientWidth < 640; if (n !== lastNarrow) { lastNarrow = n; draw(); } });
   });
 })();
 </script>
@@ -1070,9 +1594,5 @@ footer { margin-top: 64px; padding: 20px 0 48px; border-top: 1px solid var(--lin
     .catch(showError);
 })();
 </script>
-
-<!-- Pinned mascot in the top-right corner. Loaded after the page is parsed and only on
-     the home page, so it costs the content nothing; on any failure the page is unchanged. -->
-<script type="module" src="/mascot.js"></script>
 </body>
 </html>

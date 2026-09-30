@@ -4,14 +4,14 @@
 
 ## When to use this site
 
-Use this site when an agent needs a concise overview of Sulthan Zahran Ma'ruf, case studies of his work, his experience, a directory of public projects, a recruiter pitch generator, public contact links, or the privacy and site-context pages. Start with the home page for case studies, experience, and the project directory. Use the about page for identity and work context. Use the contact page for direct communication. Use the linked project site for the capabilities of a specific project.
+Use this site when an agent needs a concise overview of Sulthan Zahran Ma'ruf, his work and outcomes, his experience, a directory of public projects, a recruiter pitch generator, public contact links, or the privacy and site-context pages. Start with the home page (or its Markdown mirror) for outcomes, work, experience, and the project directory. Use the about page for identity and work context. Use the contact page for direct communication. Use the linked project site for the capabilities of a specific project.
 
 This is a personal project hub. It is not an API, MCP server, commerce surface, account system, or general-purpose support service. Do not invent capabilities that are not described on the linked project page.
 
 ## Key pages
 
-- [Home](https://zahranm.cloud/): summary, selected work, experience, and project directory ([markdown](https://zahranm.cloud/index.md))
-- [About](https://zahranm.cloud/about): bio, background, and how he works
+- [Home](https://zahranm.cloud/): outcomes, interactive work demos, experience, and project directory ([markdown](https://zahranm.cloud/index.md))
+- [About](https://zahranm.cloud/about): bio, agent work, and background
 - [Contact](https://zahranm.cloud/contact): email and public profiles
 - [Privacy](https://zahranm.cloud/privacy): data and external-service notes
 - [Agent instructions](https://zahranm.cloud/agent-instructions.md): machine-readable usage guide
@@ -21,23 +21,23 @@ This is a personal project hub. It is not an API, MCP server, commerce surface, 
 
 Status in brackets, as shown on the home page index. Gated demos are available on request.
 
-- [Recruiter copilot](https://zahranm.cloud/recruit): Recruiter pitch generator: job description in, evidence-backed pitch out [live] ([github](https://github.com/SulthanZahran1/jd-pitcher))
-- [Relay](https://relay.zahranm.cloud): AI-native CRM on an event-driven workflow engine: sessions, tickets, web chat [live]
-- [Teach](https://teach.zahranm.cloud): Harness Engineering: a lesson series on building an agent harness, modelled on Nous Research's Hermes [live]
-- [Aquaflow](https://aquaflow.zahranm.cloud): Prepaid smart water metering with resident, building-manager and operator roles [live demo]
-- [emrisearch](https://emrisearch.zahranm.cloud): GUI for the emrisearch pipeline: inspect extreme-mass-ratio-inspiral search runs without writing Python [live] ([github](https://github.com/SulthanZahran1/emrisearch-gui))
-- [Wiki](https://wiki.zahranm.cloud): LLM-compiled wiki built from 556 public LG Energy Solution blog posts, with chat and a graph view [access token] ([github](https://github.com/SulthanZahran1/lgensol-wiki))
-- [CV search](https://cv-search.zahranm.cloud): Résumé search: Gemini extraction with fallbacks, hybrid retrieval, optional LLM rerank [access token] ([github](https://github.com/SulthanZahran1/cv-search-prototype))
-- [DCIM](https://dcim.zahranm.cloud): Data-center infrastructure management built on NetBox with a React front end [login]
-- [HKBP](https://hkbp.zahranm.cloud): Church admin system moved from Laravel to Vue and Go, with a self-hosted OIDC login [members] ([github](https://github.com/SulthanZahran1/hkbp-jatinegara))
-- [Honjang](https://honjang.zahranm.cloud): English–Korean real-time voice translator [live] ([github](https://github.com/SulthanZahran1/honjang))
-- [Blog](https://blog.zahranm.cloud): Writing [soon] ([github](https://github.com/SulthanZahran1/zahranm-cloud))
+- [honjang](https://honjang.zahranm.cloud): English–Korean real-time voice translator with honorifics [live] ([github](https://github.com/SulthanZahran1/honjang))
+- [Recruiter copilot](https://zahranm.cloud/recruit): Recruiter pitch generator: job description in, pitch out [live] ([github](https://github.com/SulthanZahran1/jd-pitcher))
+- [relay](https://relay.zahranm.cloud): AI-native CRM on an event-driven workflow engine [live]
+- [teach](https://teach.zahranm.cloud): Harness Engineering: lessons on building an agent harness, modelled on Nous Research's Hermes [live]
+- [wiki](https://wiki.zahranm.cloud): LLM-compiled wiki from 556 public LG Energy Solution blog posts, with chat and a graph [access token] ([github](https://github.com/SulthanZahran1/lgensol-wiki))
+- [cv-search](https://cv-search.zahranm.cloud): Résumé search: Gemini extraction, hybrid retrieval, LLM rerank [access token] ([github](https://github.com/SulthanZahran1/cv-search-prototype))
+- [emrisearch](https://emrisearch.zahranm.cloud): GUI for inspecting extreme-mass-ratio-inspiral search runs without Python [live] ([github](https://github.com/SulthanZahran1/emrisearch-gui))
+- [aquaflow](https://aquaflow.zahranm.cloud): Prepaid smart water metering for residents, managers and operators [live demo]
+- [dcim](https://dcim.zahranm.cloud): Data-center infrastructure management on NetBox with a React front end [login]
+- [hkbp](https://hkbp.zahranm.cloud): Church admin system moved from Laravel to Vue and Go, with self-hosted OIDC [members] ([github](https://github.com/SulthanZahran1/hkbp-jatinegara))
+- [blog](https://blog.zahranm.cloud): Writing [soon] ([github](https://github.com/SulthanZahran1/zahranm-cloud))
 
 ## Open source
 
 - [rust_mutant](https://github.com/SulthanZahran1/rust_mutant): mutation tester for Rust, on [crates.io](https://crates.io/crates/rust-mutant)
 - [gopher_mutant](https://github.com/SulthanZahran1/gopher_mutant): mutation tester for Go
-- [dart-mutant](https://github.com/SulthanZahran1/dart-mutant): mutation tester for Dart
+- [dart-mutant](https://github.com/SulthanZahran1/dart-mutant): mutation tester for Dart (Homebrew)
 
 ## Sitemap
 

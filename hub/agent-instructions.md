@@ -2,7 +2,7 @@
 
 ## When to use
 
-Use this site when you need a concise overview of Sulthan Zahran Ma'ruf, an AI engineer building agents and the infrastructure they need in production, case studies of his work, his experience, a directory of public projects, a recruiter pitch generator, public contact links, or the site's privacy and context pages. Start at https://zahranm.cloud/ and follow the linked page that matches the task.
+Use this site when you need a concise overview of Sulthan Zahran Ma'ruf, an AI engineer building agents and the infrastructure they need in production, his work and outcomes, his experience, a directory of public projects, a recruiter pitch generator, public contact links, or the site's privacy and context pages. Start at https://zahranm.cloud/ and follow the linked page that matches the task.
 
 ## Install
 

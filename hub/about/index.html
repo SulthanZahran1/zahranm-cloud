@@ -44,47 +44,43 @@
   </header>
   <section class="prose">
     <h1>About</h1>
-    <p class="lede">Sulthan Zahran Ma'ruf is an <strong>AI engineer</strong> in Indonesia. He builds <strong>AI agents and the infrastructure they need in production</strong>: a tool gateway that lets agents act on real accounts, observability that shows what each turn did and what it cost, and mutation testing for the tests agents write. Before agents, he shipped smart-factory software for EV-battery lines, so he builds as if downtime is expensive.</p>
+    <p class="lede">Sulthan Zahran Ma'ruf is an <strong>AI engineer</strong> in Indonesia. He builds <strong>AI agents that do real work</strong>, and the infrastructure they need in production: the gateway agents act through, the engine that runs each turn, and the monitoring that shows what they did. Before agents, he shipped smart-factory software for EV-battery lines, so he builds as if downtime is expensive.</p>
 
     <h2>agents and infrastructure</h2>
-    <h3>Software Engineer <span>· Metatech · part-time, remote · Apr 2026 to now</span></h3>
-    <p>At Metatech he works on AI agents, the observability tools that watch them, and the messaging infrastructure they run on.</p>
+    <h3>Software Engineer, AI agents <span>· Metatech · part-time, remote · Apr 2026 to now</span></h3>
     <ul>
-      <li><strong>sambungapi</strong>: primary engineer on an in-house Rust gateway that lets agents act on real accounts (Gmail, calendars, chat apps) through OAuth-connected tools, replacing a layer rented from a vendor. A single static binary with its own /v1 API, hosted OAuth connect pages and a migration runbook for the agent platform; OAuth tokens are encrypted (AES-256-GCM) in the team's own Postgres instead of a vendor's. Eight weeks from empty repo to production gateway: 3,100+ commits, 326 test files.</li>
-      <li><strong>Bella</strong>: core engineer on an AI chief of staff that works across WhatsApp, Gmail, Calendar and Lark. His work centres on the worker that executes agent turns (2,000+ of his commits), plus most of the observability console: per-turn cost, an execution waterfall, and a human-review loop that turns real conversations into labelled ground-truth datasets.</li>
+      <li><strong>sambungapi</strong>: built the in-house gateway the team's agents use to act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira. Agents call one API; the gateway holds every OAuth token encrypted, unlocks it only for the call, and talks to the provider. It replaced a paid integrations vendor in 8 weeks.</li>
+      <li><strong>Bella</strong>: core engineer on an AI chief of staff for a whole company. Staff message it on WhatsApp, web or Lark, and it handles email, meetings and cross-department updates within each person's permissions. He works on the engine that runs every turn and built the monitoring behind it.</li>
+      <li><strong>Messaging and monitoring</strong>: built the messaging engine that moves messages between apps and chat platforms, and the monitoring that catches failures in minutes. Together they generate Rp50B+ in B2B revenue.</li>
     </ul>
 
     <h2>open source</h2>
     <ul>
-      <li><strong>Mutation testers for Rust, Go and Dart</strong> (<a href="https://github.com/SulthanZahran1/rust_mutant">rust_mutant</a>, <a href="https://github.com/SulthanZahran1/gopher_mutant">gopher_mutant</a>, <a href="https://github.com/SulthanZahran1/dart-mutant">dart-mutant</a>), built to check the tests agents write. rust_mutant and dart-mutant run only the tests that cover a mutated line, and rust_mutant compares LLVM IR to throw out mutants that compile to identical code. rust_mutant 1.0.1 is on crates.io.</li>
-      <li><strong><a href="https://github.com/SulthanZahran1/honjang">honjang</a></strong>: a real-time English–Korean voice translator that tracks honorifics. Speech streams through recognition, an LLM and speech synthesis, with LLM output split at Korean clause boundaries so audio can start before the sentence is done.</li>
+      <li><strong>Mutation testers for Rust, Go and Dart</strong> (<a href="https://github.com/SulthanZahran1/rust_mutant">rust_mutant</a>, <a href="https://github.com/SulthanZahran1/gopher_mutant">gopher_mutant</a>, <a href="https://github.com/SulthanZahran1/dart-mutant">dart-mutant</a>). Coding agents write a lot of tests; mutation testing plants small bugs and checks whether the tests notice. rust_mutant is on <a href="https://crates.io/crates/rust-mutant">crates.io</a>.</li>
+      <li><strong>honjang</strong>: a real-time English–Korean voice translator that adjusts politeness to who you're talking to, streaming audio before the sentence is done. <a href="https://honjang.zahranm.cloud">Live demo</a>, <a href="https://github.com/SulthanZahran1/honjang">source</a>.</li>
     </ul>
-
-    <h2>how he works</h2>
-    <ul>
-      <li><strong>Decisions go on paper.</strong> Every hard-to-reverse choice gets an ADR. On Bella the team keeps ~340, and he has written or revised 120+. Agents and new teammates both read the reasoning, not just the code.</li>
-      <li><strong>Test the tests.</strong> Agents write a lot of tests, so he measures whether those tests would catch a real bug. That is why he built mutation testers.</li>
-      <li><strong>Measure before you trust.</strong> On a factory floor a bad deploy stops a production line. He carries that into software: build the observability first, and don't trust anything until it's measured.</li>
-    </ul>
-    <p>AI / agents: tool-use and MCP, RAG, agent harnesses, LLM observability, voice pipelines. Languages: Rust, Go, TypeScript, Python, C#, SQL. Infra: PostgreSQL, MongoDB, Redis, Docker, Traefik, Linux. Industrial: MES, AMHS, RTD, PLC, SECS/GEM, AGV integration.</p>
+    <p>AI: AI agents, tool use and MCP, RAG, LLM observability, voice pipelines, evals and mutation testing. Languages and infrastructure: Rust, Go, TypeScript, Python, C#, SQL, PostgreSQL, MongoDB, Redis, Docker, Traefik.</p>
 
     <h2>background</h2>
-    <h3>Software Engineer <span>· LG Sinarmas Technology Solutions · Karawang · Apr 2024 to now</span></h3>
-    <p>He builds and integrates the software between the manufacturing execution system (MES), real-time dispatching (RTD) and the automated material handling system (AMHS) of an EV-battery plant: the vehicles, conveyors and stockers that move material between processes.</p>
+    <h3>Software Engineer, smart factory <span>· LG Sinarmas Technology Solutions · Karawang · Apr 2024 to now</span></h3>
     <ul>
-      <li>Shipped 8+ internal applications; one saves 50 person-hours a day.</li>
-      <li>Wrote the Timing Diagram Analyzer, which turns millions of material-handling log entries into a timing view: 4,120,953 entries analysed in 104 seconds, cutting diagnosis from hours or days to minutes. The whole team uses it.</li>
-      <li>Built a Korean–English RAG pipeline for cross-language retrieval over factory documentation.</li>
-      <li>Designed the team's onboarding program and trained 15+ software engineers.</li>
-      <li>Acts as liaison between Indonesian factory operations and the Korean engineering HQ.</li>
+      <li>MES, real-time dispatching and material handling for an EV-battery plant running 8 lines, 24/7.</li>
+      <li>Shipped 8+ internal apps; one saves 50 person-hours a day. Automated an IoT sensor monitoring cycle from 3 hours to 15 minutes.</li>
+      <li>Built a log analyzer that cut incident diagnosis from hours or days to minutes, and a Korean–English RAG over factory documentation.</li>
+      <li>Designed the team's onboarding and trained 15+ engineers.</li>
     </ul>
-    <p>From August to October 2025 he was one of four engineers selected for a two-month deployment to LG Energy Solution Ochang in South Korea as an AMHS Integration Specialist, integrating material handling before production. He fixed 15+ pre-production issues across AGVs, conveyors and stockers.</p>
+    <h3>AMHS Integration Specialist <span>· LG Energy Solution Ochang · South Korea · Aug to Oct 2025</span></h3>
+    <p>One of four engineers selected for a two-month deployment. Caught and fixed 15+ integration issues across AGVs, conveyors and stockers before production.</p>
     <h3>Before that</h3>
-    <p>He studied physics with an instrumentation focus at Universitas Indonesia from 2019 to 2023 (B.Sc.). Alongside the degree his team placed 4th at IndySCC22, the only team from Southeast Asia, and he was programming lead for the KRTMI robotics contest with the UI Robotics Team. From June to July 2022 he was a PLC intern at PT Sugitama Intiarto.</p>
-    <p>After graduating he was a software engineering research assistant at the FAAN Laboratory in the university's physics department (Oct 2023 to Mar 2024), where the lab software he built improved the synthesis–testing cycle by roughly 800%. He also did project-based work as an instrumentation engineer at PT Polychemie Asia Pacific Permai (Jan to Mar 2024).</p>
+    <ul>
+      <li>Instrumentation Engineer, PT Polychemie Asia Pacific Permai (Jan to Mar 2024): prototyped digital temperature and flow monitoring for a plant where readings were written down by hand.</li>
+      <li>Research Assistant, software, FAAN Laboratory, Physics, Universitas Indonesia (Oct 2023 to Mar 2024): built the lab's spectroscopy analysis app, improving the synthesis–testing cycle by ~800%.</li>
+      <li>PLC Intern, PT Sugitama Intiarto (Jun to Jul 2022): first contact with industrial control software.</li>
+      <li>B.Sc. Physics, Instrumentation, Universitas Indonesia (Aug 2019 to Jul 2023): 4th place at IndySCC22 (supercomputing), the only team from Southeast Asia; programming lead for the UI Robotics Team at KRTMI.</li>
+    </ul>
 
     <h2>how to use this site</h2>
-    <p>Use this page for identity and context, the <a href="/">home page</a> for case studies, experience and the index of public projects, and the <a href="/contact">contact page</a> for direct communication. The recruiter copilot is at <a href="/recruit">/recruit</a>. Agents can start with <a href="/llms.txt">llms.txt</a>, <a href="/agent-instructions.md">agent-instructions.md</a>, or the <a href="/sitemap.xml">XML sitemap</a>. These files describe the same public information without requiring client-side JavaScript.</p>
+    <p>Use this page for identity and context, the <a href="/">home page</a> for outcomes, interactive work demos, experience and the index of public projects, and the <a href="/contact">contact page</a> for direct communication. The recruiter copilot is at <a href="/recruit">/recruit</a>. Agents can start with <a href="/llms.txt">llms.txt</a>, <a href="/agent-instructions.md">agent-instructions.md</a>, or the <a href="/sitemap.xml">XML sitemap</a>. These files describe the same public information without requiring client-side JavaScript.</p>
 
     <h2>scope</h2>
     <p>This is a personal project hub, not a general-purpose software service. It does not offer an API, account system, paid checkout, MCP server, or automated support channel. Employer work is described, not linked. Follow the linked project site for the capabilities and terms of each individual project.</p>
