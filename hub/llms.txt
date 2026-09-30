@@ -21,17 +21,16 @@ This is a personal project hub. It is not an API, MCP server, commerce surface, 
 
 Status in brackets, as shown on the home page index. Gated demos are available on request.
 
-- [honjang](https://honjang.zahranm.cloud): English–Korean real-time voice translator with honorifics [live] ([github](https://github.com/SulthanZahran1/honjang))
-- [Recruiter copilot](https://zahranm.cloud/recruit): Recruiter pitch generator: job description in, pitch out [live] ([github](https://github.com/SulthanZahran1/jd-pitcher))
+- [honjang](https://honjang.zahranm.cloud): English–Korean real-time voice translator with honorifics [live] ([source](https://github.com/SulthanZahran1/honjang))
+- [Recruiter copilot](https://zahranm.cloud/recruit): LLM pitch generator: job description in, evidence-grounded pitch out [live] ([source](https://github.com/SulthanZahran1/jd-pitcher))
 - [relay](https://relay.zahranm.cloud): AI-native CRM on an event-driven workflow engine [live]
-- [teach](https://teach.zahranm.cloud): Harness Engineering: lessons on building an agent harness, modelled on Nous Research's Hermes [live]
-- [wiki](https://wiki.zahranm.cloud): LLM-compiled wiki from 556 public LG Energy Solution blog posts, with chat and a graph [access token] ([github](https://github.com/SulthanZahran1/lgensol-wiki))
-- [cv-search](https://cv-search.zahranm.cloud): Résumé search: Gemini extraction, hybrid retrieval, LLM rerank [access token] ([github](https://github.com/SulthanZahran1/cv-search-prototype))
-- [emrisearch](https://emrisearch.zahranm.cloud): GUI for inspecting extreme-mass-ratio-inspiral search runs without Python [live] ([github](https://github.com/SulthanZahran1/emrisearch-gui))
-- [aquaflow](https://aquaflow.zahranm.cloud): Prepaid smart water metering for residents, managers and operators [live demo]
-- [dcim](https://dcim.zahranm.cloud): Data-center infrastructure management on NetBox with a React front end [login]
-- [hkbp](https://hkbp.zahranm.cloud): Church admin system moved from Laravel to Vue and Go, with self-hosted OIDC [members] ([github](https://github.com/SulthanZahran1/hkbp-jatinegara))
-- [blog](https://blog.zahranm.cloud): Writing [soon] ([github](https://github.com/SulthanZahran1/zahranm-cloud))
+- [teach](https://teach.zahranm.cloud): Harness Engineering: building an agent harness, modelled on Hermes [live]
+- [wiki](https://wiki.zahranm.cloud): LLM-compiled wiki with chat and a knowledge graph, from 556 public LGES posts [on request] ([source](https://github.com/SulthanZahran1/lgensol-wiki))
+- [cv-search](https://cv-search.zahranm.cloud): Résumé search: Gemini extraction, hybrid retrieval, LLM rerank [on request] ([source](https://github.com/SulthanZahran1/cv-search-prototype))
+- [emrisearch](https://emrisearch.zahranm.cloud): GUI for extreme-mass-ratio-inspiral search runs [live] ([source](https://github.com/SulthanZahran1/emrisearch-gui))
+- [aquaflow](https://aquaflow.zahranm.cloud): Prepaid smart water metering, three roles [live]
+- [dcim](https://dcim.zahranm.cloud): Data-center infrastructure management on NetBox + React [on request]
+- [hkbp](https://hkbp.zahranm.cloud): Church admin system: Laravel → Vue + Go, self-hosted OIDC [on request] ([source](https://github.com/SulthanZahran1/hkbp-jatinegara))
 
 ## Open source
 

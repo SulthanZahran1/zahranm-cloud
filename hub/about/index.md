@@ -2,12 +2,12 @@
 title: About Sulthan Zahran Ma'ruf, AI engineer
 description: About Sulthan Zahran Ma'ruf, an AI engineer in Indonesia building agents and the infrastructure they need in production.
 canonical_url: https://zahranm.cloud/about
-last_updated: 2026-09-30
+last_updated: 2026-10-01
 ---
 
 # About Sulthan Zahran Ma'ruf, AI engineer
 
-Sulthan Zahran Ma'ruf is an AI engineer in Indonesia. He builds AI agents that do real work, and the infrastructure they need in production: the gateway agents act through, the engine that runs each turn, and the monitoring that shows what they did. Before agents, he shipped smart-factory software for EV-battery lines, so he builds as if downtime is expensive.
+Sulthan Zahran Ma'ruf is an AI engineer in Indonesia. He builds AI agents that do real work, and the infrastructure they need in production: the gateway agents act through, the engine that runs each turn, and the monitoring that shows what they did.
 
 ## Agents and infrastructure
 
