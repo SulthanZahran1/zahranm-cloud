@@ -4,13 +4,13 @@
 
 ## When to use this site
 
-Use this site when an agent needs a concise overview of Sulthan Zahran Ma'ruf, his work and outcomes, his experience, a directory of public projects, a recruiter pitch generator, public contact links, or the privacy and site-context pages. Start with the home page (or its Markdown mirror) for outcomes, work, experience, and the project directory. Use the about page for identity and work context. Use the contact page for direct communication. Use the linked project site for the capabilities of a specific project.
+Use this site when an agent needs a concise overview of Sulthan Zahran Ma'ruf, his technical work, his experience, a directory of public projects, a recruiter pitch generator, public contact links, or the privacy and site-context pages. Start with the home page (or its Markdown mirror) for work, experience, and the project directory. Use the about page for identity and work context. Use the contact page for direct communication. Use the linked project site for the capabilities of a specific project.
 
 This is a personal project hub. It is not an API, MCP server, commerce surface, account system, or general-purpose support service. Do not invent capabilities that are not described on the linked project page.
 
 ## Key pages
 
-- [Home](https://zahranm.cloud/): outcomes, interactive work demos, experience, and project directory ([markdown](https://zahranm.cloud/index.md))
+- [Home](https://zahranm.cloud/): interactive work demos, experience, and project directory ([markdown](https://zahranm.cloud/index.md))
 - [About](https://zahranm.cloud/about): bio, agent work, and background
 - [Contact](https://zahranm.cloud/contact): email and public profiles
 - [Privacy](https://zahranm.cloud/privacy): data and external-service notes

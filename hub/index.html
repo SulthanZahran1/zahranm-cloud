@@ -121,12 +121,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .bar nav a:hover { color: var(--ink); }
 
 /* ── hero ────────────────────────────────────────────── */
-.hero { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: 48px; align-items: center; padding: 64px 0 40px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 64px 0 40px; }
 .eyebrow { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 10px; align-items: baseline; }
 .eyebrow .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); transform: translateY(-1px); animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 7px transparent; } }
-.hero h1 { font-family: var(--cond); font-weight: 600; font-size: clamp(44px, 6vw, 80px); line-height: .95; letter-spacing: -.025em; margin-top: 20px; }
+.hero h1 { font-family: var(--cond); font-weight: 600; font-size: clamp(44px, 5.2vw, 70px); line-height: .95; letter-spacing: -.025em; margin-top: 20px; }
 .hero h1 em { font-style: normal; color: var(--accent); }
+.try-d { display: none; }
 .lede { margin-top: 22px; font-size: 18px; color: var(--ink-2); max-width: 44ch; }
 .cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13.5px; text-decoration: none; padding: 11px 16px; border-radius: 999px; border: 1px solid var(--ink); transition: background .15s, color .15s; }
@@ -186,13 +187,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .c-foot { padding: 10px 16px; border-top: 1px solid var(--c-line); color: var(--c-dim); font-size: 11px; display: flex; justify-content: space-between; gap: 10px; }
 .c-foot button { color: var(--c-text); text-decoration: underline; text-underline-offset: 3px; }
 
-/* ── outcome strip ─────────────────────────────────── */
-.flex-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); margin-top: 28px; }
-.flex-strip > div { padding: 22px 20px 22px 0; }
-.flex-strip > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
-.flex-strip .n { font-family: var(--cond); font-weight: 600; font-size: clamp(36px, 4.4vw, 54px); line-height: 1; letter-spacing: -.02em; display: block; }
-.flex-strip .n small { font-size: .5em; margin-left: 3px; letter-spacing: 0; }
-.flex-strip .l { display: block; margin-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.4; }
 
 /* ── sections ───────────────────────────────────────── */
 section.block { padding-top: 110px; }
@@ -227,6 +221,7 @@ section.block { padding-top: 110px; }
 .wins li { border-radius: 12px; padding: 12px; background: var(--bg); }
 .dark .wins li { background: var(--c-panel); }
 .wins b { display: block; font-family: var(--cond); font-weight: 600; font-size: 26px; line-height: 1.05; letter-spacing: -.01em; }
+.wins.tech b { font-size: 19px; }
 .wins span { display: block; font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
 .dark .wins span { color: var(--c-dim); }
 
@@ -287,6 +282,7 @@ section.block { padding-top: 110px; }
 .hj-ko { font-size: 24px; line-height: 1.35; min-height: 66px; font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", var(--sans); }
 .hj-ko .ck { transition: color .3s, background .3s; border-radius: 4px; color: #4a4d55; }
 .hj-ko .ck.on { color: var(--c-text); }
+.hj-ko .ck.end.on { color: var(--c-amber); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .hj-ko .ck.speaking { background: rgba(52,211,153,.18); color: var(--c-green); }
 .hj-level { font-family: var(--mono); font-size: 11px; color: var(--c-amber); }
 .lanes { display: grid; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--c-dim); }
@@ -307,12 +303,34 @@ section.block { padding-top: 110px; }
 @keyframes belt { to { stroke-dashoffset: -28; } }
 .line .st rect { fill: var(--paper); stroke: var(--ink); stroke-width: 1.3; }
 .line .st text { font-family: var(--mono); font-size: 10.5px; fill: var(--ink); }
+.line .st { cursor: pointer; }
+.line .st:hover rect, .line .st.sel rect { fill: var(--ink); }
+.line .st:hover text, .line .st.sel text { fill: var(--paper); }
+.line .st:focus { outline: none; } .line .st:focus-visible rect { stroke: var(--accent); stroke-width: 2.5; }
+.fx-info { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); background: var(--bg); border-radius: 10px; padding: 10px 12px; min-height: 58px; }
+.fx-info b { color: var(--accent); font-weight: 500; }
 .line .agv { fill: var(--accent); }
 .line .fx-big { font-family: var(--cond); font-weight: 600; font-size: 26px; fill: var(--ink); }
 .line .fx-small { font-family: var(--mono); font-size: 10.5px; fill: var(--muted); }
 .line .agv.b { fill: var(--signal); }
 
+/* try cue */
+.try { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.dark .try { color: var(--c-green); }
 /* bella tile */
+.pipe { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); }
+.pipe span { padding: 4px 9px; border-radius: 999px; background: var(--c-panel); color: var(--c-text); }
+.pipe i { font-style: normal; }
+.perm { display: grid; gap: 10px; background: var(--c-panel); border-radius: 14px; padding: 14px; }
+.roles-pick { display: flex; gap: 6px; }
+.roles-pick button { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-dim); font-family: var(--mono); font-size: 12px; }
+.roles-pick button[aria-pressed="true"] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
+.perm-ask { font-size: 14px; color: var(--c-text); }
+.perm-steps { list-style: none; display: grid; gap: 5px; font-family: var(--mono); font-size: 12px; }
+.perm-steps li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 10px; border-radius: 8px; background: var(--c-bg); opacity: 0; transform: translateY(3px); transition: opacity .25s, transform .25s; }
+.perm-steps li.on { opacity: 1; transform: none; }
+.perm-steps .ok { color: var(--c-green); } .perm-steps .no { color: var(--c-red); }
+.perm-reply { font-size: 14px; color: #c9c7c0; min-height: 42px; }
 .bella-flow { display: grid; gap: 8px; font-family: var(--mono); font-size: 12px; }
 .bella-flow div { display: flex; align-items: center; gap: 8px; padding: 9px 11px; background: var(--c-panel); border-radius: 10px; color: var(--c-dim); }
 .bella-flow b { color: var(--c-text); font-weight: 500; }
@@ -440,14 +458,12 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 @media (max-width: 980px) {
   .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 48px; }
   .lede { max-width: 56ch; }
+  .try-r { display: none; } .try-d { display: inline; }
   .span-7, .span-5, .span-6 { grid-column: span 12; }
   .copilot { grid-template-columns: 1fr; }
   .role { grid-template-columns: 1fr; gap: 10px; }
 }
 @media (max-width: 760px) {
-  .flex-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .flex-strip > div:nth-child(3) { padding-left: 0; border-left: 0; }
-  .flex-strip > div:nth-child(n+3) { border-top: 1px solid var(--line); }
   .mut { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
@@ -510,8 +526,8 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   <section class="hero" aria-labelledby="hero-title">
     <div>
       <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf · AI engineer · Indonesia</span></p>
-      <h1 id="hero-title">I build AI agents that <em>do real work.</em></h1>
-      <p class="lede">Agents that act on real accounts, the gateway they act through, and the console that shows what they did. Try&nbsp;one&nbsp;→</p>
+      <h1 id="hero-title">I build AI agents<br> that <em>do real work.</em></h1>
+      <p class="lede">Agents that act on real accounts, the gateway they act through, and the console that shows what they did. <span class="try-r">Try&nbsp;one&nbsp;→</span><span class="try-d">Try&nbsp;one&nbsp;below&nbsp;↓</span></p>
       <div class="cta">
         <a class="btn primary" href="#work">See the work ↓</a>
         <a class="btn ghost" href="#copilot">Recruiter? Get a pitch</a>
@@ -558,13 +574,6 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
     </div>
   </section>
 
-  <div class="flex-strip" aria-label="Outcomes">
-    <div><span class="n" data-count="50" data-pre="Rp" data-suf="B+">Rp50B+</span><span class="l">in B2B revenue generated with the messaging engine and monitoring I built</span></div>
-    <div><span class="n" data-count="8" data-suf=" wks">8 wks</span><span class="l">to replace a paid integrations vendor with our own agent tool gateway</span></div>
-    <div><span class="n" data-count="50" data-suf=" h/day">50 h/day</span><span class="l">of person-hours saved by one internal app I shipped at LG</span></div>
-    <div><span class="n">1 of 4</span><span class="l">engineers selected for a two-month deployment to a battery plant in Korea</span></div>
-  </div>
-
   <section class="block" id="work" aria-labelledby="work-title">
     <div class="head">
       <div><span class="idx">01 · selected work</span><h2 id="work-title">Don't read about it. Play with it.</h2></div>
@@ -579,7 +588,8 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div><span class="kicker">sambungapi · Metatech · primary engineer</span><h3 id="gw-title">The gateway agents act through</h3></div>
           <span class="badge">private</span>
         </div>
-        <p class="sub">Agents call one API; the gateway holds every OAuth token encrypted, unlocks it only for the call, and talks to the provider. Built in-house in 8 weeks to replace a paid vendor. <b>Click a provider.</b></p>
+        <p class="sub">Agents call one API; the gateway holds every OAuth token encrypted, unlocks it only for the call, and talks to the provider. Built in-house to replace a third-party vendor.</p>
+        <p class="try">▶ Click a provider to send a call through the vault.</p>
         <svg viewBox="0 0 600 250" id="gw-svg" role="group" aria-label="Gateway diagram: agent, gateway with encrypted token vault, and seven providers">
           <g id="gw-wires"></g>
           <g class="node" aria-hidden="true"><rect x="12" y="100" width="104" height="50" rx="10"/><text x="64" y="122" text-anchor="middle">AI agent</text><text x="64" y="138" text-anchor="middle" style="fill:#9a9ca3;font-size:10px">tool call</text></g>
@@ -603,17 +613,19 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div><span class="kicker">Bella · Metatech · core engineer</span><h3 id="bella-title">An AI chief of staff for a whole company</h3></div>
           <span class="badge">private</span>
         </div>
-        <p class="sub">Staff message it on WhatsApp, web or Lark; it handles email, meetings and cross-department updates within each person's permissions. I work on the engine that runs every turn and built the monitoring behind it.</p>
-        <div class="bella-flow" aria-label="How a request flows">
-          <div><b>WhatsApp · Lark · web</b> → request</div>
-          <div><b>worker</b> → plans, calls tools <i>●</i></div>
-          <div><b>gateway</b> → Gmail, Calendar, Lark</div>
-          <div><b>console</b> → cost, trace, human review</div>
+        <p class="sub">Staff message it on WhatsApp, web or Lark and it handles email, meetings and cross-department updates. Reasoning engines are pluggable, and every tool call is scoped to the asker's role. I work on the worker that runs each turn and built the monitoring behind it.</p>
+        <div class="pipe" aria-label="How a request flows"><span>chat</span><i>→</i><span>worker</span><i>→</i><span>gateway</span><i>→</i><span>console</span></div>
+        <div class="perm">
+          <p class="try">▶ Same request, different person. Who's asking?</p>
+          <div class="roles-pick" role="group" aria-label="Who is asking">
+            <button type="button" data-r="0" aria-pressed="true">director</button>
+            <button type="button" data-r="1" aria-pressed="false">staff</button>
+            <button type="button" data-r="2" aria-pressed="false">intern</button>
+          </div>
+          <p class="perm-ask">“Book the whole sales team for 10:00 tomorrow.”</p>
+          <ul class="perm-steps" id="perm-steps"></ul>
+          <p class="perm-reply" id="perm-reply" aria-live="polite"></p>
         </div>
-        <ul class="wins">
-          <li><b>Minutes</b><span>to catch failures with the monitoring I built</span></li>
-          <li><b>Rp50B+</b><span>B2B revenue, together with the messaging engine I built</span></li>
-        </ul>
         <div class="tlinks"><a href="#console">↑ the console up top simulates it</a></div>
       </article>
 
@@ -623,7 +635,8 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div><span class="kicker">rust_mutant · dart-mutant · gopher_mutant · open source</span><h3 id="mut-title">Would your tests catch a bug? Break the code and see.</h3></div>
           <span class="badge live">on crates.io</span>
         </div>
-        <p class="sub">Coding agents write a lot of tests. Mutation testing plants small bugs ("mutants") and checks the tests notice. Pick a mutant or run them all, then add the test that's missing.</p>
+        <p class="sub">Coding agents write a lot of tests. Mutation testing plants small bugs ("mutants") and checks the tests notice. rust_mutant also compares LLVM IR to skip mutants that compile to identical code.</p>
+        <p class="try">▶ Plant a mutant, or run them all. Then add the test that's missing.</p>
         <div class="mut">
           <div>
 <pre class="code" aria-label="Code under test"><span class="kw">fn</span> <span class="fn">can_vote</span>(age: <span class="ty">u32</span>) -&gt; <span class="ty">bool</span> {
@@ -661,6 +674,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div><span class="kicker">honjang · personal · voice</span><h3 id="hj-title">Real-time English → Korean that knows who you're talking to</h3></div>
           <span class="badge live">live</span>
         </div>
+        <p class="try">▶ Pick who you're talking to. Watch the ending change.</p>
         <div class="listeners" role="group" aria-label="Who are you talking to?">
           <button type="button" data-l="0" aria-pressed="false">a friend</button>
           <button type="button" data-l="1" aria-pressed="true">a shopkeeper</button>
@@ -691,19 +705,20 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
         <svg viewBox="0 0 520 170" aria-hidden="true">
           <path id="fx-path" class="track" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
           <path class="belt" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
-          <text x="260" y="94" text-anchor="middle" class="fx-big">8 lines · 24/7</text>
-          <text x="260" y="112" text-anchor="middle" class="fx-small">EV-battery production</text>
-          <g class="st"><rect x="60" y="14" width="96" height="24" rx="5"/><text x="108" y="30" text-anchor="middle">stocker</text></g>
-          <g class="st"><rect x="212" y="14" width="96" height="24" rx="5"/><text x="260" y="30" text-anchor="middle">process</text></g>
-          <g class="st"><rect x="364" y="14" width="96" height="24" rx="5"/><text x="412" y="30" text-anchor="middle">conveyor</text></g>
-          <g class="st"><rect x="212" y="132" width="96" height="24" rx="5"/><text x="260" y="148" text-anchor="middle">dispatch (RTD)</text></g>
+          <text x="260" y="94" text-anchor="middle" class="fx-big">MES → RTD → AMHS</text>
+          <text x="260" y="112" text-anchor="middle" class="fx-small">EV-battery production, around the clock</text>
+          <g class="st" tabindex="0" role="button" data-k="stocker" aria-label="stocker: what software runs here"><rect x="60" y="14" width="96" height="24" rx="5"/><text x="108" y="30" text-anchor="middle">stocker</text></g>
+          <g class="st" tabindex="0" role="button" data-k="process" aria-label="process: what software runs here"><rect x="212" y="14" width="96" height="24" rx="5"/><text x="260" y="30" text-anchor="middle">process</text></g>
+          <g class="st" tabindex="0" role="button" data-k="conveyor" aria-label="conveyor: what software runs here"><rect x="364" y="14" width="96" height="24" rx="5"/><text x="412" y="30" text-anchor="middle">conveyor</text></g>
+          <g class="st" tabindex="0" role="button" data-k="rtd" aria-label="dispatch (RTD): what software runs here"><rect x="212" y="132" width="96" height="24" rx="5"/><text x="260" y="148" text-anchor="middle">dispatch (RTD)</text></g>
           <g id="fx-agvs"></g>
         </svg>
-        <ul class="wins">
-          <li><b>50 h/day</b><span>person-hours saved by one of 8+ internal apps</span></li>
-          <li><b>3 h → 15 min</b><span>IoT sensor monitoring cycle, automated</span></li>
-          <li><b>Days → minutes</b><span>incident diagnosis with the log analyzer I wrote</span></li>
-          <li><b>15+ issues</b><span>fixed at the Korean plant before production started</span></li>
+        <p class="fx-info" id="fx-info" aria-live="polite">▶ Click a station to see the software behind it.</p>
+        <ul class="wins tech">
+          <li><b>Dispatch logic</b><span>RTD rules deciding which vehicle moves which material, where</span></li>
+          <li><b>Log → timing diagram</b><span>Python + SQL analyzer that replays millions of AMHS events as signal timing</span></li>
+          <li><b>Equipment protocols</b><span>SECS/GEM and PLC handshakes between tools and the MES</span></li>
+          <li><b>KO–EN RAG</b><span>cross-language retrieval over Korean and English factory docs</span></li>
         </ul>
         <ul class="chips" aria-label="Stack"><li>MES</li><li>RTD</li><li>AMHS</li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
       </article>
@@ -725,37 +740,35 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <div class="role" id="role-metatech">
         <div><span class="when">Apr 2026 → now</span><span class="org">Metatech · part-time, remote</span></div>
         <div><h3>Software Engineer, AI agents</h3><ul>
-          <li>Built sambungapi, the in-house gateway our agents use to act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira. It replaced a paid vendor in 8 weeks.</li>
-          <li>Core engineer on Bella, an AI chief of staff that works across WhatsApp, Gmail, Calendar and Lark.</li>
-          <li>Built the messaging engine that moves messages between apps and chat platforms, and the monitoring that catches failures in minutes. Together they generate Rp50B+ in B2B revenue.</li>
+          <li>Built sambungapi in Rust (axum): an OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira.</li>
+          <li>Core engineer on Bella's agent worker (TypeScript): the runtime that plans, calls tools and replies on every turn, across WhatsApp, Gmail, Calendar and Lark.</li>
+          <li>Built the messaging engine between apps and chat platforms, and the observability behind it: per-turn cost, execution waterfalls, and a human-review loop that produces ground-truth datasets.</li>
         </ul></div>
       </div>
       <div class="role" id="role-lg">
         <div><span class="when">Apr 2024 → now</span><span class="org">LG Sinarmas Technology Solutions · Karawang</span></div>
         <div><h3>Software Engineer, smart factory</h3><ul>
-          <li>MES, real-time dispatching and material handling for an EV-battery plant running 8 lines, 24/7.</li>
-          <li>Shipped 8+ internal apps; one saves 50 person-hours a day.</li>
-          <li>Built a log analyzer that cut incident diagnosis from hours or days to minutes, and a Korean–English RAG over factory documentation.</li>
-          <li>Designed the team's onboarding and trained 15+ engineers.</li>
+          <li>MES, real-time dispatching (RTD) and AMHS integration for an EV-battery plant: C# / .NET, WPF, SQL Server and Oracle.</li>
+          <li>Wrote a Python + SQL log analyzer that replays AMHS events as timing diagrams for incident diagnosis.</li>
+          <li>Built a Korean–English RAG pipeline (LangChain, PostgreSQL) over factory documentation, and automated monitoring across the plant's IoT sensor web interfaces.</li>
         </ul></div>
       </div>
       <div class="role" id="role-korea">
         <div><span class="when">Aug → Oct 2025</span><span class="org">LG Energy Solution Ochang · South Korea</span></div>
         <div><h3>AMHS Integration Specialist</h3><ul>
-          <li>One of four engineers selected for a two-month deployment.</li>
-          <li>Caught and fixed 15+ integration issues across AGVs, conveyors and stockers before production.</li>
+          <li>Integration-tested AGV, conveyor and stocker subsystems against the MES before production, and fixed the integration bugs in code.</li>
         </ul></div>
       </div>
       <div class="role" id="role-poly">
         <div><span class="when">Jan → Mar 2024</span><span class="org">PT Polychemie Asia Pacific Permai</span></div>
         <div><h3>Instrumentation Engineer</h3><ul>
-          <li>Prototyped digital temperature and flow monitoring for a plant where readings were written down by hand.</li>
+          <li>Prototyped an ADC-based monitoring rig so temperature and flow could be logged on a PC instead of by hand; evaluated DAQ, PLC and Arduino options and wrote the plotting GUI.</li>
         </ul></div>
       </div>
       <div class="role" id="role-faan">
         <div><span class="when">Oct 2023 → Mar 2024</span><span class="org">FAAN Laboratory, Physics, Universitas Indonesia</span></div>
         <div><h3>Research Assistant, software</h3><ul>
-          <li>Built the lab's spectroscopy analysis app, improving the synthesis–testing cycle by ~800%.</li>
+          <li>Built the lab's MATLAB spectroscopy app: real-time acquisition, peak detection and fitting, Savitzky–Golay filtering and Tauc plots.</li>
         </ul></div>
       </div>
       <div class="role" id="role-plc">
@@ -765,7 +778,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <div class="role" id="role-ui">
         <div><span class="when">Aug 2019 → Jul 2023</span><span class="org">Universitas Indonesia</span></div>
         <div><h3>B.Sc. Physics, Instrumentation</h3><ul>
-          <li>4th place at IndySCC22 (supercomputing), the only team from Southeast Asia.</li>
+          <li>IndySCC22 student cluster competition (HPC): 4th place, the only team from Southeast Asia.</li>
           <li>Programming lead for the UI Robotics Team at KRTMI.</li>
         </ul></div>
       </div>
@@ -982,23 +995,6 @@ function whenVisible(el, fn) {
 })();
 </script>
 
-<script>
-/* count-up for the outcome strip */
-(function () {
-  var strip = document.querySelector(".flex-strip");
-  whenVisible(strip, function () {
-    if (REDUCED) return;
-    [].forEach.call(strip.querySelectorAll("[data-count]"), function (el) {
-      var end = +el.dataset.count, pre = el.dataset.pre || "", suf = el.dataset.suf || "", t0 = performance.now();
-      (function step(now) {
-        var f = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - f, 3);
-        el.textContent = pre + Math.round(end * e) + suf;
-        if (f < 1) requestAnimationFrame(step);
-      })(t0);
-    });
-  });
-})();
-</script>
 
 <script>
 /* ── Gateway diagram: click a provider, watch a call go agent → vault → provider. ── */
@@ -1195,9 +1191,9 @@ function whenVisible(el, fn) {
 /* ── honjang: honorific level follows the listener; speech streams by clause. ── */
 (function () {
   var L = [
-    { chunks: ["역이 어디 있는지 ", "알려 줄래?"], level: "반말 · casual" },
-    { chunks: ["역이 어디 있는지 ", "알려 주실 수 있어요?"], level: "해요체 · polite" },
-    { chunks: ["역이 어디에 있는지 ", "알려 주시겠습니까?"], level: "합쇼체 · formal" }
+    { chunks: ["역이 어디 있는지 ", "알려 ", "줄래?"], level: "반말 · casual: talking down to a peer" },
+    { chunks: ["역이 어디 있는지 ", "알려 ", "주실 수 있어요?"], level: "해요체 · polite: everyday respect" },
+    { chunks: ["역이 어디에 있는지 ", "알려 ", "주시겠습니까?"], level: "합쇼체 · formal: deference to a superior" }
   ];
   var ko = document.getElementById("hj-ko"), lvl = document.getElementById("hj-level");
   var stt = document.getElementById("hj-stt"), llm = document.getElementById("hj-llm"), tts = document.getElementById("hj-tts"), m300 = document.getElementById("hj-300");
@@ -1207,7 +1203,7 @@ function whenVisible(el, fn) {
   function render(i, phase) {
     var c = L[i].chunks;
     ko.innerHTML = c.map(function (t, k) {
-      var cls = "ck" + (phase > k ? " on" : "") + (phase === k + 1 && phase < 3 ? " speaking" : "");
+      var cls = "ck" + (phase > k ? " on" : "") + (phase === k + 1 && phase < 3 ? " speaking" : "") + (k === c.length - 1 ? " end" : "");
       return '<span class="' + cls + '">' + t + "</span>";
     }).join("");
     lvl.textContent = L[i].level;
@@ -1253,6 +1249,59 @@ function whenVisible(el, fn) {
 })();
 </script>
 
+<script>
+/* ── Bella: the same request resolves differently per role (illustrative). ── */
+(function () {
+  var R = [
+    { steps: [["calendar.freebusy · sales team", 1], ["calendar.create · 12 invitees", 1]],
+      reply: "Booked \u201cSales sync\u201d tomorrow 10:00 for the whole team. Invites are out." },
+    { steps: [["calendar.freebusy · sales team", 1], ["calendar.create · 12 invitees", 0, "role can't invite a department"]],
+      reply: "Your role can't book the whole department. Want me to book it with your own team instead?" },
+    { steps: [["calendar.freebusy · sales team", 0, "no access to others' calendars"], ["calendar.create · 12 invitees", 0, "own calendar only"]],
+      reply: "I can only add things to your own calendar. I've put a 10:00 hold there for you." }
+  ];
+  var list = document.getElementById("perm-steps"), reply = document.getElementById("perm-reply");
+  var btns = [].slice.call(document.querySelectorAll(".roles-pick button"));
+  if (!list) return;
+  var tok = 0;
+  function show(i) {
+    var my = ++tok, r = R[i];
+    btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
+    list.innerHTML = r.steps.map(function (st) {
+      return "<li><span>" + st[0] + "</span>" + (st[1] ? '<span class="ok">allowed</span>' : '<span class="no">blocked · ' + st[2] + "</span>") + "</li>";
+    }).join("");
+    reply.textContent = "";
+    var items = [].slice.call(list.children), k = 0;
+    (function next() {
+      if (my !== tok) return;
+      if (k < items.length) { items[k++].classList.add("on"); setTimeout(next, REDUCED ? 0 : 380); }
+      else reply.textContent = r.reply;
+    })();
+  }
+  btns.forEach(function (b, j) { b.addEventListener("click", function () { show(j); }); });
+  show(0);
+})();
+
+/* ── factory: stations explain the software behind them ── */
+(function () {
+  var info = document.getElementById("fx-info");
+  var T = {
+    stocker: "<b>stocker</b> · automated storage. It asks the MES for load and unload jobs over SECS/GEM, and I integrate those requests.",
+    process: "<b>process</b> · production equipment. PLC handshakes tell the system when material may enter or leave.",
+    conveyor: "<b>conveyor</b> · moves material between processes. Its events are what my log analyzer replays as timing diagrams.",
+    rtd: "<b>dispatch (RTD)</b> · real-time dispatching: the rules that pick which vehicle carries which material next. I maintain and extend them."
+  };
+  var st = [].slice.call(document.querySelectorAll(".line .st"));
+  function pick(g) {
+    st.forEach(function (x) { x.classList.toggle("sel", x === g); });
+    info.innerHTML = T[g.dataset.k];
+  }
+  st.forEach(function (g) {
+    g.addEventListener("click", function () { pick(g); });
+    g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(g); } });
+  });
+})();
+</script>
 <script>
 /* ── Career timing diagram: lanes are signals, spans are clickable roles. ── */
 (function () {

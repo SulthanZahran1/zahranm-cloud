@@ -11,40 +11,39 @@ Sulthan Zahran Ma'ruf is an AI engineer in Indonesia. He builds AI agents that d
 
 ## Agents and infrastructure
 
-**Software Engineer, AI agents. Metatech, part-time, remote (Apr 2026 to now).**
+**Software Engineer, AI agents. Metatech, part-time, remote, Apr 2026 to now.**
 
-- sambungapi: built the in-house gateway the team's agents use to act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira. Agents call one API; the gateway holds every OAuth token encrypted, unlocks it only for the call, and talks to the provider. It replaced a paid integrations vendor in 8 weeks.
-- Bella: core engineer on an AI chief of staff for a whole company. Staff message it on WhatsApp, web or Lark, and it handles email, meetings and cross-department updates within each person's permissions. He works on the engine that runs every turn and built the monitoring behind it.
-- Messaging and monitoring: built the messaging engine that moves messages between apps and chat platforms, and the monitoring that catches failures in minutes. Together they generate Rp50B+ in B2B revenue.
+- sambungapi: a Rust (axum) OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira. Agents call one API; the gateway unlocks a token only for the call and talks to the provider. Built in-house to replace a third-party vendor.
+- Bella: core engineer on the agent worker (TypeScript) of an AI chief of staff for a whole company: the runtime that plans, calls tools and replies on every turn, across WhatsApp, Gmail, Calendar and Lark. Pluggable engines swap the reasoning backend without touching channels or tools, and what the agent may do follows the permissions of whoever asked.
+- Messaging and observability: built the messaging engine between apps and chat platforms, and the observability behind it: per-turn cost, execution waterfalls, and a human-review loop that produces ground-truth datasets.
 
 ## Open source
 
 - Mutation testers for Rust, Go and Dart ([rust_mutant](https://github.com/SulthanZahran1/rust_mutant), [gopher_mutant](https://github.com/SulthanZahran1/gopher_mutant), [dart-mutant](https://github.com/SulthanZahran1/dart-mutant)). Coding agents write a lot of tests; mutation testing plants small bugs and checks whether the tests notice. rust_mutant is on [crates.io](https://crates.io/crates/rust-mutant).
-- honjang: a real-time English–Korean voice translator that adjusts politeness to who you're talking to, streaming audio before the sentence is done. [Live demo](https://honjang.zahranm.cloud), [source](https://github.com/SulthanZahran1/honjang).
+- honjang: a real-time English–Korean voice translator that adjusts politeness to who you're talking to. Recognition, LLM and speech synthesis stream in overlapping stages so audio starts mid-sentence, within a ~300 ms design budget. [Live demo](https://honjang.zahranm.cloud), [source](https://github.com/SulthanZahran1/honjang).
 
 Skills. AI: AI agents, tool use and MCP, RAG, LLM observability, voice pipelines, evals and mutation testing. Languages and infrastructure: Rust, Go, TypeScript, Python, C#, SQL, PostgreSQL, MongoDB, Redis, Docker, Traefik.
 
 ## Background
 
-**Software Engineer, smart factory. LG Sinarmas Technology Solutions, Karawang (Apr 2024 to now).**
+**Software Engineer, smart factory. LG Sinarmas Technology Solutions, Karawang, Apr 2024 to now.**
 
-- MES, real-time dispatching and material handling for an EV-battery plant running 8 lines, 24/7.
-- Shipped 8+ internal apps; one saves 50 person-hours a day. Automated an IoT sensor monitoring cycle from 3 hours to 15 minutes.
-- Built a log analyzer that cut incident diagnosis from hours or days to minutes, and a Korean–English RAG over factory documentation.
-- Designed the team's onboarding and trained 15+ engineers.
+- MES, real-time dispatching (RTD) and AMHS integration for an EV-battery plant: C# / .NET, WPF, SQL Server and Oracle. RTD rules decide which vehicle moves which material, where; SECS/GEM and PLC handshakes connect tools to the MES.
+- Wrote a Python + SQL log analyzer that replays millions of AMHS events as timing diagrams for incident diagnosis.
+- Built a Korean–English RAG pipeline (LangChain, PostgreSQL) over factory documentation, and automated monitoring across the plant's IoT sensor web interfaces.
 
-**AMHS Integration Specialist. LG Energy Solution Ochang, South Korea (Aug to Oct 2025).** One of four engineers selected for a two-month deployment. Caught and fixed 15+ integration issues across AGVs, conveyors and stockers before production.
+**AMHS Integration Specialist. LG Energy Solution Ochang, South Korea, Aug to Oct 2025.** Integration-tested AGV, conveyor and stocker subsystems against the MES before production, and fixed the integration bugs in code.
 
 Before that:
 
-- Instrumentation Engineer, PT Polychemie Asia Pacific Permai (Jan to Mar 2024): prototyped digital temperature and flow monitoring for a plant where readings were written down by hand.
-- Research Assistant, software, FAAN Laboratory, Physics, Universitas Indonesia (Oct 2023 to Mar 2024): built the lab's spectroscopy analysis app, improving the synthesis–testing cycle by ~800%.
+- Instrumentation Engineer, PT Polychemie Asia Pacific Permai (Jan to Mar 2024): prototyped an ADC-based monitoring rig so temperature and flow could be logged on a PC instead of by hand; evaluated DAQ, PLC and Arduino options and wrote the plotting GUI.
+- Research Assistant, software, FAAN Laboratory, Physics, Universitas Indonesia (Oct 2023 to Mar 2024): built the lab's MATLAB spectroscopy app, with real-time acquisition, peak detection and fitting, Savitzky–Golay filtering and Tauc plots.
 - PLC Intern, PT Sugitama Intiarto (Jun to Jul 2022): first contact with industrial control software.
-- B.Sc. Physics, Instrumentation, Universitas Indonesia (Aug 2019 to Jul 2023): 4th place at IndySCC22 (supercomputing), the only team from Southeast Asia; programming lead for the UI Robotics Team at KRTMI.
+- B.Sc. Physics, Instrumentation, Universitas Indonesia (Aug 2019 to Jul 2023): IndySCC22 student cluster competition (HPC), 4th place, the only team from Southeast Asia; programming lead for the UI Robotics Team at KRTMI.
 
 ## How to use this site
 
-Use this page for identity and context, the [home page](https://zahranm.cloud/) for outcomes, interactive work demos, experience and the index of public projects, and the [contact page](https://zahranm.cloud/contact) for direct communication. The recruiter copilot is at [zahranm.cloud/recruit](https://zahranm.cloud/recruit). Agents can start with [llms.txt](https://zahranm.cloud/llms.txt) or [agent-instructions.md](https://zahranm.cloud/agent-instructions.md).
+Use this page for identity and context, the [home page](https://zahranm.cloud/) for interactive work demos, experience and the index of public projects, and the [contact page](https://zahranm.cloud/contact) for direct communication. The recruiter copilot is at [zahranm.cloud/recruit](https://zahranm.cloud/recruit). Agents can start with [llms.txt](https://zahranm.cloud/llms.txt) or [agent-instructions.md](https://zahranm.cloud/agent-instructions.md).
 
 ## Scope
 

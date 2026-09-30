@@ -43,7 +43,7 @@ WriteFreely on `blog.zahranm.cloud`. Feed: `https://blog.zahranm.cloud/feed/`
 - Warm-paper portfolio in IBM Plex (Sans, Sans Condensed 600 for headings,
   Mono for labels), self-hosted from `hub/fonts/` (the Dockerfile copies it).
   Sections: hero with a simulated agent console (trace, cost, human review),
-  outcome strip, bento of interactive work tiles (gateway, Bella, mutation
+  bento of interactive work tiles (gateway, Bella, mutation
   testing, honjang, factory), clickable career timing diagram, recruiter
   copilot iframe (`/recruit`, same-origin, auto-sized to content), index tiles
   for every property with status, GitHub contribution graph, blog teaser (RSS,
