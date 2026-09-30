@@ -125,6 +125,7 @@ main { overflow-x: clip; }
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; padding: 64px 0 40px; }
 .hero > div:first-child { padding-top: 104px; }
 .eyebrow { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 10px; align-items: baseline; }
+.ey-m { display: none; }
 .eyebrow .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); transform: translateY(-1px); animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 7px transparent; } }
 .hero h1 { font-family: var(--cond); font-weight: 600; font-size: clamp(44px, 5.2vw, 70px); line-height: .95; letter-spacing: -.025em; margin-top: 20px; }
@@ -151,7 +152,7 @@ main { overflow-x: clip; }
 .c-body { padding: 16px; display: grid; gap: 14px; }
 .c-tasks { display: flex; flex-wrap: wrap; gap: 6px; }
 .c-tasks button { padding: 7px 11px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-dim); font-size: 12px; transition: all .15s; }
-.c-tasks button:hover, .listeners button:hover, .roles-pick button:hover, .gw-btns button:hover { color: var(--c-text); border-color: #5a5e67; }
+.c-tasks button:hover, .listeners button:hover, .roles-pick button:hover { color: var(--c-text); border-color: #5a5e67; }
 .mut-ctl button:not([disabled]):hover { background: var(--ink); color: var(--paper); }
 .mut-ctl button.primary:hover, .play2:hover { background: var(--accent); border-color: var(--accent); }
 .c-tasks button[aria-pressed="true"] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
@@ -194,7 +195,11 @@ main { overflow-x: clip; }
 .t-link.pulse { animation: glow .6s ease-in-out 2; border-radius: 3px; }
 @keyframes glow { 50% { background: rgba(52,211,153,.25); box-shadow: 0 0 0 3px rgba(52,211,153,.25); } }
 .c-foot { padding: 10px 16px; border-top: 1px solid var(--c-line); color: var(--c-dim); font-size: 11px; display: flex; justify-content: space-between; gap: 10px; }
-.c-foot button { color: var(--c-text); text-decoration: underline; text-underline-offset: 3px; }
+.c-foot button { color: var(--c-text); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.t-route { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 7px; margin: 1px 0 7px 44px; padding: 7px 10px; border-left: 2px solid var(--c-green); background: rgba(52,211,153,.06); border-radius: 0 8px 8px 0; font-size: 11px; color: var(--c-dim); }
+.t-route .rt { opacity: 0; transition: opacity .2s; } .t-route .rt.on { opacity: 1; }
+.t-route .key { color: var(--c-amber); } .t-route .ok { color: var(--c-green); } .t-route .nt { color: var(--c-dim); }
+.t-route .t-more { margin-left: auto; color: var(--c-text); text-decoration: underline; text-underline-offset: 3px; font-size: 11px; font-family: var(--mono); }
 
 
 /* ── sections ───────────────────────────────────────── */
@@ -212,6 +217,7 @@ section.block { padding-top: 92px; }
 .t-top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
 .kicker { font-family: var(--mono); font-size: 11.5px; color: var(--muted); letter-spacing: .04em; }
 .dark .kicker { color: var(--c-dim); }
+.tile h3, .head h2, .kicker { text-wrap: balance; }
 .tile h3 { font-family: var(--cond); font-weight: 600; font-size: 28px; line-height: 1.05; letter-spacing: -.01em; margin-top: 6px; }
 .tile .sub { color: var(--ink-2); font-size: 15px; max-width: 52ch; }
 .dark .sub { color: #c9c7c0; }
@@ -226,13 +232,6 @@ section.block { padding-top: 92px; }
 .tlinks a { color: var(--accent); text-decoration: none; padding: 4px 0; }
 .dark .tlinks a { color: var(--c-green); }
 .tlinks a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.wins { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.wins li { border-radius: 12px; padding: 12px; background: var(--bg); }
-.dark .wins li { background: var(--c-panel); }
-.wins b { display: block; font-family: var(--cond); font-weight: 600; font-size: 26px; line-height: 1.05; letter-spacing: -.01em; }
-.wins.tech b { font-size: 19px; }
-.wins span { display: block; font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.35; }
-.dark .wins span { color: var(--c-dim); }
 
 /* gateway diagram */
 .gw svg { width: 100%; height: auto; display: block; }
@@ -242,7 +241,7 @@ section.block { padding-top: 92px; }
 .gw .node text { fill: var(--c-text); font-family: var(--mono); font-size: 12px; }
 .gw .prov { cursor: pointer; }
 .gw .prov:hover rect, .gw .prov.hot rect { stroke: var(--c-green); }
-.gw .prov:focus-visible { outline: none; }
+.gw .prov:focus { outline: none; }
 .gw .prov:focus-visible rect { stroke: var(--c-green); stroke-width: 2; }
 .gw .hub path { fill: #2a2413; stroke: var(--c-amber); stroke-width: 1.5; }
 .gw .hub text { fill: var(--c-amber); font-family: var(--mono); font-size: 11px; }
@@ -251,9 +250,6 @@ section.block { padding-top: 92px; }
 .gw .packet { fill: var(--c-green); filter: drop-shadow(0 0 6px var(--c-green)); }
 .gw .lock { fill: none; stroke: var(--c-amber); stroke-width: 1.6; transition: stroke .2s; }
 .gw .lock.open { stroke: var(--c-green); }
-.gw-btns { display: none; flex-wrap: wrap; gap: 6px; }
-.gw-btns button { font-family: var(--mono); font-size: 12px; padding: 8px 11px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-text); }
-.gw-btns button[aria-pressed="true"] { border-color: var(--c-green); color: var(--c-green); }
 .gw-log { font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); background: var(--c-panel); border-radius: 10px; padding: 10px 12px; min-height: 92px; line-height: 1.6; }
 .gw-log .ok { color: var(--c-green); } .gw-log .key { color: var(--c-amber); }
 
@@ -265,16 +261,18 @@ section.block { padding-top: 92px; }
 .code .mt.mutated { background: var(--c-red); color: #1b0b0b; }
 .code .added { background: rgba(52,211,153,.12); display: inline-block; width: 100%; animation: fadein .4s; }
 @keyframes fadein { from { opacity: 0; } }
-.tests { list-style: none; display: grid; gap: 6px; margin-top: 2px; }
-.tests li { display: flex; justify-content: space-between; gap: 8px; font-family: var(--mono); font-size: 12px; padding: 7px 10px; border-radius: 8px; background: var(--bg); }
-.tests li .r { font-weight: 500; }
-.tests li.pass .r { color: var(--accent); } .tests li.fail .r { color: #b91c1c; }
+.code .tb { font-size: 11px; padding: 1px 6px; border-radius: 4px; }
+.code .tb.pass { color: var(--c-green); background: rgba(52,211,153,.12); }
+.code .tb.fail { color: #1b0b0b; background: var(--c-red); }
+.verdict .ir { display: block; margin-top: 8px; background: var(--c-bg); color: var(--c-dim); border-radius: 8px; padding: 8px 10px; font-family: var(--mono); font-size: 11.5px; line-height: 1.6; white-space: pre; overflow-x: auto; }
+.verdict .ir b { color: var(--c-text); font-weight: 400; }
 .mutants { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .mutants button { text-align: left; border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; font-family: var(--mono); font-size: 12px; background: var(--paper); transition: border-color .15s; }
 .mutants button:hover { border-color: var(--ink); }
 .mutants button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
 .mutants button .st { display: block; margin-top: 3px; font-size: 11px; color: var(--muted); }
 .mutants button.killed .st { color: var(--accent); } .mutants button.survived .st { color: #b91c1c; }
+.mutants button.eq { grid-column: 1 / -1; }
 .mut-ctl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .mut-ctl button { font-family: var(--mono); font-size: 12.5px; padding: 9px 13px; border-radius: 999px; border: 1px solid var(--ink); }
 .mut-ctl button.primary { background: var(--ink); color: var(--paper); }
@@ -321,11 +319,12 @@ section.block { padding-top: 92px; }
 @keyframes belt { to { stroke-dashoffset: -28; } }
 .line .st rect { fill: var(--paper); stroke: var(--ink); stroke-width: 1.3; }
 .line .st text { font-family: var(--mono); font-size: 10.5px; fill: var(--ink); }
-.line .st { cursor: pointer; }
-.line .st:hover rect:not(.hit), .line .st.sel rect:not(.hit) { fill: var(--ink); }
-.line .st rect.hit { stroke: none; }
-.line .st:hover text, .line .st.sel text { fill: var(--paper); }
-.line .st:focus { outline: none; } .line .st:focus-visible rect { stroke: var(--accent); stroke-width: 2.5; }
+.line .st rect { transition: fill .3s, stroke .3s; }
+.line .st.alarm rect { fill: #fbe6d6; stroke: var(--signal); stroke-width: 2; }
+.line .st.alarm text { fill: var(--signal); font-weight: 500; }
+.line.halt .belt { animation-play-state: paused; }
+.line-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 26px; align-items: start; }
+.line-grid > div { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .lta { display: grid; gap: 10px; }
 .lta-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 10px; align-items: stretch; }
 .lta-log { background: var(--c-bg); color: #6f737b; border-radius: 10px; padding: 10px; font-family: var(--mono); font-size: 10.5px; line-height: 1.75; overflow-x: auto; white-space: pre; margin: 0; }
@@ -340,20 +339,34 @@ section.block { padding-top: 92px; }
 .lta-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .play2 { font-family: var(--mono); font-size: 12.5px; padding: 8px 13px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); }
 .lta-out { font-family: var(--mono); font-size: 12px; color: var(--signal); }
-.fx-info { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); background: var(--bg); border-radius: 10px; padding: 10px 12px; min-height: 58px; }
-.fx-info b { color: var(--accent); font-weight: 500; }
 .line .agv { fill: var(--accent); }
 .line .fx-big { font-family: var(--cond); font-weight: 600; font-size: 26px; fill: var(--ink); }
 .line .fx-small { font-family: var(--mono); font-size: 10.5px; fill: var(--muted); }
 .line .agv.b { fill: var(--accent); }
 
+/* retrieval */
+.rag-q { font-family: var(--mono); font-size: 13px; background: var(--bg); border-radius: 10px; padding: 9px 12px; }
+.rag-q span { color: var(--muted); margin-right: 8px; }
+.rag-pick { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.rag-pick button { padding: 7px 11px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); transition: all .15s; }
+.rag-pick button:hover { border-color: var(--ink); }
+.rag-pick button.done { border-color: var(--ink); }
+.rag-pick button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.rag-list { list-style: none; display: grid; gap: 6px; }
+.rag-list li { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 2px 10px; align-items: baseline; padding: 8px 10px; border-radius: 10px; background: var(--bg); border: 1px solid transparent; }
+.rag-list li.want { border-color: var(--accent); background: var(--accent-soft); }
+.rag-list .rk { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.rag-list .nm { font-size: 14px; font-weight: 500; }
+.rag-list .nm i { font-style: normal; color: var(--accent); margin-left: 6px; font-size: 12px; }
+.rag-list .sc { font-family: var(--mono); font-size: 12px; color: var(--ink-2); text-align: right; }
+.rag-list small { grid-column: 2 / -1; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.rag-note { font-size: 14px; color: var(--ink-2); min-height: 42px; }
+.rag-note code { font-family: var(--mono); font-size: 12.5px; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+
 /* try cue */
 .try { font-family: var(--mono); font-size: 12px; color: var(--accent); }
 .dark .try { color: var(--c-green); }
 /* bella tile */
-.pipe { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); }
-.pipe span { padding: 4px 9px; border-radius: 999px; background: var(--c-panel); color: var(--c-text); }
-.pipe i { font-style: normal; }
 .perm { display: grid; gap: 10px; background: var(--c-panel); border-radius: 14px; padding: 14px; }
 .roles-pick { display: flex; gap: 6px; }
 .roles-pick button { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-dim); font-family: var(--mono); font-size: 12px; }
@@ -364,11 +377,8 @@ section.block { padding-top: 92px; }
 .perm-steps li.on { opacity: 1; transform: none; }
 .perm-steps .ok { color: var(--c-green); } .perm-steps .no { color: var(--c-red); }
 .perm-steps small { grid-column: 1 / -1; font-size: 11px; color: var(--c-dim); }
+.perm-steps li.x small { color: #d99a9a; }
 .perm-reply { font-size: 14px; color: #c9c7c0; min-height: 42px; }
-.bella-flow { display: grid; gap: 8px; font-family: var(--mono); font-size: 12px; }
-.bella-flow div { display: flex; align-items: center; gap: 8px; padding: 9px 11px; background: var(--c-panel); border-radius: 10px; color: var(--c-dim); }
-.bella-flow b { color: var(--c-text); font-weight: 500; }
-.bella-flow i { font-style: normal; color: var(--c-green); }
 
 /* ── experience ─────────────────────────────────────── */
 .td { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 22px 22px 16px; }
@@ -380,7 +390,10 @@ section.block { padding-top: 92px; }
 #timeline .bus { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; transition: fill .15s; }
 #timeline .bus.hot { fill: var(--accent-soft); stroke: var(--accent); }
 #timeline .bus.warm { fill: #fbe6d6; stroke: var(--signal); }
-#timeline .span:hover .bus, #timeline .span:focus-visible .bus { fill: #ece9df; stroke-width: 2; }
+#timeline .span:hover .bus { fill: #ece9df; stroke-width: 2; }
+#timeline .span:focus-visible .bus { stroke: var(--accent); stroke-width: 2.5; stroke-dasharray: 5 3; }
+#timeline .tick { stroke: var(--accent); stroke-width: 2; }
+#timeline .span.sel .tick { stroke: var(--c-green); }
 #timeline .span.sel .bus { fill: var(--ink); }
 #timeline .span.sel .bus-text { fill: var(--paper); }
 #timeline .bus-text { font-size: 11px; fill: var(--ink); pointer-events: none; }
@@ -392,6 +405,7 @@ section.block { padding-top: 92px; }
 #timeline .brk { stroke: var(--muted); stroke-width: 1.2; }
 #timeline .now { stroke: var(--signal); stroke-width: 1.2; stroke-dasharray: 3 3; }
 #timeline .now-text { font-size: 10.5px; fill: var(--signal); }
+.no-js .td { display: none; }
 .td-hint { margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
 .roles { margin-top: 16px; }
 .role { display: grid; grid-template-columns: 220px 1fr; gap: 24px; background: var(--ink); color: var(--paper); border-radius: 20px; padding: 24px; }
@@ -411,8 +425,10 @@ section.block { padding-top: 92px; }
 .copilot { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start; }
 .copilot .pitch p { color: var(--ink-2); }
 .copilot .pitch p + p { margin-top: 12px; font-size: 13.5px; color: var(--muted); }
-.embed { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #fff; }
-.embed iframe { display: block; width: 100%; height: 440px; min-height: 440px; border: 0; background: #fff; }
+.embed { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--paper); padding: 6px; }
+.embed iframe { display: block; width: 100%; height: 440px; min-height: 280px; border: 0; background: transparent; }
+.embed-off { padding: 28px; font-size: 15px; color: var(--ink-2); }
+.embed-off a { color: var(--accent); }
 
 /* ── index table ───────────────────────────────────── */
 .idx-table { list-style: none; border-top: 1px solid var(--ink); }
@@ -460,6 +476,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 48px; }
   .hero > div:first-child { padding-top: 0; }
   .lede { max-width: 56ch; }
+  .line-grid { grid-template-columns: minmax(0, 1fr); }
   .try-r { display: none; } .try-d { display: inline; }
   .span-7, .span-5, .span-6 { grid-column: span 12; }
   .copilot { grid-template-columns: 1fr; }
@@ -471,7 +488,6 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 }
 @media (max-width: 760px) {
   .mut { grid-template-columns: minmax(0, 1fr); }
-  .mut > div:last-child { order: -1; }
 }
 @media (max-width: 640px) {
   :root { --gutter: 16px; }
@@ -479,6 +495,9 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   .bar nav .opt { display: none; }
   .links { margin-left: 0; width: 100%; }
   .c-body { padding: 12px; }
+  .ey-x { display: none; } .ey-m { display: inline; }
+  .btn { padding: 10px 12px; font-size: 12.5px; }
+  .t-route { margin-left: 0; }
   .trace-head, .t-row { grid-template-columns: 128px 1fr 44px; gap: 8px; }
   .legend { font-size: 9.5px; }
   .t-name .k { display: none; }
@@ -487,17 +506,11 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   .c-stats div:nth-child(n+3) { border-top: 1px solid var(--c-line); }
   .tile { padding: 18px; border-radius: 18px; }
   .tile h3 { font-size: 24px; }
-  .wins { grid-template-columns: 1fr 1fr; }
-  .wins b { font-size: 22px; }
-  .gw-btns { display: flex; }
-  .gw .prov text { display: none; }
-  .gw .prov rect { fill: #262930; }
+  .t-top { flex-direction: column-reverse; align-items: flex-start; gap: 10px; }
+  .code { font-size: 12px; padding: 12px; }
+  .code .tb .w { display: none; }
   .lta-grid { grid-template-columns: minmax(0, 1fr); }
   section.block { padding-top: 84px; }
-  .cal-stats { grid-template-columns: 1fr; }
-  .cal-stats div { padding: 10px 4px; }
-  .cal-stats div + div { border-left: 0; border-top: 1px solid var(--line); }
-  .cal-stats .num { display: inline; font-size: 17px; margin-right: 6px; }
   .contact-block { margin-top: 88px; border-radius: 20px; }
 }
 @media (max-width: 380px) {
@@ -534,9 +547,9 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 
   <section class="hero" aria-labelledby="hero-title">
     <div>
-      <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf · AI engineer at Metatech · Indonesia</span></p>
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf<span class="ey-x"> · AI engineer at Metatech · Indonesia</span><span class="ey-m"> · AI engineer</span></span></p>
       <h1 id="hero-title">I build AI agents<br> that <em>do real work.</em></h1>
-      <p class="lede">Right now: a Rust OAuth gateway that agents act through, the runtime that executes each turn, and the console that traces it. <span class="try-r">Try&nbsp;one&nbsp;→</span><span class="try-d">Try&nbsp;one&nbsp;below&nbsp;↓</span></p>
+      <p class="lede">Right now: a Rust OAuth gateway for agents, and the console that traces every turn. <span class="try-r">Try&nbsp;one&nbsp;→</span><span class="try-d">Try&nbsp;one&nbsp;below&nbsp;↓</span></p>
       <div class="cta">
         <a class="btn primary" href="#work">See the work ↓</a>
         <a class="btn ghost" href="#copilot">Recruiter? Get a pitch</a>
@@ -586,7 +599,6 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   <section class="block" id="work" aria-labelledby="work-title">
     <div class="head">
       <div><span class="idx">01 · selected work</span><h2 id="work-title">Don't read about it. Play with it.</h2></div>
-      <p>Each tile is a small working model of something I built. Employer systems are simulated, personal projects link to source.</p>
     </div>
 
     <div class="bento">
@@ -595,14 +607,14 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <article class="tile dark span-7 gw" aria-labelledby="gw-title">
         <div class="t-top">
           <div><span class="kicker">sambungapi · Metatech · primary engineer</span><h3 id="gw-title">The gateway agents act through</h3></div>
-          <span class="badge">private</span>
+          <span class="badge">private · simulated</span>
         </div>
-        <p class="sub">Agents call one API; the gateway holds every OAuth token encrypted, unlocks it only for the call, and talks to the provider. Built in-house to replace a third-party vendor.</p>
-        <p class="try">▶ Click a provider to send a call through the vault.</p>
+        <p class="sub">One API for agents. OAuth tokens stay sealed until the call.</p>
+        <p class="try">▶ <span class="tap-word">Click</span> a provider to send a call through the vault.</p>
         <svg viewBox="0 0 600 250" id="gw-svg" role="group" aria-label="Gateway diagram: agent, gateway with encrypted token vault, and seven providers">
           <g id="gw-wires"></g>
-          <g class="node" aria-hidden="true"><rect x="12" y="100" width="104" height="50" rx="10"/><text x="64" y="122" text-anchor="middle">AI agent</text><text x="64" y="138" text-anchor="middle" style="fill:#9a9ca3;font-size:10px">tool call</text></g>
-          <g class="hub" aria-hidden="true">
+          <g class="node" id="gw-agent" aria-hidden="true"><rect x="12" y="100" width="104" height="50" rx="10"/><text x="64" y="122" text-anchor="middle">AI agent</text><text x="64" y="138" text-anchor="middle" style="fill:#9a9ca3;font-size:10px">tool call</text></g>
+          <g class="hub" id="gw-hub" aria-hidden="true">
             <path d="M250 70 L330 70 L360 125 L330 180 L250 180 L220 125 Z"/>
             <text x="290" y="112" text-anchor="middle">sambungapi</text>
             <g transform="translate(279 122)"><rect class="lock" id="gw-lock" x="2" y="10" width="18" height="14" rx="3"/><path class="lock" id="gw-shackle" d="M6 10 V6 a5 5 0 0 1 10 0 V10"/></g>
@@ -611,7 +623,6 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <g id="gw-provs"></g>
           <circle class="packet" id="gw-packet" r="5" cx="-20" cy="-20"/>
         </svg>
-        <div class="gw-btns" id="gw-btns" role="group" aria-label="Call a provider"></div>
         <div class="gw-log" id="gw-log" aria-live="polite"><span class="key">$</span> waiting for a tool call…</div>
         <ul class="chips" aria-label="Stack"><li>Rust</li><li>axum</li><li>PostgreSQL</li><li>OAuth 2.0</li><li>durable outbox</li><li>multi-tenant</li></ul>
       </article>
@@ -620,10 +631,9 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <article class="tile dark span-5" aria-labelledby="bella-title">
         <div class="t-top">
           <div><span class="kicker">Bella · Metatech · core engineer</span><h3 id="bella-title">An AI chief of staff for a whole company</h3></div>
-          <span class="badge">private</span>
+          <span class="badge">private · simulated</span>
         </div>
-        <p class="sub">Staff message it on WhatsApp, Lark or web. It runs email, meetings and cross-team updates, and every tool call is checked against the asker's role. I work on the worker that runs each turn.</p>
-        <div class="pipe" aria-label="How a request flows"><span>chat</span><i>→</i><span>worker</span><i>→</i><span>gateway</span><i>→</i><span>console</span></div>
+        <p class="sub">On WhatsApp, Lark and web. Every tool call is checked against the asker's role.</p>
         <div class="perm">
           <p class="try">▶ Same request, different person. Who's asking?</p>
           <div class="roles-pick" role="group" aria-label="Who is asking">
@@ -644,8 +654,8 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div><span class="kicker">rust_mutant · dart-mutant · gopher_mutant · open source</span><h3 id="mut-title">Would your tests catch a bug? Break the code and see.</h3></div>
           <span class="badge live">on crates.io</span>
         </div>
-        <p class="sub">Coding agents write a lot of tests. Mutation testing plants small bugs ("mutants") and checks the tests notice. rust_mutant also compares LLVM IR to skip mutants that compile to identical code.</p>
-        <p class="try">▶ Plant a mutant, or run them all. Then add the test that's missing.</p>
+        <p class="sub">Plant small bugs in the code; good tests should fail.</p>
+        <p class="try">▶ Plant a mutant, or run them all. Then add the missing test.</p>
         <div class="mut">
           <div>
 <pre class="code" aria-label="Code under test"><span class="kw">fn</span> <span class="fn">can_vote</span>(age: <span class="ty">u32</span>) -&gt; <span class="ty">bool</span> {
@@ -653,10 +663,9 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 }
 
 <span class="cm">// tests</span>
-<span class="fn">assert!</span>(can_vote(<span class="ty">30</span>));   <span class="cm">// adults vote</span>
-<span class="fn">assert!</span>(!can_vote(<span class="ty">10</span>));  <span class="cm">// children don't</span>
+<span class="fn">assert!</span>(can_vote(<span class="ty">30</span>));   <span class="cm">// adult</span>  <span class="tb" id="tb0"></span>
+<span class="fn">assert!</span>(!can_vote(<span class="ty">10</span>));  <span class="cm">// child</span>  <span class="tb" id="tb1"></span>
 <span id="m-added"></span></pre>
-            <ul class="tests" id="m-tests" aria-label="Test results"></ul>
           </div>
           <div style="display:grid;gap:12px;align-content:start">
             <div class="mutants" id="m-list" role="group" aria-label="Mutants"></div>
@@ -708,33 +717,55 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
         </div>
       </article>
 
+      <!-- retrieval -->
+      <article class="tile span-6" aria-labelledby="rag-title">
+        <div class="t-top">
+          <div><span class="kicker">cv-search · personal · retrieval</span><h3 id="rag-title">Search that reads the résumé, not just the keywords</h3></div>
+          <span class="badge">on request</span>
+        </div>
+        <p class="try">▶ Step through the pipeline. Watch the right candidate climb.</p>
+        <p class="rag-q"><span>query</span>rust backend oauth integrations</p>
+        <div class="rag-pick" role="group" aria-label="Retrieval stage">
+          <button type="button" data-k="0" aria-pressed="true">1 · term match</button><span aria-hidden="true">→</span>
+          <button type="button" data-k="1" aria-pressed="false">2 · + skill fields</button><span aria-hidden="true">→</span>
+          <button type="button" data-k="2" aria-pressed="false">3 · + LLM rerank</button>
+        </div>
+        <ol class="rag-list" id="rag-list" aria-label="Ranked candidates"></ol>
+        <p class="rag-note" id="rag-note" aria-live="polite"></p>
+        <ul class="chips" aria-label="Stack"><li>Go</li><li>React</li><li>Gemini extraction</li><li>LLM rerank</li></ul>
+        <div class="tlinks"><a href="https://github.com/SulthanZahran1/cv-search-prototype" target="_blank" rel="noreferrer">source ↗</a></div>
+      </article>
+
       <!-- factory -->
-      <article class="tile span-6 line" aria-labelledby="fx-title">
+      <article class="tile span-12 line" aria-labelledby="fx-title">
+       <div class="line-grid">
+        <div>
         <div class="t-top">
           <div><span class="kicker">LG Sinarmas · 2024–now</span><h3 id="fx-title">Software that keeps battery lines moving, 24/7</h3></div>
-          <span class="badge">industrial</span>
+          <span class="badge">private · simulated</span>
         </div>
-        <svg viewBox="0 0 520 170" aria-hidden="true">
+        <svg viewBox="0 0 520 170" id="fx-svg" aria-hidden="true">
           <path id="fx-path" class="track" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
           <path class="belt" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
           <text x="260" y="94" text-anchor="middle" class="fx-big">MES → RTD → AMHS</text>
           <text x="260" y="112" text-anchor="middle" class="fx-small">EV-battery production, around the clock</text>
-          <g class="st" tabindex="0" role="button" data-k="stocker" aria-label="stocker: what software runs here"><rect class="hit" x="52" y="3" width="112" height="46" fill="transparent"/><rect x="60" y="14" width="96" height="24" rx="5"/><text x="108" y="30" text-anchor="middle">stocker</text></g>
-          <g class="st" tabindex="0" role="button" data-k="process" aria-label="process: what software runs here"><rect class="hit" x="204" y="3" width="112" height="46" fill="transparent"/><rect x="212" y="14" width="96" height="24" rx="5"/><text x="260" y="30" text-anchor="middle">process</text></g>
-          <g class="st" tabindex="0" role="button" data-k="conveyor" aria-label="conveyor: what software runs here"><rect class="hit" x="356" y="3" width="112" height="46" fill="transparent"/><rect x="364" y="14" width="96" height="24" rx="5"/><text x="412" y="30" text-anchor="middle">conveyor</text></g>
-          <g class="st" tabindex="0" role="button" data-k="rtd" aria-label="dispatch (RTD): what software runs here"><rect class="hit" x="204" y="121" width="112" height="46" fill="transparent"/><rect x="212" y="132" width="96" height="24" rx="5"/><text x="260" y="148" text-anchor="middle">dispatch (RTD)</text></g>
+          <g class="st"><rect x="60" y="14" width="96" height="24" rx="5"/><text x="108" y="30" text-anchor="middle">stocker</text></g>
+          <g class="st" id="fx-eq12"><rect x="202" y="14" width="116" height="24" rx="5"/><text x="260" y="30" text-anchor="middle">EQ12 · process</text></g>
+          <g class="st"><rect x="364" y="14" width="96" height="24" rx="5"/><text x="412" y="30" text-anchor="middle">conveyor</text></g>
+          <g class="st"><rect x="212" y="132" width="96" height="24" rx="5"/><text x="260" y="148" text-anchor="middle">dispatch (RTD)</text></g>
           <g id="fx-agvs"></g>
         </svg>
-        <p class="fx-info" id="fx-info" aria-live="polite">▶ Click a station to see the software behind it.</p>
+        <ul class="chips" aria-label="Stack"><li>MES</li><li>RTD</li><li>AMHS</li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
+        </div>
         <div class="lta">
-          <p class="try">▶ An illustrative incident. Run the analyzer on it.</p>
+          <p class="try">▶ An AGV is stuck at EQ12. Replay the log and find out why.</p>
           <div class="lta-grid">
             <pre class="lta-log" id="lta-log" aria-label="Raw AMHS event log"></pre>
             <svg class="lta-svg" id="lta-svg" viewBox="0 0 300 136" aria-hidden="true"></svg>
           </div>
           <div class="lta-ctl"><button type="button" class="play2" id="lta-run">▶ analyze log</button><span class="lta-out" id="lta-out" aria-live="polite"></span></div>
         </div>
-        <ul class="chips" aria-label="Stack"><li>MES</li><li>RTD</li><li>AMHS</li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
+       </div>
       </article>
 
     </div>
@@ -757,6 +788,16 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <li>Built sambungapi in Rust (axum): an OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira.</li>
           <li>Core engineer on Bella's agent worker (TypeScript): the runtime that plans, calls tools and replies on every turn, across WhatsApp, Gmail, Calendar and Lark.</li>
           <li>Built the messaging engine between apps and chat platforms, and the observability behind it: per-turn cost, execution waterfalls, and a human-review loop that produces ground-truth datasets.</li>
+        </ul></div>
+      </div>
+      <div class="role" id="role-builds">
+        <div><span class="when">Jun 2026 → now</span><span class="org">Personal · open source · self-hosted</span></div>
+        <div><h3>AI builds, shipped</h3><ul>
+          <li>lgensol-wiki (Jun): an LLM-compiled wiki with chat and a knowledge graph over public LGES posts.</li>
+          <li>cv-search (Jun): résumé search with Gemini extraction, deterministic scoring and an LLM rerank.</li>
+          <li>honjang (Jul): real-time English → Korean voice translation that picks the right honorific level.</li>
+          <li>rust_mutant, dart-mutant, gopher_mutant (Aug): mutation testing for the tests coding agents write.</li>
+          <li>recruit (Aug): the pitch copilot below, grounded only in my work profile.</li>
         </ul></div>
       </div>
       <div class="role" id="role-lg">
@@ -810,7 +851,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
     </div>
     <div class="copilot">
       <div class="pitch">
-        <p>This copilot reads your role and writes a short, specific case for why my background fits. It's instructed to cite only evidence from my work profile.</p>
+        <p>Grounded only in my work profile. Pick a sample role or paste your own.</p>
         <p>A small Go service with rate limits. Submitted descriptions and generated pitches are logged; IPs are stored only as hashes. <a href="https://github.com/SulthanZahran1/jd-pitcher" target="_blank" rel="noreferrer">Source ↗</a></p>
       </div>
       <div class="embed">
@@ -917,7 +958,7 @@ function whenVisible(el, fn) {
       spans: [
         ["llm", "plan", 0, 380],
         ["tool", "calendar.upcoming", 400, 700, 1],
-        ["tool", "gmail.search ×4", 720, 1350, 1],
+        ["tool", "gmail.search", 720, 1350, 4],
         ["tool", "lark.docs", 720, 1180, 1],
         ["llm", "write brief", 1370, 2360],
         ["llm", "reply", 2380, 2700]
@@ -950,14 +991,15 @@ function whenVisible(el, fn) {
     var rows = s.spans.map(function (p) {
       var r = document.createElement("div");
       r.className = "t-row"; r.dataset.kind = p[4] ? "tool" : "llm";
-      var nm = p[4] ? '<button type="button" class="t-link" data-tool="' + p[1] + '" aria-label="Follow ' + p[1] + ' through the gateway">' + p[1] + "</button>" : p[1];
+      var label = p[1] + (p[4] > 1 ? " ×" + p[4] : "");
+      var nm = p[4] ? '<button type="button" class="t-link" data-tool="' + p[1] + '" data-n="' + p[4] + '" aria-expanded="false" aria-label="Where does ' + label + ' go?">' + label + "</button>" : p[1];
       r.innerHTML = '<span class="t-name"><span class="k">' + (p[4] ? "tool" : "llm") + "</span>" + nm +
         '</span><span class="t-track" aria-hidden="true"><span class="t-bar" style="left:' + (p[2] / total * 100) + '%"></span></span><span class="t-ms">' + (p[3] - p[2]) + "ms</span>";
       rowsEl.appendChild(r); return r;
     });
     var track0 = rows[0].querySelector(".t-track");
     rowsEl.appendChild(head);
-    var nTools = s.spans.filter(function (p) { return p[4]; }).length;
+    var nTools = s.spans.reduce(function (a, p) { return a + (p[4] || 0); }, 0);
 
     function frame(t) {
       if (my !== token) return;
@@ -971,7 +1013,7 @@ function whenVisible(el, fn) {
       var trackLeft = track0.offsetLeft, trackW = track0.offsetWidth;
       head.style.left = (trackLeft + f * trackW) + "px";
       lat.textContent = fmt(Math.round(Math.min(t, total))) + " ms";
-      tools.textContent = s.spans.filter(function (p) { return p[4] && t >= p[3]; }).length;
+      tools.textContent = s.spans.reduce(function (a, p) { return a + (p[4] && t >= p[3] ? p[4] : 0); }, 0);
       tok.textContent = fmt(Math.round(s.tok * f));
       cost.textContent = "$" + (s.cost * f).toFixed(4);
     }
@@ -981,7 +1023,7 @@ function whenVisible(el, fn) {
       replyEl.textContent = s.reply;
       [].forEach.call(review.querySelectorAll("button"), function (b) { b.disabled = false; });
       note.classList.remove("bad"); note.classList.add("hint");
-      note.textContent = "↳ " + (matchMedia("(hover: none)").matches ? "tap" : "click") + " a green tool name to follow the call through the gateway";
+      note.textContent = "↳ " + (matchMedia("(hover: none)").matches ? "tap" : "click") + " a green tool name to see where the call goes";
       var first = rowsEl.querySelector(".t-link"); if (first && !REDUCED) { first.classList.remove("pulse"); void first.offsetWidth; first.classList.add("pulse"); }
     }
     if (REDUCED) { done(); return; }
@@ -995,12 +1037,33 @@ function whenVisible(el, fn) {
     })(performance.now());
   }
 
+  /* A tool name expands, in place, the route that call takes. */
+  var API = { calendar: "Google Calendar API", gmail: "Gmail API" };
+  var routeTok = 0;
   rowsEl.addEventListener("click", function (e) {
+    var more = e.target.closest(".t-more");
+    if (more) {
+      var gw = document.getElementById("gw-title").closest(".tile"), t = more.dataset.tool, n = +more.dataset.n;
+      if (window.gwHold) window.gwHold();
+      gw.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
+      if (window.gwCall) setTimeout(function () { window.gwCall(t, n); }, REDUCED ? 0 : 550);
+      return;
+    }
     var b = e.target.closest(".t-link"); if (!b) return;
-    var tool = b.dataset.tool, gw = document.getElementById("gw-title").closest(".tile");
-    if (window.gwHold) window.gwHold();
-    gw.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
-    if (window.gwCall) setTimeout(function () { window.gwCall(tool); }, REDUCED ? 0 : 550);
+    var open = rowsEl.querySelector(".t-route"), was = open && open.previousSibling === b.closest(".t-row");
+    if (open) open.remove();
+    [].forEach.call(rowsEl.querySelectorAll(".t-link"), function (x) { x.setAttribute("aria-expanded", "false"); });
+    if (was) return;
+    var tool = b.dataset.tool, n = +b.dataset.n, lark = /^lark/.test(tool);
+    var steps = lark
+      ? [["agent", ""], ["→", ""], ["Lark connector", "key"], ["→", ""], ["Lark API", ""], ["→", ""], ["200 OK", "ok"], ["· separate path, not sambungapi", "nt"]]
+      : [["agent", ""], ["→", ""], ["◆ sambungapi · token unsealed", "key"], ["→", ""], [API[tool.split(".")[0]] || "provider API", ""], ["→", ""], ["200 OK" + (n > 1 ? " ×" + n : ""), "ok"]];
+    var r = document.createElement("div"); r.className = "t-route";
+    r.innerHTML = steps.map(function (x) { return '<span class="rt ' + x[1] + '">' + x[0] + "</span>"; }).join("") +
+      (lark ? "" : '<button type="button" class="t-more" data-tool="' + tool + '" data-n="' + n + '">watch it in the gateway ↓</button>');
+    b.closest(".t-row").after(r); b.setAttribute("aria-expanded", "true");
+    var items = [].slice.call(r.querySelectorAll(".rt")), k = 0, my = ++routeTok;
+    (function next() { if (my !== routeTok || k >= items.length) return; items[k++].classList.add("on"); setTimeout(next, REDUCED ? 0 : 140); })();
   });
   btns.forEach(function (b, j) { b.addEventListener("click", function () { run(j); }); });
   document.getElementById("c-replay").addEventListener("click", function () { run(cur); });
@@ -1018,7 +1081,8 @@ function whenVisible(el, fn) {
 
 
 <script>
-/* ── Gateway diagram: click a provider, watch a call go agent → vault → provider. ── */
+/* ── Gateway diagram: click a provider, watch a call go agent → vault → provider.
+   Wide screens lay it out left→right; phones get a top→bottom version. ── */
 (function () {
   var NS = "http://www.w3.org/2000/svg";
   var svg = document.getElementById("gw-svg");
@@ -1030,37 +1094,57 @@ function whenVisible(el, fn) {
   var wires = document.getElementById("gw-wires"), pg = document.getElementById("gw-provs");
   var packet = document.getElementById("gw-packet"), log = document.getElementById("gw-log");
   var lock = document.getElementById("gw-lock"), shackle = document.getElementById("gw-shackle");
+  var agentG = document.getElementById("gw-agent"), hubG = document.getElementById("gw-hub");
   function el(tag, a, parent) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); (parent || svg).appendChild(n); return n; }
-  var inWire = el("path", { d: "M116 125 L220 125", "class": "wire" }, wires);
-  var outWires = [], nodes = [];
-  provs.forEach(function (p, i) {
-    var y = 22 + i * 32;
-    outWires.push(el("path", { d: "M360 125 C420 125 420 " + (y + 11) + " 470 " + (y + 11), "class": "wire" }, wires));
-    var g = el("g", { "class": "node prov", tabindex: "0", role: "button", "aria-label": "Call " + p[0] + " through the gateway" }, pg);
-    el("rect", { x: 470, y: y, width: 118, height: 22, rx: 6 }, g);
-    var t = el("text", { x: 529, y: y + 15, "text-anchor": "middle" }, g); t.textContent = p[0];
+  var inWire, outWires = [], nodes = [], narrow = null, sel = 0, busy = 0, userTouched = false;
+
+  function node(i, x, y, w, h) {
+    var g = el("g", { "class": "node prov", tabindex: i === sel ? "0" : "-1", role: "button", "aria-label": "Call " + provs[i][0] + " through the gateway" }, pg);
+    el("rect", { x: x, y: y, width: w, height: h, rx: 6 }, g);
+    var t = el("text", { x: x + w / 2, y: y + h / 2 + 4, "text-anchor": "middle" }, g); t.textContent = provs[i][0];
+    g.addEventListener("click", function () { userTouched = true; sel = i; rove(); call(i); });
+    g.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); userTouched = true; call(i); return; }
+      var d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]; if (!d) return;
+      e.preventDefault(); sel = (i + d + provs.length) % provs.length; rove(); nodes[sel].focus();
+    });
+    g.addEventListener("focus", function () { userTouched = true; });
     nodes.push(g);
-    var hb = document.createElement("button"); hb.type = "button"; hb.textContent = p[0]; hb.setAttribute("aria-pressed", "false");
-    hb.addEventListener("click", function () { userTouched = true; call(i); });
-    document.getElementById("gw-btns").appendChild(hb);
-    g.addEventListener("click", function () { call(i); });
-    g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); call(i); } });
-  });
-  var busy = 0, userTouched = false;
-  function along(path, dur, cb, my) {
-    var L = path.getTotalLength(), t0 = performance.now();
-    (function step(now) {
-      if (my !== busy) return;
-      var f = Math.min(1, (now - t0) / dur), pt = path.getPointAtLength(f * L);
-      packet.setAttribute("cx", pt.x); packet.setAttribute("cy", pt.y);
-      if (f < 1) requestAnimationFrame(step); else cb();
-    })(t0);
   }
-  function back(path, dur, cb, my) {
+  function rove() { nodes.forEach(function (n, j) { n.setAttribute("tabindex", j === sel ? "0" : "-1"); }); }
+  function build() {
+    var n = svg.parentNode.clientWidth < 560;
+    if (n === narrow) return;
+    narrow = n; busy++;
+    while (wires.firstChild) wires.removeChild(wires.firstChild);
+    while (pg.firstChild) pg.removeChild(pg.firstChild);
+    outWires = []; nodes = []; packet.setAttribute("cx", -20); setLock(false);
+    if (!n) {
+      svg.setAttribute("viewBox", "0 0 600 250"); agentG.removeAttribute("transform"); hubG.removeAttribute("transform");
+      inWire = el("path", { d: "M116 125 L220 125", "class": "wire" }, wires);
+      provs.forEach(function (p, i) {
+        var y = 22 + i * 32;
+        outWires.push(el("path", { d: "M360 125 C420 125 420 " + (y + 11) + " 470 " + (y + 11), "class": "wire" }, wires));
+        node(i, 470, y, 118, 22);
+      });
+    } else {
+      /* agent on top, vault in the middle, providers as a 4 + 3 grid; the
+         second row sits under the first row's gaps so its wires pass through */
+      svg.setAttribute("viewBox", "0 0 340 312"); agentG.setAttribute("transform", "translate(106 -95)"); hubG.setAttribute("transform", "translate(-120 3)");
+      inWire = el("path", { d: "M170 55 L170 73", "class": "wire" }, wires);
+      provs.forEach(function (p, i) {
+        var row = i < 4 ? 0 : 1, cols = row ? 3 : 4, col = row ? i - 4 : i, w = 76, gap = 6;
+        var x = (340 - (cols * w + (cols - 1) * gap)) / 2 + col * (w + gap), y = row ? 280 : 238, cx = x + w / 2;
+        outWires.push(el("path", { d: "M170 183 C170 208 " + cx + " 204 " + cx + " 230 L" + cx + " " + y, "class": "wire" }, wires));
+        node(i, x, y, w, 26);
+      });
+    }
+  }
+  function along(path, dur, cb, my, rev) {
     var L = path.getTotalLength(), t0 = performance.now();
     (function step(now) {
       if (my !== busy) return;
-      var f = Math.min(1, (now - t0) / dur), pt = path.getPointAtLength((1 - f) * L);
+      var f = Math.min(1, (now - t0) / dur), pt = path.getPointAtLength((rev ? 1 - f : f) * L);
       packet.setAttribute("cx", pt.x); packet.setAttribute("cy", pt.y);
       if (f < 1) requestAnimationFrame(step); else cb();
     })(t0);
@@ -1068,13 +1152,12 @@ function whenVisible(el, fn) {
   var tokEl = document.getElementById("gw-tok");
   function setLock(open) {
     tokEl.textContent = open ? "ya29…Qx9" : "sealed · 9f3a…c1"; tokEl.classList.toggle("open", open); lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
-  function call(i, verb) {
+  function call(i, verb, times) {
     var my = ++busy, p = provs[i], w = outWires[i];
     nodes.forEach(function (n, j) { n.classList.toggle("hot", j === i); });
-    [].forEach.call(document.querySelectorAll("#gw-btns button"), function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
     outWires.forEach(function (x, j) { x.classList.toggle("hot", j === i); }); inWire.classList.add("hot");
     var lines = [
-      '<span class="key">→</span> agent calls <b>' + (verb || p[1]) + "</b> for org acme",
+      '<span class="key">→</span> agent calls <b>' + (times > 1 ? times + " × " : "") + (verb || p[1]) + "</b> for org acme",
       '<span class="key">◆</span> vault: token decrypted in memory, for this call only',
       '<span class="key">→</span> ' + p[0] + " API",
       '<span class="ok">← 200 OK</span> · event written to durable outbox · plaintext token dropped'
@@ -1089,21 +1172,16 @@ function whenVisible(el, fn) {
         show(3);
         along(w, 600, function () {
           show(4);
-          back(w, 500, function () { setLock(false); back(inWire, 450, function () { packet.setAttribute("cx", -20); }, my); }, my);
+          along(w, 500, function () { setLock(false); along(inWire, 450, function () { packet.setAttribute("cx", -20); }, my, true); }, my, true);
         }, my);
       }, 450);
     }, my);
   }
+  build();
+  var pend = 0;
+  window.addEventListener("resize", function () { cancelAnimationFrame(pend); pend = requestAnimationFrame(build); });
   window.gwHold = function () { userTouched = true; busy++; };
-  window.gwCall = function (tool) {
-    userTouched = true;
-    if (/^lark/.test(tool)) {
-      busy++; setLock(false); packet.setAttribute("cx", -20);
-      nodes.forEach(function (n) { n.classList.remove("hot"); }); outWires.forEach(function (x) { x.classList.remove("hot"); }); inWire.classList.remove("hot");
-      log.innerHTML = '<span class="key">→</span> ' + tool + ' goes to Lark through its own connector, not this gateway'; return;
-    }
-    call(0, tool);
-  };
+  window.gwCall = function (tool, times) { userTouched = true; call(0, tool, times); };
   svg.addEventListener("pointerdown", function () { userTouched = true; });
   whenVisible(svg, function () {
     var k = 0;
@@ -1113,7 +1191,6 @@ function whenVisible(el, fn) {
       setTimeout(demo, 3800);
     })();
   });
-  [].forEach.call(nodes, function (n) { n.addEventListener("focus", function () { userTouched = true; }); });
 })();
 </script>
 
@@ -1124,14 +1201,16 @@ function whenVisible(el, fn) {
     { id: "m1", label: ">=  →  <", target: "m-op", text: "<", f: function (a) { return a < 18; } },
     { id: "m2", label: ">=  →  >", target: "m-op", text: ">", f: function (a) { return a > 18; } },
     { id: "m3", label: "18  →  19", target: "m-num", text: "19", f: function (a) { return a >= 19; } },
-    { id: "m4", label: "body  →  true", target: "m-body", text: "true", f: function () { return true; } }
+    { id: "m4", label: "body  →  true", target: "m-body", text: "true", f: function () { return true; } },
+    { id: "m5", label: ">= 18  →  > 17", target: "m-body", text: "age > 17", eq: true, f: function (a) { return a > 17; } }
   ];
+  var REAL = M.filter(function (m) { return !m.eq; }).length;
   var T = [
     { name: "can_vote(30)", arg: 30, want: true },
     { name: "!can_vote(10)", arg: 10, want: false }
   ];
   var BOUNDARY = { name: "can_vote(18)", arg: 18, want: true };
-  var listEl = document.getElementById("m-list"), testsEl = document.getElementById("m-tests");
+  var listEl = document.getElementById("m-list");
   var verdict = document.getElementById("m-verdict"), scoreEl = document.getElementById("m-score"), meter = document.getElementById("m-meter");
   var addBtn = document.getElementById("m-add"), runAll = document.getElementById("m-runall");
   var body = document.getElementById("m-body"), bodyHTML = body.innerHTML, added = document.getElementById("m-added");
@@ -1139,8 +1218,9 @@ function whenVisible(el, fn) {
 
   var btns = M.map(function (m) {
     var b = document.createElement("button");
-    b.type = "button"; b.setAttribute("aria-pressed", "false");
+    b.type = "button"; b.setAttribute("aria-pressed", "false"); b.className = m.eq ? "eq" : "";
     b.innerHTML = "mutant: " + m.label.replace(/</g, "&lt;").replace(/>/g, "&gt;") + '<span class="st">not run</span>';
+    b.setAttribute("aria-label", "mutant " + m.label + ", not run");
     b.addEventListener("click", function () { clearTimeout(timer); apply(m, true); });
     listEl.appendChild(b); return b;
   });
@@ -1154,15 +1234,12 @@ function whenVisible(el, fn) {
     t.textContent = m.text; t.classList.add("mutated");
   }
   function renderTests(m) {
-    testsEl.innerHTML = "";
     var fails = 0;
-    tests.forEach(function (t) {
+    tests.forEach(function (t, k) {
       var got = m ? m.f(t.arg) : t.arg >= 18, ok = got === t.want;
       if (!ok) fails++;
-      var li = document.createElement("li");
-      li.className = ok ? "pass" : "fail";
-      li.innerHTML = "<span>assert!(" + t.name + ")</span><span class=\"r\">" + (ok ? "pass" : "FAIL") + "</span>";
-      testsEl.appendChild(li);
+      var tb = document.getElementById("tb" + k);
+      if (tb) { tb.className = "tb " + (ok ? "pass" : "fail"); tb.innerHTML = ok ? '✓<span class="w"> pass</span>' : '✗<span class="w"> FAIL</span>'; }
     });
     return fails;
   }
@@ -1170,20 +1247,25 @@ function whenVisible(el, fn) {
     var run = M.filter(function (m) { return state[m.id]; });
     if (!run.length) { scoreEl.textContent = "mutation score —"; meter.style.width = "0"; return; }
     var killed = run.filter(function (m) { return state[m.id] === "killed"; }).length;
-    var pct = Math.round(killed / M.length * 100);
-    scoreEl.textContent = "mutation score " + killed + "/" + M.length;
+    var skipped = run.filter(function (m) { return state[m.id] === "skipped"; }).length;
+    var pct = Math.round(killed / REAL * 100);
+    scoreEl.textContent = "mutation score " + killed + "/" + REAL + (skipped ? " · 1 skipped" : "");
     meter.style.width = pct + "%";
   }
   function apply(m, announce) {
     btns.forEach(function (b, i) { b.setAttribute("aria-pressed", String(M[i] === m)); });
     plant(m);
     var fails = renderTests(m);
-    var res = fails ? "killed" : "survived";
+    var res = m.eq ? "skipped" : fails ? "killed" : "survived";
     state[m.id] = res;
-    var b = btns[M.indexOf(m)];
-    b.className = res; b.querySelector(".st").textContent = res === "killed" ? "killed ✓ a test caught it" : "survived ✗ no test noticed";
+    var b = btns[M.indexOf(m)], st = { killed: "killed ✓", survived: "survived ✗", skipped: "skipped · same IR" }[res];
+    b.className = res + (m.eq ? " eq" : ""); b.querySelector(".st").textContent = st;
+    b.setAttribute("aria-label", "mutant " + m.label + ", " + st);
     score();
-    if (announce) {
+    if (announce && m.eq) {
+      verdict.innerHTML = "<b>Skipped, not survived.</b> For a <code>u32</code>, <code>age &gt; 17</code> is the same function, so no test could ever kill it. rust_mutant compiles both and compares the LLVM IR:" +
+        '<span class="ir">original  <b>%r = icmp ugt i32 %age, 17</b>\nmutant    <b>%r = icmp ugt i32 %age, 17</b>   ← identical</span>';
+    } else if (announce) {
       verdict.innerHTML = res === "killed"
         ? "<b>Killed.</b> " + fails + " test" + (fails > 1 ? "s" : "") + " failed on the planted bug, as they should."
         : "<b>Survived.</b> The code is wrong but every test still passes. " + (tests.length < 3 ? "Nothing checks age 18 exactly. Add the boundary test." : "");
@@ -1200,21 +1282,21 @@ function whenVisible(el, fn) {
       if (surv) apply(survivors[0], false);
       if (!surv) { plant(null); renderTests(null); btns.forEach(function (b) { b.setAttribute("aria-pressed", "false"); }); }
       verdict.innerHTML = surv
-        ? "<b>" + surv + " of 4 mutants survived.</b> The tests pass, yet they'd miss real bugs at the boundary. Add the missing test."
-        : "<b>All 4 mutants killed.</b> These tests actually pin the behaviour down.";
+        ? "<b>" + surv + " of " + REAL + " mutants survived.</b> The tests pass, yet they'd miss real bugs at the boundary. Add the missing test."
+        : "<b>All " + REAL + " mutants killed,</b> and 1 skipped because it compiles to identical IR. These tests pin the behaviour down.";
     })();
   });
   addBtn.addEventListener("click", function () {
     if (tests.length > 2) return;
     tests.push(BOUNDARY);
-    added.innerHTML = '<span class="added"><span class="fn">assert!</span>(can_vote(<span class="ty">18</span>));   <span class="cm">// new: the boundary</span></span>';
+    added.innerHTML = '<span class="added"><span class="fn">assert!</span>(can_vote(<span class="ty">18</span>));   <span class="cm">// boundary</span>  <span class="tb" id="tb2"></span></span>';
     addBtn.disabled = true;
     var any = M.some(function (m) { return state[m.id]; });
     if (any) { runAll.click(); } else { verdict.innerHTML = "<b>Boundary test added.</b> Now run the mutants again."; }
   });
   document.getElementById("m-reset").addEventListener("click", function () {
     clearTimeout(timer); state = {}; tests = T.slice(); added.innerHTML = ""; addBtn.disabled = false;
-    btns.forEach(function (b) { b.className = ""; b.setAttribute("aria-pressed", "false"); b.querySelector(".st").textContent = "not run"; });
+    btns.forEach(function (b, i) { b.className = M[i].eq ? "eq" : ""; b.setAttribute("aria-pressed", "false"); b.querySelector(".st").textContent = "not run"; b.setAttribute("aria-label", "mutant " + M[i].label + ", not run"); });
     plant(null); renderTests(null); score();
     verdict.textContent = "Pick a mutant to plant it in the code.";
   });
@@ -1226,7 +1308,7 @@ function whenVisible(el, fn) {
 /* ── honjang: honorific level follows the listener; speech streams by clause. ── */
 (function () {
   var L = [
-    { chunks: ["역이 어디 있는지 ", "알려 ", "줄래?"], level: "반말 · casual: talking down to a peer" },
+    { chunks: ["역이 어디 있는지 ", "알려 ", "줄래?"], level: "반말 · casual: close friends" },
     { chunks: ["역이 어디 있는지 ", "알려 ", "주실 수 있어요?"], level: "해요체 · polite: everyday respect" },
     { chunks: ["역이 어디에 있는지 ", "알려 ", "주시겠습니까?"], level: "합쇼체 · formal: deference to a superior" }
   ];
@@ -1288,11 +1370,11 @@ function whenVisible(el, fn) {
 /* ── Bella: the same request resolves differently per role (illustrative). ── */
 (function () {
   var R = [
-    { steps: [["calendar.freebusy · sales team", 1], ["calendar.create · 12 invitees", 1]],
+    { steps: [["calendar.freebusy · sales team", 1, "policy director · calendars: org ✓"], ["calendar.create · 12 invitees", 1, "policy director · invitees: any ✓"]],
       reply: "Booked \u201cSales sync\u201d tomorrow 10:00 for the whole team. Invites are out." },
-    { steps: [["calendar.freebusy · sales team", 1], ["calendar.create · 12 invitees", 0, "role can't invite a department"]],
+    { steps: [["calendar.freebusy · sales team", 1, "policy staff · calendars: org (read) ✓"], ["calendar.create · 12 invitees", 0, "policy staff · invitees ≤ own team ✗"]],
       reply: "Your role can't book the whole department. Want me to book it with your own team instead?" },
-    { steps: [["calendar.freebusy · sales team", 0, "no access to others' calendars"], ["calendar.create · 12 invitees", 0, "own calendar only"]],
+    { steps: [["calendar.freebusy · sales team", 0, "policy intern · calendars: self ✗"], ["calendar.create · 12 invitees", 0, "policy intern · calendars: self ✗"]],
       reply: "I can only add things to your own calendar. I've put a 10:00 hold there for you." }
   ];
   var list = document.getElementById("perm-steps"), reply = document.getElementById("perm-reply");
@@ -1303,7 +1385,7 @@ function whenVisible(el, fn) {
     var my = ++tok, r = R[i];
     btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
     list.innerHTML = r.steps.map(function (st) {
-      return "<li><span>" + st[0] + "</span>" + (st[1] ? '<span class="ok">allowed</span>' : '<span class="no">blocked</span><small>' + st[2] + "</small>") + "</li>";
+      return '<li class="' + (st[1] ? "" : "x") + '"><span>' + st[0] + "</span>" + (st[1] ? '<span class="ok">allowed</span>' : '<span class="no">blocked</span>') + "<small>" + st[2] + "</small></li>";
     }).join("");
     reply.textContent = "";
     var items = [].slice.call(list.children), k = 0;
@@ -1317,25 +1399,6 @@ function whenVisible(el, fn) {
   show(0);
 })();
 
-/* ── factory: stations explain the software behind them ── */
-(function () {
-  var info = document.getElementById("fx-info");
-  var T = {
-    stocker: "<b>stocker</b> · automated storage. It asks the MES for load and unload jobs over SECS/GEM, and I integrate those requests.",
-    process: "<b>process</b> · production equipment. PLC handshakes tell the system when material may enter or leave.",
-    conveyor: "<b>conveyor</b> · moves material between processes. Its events are what my log analyzer replays as timing diagrams.",
-    rtd: "<b>dispatch (RTD)</b> · real-time dispatching: the rules that pick which vehicle carries which material next. I maintain and extend them."
-  };
-  var st = [].slice.call(document.querySelectorAll(".line .st"));
-  function pick(g) {
-    st.forEach(function (x) { x.classList.toggle("sel", x === g); });
-    info.innerHTML = T[g.dataset.k];
-  }
-  st.forEach(function (g) {
-    g.addEventListener("click", function () { pick(g); });
-    g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(g); } });
-  });
-})();
 </script>
 <script>
 /* ── log -> timing diagram: replay a handshake log and spot the stuck signal ── */
@@ -1368,7 +1431,7 @@ function whenVisible(el, fn) {
   }
   function draw(upto) {
     while (svg.firstChild) svg.removeChild(svg.firstChild);
-    SIG.forEach(function (name, r) { var y0 = 28 + r * 28; el("path", { d: trace(name, EV.length, y0, y0 - 12), "class": "ghost" }); });
+    SIG.forEach(function (name, r) { var y0 = 28 + r * 28; el("path", { d: "M" + X(0) + " " + y0 + " L" + (X(103.3) + 3) + " " + y0, "class": "ghost" }); });
     if (upto >= EV.length) el("rect", { x: X(9.6), y: 42, width: X(103.3) - X(9.6), height: 14, rx: 2, "class": "stuck" });
     SIG.forEach(function (name, r) {
       var y0 = 28 + r * 28;
@@ -1376,17 +1439,21 @@ function whenVisible(el, fn) {
       if (upto) el("path", { d: trace(name, upto, y0, y0 - 12), "class": "sig" });
     });
     el("line", { x1: 240, y1: 8, x2: 236, y2: 122, "class": "brk" }); el("line", { x1: 244, y1: 8, x2: 240, y2: 122, "class": "brk" });
-    el("text", { x: 240, y: 133, "class": "lbl", "text-anchor": "middle" }, "~90 s later");
+    el("text", { x: 240, y: 133, "class": "lbl", "text-anchor": "middle" }, "94 s later");
   }
-  var tok = 0;
+  var tok = 0, fx = document.getElementById("fx-svg"), eq = document.getElementById("fx-eq12"), tile = svg.closest(".tile");
+  function halt(on) {
+    eq.classList.toggle("alarm", on); tile.classList.toggle("halt", on);
+    try { on ? fx.pauseAnimations() : fx.unpauseAnimations(); } catch (e) {}
+  }
   function run() {
-    var my = ++tok, i = 0; out.textContent = "";
+    var my = ++tok, i = 0; out.textContent = ""; halt(false);
     [].forEach.call(logEl.children, function (x) { x.className = ""; });
     (function step() {
       if (my !== tok) return;
       if (i < EV.length) { logEl.children[i].className = "on"; i++; draw(i); setTimeout(step, REDUCED ? 0 : 420); return; }
       logEl.children[EV.length - 1].className = "bad";
-      out.textContent = "READY stayed high after COMPLETE: AGV blocked for 94 s";
+      out.textContent = "READY stayed high after COMPLETE: AGV blocked for 94 s"; halt(true);
     })();
   }
   draw(0);
@@ -1404,9 +1471,10 @@ function whenVisible(el, fn) {
   var NOW = Math.min(today.getFullYear() + (today.getMonth() + today.getDate() / 31) / 12, 2026.95);
   var lanes = [
     { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "Metatech", "", "metatech"]] },
+    { label: "BUILDS",  spans: [[ym(2026, 6), NOW, "AI builds", "", "builds", [ym(2026, 6.2), ym(2026, 6.9), ym(2026, 7.2), ym(2026, 8.1), ym(2026, 8.3)]]] },
     { label: "FACTORY", spans: [[ym(2024, 4), ym(2025, 8), "LG Sinarmas", "", "lg"], [ym(2025, 8), ym(2025, 11), "Korea", "", "korea"], [ym(2025, 11), NOW, "LG Sinarmas", "", "lg"]] },
     { label: "LAB",     spans: [[ym(2023, 10), ym(2024, 4), "FAAN Lab", "", "faan"]] },
-    { label: "FIELD",   spans: [[ym(2022, 6), ym(2022, 8), "PLC intern", "", "plc"], [ym(2024, 1), ym(2024, 4), "Instrumentation", "", "poly"]] },
+    { label: "FIELD",   spans: [[ym(2022, 6), ym(2022, 8), "PLC", "", "plc"], [ym(2024, 1), ym(2024, 4), "Instrumentation", "", "poly"]] },
     { label: "EDU",     spans: [[ym(2019, 8), ym(2023, 8), "B.Sc. Physics · Universitas Indonesia", "", "ui"]] }
   ];
   var roles = [].slice.call(document.querySelectorAll(".role"));
@@ -1415,7 +1483,12 @@ function whenVisible(el, fn) {
   function select(key, focusPanel) {
     selected = key;
     roles.forEach(function (r) { r.hidden = r.id !== "role-" + key; });
-    [].forEach.call(svg.querySelectorAll(".span"), function (g) { g.classList.toggle("sel", g.dataset.key === key); g.setAttribute("aria-pressed", String(g.dataset.key === key)); });
+    var first = true;
+    [].forEach.call(svg.querySelectorAll(".span"), function (g) {
+      var on = g.dataset.key === key;
+      g.classList.toggle("sel", on); g.setAttribute("aria-pressed", String(on));
+      g.setAttribute("tabindex", on && first ? "0" : "-1"); if (on) first = false;
+    });
   }
 
   function draw() {
@@ -1427,13 +1500,15 @@ function whenVisible(el, fn) {
     var top = 50, laneH = 42, half = 11, H = top + shown.length * laneH + 28;
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-    document.getElementById("td-caption").textContent = narrow ? "Showing 2024 onward; wider screens show the full history." : "Years before 2024 are compressed so recent work gets the room.";
-    /* desktop: 2019-2023 gets 30% of the width, 2024 -> now gets 70% */
-    var SPLIT = 2024, XS = X0 + 0.3 * (X1 - X0);
+    document.getElementById("td-caption").textContent = narrow ? "Showing 2024 onward, with 2026 stretched. Wider screens show the full history." : "Time is compressed before 2026 so recent work gets the room.";
+    /* piecewise time scale: [year, fraction of width] stops */
+    var STOPS = narrow ? [[T0, 0], [2026, 0.42], [T1, 1]] : [[T0, 0], [2024, 0.2], [2026, 0.5], [T1, 1]];
     function x(t) {
       t = Math.max(t, T0);
-      if (narrow) return X0 + (t - T0) / (T1 - T0) * (X1 - X0);
-      return t < SPLIT ? X0 + (t - T0) / (SPLIT - T0) * (XS - X0) : XS + (t - SPLIT) / (T1 - SPLIT) * (X1 - XS);
+      for (var i = 1; i < STOPS.length; i++) {
+        var a = STOPS[i - 1], b = STOPS[i];
+        if (t <= b[0] || i === STOPS.length - 1) return X0 + (a[1] + (t - a[0]) / (b[0] - a[0]) * (b[1] - a[1])) * (X1 - X0);
+      }
     }
     function el(tag, attrs, text, parent) {
       var n = document.createElementNS(NS, tag);
@@ -1467,17 +1542,26 @@ function whenVisible(el, fn) {
                 (openEnd ? " L" + ex + " " + (cy + half) : " L" + ex + " " + cy + " L" + (ex - slant) + " " + (cy + half)) +
                 " L" + (openStart ? sx : sx + slant) + " " + (cy + half) + " Z";
         el("path", { d: p, "class": "bus" + (s[3] ? " " + s[3] : "") }, null, g);
+        (s[5] || []).forEach(function (tt) { var tx = x(tt); el("line", { x1: tx, y1: cy + half - 5, x2: tx, y2: cy + half - 1, "class": "tick" }, null, g); });
         /* generous invisible hit area for narrow spans */
         el("rect", { x: sx - 4, y: cy - half - 16, width: Math.max(w + 8, 60), height: half * 2 + 18, fill: "transparent" }, null, g);
         var t = el("text", { x: sx + 9, y: cy + 4, "class": "bus-text" }, s[2], g);
         if (t.getComputedTextLength() + 16 > w) { t.setAttribute("x", sx + 2); t.setAttribute("y", cy - half - 5); t.setAttribute("class", "bus-text above"); }
         g.addEventListener("click", function () { select(s[4]); });
-        g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(s[4]); } });
+        g.addEventListener("keydown", function (e) {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(s[4]); return; }
+          var d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]; if (!d) return;
+          e.preventDefault();
+          var all = [].slice.call(svg.querySelectorAll(".span")), nx = all[(all.indexOf(g) + d + all.length) % all.length];
+          select(nx.dataset.key); nx.setAttribute("tabindex", "0"); nx.focus();
+          all.forEach(function (o) { if (o !== nx) o.setAttribute("tabindex", "-1"); });
+        });
       });
     });
-    if (!narrow) {
-      el("line", { x1: XS - 5, y1: 36, x2: XS - 9, y2: 46, "class": "brk" }); el("line", { x1: XS - 1, y1: 36, x2: XS - 5, y2: 46, "class": "brk" });
-    }
+    STOPS.slice(1, -1).forEach(function (st) {
+      var bx = x(st[0]);
+      el("line", { x1: bx - 5, y1: 36, x2: bx - 9, y2: 46, "class": "brk" }); el("line", { x1: bx - 1, y1: 36, x2: bx - 5, y2: 46, "class": "brk" });
+    });
     var nx = x(NOW);
     el("line", { x1: nx, y1: 8, x2: nx, y2: top + shown.length * laneH + 4, "class": "now" });
     el("text", { x: nx - 4, y: top + shown.length * laneH + 18, "class": "now-text", "text-anchor": "end" }, "now");
@@ -1490,6 +1574,63 @@ function whenVisible(el, fn) {
     pend = requestAnimationFrame(function () { var n = svg.parentNode.clientWidth < 640; if (n !== lastNarrow) { lastNarrow = n; draw(); } });
   });
 })();
+</script>
+<script>
+/* ── cv-search: the same scoring cv-search runs (deterministicSearch in
+   api/main.go), then the LLM rerank stage. Candidates are illustrative. ── */
+(function () {
+  var list = document.getElementById("rag-list"), note = document.getElementById("rag-note");
+  if (!list) return;
+  var Q = "rust backend oauth integrations";
+  var C = [
+    { id: "a", title: "Integrations consultant", text: "Writes about Rust, OAuth and backend integrations on a tech blog; career in presales.", skills: ["presales", "technical writing"], llm: 15, why: "writes about the topics; no hands-on work" },
+    { id: "b", title: "Rust developer", text: "Backend for a fintech ledger: gRPC, Postgres.", skills: ["rust", "backend", "grpc"], llm: 70, why: "strong Rust backend; no OAuth or integrations" },
+    { id: "c", title: "Backend engineer", text: "Payment integrations in Go: Stripe, Twilio.", skills: ["go", "backend", "kafka"], llm: 55, why: "backend integrations, but in Go" },
+    { id: "d", title: "Identity engineer", text: "Rolled out OAuth and SSO across 40 SaaS integrations with Okta.", skills: ["oauth", "sso", "okta"], llm: 60, why: "deep OAuth; no Rust or backend code" },
+    { id: "e", title: "Platform engineer", text: "Built the token vault and Google, Slack and GitHub connectors agents act through.", skills: ["rust", "oauth", "postgresql"], llm: 94, why: "built OAuth connectors in Rust: direct evidence", want: true }
+  ];
+  function tokenize(t) { return t.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean); }
+  /* +8 per query term found anywhere; +18 per term that is an extracted skill */
+  function score(c, stage) {
+    var hay = (c.title + " " + c.text + " " + c.skills.join(" ")).toLowerCase(), q = tokenize(Q), sc = 0, hit = [];
+    q.forEach(function (t) { if (t.length >= 2 && hay.indexOf(t) !== -1) { sc += 8; hit.push(t); } });
+    if (stage >= 1) q.forEach(function (t) { if (c.skills.indexOf(t) !== -1) sc += 18; });
+    return { sc: sc, hit: hit };
+  }
+  var NOTE = [
+    "<b>+8 per query term</b> found anywhere in the text. The blogger who mentions every word wins.",
+    "<b>+18 when a term is a skill</b> Gemini extracted into the structured profile. Real skills beat mentions.",
+    "<b>An LLM reads the candidates</b> against the query and scores evidence 0–100, with a reason."
+  ];
+  var btns = [].slice.call(document.querySelectorAll(".rag-pick button")), stage = 0;
+  function render(k) {
+    stage = k;
+    btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === k)); b.classList.toggle("done", j < k); });
+    var rows = C.map(function (c) { var r = score(c, k); return { c: c, sc: k === 2 ? c.llm : r.sc, hit: r.hit }; });
+    rows.sort(function (a, b) { return b.sc - a.sc; });  /* stable, like sort.SliceStable */
+    var before = {};
+    [].forEach.call(list.children, function (li) { before[li.dataset.id] = li.getBoundingClientRect().top; });
+    list.innerHTML = rows.map(function (r, i) {
+      return '<li data-id="' + r.c.id + '"' + (r.c.want ? ' class="want"' : "") + '><span class="rk">' + (i + 1) + '</span><span class="nm">' + r.c.title +
+        (r.c.want ? "<i>● the one you want</i>" : "") + '</span><span class="sc">' + (k === 2 ? r.sc + "/100" : r.sc + " pts") + "</span><small>" +
+        (k === 2 ? r.c.why : "matched: " + r.hit.join(", ")) + "</small></li>";
+    }).join("");
+    var pos = rows.findIndex(function (r) { return r.c.want; }) + 1;
+    note.innerHTML = NOTE[k] + " The platform engineer is <b>#" + pos + "</b>.";
+    if (REDUCED) return;
+    [].forEach.call(list.children, function (li) {
+      var b = before[li.dataset.id]; if (b === undefined) return;
+      var d = b - li.getBoundingClientRect().top; if (!d) return;
+      li.style.transition = "none"; li.style.transform = "translateY(" + d + "px)";
+      requestAnimationFrame(function () { requestAnimationFrame(function () { li.style.transition = "transform .45s cubic-bezier(.2,.8,.2,1)"; li.style.transform = ""; }); });
+    });
+  }
+  btns.forEach(function (b, j) { b.addEventListener("click", function () { render(j); }); });
+  render(0);
+})();
+
+/* touch devices tap, they don't click */
+if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(document.querySelectorAll(".tap-word"), function (w) { w.textContent = "Tap"; });
 </script>
 <script>
 (function () {
@@ -1511,6 +1652,12 @@ function whenVisible(el, fn) {
   }
   if (embed) {
     embed.addEventListener("load", function () {
+      var title = "";
+      try { title = embed.contentDocument.title; } catch (e) { title = "Recruiter"; }
+      if (!/Recruiter/.test(title)) {
+        embed.parentNode.innerHTML = '<p class="embed-off">The copilot is offline for a moment. Email me at <a href="mailto:zsulthan9@gmail.com">zsulthan9@gmail.com</a> and I\'ll send you a tailored pitch myself.</p>';
+        return;
+      }
       fitEmbed();
       window.addEventListener("resize", fitEmbed);
       try {
