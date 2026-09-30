@@ -105,6 +105,7 @@ a { color: inherit; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 .dark :focus-visible, .console :focus-visible { outline-color: var(--c-green); }
+main { overflow-x: clip; }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: var(--paper); padding: 6px 10px; z-index: 50; }
 .skip:focus { left: 8px; }
@@ -150,7 +151,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .c-body { padding: 16px; display: grid; gap: 14px; }
 .c-tasks { display: flex; flex-wrap: wrap; gap: 6px; }
 .c-tasks button { padding: 7px 11px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-dim); font-size: 12px; transition: all .15s; }
-.c-tasks button:hover { color: var(--c-text); border-color: #4a4e56; }
+.c-tasks button:hover, .listeners button:hover, .roles-pick button:hover, .gw-btns button:hover { color: var(--c-text); border-color: #5a5e67; }
+.mut-ctl button:not([disabled]):hover { background: var(--ink); color: var(--paper); }
+.mut-ctl button.primary:hover, .play2:hover { background: var(--accent); border-color: var(--accent); }
 .c-tasks button[aria-pressed="true"] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
 .bubble { max-width: 88%; padding: 10px 12px; border-radius: 12px; font-family: var(--sans); font-size: 14px; line-height: 1.45; }
 .bubble .chan { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--c-dim); margin-bottom: 3px; letter-spacing: .04em; text-transform: uppercase; }
@@ -175,19 +178,21 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .t-track { position: relative; height: 10px; }
 .t-bar { position: absolute; top: 0; height: 10px; border-radius: 3px; background: var(--c-blue); width: 0; }
 .t-row[data-kind="tool"] .t-bar { background: var(--c-green); }
-.t-row[data-kind="gw"] .t-bar { background: var(--c-amber); }
 .t-ms { text-align: right; color: var(--c-dim); font-size: 11px; }
 .playhead { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(233,231,225,.35); left: 0; pointer-events: none; }
 .c-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--c-line); border-radius: 12px; overflow: hidden; }
 .c-stats div { padding: 9px 10px; color: var(--c-dim); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; }
 .c-stats div + div { border-left: 1px solid var(--c-line); }
 .c-stats b { display: block; font-weight: 500; font-size: 16px; color: var(--c-text); letter-spacing: 0; text-transform: none; }
-.c-review { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--c-dim); min-height: 70px; align-content: start; }
+.c-review { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--c-dim); }
 .c-review button { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--c-line); color: var(--c-text); font-size: 12px; }
 .c-review button:hover:not([disabled]) { border-color: var(--c-green); color: var(--c-green); }
 .c-review button[disabled] { opacity: .45; cursor: default; }
 .c-review .note { color: var(--c-green); flex-basis: 100%; min-height: 18px; font-size: 11.5px; }
-.c-review .note.bad { color: var(--c-amber); }
+.c-review .note.bad { color: var(--c-red); }
+.c-review .note.hint { color: var(--c-dim); }
+.t-link.pulse { animation: glow .6s ease-in-out 2; border-radius: 3px; }
+@keyframes glow { 50% { background: rgba(52,211,153,.25); box-shadow: 0 0 0 3px rgba(52,211,153,.25); } }
 .c-foot { padding: 10px 16px; border-top: 1px solid var(--c-line); color: var(--c-dim); font-size: 11px; display: flex; justify-content: space-between; gap: 10px; }
 .c-foot button { color: var(--c-text); text-decoration: underline; text-underline-offset: 3px; }
 
@@ -217,7 +222,7 @@ section.block { padding-top: 92px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
 .chips li { font-family: var(--mono); font-size: 11px; padding: 3px 8px; border-radius: 6px; background: var(--bg); color: var(--ink-2); }
 .dark .chips li { background: var(--c-panel); color: var(--c-dim); }
-.tlinks { display: flex; flex-wrap: wrap; gap: 16px; font-family: var(--mono); font-size: 13px; margin-top: auto; }
+.tlinks { display: flex; flex-wrap: wrap; gap: 16px; font-family: var(--mono); font-size: 13px; }
 .tlinks a { color: var(--accent); text-decoration: none; padding: 4px 0; }
 .dark .tlinks a { color: var(--c-green); }
 .tlinks a:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -288,9 +293,9 @@ section.block { padding-top: 92px; }
 .hj-ko { font-size: 24px; line-height: 1.35; font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", var(--sans); }
 .hj-ko .ck { transition: color .3s, background .3s; border-radius: 4px; color: #4a4d55; }
 .hj-ko .ck.on { color: var(--c-text); }
-.hj-ko .ck.end.on { color: var(--c-amber); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.hj-ko .ck.end.on { color: var(--c-text); text-decoration-color: var(--c-blue); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .hj-ko .ck.speaking { background: rgba(52,211,153,.18); color: var(--c-green); }
-.hj-level { font-family: var(--mono); font-size: 11px; color: var(--c-amber); }
+.hj-level { font-family: var(--mono); font-size: 11px; color: var(--c-blue); }
 .lanes { display: grid; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--c-dim); }
 .lane { display: grid; grid-template-columns: 48px 1fr; gap: 8px; align-items: center; }
 .lane .tr { position: relative; height: 12px; background: var(--c-panel); border-radius: 4px; overflow: hidden; }
@@ -300,10 +305,11 @@ section.block { padding-top: 92px; }
 .lanes .vline { position: absolute; top: 0; height: 58px; left: calc(56px + (100% - 56px) * .25); width: 0; border-left: 1px dashed var(--c-amber); opacity: 0; transition: opacity .3s; }
 .lanes .vline.on { opacity: 1; }
 .lanes .axis { display: grid; grid-template-columns: 48px 1fr; gap: 8px; }
-.lanes .axis span:last-child { display: flex; justify-content: space-between; color: #6b6f78; }
-.lanes .axis i { font-style: normal; }
-.lanes .mark300 { position: relative; height: 16px; margin-left: 56px; }
-.lanes .mark300 span { position: absolute; transform: translateX(-8px); color: var(--c-amber); white-space: nowrap; opacity: 0; transition: opacity .3s; }
+.lanes .axis span:last-child { position: relative; display: block; height: 14px; color: #6b6f78; }
+.lanes .axis i { font-style: normal; position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.lanes .axis i:nth-child(1) { left: 0; transform: none; } .lanes .axis i:nth-child(2) { left: 25%; } .lanes .axis i:nth-child(3) { left: 50%; } .lanes .axis i:nth-child(4) { left: 75%; } .lanes .axis i:nth-child(5) { right: 0; transform: none; }
+.lanes .mark300 { margin-left: 56px; padding-bottom: 14px; }
+.lanes .mark300 span { display: block; margin-left: calc(25% - 8px); color: var(--c-amber); opacity: 0; transition: opacity .3s; }
 .lanes .mark300 span.on { opacity: 1; }
 .play { align-self: start; font-family: var(--mono); font-size: 12.5px; padding: 8px 13px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-text); }
 .play:hover { border-color: var(--c-green); color: var(--c-green); }
@@ -316,7 +322,8 @@ section.block { padding-top: 92px; }
 .line .st rect { fill: var(--paper); stroke: var(--ink); stroke-width: 1.3; }
 .line .st text { font-family: var(--mono); font-size: 10.5px; fill: var(--ink); }
 .line .st { cursor: pointer; }
-.line .st:hover rect, .line .st.sel rect { fill: var(--ink); }
+.line .st:hover rect:not(.hit), .line .st.sel rect:not(.hit) { fill: var(--ink); }
+.line .st rect.hit { stroke: none; }
 .line .st:hover text, .line .st.sel text { fill: var(--paper); }
 .line .st:focus { outline: none; } .line .st:focus-visible rect { stroke: var(--accent); stroke-width: 2.5; }
 .lta { display: grid; gap: 10px; }
@@ -325,7 +332,8 @@ section.block { padding-top: 92px; }
 .lta-log .on { color: var(--c-text); }
 .lta-log .bad { color: var(--c-amber); }
 .lta-svg { width: 100%; height: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
-.lta-svg .lbl { font-family: var(--mono); font-size: 8.5px; fill: var(--muted); }
+.lta-svg .lbl { font-family: var(--mono); font-size: 9.5px; fill: var(--muted); }
+.lta-svg .ghost { fill: none; stroke: var(--line); stroke-width: 1.3; }
 .lta-svg .sig { fill: none; stroke: var(--ink); stroke-width: 1.3; }
 .lta-svg .stuck { fill: rgba(245,180,84,.3); stroke: var(--signal); stroke-width: 1; }
 .lta-svg .brk { stroke: var(--muted); stroke-width: 1; }
@@ -337,7 +345,7 @@ section.block { padding-top: 92px; }
 .line .agv { fill: var(--accent); }
 .line .fx-big { font-family: var(--cond); font-weight: 600; font-size: 26px; fill: var(--ink); }
 .line .fx-small { font-family: var(--mono); font-size: 10.5px; fill: var(--muted); }
-.line .agv.b { fill: var(--signal); }
+.line .agv.b { fill: var(--accent); }
 
 /* try cue */
 .try { font-family: var(--mono); font-size: 12px; color: var(--accent); }
@@ -381,6 +389,7 @@ section.block { padding-top: 92px; }
 #timeline .clk { stroke: var(--muted); stroke-width: 1; fill: none; }
 #timeline .year { font-size: 10.5px; fill: var(--muted); }
 #timeline .gridline { stroke: var(--line-2); stroke-width: 1; }
+#timeline .brk { stroke: var(--muted); stroke-width: 1.2; }
 #timeline .now { stroke: var(--signal); stroke-width: 1.2; stroke-dasharray: 3 3; }
 #timeline .now-text { font-size: 10.5px; fill: var(--signal); }
 .td-hint { margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
@@ -422,43 +431,6 @@ section.block { padding-top: 92px; }
 .status.live::before { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 .status.gated::before { background: #c9a227; }
 
-/* github contributions (custom renderer on github-contributions-api.jogruber.de) */
-.gh-card { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 14px; }
-.gh-link { display: inline-block; margin-top: 12px; color: var(--muted); font-family: var(--mono); font-size: 12.5px; text-decoration: none; }
-.gh-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
-#gh-calendar { font-family: var(--mono); min-height: 200px; margin: 0 auto; text-align: left; }
-.cal-scroll { overflow-x: auto; scrollbar-width: thin; }
-.cal-months { display: flex; gap: 6px; margin-bottom: 6px; align-items: end; }
-.cal-spacer { width: 24px; flex: none; }
-.cal-month-cells { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(var(--cal-weeks, 53), minmax(9px, 1fr)); gap: 3px; }
-.cal-month-cells span { font-size: 10px; color: var(--muted); white-space: nowrap; }
-.cal-body { display: flex; gap: 6px; width: max-content; min-width: 100%; }
-.cal-weekdays { display: grid; grid-template-rows: repeat(7, minmax(0, 1fr)); gap: 3px; width: 24px; flex: none; position: sticky; left: 0; background: var(--paper); z-index: 1; }
-.cal-weekdays span { font-size: 9px; color: var(--muted); line-height: 1; display: flex; align-items: center; }
-.cal-grid { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(9px, 1fr); grid-template-rows: repeat(7, minmax(0, 1fr)); gap: 3px; flex: 1; min-width: 0; }
-.cal-grid .day { width: 100%; aspect-ratio: 1; max-height: 16px; border-radius: 2px; background: #e9e6dd; }
-.cal-grid:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
-.cal-grid .day[data-level="1"], .cal-legend i[data-level="1"] { background: #a5e2c8; }
-.cal-grid .day[data-level="2"], .cal-legend i[data-level="2"] { background: #8fdcba; }
-.cal-grid .day[data-level="3"], .cal-legend i[data-level="3"] { background: #4cc293; }
-.cal-grid .day[data-level="4"], .cal-legend i[data-level="4"] { background: #0d9467; }
-.cal-legend i[data-level="0"] { background: #e9e6dd; }
-.cal-tip { position: fixed; z-index: 40; padding: 6px 9px; font-family: var(--mono); font-size: 12px; color: #fafafa; background: rgba(22, 23, 26, .95); border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity 0.12s ease; white-space: nowrap; }
-.cal-tip.show { opacity: 1; }
-.cal-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px; border-top: 1px solid var(--line); }
-.cal-stats div { padding: 12px 4px 0; text-align: center; font-size: 11px; color: var(--muted); }
-.cal-stats div + div { border-left: 1px solid var(--line); }
-.cal-stats .num { display: block; font-size: 19px; color: var(--ink); line-height: 1.3; }
-.cal-legend { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 10px; font-size: 10.5px; color: var(--muted); }
-.cal-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
-.cal-loading, .cal-error { color: var(--muted); font-size: 13.5px; margin: 0; }
-.cal-error a { color: var(--accent); }
-
-
-.gh-card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 18px 18px 14px; }
-.gh-link { display: inline-block; margin-top: 12px; color: var(--muted); font-family: var(--mono); font-size: 12.5px; text-decoration: none; }
-.gh-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
-
 #teaser { display: none; }
 #teaser.show { display: block; }
 .minihead { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
@@ -468,7 +440,7 @@ section.block { padding-top: 92px; }
 
 /* ── contact ───────────────────────────────────────── */
 .contact-block { margin-top: 120px; background: var(--ink); color: var(--paper); border-radius: 28px; padding: clamp(28px, 6vw, 72px); position: relative; overflow: hidden; }
-.contact-block h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(36px, 5vw, 64px); line-height: .96; letter-spacing: -.025em; max-width: 14ch; position: relative; }
+.contact-block h2 { text-wrap: balance; font-family: var(--cond); font-weight: 600; font-size: clamp(36px, 5vw, 64px); line-height: .96; letter-spacing: -.025em; max-width: 16ch; position: relative; }
 .contact-block h2 em { font-style: normal; color: var(--c-green); }
 .contact-block .mail { position: relative; display: inline-block; margin-top: 30px; font-family: var(--mono); font-size: clamp(17px, 2.4vw, 26px); text-decoration: none; border-bottom: 2px solid var(--c-green); padding-bottom: 2px; }
 .contact-block .mail:hover { color: var(--c-green); }
@@ -518,6 +490,8 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   .wins { grid-template-columns: 1fr 1fr; }
   .wins b { font-size: 22px; }
   .gw-btns { display: flex; }
+  .gw .prov text { display: none; }
+  .gw .prov rect { fill: #262930; }
   .lta-grid { grid-template-columns: minmax(0, 1fr); }
   section.block { padding-top: 84px; }
   .cal-stats { grid-template-columns: 1fr; }
@@ -560,9 +534,9 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 
   <section class="hero" aria-labelledby="hero-title">
     <div>
-      <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf · AI engineer · Indonesia</span></p>
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf · AI engineer at Metatech · Indonesia</span></p>
       <h1 id="hero-title">I build AI agents<br> that <em>do real work.</em></h1>
-      <p class="lede">Agents that act on real accounts, the gateway they act through, and the console that shows what they did. <span class="try-r">Try&nbsp;one&nbsp;→</span><span class="try-d">Try&nbsp;one&nbsp;below&nbsp;↓</span></p>
+      <p class="lede">Right now: a Rust OAuth gateway that agents act through, the runtime that executes each turn, and the console that traces it. <span class="try-r">Try&nbsp;one&nbsp;→</span><span class="try-d">Try&nbsp;one&nbsp;below&nbsp;↓</span></p>
       <div class="cta">
         <a class="btn primary" href="#work">See the work ↓</a>
         <a class="btn ghost" href="#copilot">Recruiter? Get a pitch</a>
@@ -588,14 +562,14 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
         </div>
         <div class="bubble user"><span class="chan" id="c-chan">WhatsApp</span><span id="c-prompt">Move my 3pm with Andi to tomorrow, same time, and let him know.</span></div>
         <div class="trace" role="group" id="c-trace-wrap" aria-label="Execution trace">
-          <div class="trace-head" aria-hidden="true"><span>span</span><span class="legend"><i class="lg-llm"></i>model <i class="lg-tool"></i>tool (click to follow it)</span><span style="text-align:right">time</span></div>
+          <div class="trace-head" aria-hidden="true"><span>span</span><span class="legend"><i class="lg-llm"></i>model <i class="lg-tool"></i>tool</span><span style="text-align:right">time</span></div>
           <div class="t-rows" id="c-rows"></div>
         </div>
         <div class="c-stats" aria-hidden="true">
           <div><b id="c-lat">0 ms</b>latency</div>
           <div><b id="c-tools">0</b>tool calls</div>
           <div><b id="c-tok">0</b>tokens</div>
-          <div><b id="c-cost">Rp 0</b>cost</div>
+          <div><b id="c-cost">$0.0000</b>cost</div>
         </div>
         <div class="bubble agent" id="c-reply" aria-live="polite"><span class="chan">agent</span><span id="c-reply-text"><span class="typing" aria-label="working"><i></i><i></i><i></i></span></span></div>
         <div class="c-review" id="c-review">
@@ -605,7 +579,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <span class="note" id="c-note" aria-live="polite"></span>
         </div>
       </div>
-      <div class="c-foot"><span>Modelled on the observability console I built for Bella.</span><button type="button" id="c-replay">replay ↺</button></div>
+      <div class="c-foot"><span>Modelled on the observability console I built for Bella.</span><button type="button" id="c-replay">▶ replay</button></div>
     </div>
   </section>
 
@@ -661,6 +635,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <ul class="perm-steps" id="perm-steps"></ul>
           <p class="perm-reply" id="perm-reply" aria-live="polite"></p>
         </div>
+        <ul class="chips" aria-label="Stack"><li>TypeScript</li><li>Hono</li><li>React</li><li>Go</li><li>MongoDB</li><li>Redis</li><li>LLM tool use</li></ul>
       </article>
 
       <!-- mutation testing -->
@@ -722,10 +697,10 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div class="lane"><span>think</span><span class="tr"><span class="seg llm" id="hj-llm"></span></span></div>
           <div class="lane"><span>speak</span><span class="tr"><span class="seg tts" id="hj-tts"></span></span></div>
           <div class="axis"><span></span><span><i>0</i><i>300</i><i>600</i><i>900</i><i>1200 ms</i></span></div>
-          <div class="mark300"><span id="hj-300">↑ first audio at ~300 ms (design budget), mid-sentence</span></div>
+          <div class="mark300"><span id="hj-300">↑ first audio ≈300 ms, mid-sentence (design budget)</span></div>
           <span class="vline" id="hj-vline"></span>
         </div>
-        <button type="button" class="play" id="hj-play">replay ↺</button>
+        <button type="button" class="play" id="hj-play">▶ replay</button>
         <ul class="chips" aria-label="Stack"><li>Expo</li><li>FastAPI</li><li>WebSocket</li><li>Deepgram Nova-3</li><li>OpenRouter</li><li>ElevenLabs</li></ul>
         <div class="tlinks">
           <a href="https://honjang.zahranm.cloud" target="_blank" rel="noreferrer">try the live app ↗</a>
@@ -736,7 +711,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <!-- factory -->
       <article class="tile span-6 line" aria-labelledby="fx-title">
         <div class="t-top">
-          <div><span class="kicker">LG Sinarmas · EV-battery plant · 2024–now</span><h3 id="fx-title">Software that keeps battery lines moving, 24/7</h3></div>
+          <div><span class="kicker">LG Sinarmas · 2024–now</span><h3 id="fx-title">Software that keeps battery lines moving, 24/7</h3></div>
           <span class="badge">industrial</span>
         </div>
         <svg viewBox="0 0 520 170" aria-hidden="true">
@@ -744,10 +719,10 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <path class="belt" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
           <text x="260" y="94" text-anchor="middle" class="fx-big">MES → RTD → AMHS</text>
           <text x="260" y="112" text-anchor="middle" class="fx-small">EV-battery production, around the clock</text>
-          <g class="st" tabindex="0" role="button" data-k="stocker" aria-label="stocker: what software runs here"><rect x="60" y="14" width="96" height="24" rx="5"/><text x="108" y="30" text-anchor="middle">stocker</text></g>
-          <g class="st" tabindex="0" role="button" data-k="process" aria-label="process: what software runs here"><rect x="212" y="14" width="96" height="24" rx="5"/><text x="260" y="30" text-anchor="middle">process</text></g>
-          <g class="st" tabindex="0" role="button" data-k="conveyor" aria-label="conveyor: what software runs here"><rect x="364" y="14" width="96" height="24" rx="5"/><text x="412" y="30" text-anchor="middle">conveyor</text></g>
-          <g class="st" tabindex="0" role="button" data-k="rtd" aria-label="dispatch (RTD): what software runs here"><rect x="212" y="132" width="96" height="24" rx="5"/><text x="260" y="148" text-anchor="middle">dispatch (RTD)</text></g>
+          <g class="st" tabindex="0" role="button" data-k="stocker" aria-label="stocker: what software runs here"><rect class="hit" x="52" y="3" width="112" height="46" fill="transparent"/><rect x="60" y="14" width="96" height="24" rx="5"/><text x="108" y="30" text-anchor="middle">stocker</text></g>
+          <g class="st" tabindex="0" role="button" data-k="process" aria-label="process: what software runs here"><rect class="hit" x="204" y="3" width="112" height="46" fill="transparent"/><rect x="212" y="14" width="96" height="24" rx="5"/><text x="260" y="30" text-anchor="middle">process</text></g>
+          <g class="st" tabindex="0" role="button" data-k="conveyor" aria-label="conveyor: what software runs here"><rect class="hit" x="356" y="3" width="112" height="46" fill="transparent"/><rect x="364" y="14" width="96" height="24" rx="5"/><text x="412" y="30" text-anchor="middle">conveyor</text></g>
+          <g class="st" tabindex="0" role="button" data-k="rtd" aria-label="dispatch (RTD): what software runs here"><rect class="hit" x="204" y="121" width="112" height="46" fill="transparent"/><rect x="212" y="132" width="96" height="24" rx="5"/><text x="260" y="148" text-anchor="middle">dispatch (RTD)</text></g>
           <g id="fx-agvs"></g>
         </svg>
         <p class="fx-info" id="fx-info" aria-live="polite">▶ Click a station to see the software behind it.</p>
@@ -868,15 +843,6 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
     </details>
   </section>
 
-  <section class="block" id="activity" aria-labelledby="activity-title">
-    <div class="head">
-      <div><span class="idx">05 · activity</span><h2 id="activity-title">Recent commit rhythm</h2></div>
-      <p>Public and private GitHub activity, last six months.</p>
-    </div>
-    <div id="gh-calendar" class="gh-card"><p class="cal-loading">loading contributions…</p></div>
-    <a class="gh-link" href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github.com/SulthanZahran1 ↗</a>
-  </section>
-
   <section class="block" id="teaser" aria-labelledby="teaser-title">
     <h2 class="minihead" id="teaser-title">latest from the blog</h2>
     <ul class="posts" id="posts"></ul>
@@ -936,7 +902,7 @@ function whenVisible(el, fn) {
         ["tool", "calendar.update", 1330, 1720, 1],
         ["tool", "gmail.send", 1740, 2080, 1],
         ["llm", "reply", 2100, 2480]
-      ], tok: 3412, cost: 38,
+      ], tok: 3412, cost: 0.0023,
       reply: "Done. “Sync with Andi” is now tomorrow 15:00–15:30, and I emailed him the new time." },
     { chan: "Lark", prompt: "What in my inbox actually needs me today?",
       spans: [
@@ -945,7 +911,7 @@ function whenVisible(el, fn) {
         ["llm", "triage 23 emails", 920, 1780],
         ["tool", "calendar.upcoming", 1800, 2050, 1],
         ["llm", "reply", 2070, 2520]
-      ], tok: 9870, cost: 104,
+      ], tok: 9870, cost: 0.0063,
       reply: "3 need you: the vendor contract (due 17:00), Rina's budget question, and a reschedule request that clashes with your 14:00. The other 20 can wait." },
     { chan: "web", prompt: "Brief me for tomorrow's meetings.",
       spans: [
@@ -955,7 +921,7 @@ function whenVisible(el, fn) {
         ["tool", "lark.docs", 720, 1180, 1],
         ["llm", "write brief", 1370, 2360],
         ["llm", "reply", 2380, 2700]
-      ], tok: 14250, cost: 151,
+      ], tok: 14250, cost: 0.0092,
       reply: "4 meetings tomorrow. Heads-up: the 10:00 with Finance will ask about Q3 variance. Last thread and the doc are linked in your brief." }
   ];
   var rowsEl = document.getElementById("c-rows");
@@ -1007,13 +973,16 @@ function whenVisible(el, fn) {
       lat.textContent = fmt(Math.round(Math.min(t, total))) + " ms";
       tools.textContent = s.spans.filter(function (p) { return p[4] && t >= p[3]; }).length;
       tok.textContent = fmt(Math.round(s.tok * f));
-      cost.textContent = "Rp " + Math.round(s.cost * f);
+      cost.textContent = "$" + (s.cost * f).toFixed(4);
     }
     function done() {
       frame(total); head.style.opacity = "0";
       tools.textContent = nTools;
       replyEl.textContent = s.reply;
       [].forEach.call(review.querySelectorAll("button"), function (b) { b.disabled = false; });
+      note.classList.remove("bad"); note.classList.add("hint");
+      note.textContent = "↳ " + (matchMedia("(hover: none)").matches ? "tap" : "click") + " a green tool name to follow the call through the gateway";
+      var first = rowsEl.querySelector(".t-link"); if (first && !REDUCED) { first.classList.remove("pulse"); void first.offsetWidth; first.classList.add("pulse"); }
     }
     if (REDUCED) { done(); return; }
     var SPEED = 1.35, t0 = performance.now() + 450;
@@ -1029,6 +998,7 @@ function whenVisible(el, fn) {
   rowsEl.addEventListener("click", function (e) {
     var b = e.target.closest(".t-link"); if (!b) return;
     var tool = b.dataset.tool, gw = document.getElementById("gw-title").closest(".tile");
+    if (window.gwHold) window.gwHold();
     gw.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
     if (window.gwCall) setTimeout(function () { window.gwCall(tool); }, REDUCED ? 0 : 550);
   });
@@ -1037,12 +1007,12 @@ function whenVisible(el, fn) {
   review.addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b || b.disabled) return;
     [].forEach.call(review.querySelectorAll("button"), function (x) { x.disabled = true; });
-    note.classList.toggle("bad", b.dataset.v !== "good");
+    note.classList.remove("hint"); note.classList.toggle("bad", b.dataset.v !== "good");
     note.textContent = b.dataset.v === "good"
       ? "Saved as a ground-truth example. Future versions get tested against it."
       : "Flagged for review, then added to the eval set as a failure case.";
   });
-  run(0);
+  whenVisible(document.getElementById("console"), function () { run(0); });
 })();
 </script>
 
@@ -1097,7 +1067,7 @@ function whenVisible(el, fn) {
   }
   var tokEl = document.getElementById("gw-tok");
   function setLock(open) {
-    tokEl.textContent = open ? "ya29.a0Af…Qx9 · in use" : "sealed · 9f3a…c1"; tokEl.classList.toggle("open", open); lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
+    tokEl.textContent = open ? "ya29…Qx9" : "sealed · 9f3a…c1"; tokEl.classList.toggle("open", open); lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
   function call(i, verb) {
     var my = ++busy, p = provs[i], w = outWires[i];
     nodes.forEach(function (n, j) { n.classList.toggle("hot", j === i); });
@@ -1124,17 +1094,22 @@ function whenVisible(el, fn) {
       }, 450);
     }, my);
   }
+  window.gwHold = function () { userTouched = true; busy++; };
   window.gwCall = function (tool) {
     userTouched = true;
-    if (/^lark/.test(tool)) { log.innerHTML = '<span class="key">→</span> ' + tool + ' goes to Lark through its own connector, not this gateway'; return; }
+    if (/^lark/.test(tool)) {
+      busy++; setLock(false); packet.setAttribute("cx", -20);
+      nodes.forEach(function (n) { n.classList.remove("hot"); }); outWires.forEach(function (x) { x.classList.remove("hot"); }); inWire.classList.remove("hot");
+      log.innerHTML = '<span class="key">→</span> ' + tool + ' goes to Lark through its own connector, not this gateway'; return;
+    }
     call(0, tool);
   };
   svg.addEventListener("pointerdown", function () { userTouched = true; });
   whenVisible(svg, function () {
     var k = 0;
     (function demo() {
-      if (userTouched) return;
-      call(k % provs.length); k++;
+      if (userTouched || k >= provs.length) return;
+      call(k); k++;
       setTimeout(demo, 3800);
     })();
   });
@@ -1223,6 +1198,7 @@ function whenVisible(el, fn) {
       if (i < M.length) { timer = setTimeout(next, REDUCED ? 0 : 650); return; }
       var survivors = M.filter(function (m) { return state[m.id] === "survived"; }), surv = survivors.length;
       if (surv) apply(survivors[0], false);
+      if (!surv) { plant(null); renderTests(null); btns.forEach(function (b) { b.setAttribute("aria-pressed", "false"); }); }
       verdict.innerHTML = surv
         ? "<b>" + surv + " of 4 mutants survived.</b> The tests pass, yet they'd miss real bugs at the boundary. Add the missing test."
         : "<b>All 4 mutants killed.</b> These tests actually pin the behaviour down.";
@@ -1378,22 +1354,26 @@ function whenVisible(el, fn) {
   ];
   var SIG = ["LOAD_REQ", "READY", "BUSY", "COMPLETE"];
   logEl.innerHTML = EV.map(function (e) { return "<span>" + e[0] + " " + e[1] + " " + e[2] + "=" + e[3] + "</span>"; }).join("\n");
-  function X(t) { return t <= 10.5 ? 62 + t / 10.5 * 168 : 246 + Math.min(1, (t - 10.5) / 93) * 46; }
+  function X(t) { return t <= 10.5 ? 72 + t / 10.5 * 160 : 248 + Math.min(1, (t - 10.5) / 93) * 44; }
   function el(tag, a, txt) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); if (txt) n.textContent = txt; svg.appendChild(n); return n; }
+  function trace(name, upto, y0, hi) {
+    var lvl = 0, x = X(0), d = "M" + x + " " + y0;
+    EV.forEach(function (e, i) {
+      if (i >= upto || e[2].trim() !== name) return;
+      var nx = X(e[4]); d += " L" + nx + " " + (lvl ? hi : y0); lvl = e[3]; d += " L" + nx + " " + (lvl ? hi : y0); x = nx;
+    });
+    if (name === "COMPLETE" && upto > 4) { var cx = X(9.21) + 8; d += " L" + cx + " " + hi + " L" + cx + " " + y0; lvl = 0; x = cx; }
+    var endT = upto >= EV.length ? 103.3 : (upto ? EV[upto - 1][4] : 0);
+    return d + " L" + Math.max(x, X(endT) + 3) + " " + (lvl ? hi : y0);
+  }
   function draw(upto) {
     while (svg.firstChild) svg.removeChild(svg.firstChild);
+    SIG.forEach(function (name, r) { var y0 = 28 + r * 28; el("path", { d: trace(name, EV.length, y0, y0 - 12), "class": "ghost" }); });
     if (upto >= EV.length) el("rect", { x: X(9.6), y: 42, width: X(103.3) - X(9.6), height: 14, rx: 2, "class": "stuck" });
     SIG.forEach(function (name, r) {
-      var y0 = 28 + r * 28, hi = y0 - 12, lvl = 0, x = 62, d = "M62 " + y0;
+      var y0 = 28 + r * 28;
       el("text", { x: 4, y: y0 - 3, "class": "lbl" }, name);
-      EV.forEach(function (e, i) {
-        if (i >= upto || e[2].trim() !== name) return;
-        var nx = X(e[4]); d += " L" + nx + " " + (lvl ? hi : y0); lvl = e[3]; d += " L" + nx + " " + (lvl ? hi : y0); x = nx;
-      });
-      if (name === "COMPLETE" && upto > 4) { var cx = X(9.21) + 8; d += " L" + cx + " " + hi + " L" + cx + " " + y0; lvl = 0; x = cx; }
-      var endT = upto >= EV.length ? 103.3 : (upto ? EV[upto - 1][4] : 0);
-      d += " L" + Math.max(x, X(endT) + 3) + " " + (lvl ? hi : y0);
-      el("path", { d: d, "class": "sig" });
+      if (upto) el("path", { d: trace(name, upto, y0, y0 - 12), "class": "sig" });
     });
     el("line", { x1: 240, y1: 8, x2: 236, y2: 122, "class": "brk" }); el("line", { x1: 244, y1: 8, x2: 240, y2: 122, "class": "brk" });
     el("text", { x: 240, y: 133, "class": "lbl", "text-anchor": "middle" }, "~90 s later");
@@ -1495,6 +1475,9 @@ function whenVisible(el, fn) {
         g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(s[4]); } });
       });
     });
+    if (!narrow) {
+      el("line", { x1: XS - 5, y1: 36, x2: XS - 9, y2: 46, "class": "brk" }); el("line", { x1: XS - 1, y1: 36, x2: XS - 5, y2: 46, "class": "brk" });
+    }
     var nx = x(NOW);
     el("line", { x1: nx, y1: 8, x2: nx, y2: top + shown.length * laneH + 4, "class": "now" });
     el("text", { x: nx - 4, y: top + shown.length * laneH + 18, "class": "now-text", "text-anchor": "end" }, "now");
@@ -1589,166 +1572,6 @@ function whenVisible(el, fn) {
       render(items);
     })
     .catch(function () { /* feed unreachable: section stays hidden */ });
-})();
-</script>
-<script>
-(function () {
-  var el = document.getElementById("gh-calendar");
-  if (!el) return;
-
-  var API = "https://github-contributions-api.jogruber.de/v4/SulthanZahran1?y=last";
-  var CACHE_KEY = "zahran-gh-cal";
-  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-  function fmtShort(d) {
-    return MONTHS[d.getUTCMonth()] + " " + d.getUTCDate() + ", " + d.getUTCFullYear();
-  }
-  function dayWord(n) {
-    return n === 1 ? "1 contribution" : n + " contributions";
-  }
-
-  function render(data) {
-    var days = (data.contributions || []).slice(-182);
-    if (!days.length) throw new Error("empty payload");
-
-    /* Grid: columns are ISO weeks, rows are Sun..Sat. Pad the leading days so
-       the first column aligns to Sunday. */
-    var first = new Date(days[0].date + "T00:00:00Z");
-    var lead = first.getUTCDay();
-    var cells = [];
-    for (var p = 0; p < lead; p++) cells.push(null);
-    days.forEach(function (d) { cells.push(d); });
-    var weeks = Math.ceil(cells.length / 7);
-    while (cells.length < weeks * 7) cells.push(null);
-
-    /* Stats first: the grid's accessible name summarizes them. */
-    var total = data.total && typeof data.total.lastYear === "number"
-      ? data.total.lastYear
-      : days.reduce(function (a, d) { return a + d.count; }, 0);
-    var longest = 0, bestStart = -1, bestEnd = -1, run = 0, start = -1;
-    days.forEach(function (d, i) {
-      if (d.count > 0) {
-        if (start < 0) start = i;
-        run++;
-        if (run > longest) { longest = run; bestStart = start; bestEnd = i; }
-      } else { run = 0; start = -1; }
-    });
-    /* Current streak: run ending at the most recent contributing day (today
-       may legitimately still be at zero). */
-    var lastContrib = -1;
-    for (var i2 = days.length - 1; i2 >= 0; i2--) {
-      if (days[i2].count > 0) { lastContrib = i2; break; }
-    }
-    var trailing = 0, tStart = -1;
-    if (lastContrib >= 0) {
-      tStart = lastContrib;
-      while (tStart > 0 && days[tStart - 1].count > 0) tStart--;
-      trailing = lastContrib - tStart + 1;
-    }
-
-    /* Month labels: label the week-column that contains the 1st of a month
-       (GitHub's own convention), plus the column of the first returned day.
-       Keyed per occurrence so a month spanning two years labels twice. */
-    var weekLabels = new Array(weeks);
-    weekLabels[0] = MONTHS[first.getUTCMonth()];
-    days.forEach(function (d, i) {
-      var dt = new Date(d.date + "T00:00:00Z");
-      if (dt.getUTCDate() === 1) {
-        var col = Math.floor((lead + i) / 7);
-        weekLabels[col] = MONTHS[dt.getUTCMonth()];
-      }
-    });
-
-    var html = "";
-    html += '<div class="cal-scroll"><div class="cal-months"><span class="cal-spacer"></span>';
-    html += '<div class="cal-month-cells" style="--cal-weeks:' + weeks + '">';
-    for (var w2 = 0; w2 < weeks; w2++) {
-      html += "<span>" + (weekLabels[w2] || "") + "</span>";
-    }
-    html += "</div></div>";
-
-    var gridLabel = "GitHub contribution heatmap for the last six months." || total +
-      " contributions, longest streak " + longest + " days" +
-      (bestStart >= 0 ? " (" + fmtShort(new Date(days[bestStart].date + "T00:00:00Z")) +
-        " - " + fmtShort(new Date(days[bestEnd].date + "T00:00:00Z")) + ")" : "") +
-      ", current streak " + trailing + " days. Day-by-day detail available on github.com/SulthanZahran1.";
-
-    /* One tab stop: the grid itself. Cells are presentational (role=img on the
-       container); the label carries the summary so keyboard users are not
-       forced through hundreds of empty stops. */
-    html += '<div class="cal-body"><div class="cal-weekdays" aria-hidden="true">';
-    ["", "Mon", "", "Wed", "", "Fri", ""].forEach(function (lbl) {
-      html += "<span>" + lbl + "</span>";
-    });
-    html += '</div><div class="cal-grid" role="img" tabindex="0" aria-label="' + gridLabel + '">';
-    cells.forEach(function (c) {
-      if (!c) {
-        html += '<span class="day" style="visibility:hidden"></span>';
-      } else {
-        html += '<span class="day" data-level="' + c.level + '"' +
-                ' data-date="' + c.date + '" data-count="' + c.count + '"></span>';
-      }
-    });
-    html += "</div></div></div>";
-
-    html += '<div class="cal-legend" aria-hidden="true"><span>Less</span>';
-    for (var lv = 0; lv <= 4; lv++) html += '<i data-level="' + lv + '"></i>';
-    html += "<span>More</span></div>";
-
-    el.innerHTML = html;
-    bindTooltip();
-  }
-
-  function bindTooltip() {
-    var tip = document.createElement("div");
-    tip.className = "cal-tip";
-    tip.setAttribute("aria-hidden", "true");
-    document.body.appendChild(tip);
-
-    function show(target) {
-      var count = parseInt(target.getAttribute("data-count"), 10);
-      var date = new Date(target.getAttribute("data-date") + "T00:00:00Z");
-      tip.textContent = dayWord(count) + " on " + fmtShort(date);
-      var r = target.getBoundingClientRect();
-      var vw = document.documentElement.clientWidth;
-      var left = r.left + r.width / 2 - tip.offsetWidth / 2;
-      left = Math.max(6, Math.min(left, vw - tip.offsetWidth - 6));
-      var top = r.top - tip.offsetHeight - 6;
-      if (top < 6) top = r.bottom + 6;
-      tip.style.left = Math.round(left) + "px";
-      tip.style.top = Math.round(top) + "px";
-      tip.classList.add("show");
-    }
-    function hide() { tip.classList.remove("show"); }
-
-    el.addEventListener("mouseover", function (e) {
-      var t = e.target.closest(".day[data-count]");
-      if (t) show(t);
-    });
-    el.addEventListener("mouseout", function (e) {
-      if (e.target.closest(".day[data-count]")) hide();
-    });
-    window.addEventListener("scroll", hide, { passive: true });
-  }
-
-  function showError() {
-    el.innerHTML = '<p class="cal-error">Contribution graph is temporarily unavailable. ' +
-      'See <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github.com/SulthanZahran1</a>.</p>';
-  }
-
-  var cached = null;
-  try { cached = JSON.parse(localStorage.getItem(CACHE_KEY)); } catch (e) { cached = null; }
-  if (cached && cached.ts && Date.now() - cached.ts < 6 * 60 * 60 * 1000 && cached.data) {
-    try { render(cached.data); return; } catch (e) { /* fall through to fetch */ }
-  }
-
-  fetch(API)
-    .then(function (res) { if (!res.ok) throw new Error("http " + res.status); return res.json(); })
-    .then(function (data) {
-      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (e) {}
-      render(data);
-    })
-    .catch(showError);
 })();
 </script>
 </body>
