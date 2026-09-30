@@ -5,4 +5,5 @@ COPY about /usr/share/nginx/html/about
 COPY contact /usr/share/nginx/html/contact
 COPY privacy /usr/share/nginx/html/privacy
 COPY .well-known /usr/share/nginx/html/.well-known
+COPY fonts /usr/share/nginx/html/fonts
 EXPOSE 80

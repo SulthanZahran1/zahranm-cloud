@@ -3,15 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sulthan Zahran Ma'ruf</title>
-<meta name="description" content="AI engineer building voice agents, harnesses, and automation. Currently at LG Sinarmas.">
+<title>Sulthan Zahran Ma'ruf, AI engineer</title>
+<meta name="description" content="AI engineer in Indonesia building AI agents and the infrastructure they need in production: tool gateways, observability, and tests for agent-written code.">
 <link rel="canonical" href="https://zahranm.cloud/">
 <link rel="alternate" type="text/markdown" href="/index.md">
-<meta property="og:title" content="Sulthan Zahran Ma'ruf">
-<meta property="og:description" content="AI engineer building voice agents, harnesses, and automation.">
+<meta property="og:title" content="Sulthan Zahran Ma'ruf, AI engineer">
+<meta property="og:description" content="I build AI agents that do real work, and the infrastructure they run on.">
 <meta property="og:type" content="profile">
 <meta property="og:image" content="https://zahranm.cloud/og.svg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%2309090b'/><circle cx='8' cy='8' r='3.2' fill='%2310b981'/></svg>">
+<meta name="theme-color" content="#f4f2ec">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%2316171a'/><path d='M3 11V5h3v6h3V5h4' fill='none' stroke='%2334d399' stroke-width='1.6'/></svg>">
+<link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/ibm-plex-sans-condensed-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -22,13 +26,18 @@
       "name": "Sulthan Zahran Ma'ruf",
       "url": "https://zahranm.cloud/",
       "jobTitle": "AI engineer",
-      "description": "AI engineer building voice agents, harnesses, and automation.",
+      "description": "AI engineer building AI agents and the infrastructure they need in production: tool gateways, observability, and tests for agent-written code.",
       "email": "mailto:zsulthan9@gmail.com",
+      "knowsAbout": ["AI agents", "LLM infrastructure", "LLM observability", "Tool use", "RAG", "Voice agents", "Mutation testing", "Rust", "Go", "TypeScript", "Python"],
+      "alumniOf": {"@type": "CollegeOrUniversity", "name": "Universitas Indonesia"},
       "sameAs": [
         "https://github.com/SulthanZahran1",
         "https://www.linkedin.com/in/sulthan-zahran-ui"
       ],
-      "worksFor": {"@type": "Organization", "name": "LG Sinarmas"}
+      "worksFor": [
+        {"@type": "Organization", "name": "LG Sinarmas Technology Solutions"},
+        {"@type": "Organization", "name": "Metatech"}
+      ]
     },
     {
       "@type": "Organization",
@@ -55,287 +64,760 @@
 }
 </script>
 <style>
+@font-face { font-family: "Plex Sans"; src: url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Plex Sans"; src: url(/fonts/ibm-plex-sans-latin-400-italic.woff2) format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Plex Sans"; src: url(/fonts/ibm-plex-sans-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Plex Sans"; src: url(/fonts/ibm-plex-sans-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Plex Cond"; src: url(/fonts/ibm-plex-sans-condensed-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url(/fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url(/fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+
 :root {
-  --bg: #fafafa;
-  --surface: #ffffff;
-  --line: #e4e4e7;
-  --text: #18181b;
-  --muted: #6b6b74;
+  --bg: #f4f2ec;
+  --paper: #fbfaf6;
+  --ink: #16171a;
+  --ink-2: #3a3b40;
+  --muted: #62636b;
+  --line: #dcd8cc;
+  --line-2: #e8e5dc;
   --accent: #0b7a56;
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "JetBrains Mono", monospace;
+  --accent-soft: #d9efe5;
+  --signal: #b4480c;
+  --sans: "Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --cond: "Plex Cond", "Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --mono: "Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --gutter: 24px;
+  --max: 1080px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { color-scheme: light; }
+html { color-scheme: light; scroll-behavior: smooth; scroll-padding-top: 72px; }
 body {
   background: var(--bg);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 15px;
-  line-height: 1.65;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-.wrap { max-width: 760px; margin: 0 auto; padding: 96px 24px 80px; }
-
-/* header */
-.name { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
-.tag {
-  margin-top: 10px; color: var(--muted); max-width: 60ch;
-}
-.tag .hl { color: var(--accent); }
-.contact { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 18px; }
-.contact a { color: var(--muted); text-decoration: none; font-size: 14px; }
-.contact a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
-a:focus-visible {
+a { color: inherit; }
+a:focus-visible, [tabindex]:focus-visible, button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.mono { font-family: var(--mono); }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: var(--paper); padding: 6px 10px; z-index: 50; }
+.skip:focus { left: 8px; }
+
+/* top bar */
+.bar {
+  position: sticky; top: 0; z-index: 20;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: saturate(1.2) blur(8px);
+  -webkit-backdrop-filter: saturate(1.2) blur(8px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s ease;
+}
+.bar.scrolled { border-bottom-color: var(--line); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+.mark { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--mono); font-size: 13px; letter-spacing: .02em; }
+.mark svg { flex: none; }
+.bar nav { display: flex; gap: 22px; font-family: var(--mono); font-size: 13px; }
+.bar nav a { text-decoration: none; color: var(--muted); }
+.bar nav a:hover { color: var(--ink); }
+
+/* hero */
+.hero { padding: 88px 0 40px; }
+.eyebrow {
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); display: flex; align-items: baseline; gap: 10px;
+}
+.eyebrow .dot { flex: none; transform: translateY(-1px); }
+.eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.hero h1 {
+  font-family: var(--cond); font-weight: 600;
+  font-size: clamp(38px, 12.3vw, 100px);
+  line-height: .96; letter-spacing: -.025em;
+  margin-top: 22px; max-width: 16ch;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.lede { margin-top: 28px; font-size: clamp(17px, 1.9vw, 20px); line-height: 1.55; color: var(--ink-2); max-width: 60ch; }
+.lede strong { font-weight: 500; color: var(--ink); }
+.cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 13.5px; text-decoration: none;
+  padding: 10px 16px; border-radius: 999px; border: 1px solid var(--ink);
+  transition: background .15s ease, color .15s ease;
+}
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.primary:hover { background: var(--accent); border-color: var(--accent); }
+.btn.ghost:hover { background: var(--ink); color: var(--paper); }
+.links { display: inline-flex; gap: 16px; margin-left: 6px; font-family: var(--mono); font-size: 13.5px; }
+.links a { color: var(--muted); text-decoration: none; }
+.links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+/* signature waveform */
+.scope { margin-top: 56px; position: relative; }
+.scope svg { display: block; width: 100%; height: 88px; overflow: visible; }
+.scope .grid line { stroke: var(--line-2); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.scope .trace { fill: none; stroke: var(--ink); stroke-width: 1.6; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.scope svg.draw { clip-path: inset(0 100% 0 0); animation: reveal 2.4s cubic-bezier(.6,.05,.3,1) .2s forwards; }
+@keyframes reveal { to { clip-path: inset(0 0 0 0); } }
+
+/* proof strip */
+.proof {
+  margin-top: 56px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line);
+}
+.proof div { padding: 18px 18px 20px 0; }
+.proof div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+.proof .n { font-family: var(--cond); font-weight: 600; font-size: 38px; line-height: 1; letter-spacing: -.02em; display: block; }
+.proof .n small { font-size: .55em; letter-spacing: 0; margin-left: 2px; }
+.proof .l { display: block; margin-top: 8px; font-size: 13.5px; color: var(--muted); line-height: 1.45; }
 
 /* sections */
-section { margin-top: 72px; }
-.section-label {
-  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 22px;
-}
-.section-label::after {
-  content: ""; display: block; width: 100%; height: 1px;
-  background: var(--line); margin-top: 12px;
-}
+section.block { padding-top: 104px; }
+.head { display: grid; grid-template-columns: 180px 1fr; gap: 24px; align-items: baseline; margin-bottom: 36px; }
+.head .idx { font-family: var(--mono); font-size: 12.5px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.head h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(30px, 4.2vw, 46px); line-height: 1.05; letter-spacing: -.02em; }
+.head p { grid-column: 2; color: var(--muted); max-width: 62ch; margin-top: -8px; }
 
-/* registry rows */
-.reg { list-style: none; }
-.reg li {
-  display: grid; grid-template-columns: 210px 1fr auto auto; gap: 16px;
-  align-items: baseline; padding: 13px 0;
-  border-bottom: 1px solid var(--line);
+/* case studies */
+.cases { display: grid; gap: 16px; }
+.case {
+  display: grid; grid-template-columns: 180px 1fr; gap: 24px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 14px;
+  padding: 28px 28px 26px;
 }
-.reg li:last-child { border-bottom: none; }
-.reg .dom { color: var(--text); text-decoration: none; }
-.reg .dom:hover { color: var(--accent); }
-.reg .desc { color: var(--muted); font-size: 13.5px; }
-.reg .arrow { color: var(--muted); font-size: 13px; }
-.reg li:hover .arrow { color: var(--accent); }
-.reg .gh { color: var(--muted); text-decoration: none; font-size: 13px; }
+.case .meta { font-family: var(--mono); font-size: 12px; color: var(--muted); line-height: 1.7; }
+.case .meta b { display: block; font-weight: 500; color: var(--ink); font-size: 12.5px; margin-bottom: 4px; }
+.case .meta .tag {
+  display: inline-block; margin-top: 10px; padding: 2px 8px; border-radius: 999px;
+  border: 1px solid var(--line); font-size: 11px; letter-spacing: .02em;
+}
+.case .tag.live { border-color: var(--accent); color: var(--accent); }
+.case h3 { font-family: var(--cond); font-weight: 600; font-size: 27px; line-height: 1.12; letter-spacing: -.01em; max-width: 30ch; }
+.case .body > p { margin-top: 12px; color: var(--ink-2); max-width: 68ch; }
+.facts { list-style: none; margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px 22px; }
+.facts li { border-top: 1px solid var(--line-2); padding-top: 10px; font-size: 14px; color: var(--muted); line-height: 1.45; }
+.facts li strong { display: block; font-family: var(--mono); font-weight: 500; color: var(--ink); font-size: 15px; margin-bottom: 2px; }
+.stack { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+.stack li { font-family: var(--mono); font-size: 11.5px; padding: 3px 8px; border-radius: 6px; background: var(--bg); color: var(--ink-2); }
+.case-links { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; font-family: var(--mono); font-size: 13px; }
+.case-links a { color: var(--accent); text-decoration: none; }
+.case-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.case-links .note { color: var(--muted); }
+.case.feature { border-color: var(--ink); }
+
+/* timing diagram */
+.td { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 22px 22px 14px; }
+#timeline { display: block; width: 100%; height: auto; font-family: var(--mono); }
+#timeline .lane-label { font-size: 11px; fill: var(--muted); letter-spacing: .04em; }
+#timeline .base { stroke: var(--ink); stroke-width: 1.2; fill: none; }
+#timeline .bus { fill: var(--paper); stroke: var(--ink); stroke-width: 1.2; }
+#timeline .bus.hot { fill: var(--accent-soft); stroke: var(--accent); }
+#timeline .bus.warm { fill: #fbe6d6; stroke: var(--signal); }
+#timeline .bus-text { font-size: 11px; fill: var(--ink); }
+#timeline .bus-text.above { font-size: 10px; fill: var(--muted); }
+#timeline .bus-text.above.warm { fill: var(--signal); }
+#timeline .bus-text.above.hot { fill: var(--accent); }
+#timeline .clk { stroke: var(--muted); stroke-width: 1; fill: none; }
+#timeline .year { font-size: 10.5px; fill: var(--muted); }
+#timeline .gridline { stroke: var(--line-2); stroke-width: 1; }
+#timeline .now { stroke: var(--signal); stroke-width: 1.2; stroke-dasharray: 3 3; }
+#timeline .now-text { font-size: 10.5px; fill: var(--signal); }
+.td-caption { margin-top: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+
+.roles { margin-top: 28px; list-style: none; }
+.roles > li { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
+.roles .when { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 3px; }
+.roles h3 { font-size: 17px; font-weight: 600; }
+.roles h3 span { font-weight: 400; color: var(--muted); }
+.roles p { margin-top: 6px; color: var(--ink-2); max-width: 70ch; }
+.roles ul { margin-top: 8px; padding-left: 18px; color: var(--ink-2); max-width: 70ch; }
+.roles ul li { padding: 2px 0; }
+.roles ul li::marker { color: var(--accent); }
+
+/* how I work */
+.work-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.work-grid > div { border-top: 1px solid var(--ink); padding-top: 16px; }
+.work-grid h3 { font-size: 16.5px; font-weight: 600; }
+.work-grid p { margin-top: 8px; color: var(--ink-2); font-size: 15px; }
+.skills { margin-top: 40px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 22px; }
+.skills h3 { font-family: var(--mono); font-weight: 500; font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.skills p { margin-top: 6px; font-size: 14.5px; color: var(--ink-2); }
+
+/* index registry */
+.reg { list-style: none; border-top: 1px solid var(--ink); }
+.reg li {
+  display: grid; grid-template-columns: 240px 1fr 110px 64px; gap: 16px;
+  align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--line);
+}
+.reg .dom { font-family: var(--mono); font-size: 14px; color: var(--ink); text-decoration: none; }
+.reg .dom:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.reg .desc { color: var(--ink-2); font-size: 14.5px; }
+.reg .st { font-family: var(--mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.reg .st::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 7px; vertical-align: 1px; background: var(--line); }
+.reg .st.live::before { background: var(--accent); }
+.reg .st.gated::before { background: #c9a227; }
+.reg .gh { font-family: var(--mono); font-size: 12.5px; color: var(--muted); text-decoration: none; text-align: right; }
 .reg .gh:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 
-/* embedded panels */
-.embed { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+/* recruiter copilot */
+.copilot { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: start; }
+.copilot .pitch p { color: var(--ink-2); }
+.copilot .pitch p + p { margin-top: 12px; font-size: 14px; color: var(--muted); }
+.embed { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
 .embed iframe { display: block; width: 100%; height: 440px; min-height: 440px; border: 0; background: #fff; }
-.gh-card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 14px; }
-.gh-link { display: inline-block; margin-top: 12px; color: var(--muted); font-size: 13px; text-decoration: none; }
-.gh-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
 
 /* github contributions (custom renderer on github-contributions-api.jogruber.de) */
-#gh-calendar {
-  font-family: var(--mono);
-  min-height: 200px;
-  margin: 0 auto;
-  text-align: left;
-}
+.gh-card { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 14px; }
+.gh-link { display: inline-block; margin-top: 12px; color: var(--muted); font-family: var(--mono); font-size: 12.5px; text-decoration: none; }
+.gh-link:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+#gh-calendar { font-family: var(--mono); min-height: 200px; margin: 0 auto; text-align: left; }
 .cal-scroll { overflow-x: auto; scrollbar-width: thin; }
 .cal-months { display: flex; gap: 6px; margin-bottom: 6px; align-items: end; }
 .cal-spacer { width: 24px; flex: none; }
-.cal-month-cells {
-  flex: 1;
-  min-width: 0;
-  display: grid;
-  grid-template-columns: repeat(var(--cal-weeks, 53), minmax(9px, 1fr));
-  gap: 3px;
-}
-.cal-month-cells span {
-  font-size: 10px;
-  color: var(--muted);
-  white-space: nowrap;
-}
+.cal-month-cells { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(var(--cal-weeks, 53), minmax(9px, 1fr)); gap: 3px; }
+.cal-month-cells span { font-size: 10px; color: var(--muted); white-space: nowrap; }
 .cal-body { display: flex; gap: 6px; width: max-content; min-width: 100%; }
-.cal-weekdays {
-  display: grid;
-  grid-template-rows: repeat(7, minmax(0, 1fr));
-  gap: 3px;
-  width: 24px;
-  flex: none;
-  position: sticky;
-  left: 0;
-  background: #fff;
-  z-index: 1;
-}
+.cal-weekdays { display: grid; grid-template-rows: repeat(7, minmax(0, 1fr)); gap: 3px; width: 24px; flex: none; position: sticky; left: 0; background: var(--paper); z-index: 1; }
 .cal-weekdays span { font-size: 9px; color: var(--muted); line-height: 1; display: flex; align-items: center; }
-.cal-grid {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(9px, 1fr);
-  grid-template-rows: repeat(7, minmax(0, 1fr));
-  gap: 3px;
-  flex: 1;
-  min-width: 0;
-}
-.cal-grid .day {
-  width: 100%;
-  aspect-ratio: 1;
-  max-height: 16px;
-  border-radius: 2px;
-  background: #ececef;
-}
+.cal-grid { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(9px, 1fr); grid-template-rows: repeat(7, minmax(0, 1fr)); gap: 3px; flex: 1; min-width: 0; }
+.cal-grid .day { width: 100%; aspect-ratio: 1; max-height: 16px; border-radius: 2px; background: #e9e6dd; }
 .cal-grid:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
-.cal-grid .day[data-level="1"] { background: #c7f0df; }
-.cal-grid .day[data-level="2"] { background: #8fdcba; }
-.cal-grid .day[data-level="3"] { background: #4cc293; }
-.cal-grid .day[data-level="4"] { background: #0d9467; }
-.cal-tip {
-  position: fixed;
-  z-index: 40;
-  padding: 6px 9px;
-  font-size: 12px;
-  color: #fafafa;
-  background: rgba(24, 24, 27, .95);
-  border-radius: 6px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.12s ease;
-  white-space: nowrap;
-}
+.cal-grid .day[data-level="1"], .cal-legend i[data-level="1"] { background: #a5e2c8; }
+.cal-grid .day[data-level="2"], .cal-legend i[data-level="2"] { background: #8fdcba; }
+.cal-grid .day[data-level="3"], .cal-legend i[data-level="3"] { background: #4cc293; }
+.cal-grid .day[data-level="4"], .cal-legend i[data-level="4"] { background: #0d9467; }
+.cal-legend i[data-level="0"] { background: #e9e6dd; }
+.cal-tip { position: fixed; z-index: 40; padding: 6px 9px; font-family: var(--mono); font-size: 12px; color: #fafafa; background: rgba(22, 23, 26, .95); border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity 0.12s ease; white-space: nowrap; }
 .cal-tip.show { opacity: 1; }
-.cal-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  margin-top: 16px;
-  border-top: 1px solid var(--line);
-}
-.cal-stats div {
-  padding: 12px 4px 0;
-  text-align: center;
-  font-size: 11px;
-  color: var(--muted);
-}
+.cal-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 16px; border-top: 1px solid var(--line); }
+.cal-stats div { padding: 12px 4px 0; text-align: center; font-size: 11px; color: var(--muted); }
 .cal-stats div + div { border-left: 1px solid var(--line); }
-.cal-stats .num {
-  display: block;
-  font-size: 19px;
-  color: var(--text);
-  line-height: 1.3;
-}
-.cal-legend {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 4px;
-  margin-top: 10px;
-  font-size: 10.5px;
-  color: var(--muted);
-}
-.cal-legend i {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  display: inline-block;
-}
-.cal-legend i[data-level="0"] { background: #ececef; }
-.cal-legend i[data-level="1"] { background: #c7f0df; }
-.cal-legend i[data-level="2"] { background: #8fdcba; }
-.cal-legend i[data-level="3"] { background: #4cc293; }
-.cal-legend i[data-level="4"] { background: #0d9467; }
-.cal-loading { color: var(--muted); font-size: 13.5px; margin: 0; }
-.cal-error { color: var(--muted); font-size: 13.5px; margin: 0; }
+.cal-stats .num { display: block; font-size: 19px; color: var(--ink); line-height: 1.3; }
+.cal-legend { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 10px; font-size: 10.5px; color: var(--muted); }
+.cal-legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.cal-loading, .cal-error { color: var(--muted); font-size: 13.5px; margin: 0; }
 .cal-error a { color: var(--accent); }
 
-/* blog teaser (hidden until JS renders it) */
+/* blog teaser */
+.minihead { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
 #teaser { display: none; }
 #teaser.show { display: block; }
 .posts { list-style: none; }
-.posts li { padding: 8px 0; border-bottom: 1px solid var(--line); }
-.posts li:last-child { border-bottom: none; }
-.posts a { color: var(--text); text-decoration: none; }
-.posts a:hover { color: var(--accent); }
-.posts .date { color: var(--muted); font-size: 12.5px; margin-right: 14px; }
 
-/* footer */
-footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; }
-.footer-links { display: flex; flex-wrap: wrap; gap: 14px; }
+/* contact */
+.contact-block { padding: 120px 0 40px; }
+.contact-block h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(40px, 6.4vw, 76px); line-height: .98; letter-spacing: -.025em; max-width: 19ch; }
+.contact-block .mail {
+  display: inline-block; margin-top: 28px; font-family: var(--mono); font-size: clamp(17px, 2.4vw, 24px);
+  text-decoration: none; border-bottom: 2px solid var(--accent); padding-bottom: 2px;
+}
+.contact-block .mail:hover { color: var(--accent); }
+.contact-block p { margin-top: 18px; color: var(--muted); max-width: 56ch; }
+
+footer { margin-top: 64px; padding: 20px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 12px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
 .footer-links a { color: var(--muted); text-decoration: none; }
 .footer-links a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
-
-/* The mascot is pinned to the viewport's top-right corner by the script, so the footer
-   no longer needs to reserve space for it. */
 .mascot-note { color: var(--muted); font-size: 11.5px; }
 
+@media (min-width: 641px) {
+  .hero h1 { font-size: clamp(48px, 8.4vw, 100px); }
+}
+@media (max-width: 900px) {
+  .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .proof div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .head, .case, .roles > li { grid-template-columns: 1fr; gap: 10px; }
+  .head p { grid-column: 1; margin-top: 0; }
+  .work-grid { grid-template-columns: 1fr; }
+  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .copilot { grid-template-columns: 1fr; }
+  .reg li { grid-template-columns: 1fr auto; gap: 2px 12px; }
+  .reg .desc { grid-column: 1 / -1; grid-row: 2; }
+  .reg .gh { grid-column: 2; grid-row: 1; }
+  .reg .st { grid-column: 1 / -1; grid-row: 3; margin-top: 4px; }
+}
 @media (max-width: 640px) {
-  .wrap { padding: 64px 18px 64px; }
-  .reg li { grid-template-columns: 1fr; gap: 3px; padding: 14px 0; }
-  .reg .arrow { display: none; }
-  section { margin-top: 56px; }
+  :root { --gutter: 16px; }
+  .bar nav { gap: 14px; font-size: 12px; }
+  .bar nav .opt { display: none; }
+  .hero { padding-top: 56px; }
+  .links { margin-left: 0; width: 100%; }
+  section.block { padding-top: 80px; }
+  .case { padding: 22px 18px; }
+  .case h3 { font-size: 23px; }
+  .skills { grid-template-columns: 1fr; }
   .cal-stats { grid-template-columns: 1fr; }
   .cal-stats div { padding: 10px 4px; }
   .cal-stats div + div { border-left: 0; border-top: 1px solid var(--line); }
   .cal-stats .num { display: inline; font-size: 17px; margin-right: 6px; }
+  .contact-block { padding-top: 88px; }
+}
+@media (max-width: 640px) {
+  .bar nav a, .links a, .case-links a, .reg .gh, .footer-links a { display: inline-block; padding: 10px 0; }
+  .bar nav a { padding: 16px 0; }
+}
+/* keep the nav clear of the cat mascot pinned to the top-right corner */
+@media (max-width: 1320px) { .bar .wrap { padding-right: 112px; } }
+@media (max-width: 640px) { .bar .wrap { padding-right: 76px; } }
+@media (max-width: 480px) {
+  .mark { font-size: 12px; gap: 8px; }
+  .bar nav { gap: 14px; }
+  .bar nav a[href="#experience"] { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+  .scope svg.draw { clip-path: none; }
 }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="mark" href="/" aria-label="Sulthan Zahran Ma'ruf, home">
+      <svg width="22" height="22" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#16171a"/><path d="M3 11V5h3v6h3V5h4" fill="none" stroke="#34d399" stroke-width="1.6"/></svg>
+      zahranm.cloud
+    </a>
+    <nav aria-label="Sections">
+      <a href="#work">work</a>
+      <a href="#experience">experience</a>
+      <a class="opt" href="#index">index</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
 <div class="wrap">
 
-  <header>
-    <h1 class="name">Sulthan Zahran Ma'ruf</h1>
-    <p class="tag">AI engineer building <span class="hl">voice agents</span>, harnesses, and automation. Currently at LG Sinarmas.</p>
-    <nav class="contact" aria-label="Contact">
-      <a href="mailto:zsulthan9@gmail.com">email</a>
-      <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github</a>
-      <a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin</a>
-    </nav>
-  </header>
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf · AI engineer · Indonesia</span></p>
+    <h1 id="hero-title">I build AI agents <br class="br">that <em>do real work.</em></h1>
+    <p class="lede">I'm an <strong>AI engineer</strong>. At Metatech I build agents and the infrastructure they need in production: <strong>a tool gateway</strong> that lets them act on real accounts, <strong>observability</strong> that shows what each turn did and what it cost, and <strong>mutation testing</strong> for the tests they write. Before agents, I shipped smart-factory software for EV-battery lines at LG Sinarmas, so I build as if downtime is expensive.</p>
+    <div class="cta">
+      <a class="btn primary" href="#work">See the work ↓</a>
+      <a class="btn ghost" href="#copilot">Recruiter? Get a pitch</a>
+      <span class="links">
+        <a href="mailto:zsulthan9@gmail.com">email</a>
+        <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github</a>
+        <a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin</a>
+      </span>
+    </div>
 
-  <section>
-    <h2 class="section-label">recruiter copilot</h2>
-    <div class="embed">
-      <iframe src="/recruit/?embed=1" title="Recruiter Pitch Generator" loading="lazy"></iframe>
+    <div class="scope" aria-hidden="true">
+      <svg class="draw" viewBox="0 0 1200 80" preserveAspectRatio="none">
+        <g class="grid">
+          <line x1="0" y1="40" x2="1200" y2="40"/>
+        </g>
+        <path class="trace" d="M0 66 L40 66 L40 14 L76 14 L76 66 L146 66 L146 14 L168 14 L168 66 L186 66 L186 14 L240 14 L240 66 L286 66 L286 14 L316 14 L316 66 L356 66 L356 14 L376 14 L376 66 L394.6 66 L394.6 14 L411.9 14 L411.9 66 L428 66 L428 14 L442.9 14 L442.9 66 L456.9 66 L456.9 14 L469.8 14 L469.8 66 L481.8 66 L481.8 14 L493 14 L493 66 L503.4 66 L503.4 14 L513.4 14 L513.4 66 L523.4 66 L523.4 14 L533.4 14 L533.4 66 L543.4 66 L543.4 14 L553.4 14 L553.4 66 L563.4 66 L563.4 14 L573.4 14 L573.4 66 L583.4 66 L583.4 14 L593.4 14 L593.4 66 L603.4 66 L603.4 14 L613.4 14 L613.4 66 L623.4 66 L623.4 14 L633.4 14 L633.4 66 L643.4 66 L643.4 14 L653.4 14 L653.4 66 L663.4 66 L663.4 14 L673.4 14 L673.4 66 L683.4 66 L683.4 14 L693.4 14 L693.4 66 L703.4 66 L703.4 40 L703.4 40 L705.4 38.6 L707.4 38.2 L709.4 42.4 L711.4 45.6 L713.4 40.6 L715.4 32.3 L717.4 33.5 L719.4 45.1 L721.4 51.4 L723.4 42.1 L725.4 28.5 L727.4 30 L729.4 45.6 L731.4 54.2 L733.4 43.5 L735.4 28.1 L737.4 28.9 L739.4 44.4 L741.4 53.1 L743.4 44 L745.4 30.9 L747.4 31.1 L749.4 42.3 L751.4 48.4 L753.4 42.9 L755.4 35.7 L757.4 36.1 L759.4 40.5 L761.4 41.5 L763.4 40.4 L765.4 39.5 L767.4 39.3 L769.4 40.1 L771.4 40.8 L773.4 40.4 L775.4 39.5 L777.4 38 L779.4 40 L781.4 46 L783.4 45.2 L785.4 34.3 L787.4 28 L789.4 38.8 L791.4 54.4 L793.4 51.8 L795.4 31.2 L797.4 20.4 L799.4 36.5 L801.4 59.1 L803.4 56.6 L805.4 30.9 L807.4 16.8 L809.4 34.1 L811.4 59.4 L813.4 58.2 L815.4 32.8 L817.4 18.2 L819.4 33.1 L821.4 55.6 L823.4 55.7 L825.4 35.9 L827.4 24.3 L829.4 34.3 L831.4 49 L833.4 49.2 L835.4 38.7 L837.4 33.7 L839.4 37.9 L841.4 41.5 L843.4 40.7 L845.4 39.9 L847.4 39.2 L849.4 39.6 L851.4 40.5 L853.4 40.7 L855.4 40 L857.4 39.3 L859.4 39.5 L861.4 41.2 L863.4 43.5 L865.4 40.4 L867.4 34.4 L869.4 35.1 L871.4 43.8 L873.4 48.9 L875.4 41.7 L877.4 31.2 L879.4 32.3 L881.4 44.1 L883.4 50.2 L885.4 42.5 L887.4 32.2 L889.4 33.1 L891.4 42.4 L893.4 46.7 L895.4 41.8 L897.4 36.7 L899.4 37.6 L901.4 40.3 L903.4 40.8 L905.4 40.3 L907.4 39.4 L909.4 39.3 L911.4 40.1 L913.4 40.8 L915.4 40.4 L917.4 39.5 L919.4 39.3 L921.4 40.1 L923.4 40.8 L925.4 40.4 L927.4 38.8 L929.4 36.3 L931.4 39.9 L933.4 47.3 L935.4 46 L937.4 33.9 L939.4 27.2 L941.4 38.6 L943.4 54.9 L945.4 52.3 L947.4 31.1 L949.4 19.7 L951.4 36.2 L953.4 59.8 L955.4 57.5 L957.4 30.5 L959.4 15.1 L961.4 33.4 L963.4 61.4 L965.4 60.7 L967.4 31.9 L969.4 14.1 L971.4 31.3 L973.4 59.7 L975.4 60.8 L977.4 34.4 L979.4 17 L981.4 30.8 L983.4 55.3 L985.4 57.6 L987.4 37.2 L989.4 23.1 L991.4 32.4 L993.4 49.3 L995.4 51.3 L997.4 39.3 L999.4 31.6 L1001.4 36.2 L1003.4 42.9 L1005.4 42.8 L1007.4 40 L1009.4 39.3 L1011.4 39.5 L1013.4 40.4 L1015.4 40.8 L1017.4 40.1 L1019.4 39.3 L1021.4 39.5 L1023.4 40.4 L1025.4 42.5 L1027.4 40.9 L1029.4 33.7 L1031.4 33.1 L1033.4 44.2 L1035.4 52 L1037.4 43.3 L1039.4 29.2 L1041.4 29.8 L1043.4 43.7 L1045.4 50.8 L1047.4 43.1 L1049.4 34.4 L1051.4 35.8 L1053.4 40.6 L1055.4 40.8 L1057.4 40.3 L1059.4 39.4 L1061.4 39.3 L1063.4 40.1 L1065.4 40.8 L1067.4 40.4 L1069.4 39.5 L1071.4 39.3 L1073.4 40 L1075.4 40.8 L1077.4 41.2 L1079.4 37.5 L1081.4 34.1 L1083.4 39.8 L1085.4 49.4 L1087.4 47.4 L1089.4 32.9 L1091.4 25.5 L1093.4 38.3 L1095.4 55.6 L1097.4 52.5 L1099.4 31.4 L1101.4 21 L1103.4 36.4 L1105.4 56.9 L1107.4 54.4 L1109.4 32.8 L1111.4 21.9 L1113.4 35.4 L1115.4 53.3 L1117.4 51.9 L1119.4 35.9 L1121.4 28.2 L1123.4 36.5 L1125.4 46.4 L1127.4 45.3 L1129.4 39.1 L1131.4 37.9 L1133.4 39.7 L1135.4 40.6 L1137.4 40.7 L1139.4 39.9 L1141.4 39.2 L1143.4 39.6 L1145.4 40.5 L1147.4 40.7 L1149.4 40 L1151.4 38.2 L1153.4 38.2 L1155.4 42.5 L1157.4 45.1 L1159.4 40.1 L1161.4 33.3 L1163.4 35 L1165.4 44.4 L1167.4 48.6 L1169.4 41 L1171.4 31.8 L1173.4 33.8 L1175.4 43.9 L1177.4 48.1 L1179.4 41.4 L1181.4 34.1 L1183.4 35.6 L1185.4 41.8 L1187.4 43.7 L1189.4 40.7 L1191.4 39 L1193.4 39.4 L1195.4 40.2 L1197.4 40.8 L1199.4 40.3"/>
+      </svg>
+    </div>
+
+    <div class="proof">
+      <div><span class="n">8 <small>weeks</small></span><span class="l">from empty repo to an in-house Rust tool gateway that lets agents act on real accounts</span></div>
+      <div><span class="n">2,000+</span><span class="l">commits to Bella, an AI chief of staff: the agent worker and its observability console</span></div>
+      <div><span class="n">3 <small>testers</small></span><span class="l">mutation testers for Rust, Go and Dart, built to check the tests agents write</span></div>
+      <div><span class="n">4.1M</span><span class="l">log entries analysed in 104 s by my incident tool at LG. Diagnosis went from hours or days to minutes</span></div>
     </div>
   </section>
 
-  <section>
-    <h2 class="section-label">github</h2>
+  <section class="block" id="work" aria-labelledby="work-title">
+    <div class="head">
+      <span class="idx">01 · selected work</span>
+      <h2 id="work-title">Things I've built that other people depend on</h2>
+      <p>Employer work is described, not linked. Personal projects link to source.</p>
+    </div>
+
+    <div class="cases">
+
+      <article class="case feature">
+        <div class="meta">
+          <b>sambungapi</b>
+          Metatech · 2026<br>primary engineer
+          <br><span class="tag">private · employer</span>
+        </div>
+        <div class="body">
+          <h3>An in-house Rust gateway that lets AI agents act on real accounts</h3>
+          <p>Our agents reach Gmail, calendars and chat apps through OAuth-connected tools, and that layer was rented from a vendor. I rebuilt it in-house as a single static Rust binary with its own <span class="mono">/v1</span> API, hosted OAuth connect pages, and a step-by-step migration runbook for the agent platform. OAuth tokens are encrypted in our own Postgres instead of a vendor's.</p>
+          <ul class="facts">
+            <li><strong>8 weeks</strong>from empty repo to a production gateway: 3,100+ commits, 326 test files</li>
+            <li><strong>AES-256-GCM at rest</strong>for every stored token, with multi-org tenancy and CSRF protection</li>
+            <li><strong>Durable outbox</strong>drained by a separate worker mode, so events survive restarts</li>
+          </ul>
+          <ul class="stack" aria-label="Stack"><li>Rust</li><li>axum</li><li>PostgreSQL</li><li>OAuth 2.0</li><li>Google &amp; Microsoft Graph APIs</li></ul>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="meta">
+          <b>Bella</b>
+          Metatech · 2026<br>core engineer, team of several
+          <br><span class="tag">private · employer</span>
+        </div>
+        <div class="body">
+          <h3>An AI chief of staff across WhatsApp, Gmail, Calendar and Lark, and the observability console behind it</h3>
+          <p>Bella takes requests in the channels a company already uses and carries them out with pluggable reasoning engines. My work centres on the worker that executes agent turns. I also built most of the observability console: each turn's cost, an execution waterfall, and a human-review loop that turns real conversations into labelled ground-truth datasets.</p>
+          <ul class="facts">
+            <li><strong>2,000+ commits</strong>of mine, mostly in the agent worker</li>
+            <li><strong>120+ ADRs</strong>written or revised, out of the team's ~340</li>
+            <li><strong>Review → dataset</strong>human review turns production conversations into ground truth</li>
+          </ul>
+          <ul class="stack" aria-label="Stack"><li>TypeScript</li><li>Hono</li><li>React</li><li>Go</li><li>MongoDB</li><li>Redis</li><li>LLM tool-use</li></ul>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="meta">
+          <b>*_mutant</b>
+          personal · 2026<br>author
+          <br><span class="tag live">open source</span>
+        </div>
+        <div class="body">
+          <h3>Mutation testers for Rust, Go and Dart, for checking the tests agents write</h3>
+          <p>Mutation testing tells you whether your tests would catch a real bug, but it's slow and noisy. rust_mutant and dart-mutant run only the tests that cover a mutated line. rust_mutant also compares LLVM IR to throw out mutants that compile to identical code. Coding agents write a lot of tests now, and this is how I check whether those tests are any good.</p>
+          <ul class="facts">
+            <li><strong>rust_mutant 1.0.1</strong>on crates.io, with checksummed installers</li>
+            <li><strong>dart-mutant</strong>17 operators, Homebrew tap, prebuilt binaries for 4 platforms</li>
+            <li><strong>gopher_mutant</strong>21 operator classes for Go</li>
+          </ul>
+          <ul class="stack" aria-label="Stack"><li>Rust</li><li>LLVM IR</li><li>coverage instrumentation</li></ul>
+          <p class="case-links">
+            <a href="https://github.com/SulthanZahran1/rust_mutant" target="_blank" rel="noreferrer">rust_mutant ↗</a>
+            <a href="https://crates.io/crates/rust-mutant" target="_blank" rel="noreferrer">crates.io ↗</a>
+            <a href="https://github.com/SulthanZahran1/dart-mutant" target="_blank" rel="noreferrer">dart-mutant ↗</a>
+            <a href="https://github.com/SulthanZahran1/gopher_mutant" target="_blank" rel="noreferrer">gopher_mutant ↗</a>
+          </p>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="meta">
+          <b>Smart-factory AMHS</b>
+          LG Sinarmas · 2024–now<br>software engineer
+          <br><span class="tag">industrial</span>
+        </div>
+        <div class="body">
+          <h3>Keeping EV-battery lines moving: MES, dispatching and material handling</h3>
+          <p>I build and integrate the software between the manufacturing execution system, real-time dispatching and the vehicles and conveyors that move material between processes. I also bridge Indonesian factory operations and the Korean engineering team. When a stall needs diagnosing, I use the Timing Diagram Analyzer I wrote: it turns millions of material-handling log entries into a timing view, which is also why this site's timeline is a timing diagram.</p>
+          <ul class="facts">
+            <li><strong>4,120,953 entries</strong>analysed in 104 s. Diagnosis went from hours or days to minutes, and the whole team uses it</li>
+            <li><strong>1 of 4 engineers</strong>selected for a two-month deployment to LG Energy Solution Ochang, Korea</li>
+            <li><strong>15+ integration issues</strong>across AGVs, conveyors and stockers, fixed before production</li>
+            <li><strong>KO–EN RAG</strong>cross-language retrieval over Korean and English factory documentation</li>
+          </ul>
+          <ul class="stack" aria-label="Stack"><li>C# / .NET</li><li>WPF</li><li>React</li><li>Python</li><li>SQL Server</li><li>Oracle</li><li>SECS/GEM</li><li>LangChain</li></ul>
+        </div>
+      </article>
+
+      <article class="case">
+        <div class="meta">
+          <b>honjang</b>
+          personal · 2026<br>author
+          <br><span class="tag">open source</span>
+        </div>
+        <div class="body">
+          <h3>A real-time English–Korean voice translator that tracks honorifics</h3>
+          <p>Korean speech changes with who you're talking to, and literal translation misses that. honjang streams speech through recognition, an LLM and speech synthesis, with barge-in, a walkie-talkie mode and an always-on agent mode. LLM output streams to speech in chunks split at Korean clause boundaries, so audio can start before the sentence is done.</p>
+          <ul class="facts">
+            <li><strong>~300 ms</strong>design budget to first audio with clause-level streaming</li>
+            <li><strong>&lt; Rp2,000/min</strong>cost ceiling, with speech, LLM and voice each costed per minute</li>
+          </ul>
+          <ul class="stack" aria-label="Stack"><li>Expo</li><li>FastAPI</li><li>WebSocket</li><li>Deepgram Nova-3</li><li>OpenRouter</li><li>ElevenLabs</li></ul>
+          <p class="case-links">
+            <a href="https://github.com/SulthanZahran1/honjang" target="_blank" rel="noreferrer">source ↗</a>
+          </p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="block" id="experience" aria-labelledby="exp-title">
+    <div class="head">
+      <span class="idx">02 · experience</span>
+      <h2 id="exp-title">2019 to now, drawn as a timing diagram</h2>
+      <p>Each lane is a signal and each box is a value it held. The dashed line is now.</p>
+    </div>
+
+    <figure class="td">
+      <svg id="timeline" viewBox="0 0 1000 285" role="img" aria-label="Career timing diagram from 2019 to 2026. Metatech, AI agents, from April 2026 to now; LG Sinarmas from April 2024 to now, including a Korea deployment August to October 2025; FAAN Lab research assistant late 2023 to early 2024; PLC internship mid 2022 and instrumentation engineer early 2024; B.Sc. Physics at Universitas Indonesia 2019 to 2023."></svg>
+      <figcaption class="td-caption" id="td-caption">Full details below.</figcaption>
+    </figure>
+
+    <ul class="roles">
+      <li>
+        <span class="when">Apr 2026 → now</span>
+        <div>
+          <h3>Software Engineer <span>· Metatech · part-time, remote</span></h3>
+          <p>AI agents, the observability tools that watch them, and the messaging infrastructure they run on.</p>
+        </div>
+      </li>
+      <li>
+        <span class="when">Apr 2024 → now</span>
+        <div>
+          <h3>Software Engineer <span>· LG Sinarmas Technology Solutions · Karawang</span></h3>
+          <p>Smart-factory software (MES, real-time dispatching, AMHS) for an EV-battery plant.</p>
+          <ul>
+            <li>Shipped 8+ internal applications; one saves 50 person-hours a day.</li>
+            <li>Designed the team's onboarding program and trained 15+ software engineers.</li>
+            <li>Built the Timing Diagram Analyzer (4.1M log entries in 104 s) and a Korean–English RAG pipeline over factory documentation.</li>
+            <li>Liaison between Indonesian factory operations and the Korean engineering HQ.</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <span class="when">Aug → Oct 2025</span>
+        <div>
+          <h3>AMHS Integration Specialist <span>· LG Energy Solution Ochang · South Korea</span></h3>
+          <p>Selected as one of four engineers for a two-month deployment to integrate material handling before production. Fixed 15+ pre-production issues across AGVs, conveyors and stockers.</p>
+        </div>
+      </li>
+      <li>
+        <span class="when">Jan → Mar 2024</span>
+        <div>
+          <h3>Instrumentation Engineer <span>· PT Polychemie Asia Pacific Permai</span></h3>
+          <p>Project-based instrumentation work.</p>
+        </div>
+      </li>
+      <li>
+        <span class="when">Oct 2023 → Mar 2024</span>
+        <div>
+          <h3>Software Engineering Research Assistant <span>· FAAN Laboratory, Physics, Universitas Indonesia</span></h3>
+          <p>Built lab software that improved the synthesis–testing cycle by roughly 800%.</p>
+        </div>
+      </li>
+      <li>
+        <span class="when">Aug 2019 → Jul 2023</span>
+        <div>
+          <h3>B.Sc. Physics, Instrumentation <span>· Universitas Indonesia</span></h3>
+          <ul>
+            <li>4th place at IndySCC22, the only team from Southeast Asia.</li>
+            <li>Programming lead for the KRTMI robotics contest, UI Robotics Team.</li>
+            <li>PLC intern at PT Sugitama Intiarto, Jun → Jul 2022.</li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="block" id="approach" aria-labelledby="approach-title">
+    <div class="head">
+      <span class="idx">03 · how I work</span>
+      <h2 id="approach-title">I write code with agents, and build the checks that catch their mistakes</h2>
+    </div>
+    <div class="work-grid">
+      <div>
+        <h3>Decisions go on paper</h3>
+        <p>Every hard-to-reverse choice gets an ADR. On Bella the team keeps ~340, and I've written or revised 120+. Agents and new teammates both read the reasoning, not just the code.</p>
+      </div>
+      <div>
+        <h3>Test the tests</h3>
+        <p>Agents write a lot of tests, so I measure whether those tests would catch a real bug. That's why I built mutation testers.</p>
+      </div>
+      <div>
+        <h3>Measure before you trust</h3>
+        <p>On a factory floor, a bad deploy stops a production line. I carry that into software: build the observability first, and don't trust anything until it's measured.</p>
+      </div>
+    </div>
+    <div class="skills">
+      <div><h3>AI / agents</h3><p>tool-use &amp; MCP, RAG, agent harnesses, LLM observability, voice pipelines</p></div>
+      <div><h3>Languages</h3><p>Rust, Go, TypeScript, Python, C#, SQL</p></div>
+      <div><h3>Industrial</h3><p>MES, AMHS, RTD, PLC, SECS/GEM, AGV integration</p></div>
+      <div><h3>Infra</h3><p>PostgreSQL, MongoDB, Redis, Docker, Traefik, Linux</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="copilot" aria-labelledby="copilot-title">
+    <div class="head">
+      <span class="idx">04 · for recruiters</span>
+      <h2 id="copilot-title">Paste a job description, get a pitch</h2>
+    </div>
+    <div class="copilot">
+      <div class="pitch">
+        <p>This copilot reads your role and writes a short, specific case for why my background fits. It's instructed to cite only evidence from my work profile.</p>
+        <p>It's a small Go service with rate limits. Submitted descriptions and generated pitches are logged; IPs are stored only as hashes. <a href="https://github.com/SulthanZahran1/jd-pitcher" target="_blank" rel="noreferrer">Source ↗</a></p>
+      </div>
+      <div class="embed">
+        <iframe src="/recruit/?embed=1" title="Recruiter Pitch Generator" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="index" aria-labelledby="index-title">
+    <div class="head">
+      <span class="idx">05 · index</span>
+      <h2 id="index-title">Everything running on zahranm.cloud</h2>
+      <p>All self-hosted on one VPS behind Traefik. Gated demos are available on request.</p>
+    </div>
+    <ul class="reg">
+      <li><a class="dom" href="https://zahranm.cloud/recruit">zahranm.cloud/recruit</a><span class="desc">Recruiter pitch generator: job description in, evidence-backed pitch out</span><span class="st live">live</span><a class="gh" href="https://github.com/SulthanZahran1/jd-pitcher">source</a></li>
+      <li><a class="dom" href="https://relay.zahranm.cloud">relay</a><span class="desc">AI-native CRM on an event-driven workflow engine: sessions, tickets, web chat</span><span class="st live">live</span><span></span></li>
+      <li><a class="dom" href="https://teach.zahranm.cloud">teach</a><span class="desc">Harness Engineering: a lesson series on building an agent harness, modelled on Nous Research's Hermes</span><span class="st live">live</span><span></span></li>
+      <li><a class="dom" href="https://aquaflow.zahranm.cloud">aquaflow</a><span class="desc">Prepaid smart water metering with resident, building-manager and operator roles</span><span class="st live">live demo</span><span></span></li>
+      <li><a class="dom" href="https://emrisearch.zahranm.cloud">emrisearch</a><span class="desc">GUI for the emrisearch pipeline: inspect extreme-mass-ratio-inspiral search runs without writing Python</span><span class="st live">live</span><a class="gh" href="https://github.com/SulthanZahran1/emrisearch-gui">source</a></li>
+      <li><a class="dom" href="https://wiki.zahranm.cloud">wiki</a><span class="desc">LLM-compiled wiki built from 556 public LG Energy Solution blog posts, with chat and a graph view</span><span class="st gated">access token</span><span></span></li>
+      <li><a class="dom" href="https://cv-search.zahranm.cloud">cv-search</a><span class="desc">Résumé search: Gemini extraction with fallbacks, hybrid retrieval, optional LLM rerank</span><span class="st gated">access token</span><a class="gh" href="https://github.com/SulthanZahran1/cv-search-prototype">source</a></li>
+      <li><a class="dom" href="https://dcim.zahranm.cloud">dcim</a><span class="desc">Data-center infrastructure management built on NetBox with a React front end</span><span class="st gated">login</span><span></span></li>
+      <li><a class="dom" href="https://hkbp.zahranm.cloud">hkbp</a><span class="desc">Church admin system moved from Laravel to Vue and Go, with a self-hosted OIDC login</span><span class="st gated">members</span><a class="gh" href="https://github.com/SulthanZahran1/hkbp-jatinegara">source</a></li>
+      <li><a class="dom" href="https://honjang.zahranm.cloud">honjang</a><span class="desc">English–Korean real-time voice translator (see above)</span><span class="st">offline</span><a class="gh" href="https://github.com/SulthanZahran1/honjang">source</a></li>
+      <li><a class="dom" href="https://labs.zahranm.cloud">labs</a><span class="desc">Personal corner: small prototypes and experiments</span><span class="st live">live</span><span></span></li>
+      <li><a class="dom" href="https://blog.zahranm.cloud">blog</a><span class="desc">Writing</span><span class="st">soon</span><a class="gh" href="https://github.com/SulthanZahran1/zahranm-cloud">source</a></li>
+    </ul>
+  </section>
+
+  <section class="block" id="activity" aria-labelledby="activity-title">
+    <div class="head">
+      <span class="idx">06 · activity</span>
+      <h2 id="activity-title">Commit history, public and private</h2>
+    </div>
     <div id="gh-calendar" class="gh-card"><p class="cal-loading">loading contributions…</p></div>
     <a class="gh-link" href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github.com/SulthanZahran1 ↗</a>
   </section>
 
-  <section>
-    <h2 class="section-label">projects</h2>
-    <ul class="reg">
-      <li><a class="dom" href="https://honjang.zahranm.cloud">honjang.zahranm.cloud</a><span class="desc">EN↔KO real-time voice translator</span><a class="gh" href="https://github.com/SulthanZahran1/honjang">github</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://emrisearch.zahranm.cloud">emrisearch.zahranm.cloud</a><span class="desc">EMRI search results explorer</span><a class="gh" href="https://github.com/SulthanZahran1/emrisearch-gui">github</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://dcim.zahranm.cloud">dcim.zahranm.cloud</a><span class="desc">data center infrastructure management demo</span><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://aquaflow.zahranm.cloud">aquaflow.zahranm.cloud</a><span class="desc">smart water-metering dashboard</span><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://wiki.zahranm.cloud">wiki.zahranm.cloud</a><span class="desc">LGES battery knowledge wiki</span><a class="gh" href="https://github.com/SulthanZahran1/lgensol-wiki">github</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://relay.zahranm.cloud">relay.zahranm.cloud</a><span class="desc">AI-native CRM platform</span><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://cv-search.zahranm.cloud">cv-search.zahranm.cloud</a><span class="desc">LLM-assisted CV search prototype</span><a class="gh" href="https://github.com/SulthanZahran1/cv-search-prototype">github</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://teach.zahranm.cloud">teach.zahranm.cloud</a><span class="desc">lesson hosting</span><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://hkbp.zahranm.cloud">hkbp.zahranm.cloud</a><span class="desc">HKBP Jatinegara community app</span><a class="gh" href="https://github.com/SulthanZahran1/hkbp-jatinegara">github</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://zahranm.cloud/recruit">zahranm.cloud/recruit</a><span class="desc">recruiter pitch generator</span><a class="gh" href="https://github.com/SulthanZahran1/jd-pitcher">github</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://blog.zahranm.cloud">blog.zahranm.cloud</a><span class="desc">writing</span><a class="gh" href="https://github.com/SulthanZahran1/zahranm-cloud">github</a><span class="arrow">↗</span></li>
-      <li><a class="dom" href="https://labs.zahranm.cloud">labs.zahranm.cloud</a><span class="desc">personal corner</span><span class="arrow">↗</span></li>
-    </ul>
-  </section>
-
-  <section id="teaser">
-    <h2 class="section-label">latest from the blog</h2>
+  <section class="block" id="teaser" aria-labelledby="teaser-title">
+    <h2 class="minihead" id="teaser-title">latest from the blog</h2>
     <ul class="posts" id="posts"></ul>
   </section>
 
+  <section class="contact-block" id="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title">Building agents that touch real systems? Let's talk.</h2>
+    <a class="mail" href="mailto:zsulthan9@gmail.com">zsulthan9@gmail.com</a>
+    <p>Agents, the tools and infrastructure around them, or the evals that tell you whether they actually work. Tell me what you're working on and what's in the way.</p>
+  </section>
+
   <footer>
-    <span>sulthan zahran ma'ruf</span>
-    <span>zahranm.cloud</span>
+    <span>sulthan zahran ma'ruf · zahranm.cloud</span>
     <nav class="footer-links" aria-label="Site information">
       <a href="/about">about</a>
       <a href="/contact">contact</a>
       <a href="/privacy">privacy</a>
+      <a href="/llms.txt">llms.txt</a>
     </nav>
     <span class="mascot-note">a cat watches your cursor</span>
   </footer>
 
 </div>
+</main>
 
+<script>
+/* sticky bar hairline */
+(function () {
+  var bar = document.getElementById("bar");
+  function onScroll() { bar.classList.toggle("scrolled", window.scrollY > 8); }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+<script>
+/* Career timing diagram. Lanes are signals; each span is a bus value
+   (hexagon-ended box). Spans too narrow for their label get the label above
+   the lane. Narrow screens redraw a recent window instead of scrolling. */
+(function () {
+  var svg = document.getElementById("timeline");
+  if (!svg) return;
+  var caption = document.getElementById("td-caption");
+  var NS = "http://www.w3.org/2000/svg";
+  function ym(y, m) { return y + (m - 1) / 12; }
+  var today = new Date();
+  var NOW = Math.min(today.getFullYear() + (today.getMonth() + today.getDate() / 31) / 12, 2026.95);
+
+  var lanes = [
+    { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "Metatech", "hot"]] },
+    { label: "FACTORY", spans: [[ym(2024, 4), ym(2025, 8), "LG Sinarmas", ""], [ym(2025, 8), ym(2025, 11), "Korea", "warm"], [ym(2025, 11), NOW, "LG Sinarmas", ""]] },
+    { label: "LAB",     spans: [[ym(2023, 10), ym(2024, 4), "FAAN Lab", ""]] },
+    { label: "FIELD",   spans: [[ym(2022, 6), ym(2022, 8), "PLC intern", ""], [ym(2024, 1), ym(2024, 4), "Instrumentation", ""]] },
+    { label: "EDU",     spans: [[ym(2019, 8), ym(2023, 8), "B.Sc. Physics · Universitas Indonesia", ""]] }
+  ];
+
+  function draw() {
+    var narrow = svg.parentNode.clientWidth < 640;
+    var W = narrow ? 560 : 1000;
+    var T0 = narrow ? 2023.6 : 2019.5, T1 = NOW + (narrow ? 0.12 : 0.2);
+    var X0 = narrow ? 70 : 96, X1 = W - 12;
+    var top = 50, laneH = 42, half = 11, H = top + lanes.length * laneH + 28;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    if (caption) caption.textContent = narrow ? "Showing 2023 onward. Full history below." : "Full details below.";
+
+    function x(t) { return X0 + (Math.max(t, T0) - T0) / (T1 - T0) * (X1 - X0); }
+    function el(tag, attrs, text) {
+      var n = document.createElementNS(NS, tag);
+      for (var k in attrs) n.setAttribute(k, attrs[k]);
+      if (text) n.textContent = text;
+      svg.appendChild(n);
+      return n;
+    }
+
+    /* clock lane: one period per year */
+    el("text", { x: 0, y: 26, "class": "lane-label" }, "YEAR");
+    var d = "";
+    for (var yr = Math.ceil(T0); yr <= Math.floor(NOW); yr++) {
+      var a = x(yr), b = x(Math.min(yr + 0.5, T1)), c = x(Math.min(yr + 1, T1));
+      d += "M" + a + " 14 L" + a + " 30 L" + b + " 30 L" + b + " 14 L" + c + " 14 ";
+      el("line", { x1: a, y1: 36, x2: a, y2: top + lanes.length * laneH, "class": "gridline" });
+      el("text", { x: a + 4, y: 11, "class": "year" }, String(yr));
+    }
+    el("path", { d: d, "class": "clk" });
+
+    lanes.forEach(function (lane, i) {
+      var cy = top + i * laneH + laneH / 2;
+      el("text", { x: 0, y: cy + 4, "class": "lane-label" }, lane.label);
+      var visible = lane.spans.filter(function (s) { return s[1] > T0; });
+      /* low baseline, broken by spans */
+      var cursor = X0, base = "";
+      visible.forEach(function (s) {
+        var sx = x(s[0]), ex = x(s[1]);
+        if (sx > cursor) base += "M" + cursor + " " + (cy + half) + " L" + sx + " " + (cy + half) + " ";
+        cursor = Math.max(cursor, ex);
+      });
+      if (cursor < x(NOW)) base += "M" + cursor + " " + (cy + half) + " L" + x(NOW) + " " + (cy + half);
+      if (base) el("path", { d: base, "class": "base" });
+
+      visible.forEach(function (s) {
+        var sx = x(s[0]), ex = x(s[1]), w = ex - sx;
+        var cls = "bus" + (s[3] ? " " + s[3] : "");
+        var slant = Math.min(5, w / 3);
+        var openStart = s[0] < T0, openEnd = s[1] >= NOW - 0.001;
+        var p = "M" + (openStart ? sx + " " + (cy - half) : sx + " " + cy + " L" + (sx + slant) + " " + (cy - half)) +
+                " L" + (openEnd ? ex : ex - slant) + " " + (cy - half) +
+                (openEnd ? " L" + ex + " " + (cy + half) : " L" + ex + " " + cy + " L" + (ex - slant) + " " + (cy + half)) +
+                " L" + (openStart ? sx : sx + slant) + " " + (cy + half) + " Z";
+        el("path", { d: p, "class": cls });
+        var t = el("text", { x: sx + 9, y: cy + 4, "class": "bus-text" }, s[2]);
+        if (t.getComputedTextLength() + 16 > w) {
+          t.setAttribute("x", sx + 2);
+          t.setAttribute("y", cy - half - 5);
+          t.setAttribute("class", "bus-text above" + (s[3] ? " " + s[3] : ""));
+        }
+      });
+    });
+
+    var nx = x(NOW);
+    el("line", { x1: nx, y1: 8, x2: nx, y2: top + lanes.length * laneH + 4, "class": "now" });
+    el("text", { x: nx - 4, y: top + lanes.length * laneH + 18, "class": "now-text", "text-anchor": "end" }, "now");
+  }
+
+  draw();
+  var lastNarrow = svg.parentNode.clientWidth < 640, pending = 0;
+  window.addEventListener("resize", function () {
+    cancelAnimationFrame(pending);
+    pending = requestAnimationFrame(function () {
+      var n = svg.parentNode.clientWidth < 640;
+      if (n !== lastNarrow) { lastNarrow = n; draw(); }
+    });
+  });
+})();
+</script>
 <script>
 (function () {
   var postsEl = document.getElementById("posts");

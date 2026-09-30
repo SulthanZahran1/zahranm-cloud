@@ -1,15 +1,15 @@
 ---
 title: Contact Sulthan Zahran Ma'ruf
-description: Public contact links for Sulthan Zahran Ma'ruf.
+description: Public contact links for Sulthan Zahran Ma'ruf, an AI engineer building agents and the infrastructure they need in production.
 canonical_url: https://zahranm.cloud/contact
-last_updated: 2026-08-22
+last_updated: 2026-09-30
 ---
 
 # Contact Sulthan Zahran Ma'ruf
 
 ## Email
 
-The primary contact channel is zsulthan9@gmail.com.
+The primary contact channel is zsulthan9@gmail.com. Good fits: agents, the tools and infrastructure around them, or the evals that tell you whether they actually work. Tell me what you're working on and what's in the way.
 
 ## Profiles
 

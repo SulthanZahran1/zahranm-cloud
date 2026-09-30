@@ -3,15 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privacy | Sulthan Zahran Ma'ruf</title>
+<title>Privacy | Sulthan Zahran Ma'ruf, AI engineer</title>
 <meta name="description" content="Privacy information for the zahranm.cloud personal project hub and its public pages.">
 <link rel="canonical" href="https://zahranm.cloud/privacy">
 <link rel="alternate" type="text/markdown" href="/privacy/index.md">
-<meta property="og:title" content="Privacy | Sulthan Zahran Ma'ruf">
+<meta property="og:title" content="Privacy | Sulthan Zahran Ma'ruf, AI engineer">
 <meta property="og:description" content="Privacy information for the zahranm.cloud personal project hub.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://zahranm.cloud/og.svg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%23fafafa'/><circle cx='8' cy='8' r='3.2' fill='%230b7a56'/></svg>">
+<meta name="theme-color" content="#f4f2ec">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%2316171a'/><path d='M3 11V5h3v6h3V5h4' fill='none' stroke='%2334d399' stroke-width='1.6'/></svg>">
+<link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/ibm-plex-sans-condensed-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/ibm-plex-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 <script type="application/ld+json">
 {
@@ -26,8 +30,11 @@
 <body>
 <main class="wrap">
   <header>
-    <div class="name">Sulthan Zahran Ma'ruf</div>
-    <p class="tag">AI engineer building <span class="hl">voice agents</span>, harnesses, and automation.</p>
+    <a class="name" href="/" aria-label="Sulthan Zahran Ma'ruf, home">
+      <svg width="22" height="22" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#16171a"/><path d="M3 11V5h3v6h3V5h4" fill="none" stroke="#34d399" stroke-width="1.6"/></svg>
+      zahranm.cloud
+    </a>
+    <p class="tag">AI engineer building <span class="hl">agents</span> and the infrastructure they need in production.</p>
     <nav class="page-nav" aria-label="Site navigation">
       <a href="/">home</a>
       <a href="/about">about</a>
@@ -36,20 +43,20 @@
     </nav>
   </header>
   <section class="prose">
-    <h1>privacy</h1>
+    <h1>Privacy</h1>
     <h2>scope</h2>
     <p>This privacy page describes the public hub at zahranm.cloud. Individual project sites linked from the hub may have their own behavior and privacy terms. Check the individual project before entering information there.</p>
     <h2>data collected by this hub</h2>
-    <p>The hub is a static site served by nginx. It does not provide accounts, a server-side form, a payment flow, or an authenticated data store. The browser may keep a short-lived local cache of public blog-feed items so the latest blog teaser can render without downloading the feed on every visit. That cache is stored in the visitor's browser under the key used by the page and is not sent to this server.</p>
+    <p>The hub is a static site served by nginx. It does not provide accounts, a server-side form, a payment flow, or an authenticated data store. Fonts are self-hosted, so loading a page makes no third-party font requests. The browser may keep a short-lived local cache of public data so the home page can render without refetching on every visit: blog-feed items for up to 15 minutes and GitHub contribution counts for up to 6 hours. That cache is stored in the visitor's browser and is not sent to this server.</p>
     <h2>external services</h2>
-    <p>The page can request the public GitHub contribution graph from ghchart.rshah.org and the public RSS feed from blog.zahranm.cloud. Project links, GitHub, LinkedIn, and the recruiter copilot are external destinations. Those services receive requests according to their own policies when a visitor or browser follows a link or loads a public asset.</p>
+    <p>The home page requests public GitHub contribution counts from github-contributions-api.jogruber.de and the public RSS feed from blog.zahranm.cloud. The recruiter copilot embedded from <a href="/recruit">/recruit</a> is a separate service: job descriptions submitted to it and the pitches it generates are logged, and visitor IP addresses are stored only as hashes. Don't paste confidential material into it. Project links, GitHub, and LinkedIn are external destinations. Those services receive requests according to their own policies when a visitor or browser follows a link or loads a public asset.</p>
     <h2>choices and contact</h2>
     <p>You can disable JavaScript or clear local browser storage at any time. The core identity, project links, contact details, and this policy are available in server-rendered HTML and machine-readable files. For questions about this page, contact <a href="/contact">the site owner</a> by email.</p>
   </section>
-  <a class="back" href="/">back to home</a>
+  <a class="back" href="/">← back to home</a>
   <footer>
-    <span>sulthan zahran ma'ruf</span>
-    <span class="footer-links"><a href="/about">about</a><a href="/contact">contact</a></span>
+    <span>sulthan zahran ma'ruf · zahranm.cloud</span>
+    <span class="footer-links"><a href="/about">about</a><a href="/contact">contact</a><a href="/llms.txt">llms.txt</a></span>
   </footer>
 </main>
 </body>

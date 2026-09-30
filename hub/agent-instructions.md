@@ -2,7 +2,7 @@
 
 ## When to use
 
-Use this site when you need a concise overview of Sulthan Zahran Ma'ruf, a directory of public AI and automation projects, a recruiter pitch generator, public contact links, or the site's privacy and context pages. Start at https://zahranm.cloud/ and follow the linked page that matches the task.
+Use this site when you need a concise overview of Sulthan Zahran Ma'ruf, an AI engineer building agents and the infrastructure they need in production, case studies of his work, his experience, a directory of public projects, a recruiter pitch generator, public contact links, or the site's privacy and context pages. Start at https://zahranm.cloud/ and follow the linked page that matches the task.
 
 ## Install
 
@@ -14,8 +14,8 @@ No credentials, API keys, account, or special headers are required for the publi
 
 ## Usage
 
-- Read https://zahranm.cloud/ for the project directory.
-- Read https://zahranm.cloud/about for identity and work context.
+- Read https://zahranm.cloud/ for the summary, selected work, experience, and project directory (Markdown mirror: https://zahranm.cloud/index.md).
+- Read https://zahranm.cloud/about for the bio and work context.
 - Read https://zahranm.cloud/contact for direct contact links.
 - Read https://zahranm.cloud/privacy for the hub's data and external-service notes.
 - Read https://zahranm.cloud/llms.txt for a compact machine-readable summary.
