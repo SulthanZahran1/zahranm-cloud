@@ -17,7 +17,7 @@ The hub is a static nginx site. It does not provide accounts, a server-side form
 
 ## External services
 
-The home page itself makes no third-party requests: besides its own self-hosted assets, it requests only the public RSS feed from blog.zahranm.cloud and embeds the first-party recruiter copilot. The recruiter copilot at /recruit is a separate service: job descriptions submitted to it and the pitches it generates are logged, and visitor IP addresses are stored only as hashes. To write a pitch, it sends the submitted job description to a third-party LLM API, and its page loads fonts from Google Fonts. Don't paste confidential material into it. Project links, GitHub, and LinkedIn are external destinations with their own policies.
+The home page itself makes no third-party requests: besides its own self-hosted assets, it requests only the public RSS feed from blog.zahranm.cloud and embeds the first-party recruiter copilot. The recruiter copilot at /recruit is a separate service: job descriptions submitted to it and the pitches it generates are logged, and visitor IP addresses are stored only as hashes. To write a pitch, it sends the submitted job description to a third-party LLM API. Don't paste confidential material into it. Project links, GitHub, and LinkedIn are external destinations with their own policies.
 
 ## Sitemap
 
