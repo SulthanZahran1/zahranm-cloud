@@ -121,7 +121,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .bar nav a:hover { color: var(--ink); }
 
 /* ── hero ────────────────────────────────────────────── */
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: 64px 0 40px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; padding: 64px 0 40px; }
+.hero > div:first-child { padding-top: 104px; }
 .eyebrow { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 10px; align-items: baseline; }
 .eyebrow .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); transform: translateY(-1px); animation: pulse 2.4s ease-in-out infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 7px transparent; } }
@@ -154,7 +155,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .bubble { max-width: 88%; padding: 10px 12px; border-radius: 12px; font-family: var(--sans); font-size: 14px; line-height: 1.45; }
 .bubble .chan { display: block; font-family: var(--mono); font-size: 10.5px; color: var(--c-dim); margin-bottom: 3px; letter-spacing: .04em; text-transform: uppercase; }
 .bubble.user { background: #24352d; justify-self: end; border-bottom-right-radius: 4px; }
-.bubble.agent { background: var(--c-panel); border: 1px solid var(--c-line); border-bottom-left-radius: 4px; min-height: 58px; }
+.bubble.agent { background: var(--c-panel); border: 1px solid var(--c-line); border-bottom-left-radius: 4px; min-height: 88px; }
 .bubble.agent .typing { display: inline-flex; gap: 4px; }
 .bubble.agent .typing i { width: 5px; height: 5px; border-radius: 50%; background: var(--c-dim); animation: blink 1s infinite; }
 .bubble.agent .typing i:nth-child(2) { animation-delay: .15s; } .bubble.agent .typing i:nth-child(3) { animation-delay: .3s; }
@@ -165,6 +166,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .t-row { display: grid; grid-template-columns: 178px 1fr 54px; gap: 10px; align-items: center; height: 27px; opacity: 0; transform: translateX(-4px); transition: opacity .25s, transform .25s; }
 .t-row.on { opacity: 1; transform: none; }
 .t-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.t-link { color: var(--c-green); text-decoration: underline dotted; text-underline-offset: 3px; padding: 2px 0; font-family: var(--mono); font-size: 12.5px; }
+.t-link:hover { text-decoration-style: solid; }
 .t-name .k { display: inline-block; width: 34px; font-size: 10px; color: var(--c-dim); }
 .legend { display: flex; gap: 6px; align-items: center; text-transform: none; letter-spacing: 0; }
 .legend i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
@@ -179,20 +182,21 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .c-stats div { padding: 9px 10px; color: var(--c-dim); font-size: 10.5px; text-transform: uppercase; letter-spacing: .05em; }
 .c-stats div + div { border-left: 1px solid var(--c-line); }
 .c-stats b { display: block; font-weight: 500; font-size: 16px; color: var(--c-text); letter-spacing: 0; text-transform: none; }
-.c-review { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--c-dim); min-height: 32px; }
+.c-review { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--c-dim); min-height: 70px; align-content: start; }
 .c-review button { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--c-line); color: var(--c-text); font-size: 12px; }
 .c-review button:hover:not([disabled]) { border-color: var(--c-green); color: var(--c-green); }
 .c-review button[disabled] { opacity: .45; cursor: default; }
-.c-review .note { color: var(--c-green); }
+.c-review .note { color: var(--c-green); flex-basis: 100%; min-height: 18px; font-size: 11.5px; }
+.c-review .note.bad { color: var(--c-amber); }
 .c-foot { padding: 10px 16px; border-top: 1px solid var(--c-line); color: var(--c-dim); font-size: 11px; display: flex; justify-content: space-between; gap: 10px; }
 .c-foot button { color: var(--c-text); text-decoration: underline; text-underline-offset: 3px; }
 
 
 /* ── sections ───────────────────────────────────────── */
-section.block { padding-top: 110px; }
+section.block { padding-top: 92px; }
 .head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 30px; flex-wrap: wrap; }
 .head .idx { display: block; font-family: var(--mono); font-size: 12.5px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
-.head h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(34px, 4.8vw, 58px); line-height: 1; letter-spacing: -.02em; }
+.head h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(28px, 3.2vw, 42px); line-height: 1; letter-spacing: -.02em; }
 .head p { color: var(--muted); max-width: 40ch; font-size: 15px; }
 
 /* ── bento work grid ────────────────────────────────── */
@@ -237,6 +241,8 @@ section.block { padding-top: 110px; }
 .gw .prov:focus-visible rect { stroke: var(--c-green); stroke-width: 2; }
 .gw .hub path { fill: #2a2413; stroke: var(--c-amber); stroke-width: 1.5; }
 .gw .hub text { fill: var(--c-amber); font-family: var(--mono); font-size: 11px; }
+.gw .hub text.tok { font-size: 9.5px; fill: #a08a55; }
+.gw .hub text.tok.open { fill: var(--c-green); }
 .gw .packet { fill: var(--c-green); filter: drop-shadow(0 0 6px var(--c-green)); }
 .gw .lock { fill: none; stroke: var(--c-amber); stroke-width: 1.6; transition: stroke .2s; }
 .gw .lock.open { stroke: var(--c-green); }
@@ -279,7 +285,7 @@ section.block { padding-top: 110px; }
 .listeners button { padding: 8px 12px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-dim); font-family: var(--mono); font-size: 12px; }
 .listeners button[aria-pressed="true"] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
 .hj-say { font-family: var(--sans); font-size: 15px; color: var(--c-dim); }
-.hj-ko { font-size: 24px; line-height: 1.35; min-height: 66px; font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", var(--sans); }
+.hj-ko { font-size: 24px; line-height: 1.35; font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", var(--sans); }
 .hj-ko .ck { transition: color .3s, background .3s; border-radius: 4px; color: #4a4d55; }
 .hj-ko .ck.on { color: var(--c-text); }
 .hj-ko .ck.end.on { color: var(--c-amber); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
@@ -289,9 +295,15 @@ section.block { padding-top: 110px; }
 .lane { display: grid; grid-template-columns: 48px 1fr; gap: 8px; align-items: center; }
 .lane .tr { position: relative; height: 12px; background: var(--c-panel); border-radius: 4px; overflow: hidden; }
 .lane .seg { position: absolute; top: 0; bottom: 0; border-radius: 4px; width: 0; }
-.lane .seg.stt { background: var(--c-blue); } .lane .seg.llm { background: #c792ea; } .lane .seg.tts { background: var(--c-green); }
+.lane .seg.stt { background: #6b6f78; } .lane .seg.llm { background: var(--c-blue); } .lane .seg.tts { background: var(--c-green); }
+.lanes { position: relative; }
+.lanes .vline { position: absolute; top: 0; height: 58px; left: calc(56px + (100% - 56px) * .25); width: 0; border-left: 1px dashed var(--c-amber); opacity: 0; transition: opacity .3s; }
+.lanes .vline.on { opacity: 1; }
+.lanes .axis { display: grid; grid-template-columns: 48px 1fr; gap: 8px; }
+.lanes .axis span:last-child { display: flex; justify-content: space-between; color: #6b6f78; }
+.lanes .axis i { font-style: normal; }
 .lanes .mark300 { position: relative; height: 16px; margin-left: 56px; }
-.lanes .mark300 span { position: absolute; transform: translateX(-50%); color: var(--c-amber); white-space: nowrap; opacity: 0; transition: opacity .3s; }
+.lanes .mark300 span { position: absolute; transform: translateX(-8px); color: var(--c-amber); white-space: nowrap; opacity: 0; transition: opacity .3s; }
 .lanes .mark300 span.on { opacity: 1; }
 .play { align-self: start; font-family: var(--mono); font-size: 12.5px; padding: 8px 13px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-text); }
 .play:hover { border-color: var(--c-green); color: var(--c-green); }
@@ -307,6 +319,19 @@ section.block { padding-top: 110px; }
 .line .st:hover rect, .line .st.sel rect { fill: var(--ink); }
 .line .st:hover text, .line .st.sel text { fill: var(--paper); }
 .line .st:focus { outline: none; } .line .st:focus-visible rect { stroke: var(--accent); stroke-width: 2.5; }
+.lta { display: grid; gap: 10px; }
+.lta-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 10px; align-items: stretch; }
+.lta-log { background: var(--c-bg); color: #6f737b; border-radius: 10px; padding: 10px; font-family: var(--mono); font-size: 10.5px; line-height: 1.75; overflow-x: auto; white-space: pre; margin: 0; }
+.lta-log .on { color: var(--c-text); }
+.lta-log .bad { color: var(--c-amber); }
+.lta-svg { width: 100%; height: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
+.lta-svg .lbl { font-family: var(--mono); font-size: 8.5px; fill: var(--muted); }
+.lta-svg .sig { fill: none; stroke: var(--ink); stroke-width: 1.3; }
+.lta-svg .stuck { fill: rgba(245,180,84,.3); stroke: var(--signal); stroke-width: 1; }
+.lta-svg .brk { stroke: var(--muted); stroke-width: 1; }
+.lta-ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.play2 { font-family: var(--mono); font-size: 12.5px; padding: 8px 13px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); }
+.lta-out { font-family: var(--mono); font-size: 12px; color: var(--signal); }
 .fx-info { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); background: var(--bg); border-radius: 10px; padding: 10px 12px; min-height: 58px; }
 .fx-info b { color: var(--accent); font-weight: 500; }
 .line .agv { fill: var(--accent); }
@@ -327,9 +352,10 @@ section.block { padding-top: 110px; }
 .roles-pick button[aria-pressed="true"] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
 .perm-ask { font-size: 14px; color: var(--c-text); }
 .perm-steps { list-style: none; display: grid; gap: 5px; font-family: var(--mono); font-size: 12px; }
-.perm-steps li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 10px; border-radius: 8px; background: var(--c-bg); opacity: 0; transform: translateY(3px); transition: opacity .25s, transform .25s; }
+.perm-steps li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 7px 10px; border-radius: 8px; background: var(--c-bg); opacity: 0; transform: translateY(3px); transition: opacity .25s, transform .25s; }
 .perm-steps li.on { opacity: 1; transform: none; }
 .perm-steps .ok { color: var(--c-green); } .perm-steps .no { color: var(--c-red); }
+.perm-steps small { grid-column: 1 / -1; font-size: 11px; color: var(--c-dim); }
 .perm-reply { font-size: 14px; color: #c9c7c0; min-height: 42px; }
 .bella-flow { display: grid; gap: 8px; font-family: var(--mono); font-size: 12px; }
 .bella-flow div { display: flex; align-items: center; gap: 8px; padding: 9px 11px; background: var(--c-panel); border-radius: 10px; color: var(--c-dim); }
@@ -379,19 +405,22 @@ section.block { padding-top: 110px; }
 .embed { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #fff; }
 .embed iframe { display: block; width: 100%; height: 440px; min-height: 440px; border: 0; background: #fff; }
 
-/* ── index tiles ────────────────────────────────────── */
-.idx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; list-style: none; }
-.idx-grid li { position: relative; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s, transform .15s; }
-.idx-grid li:hover { border-color: var(--ink); transform: translateY(-2px); }
-.idx-grid .nm { font-family: var(--mono); font-size: 15px; font-weight: 500; text-decoration: none; }
-.idx-grid .nm::after { content: ""; position: absolute; inset: 0; border-radius: 16px; }
-.idx-grid .ds { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
-.idx-grid .ft { margin-top: auto; padding-top: 6px; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
-.idx-grid .ft a { position: relative; z-index: 1; color: var(--muted); text-decoration: none; padding: 4px 0; }
-.idx-grid .ft a:hover { color: var(--accent); text-decoration: underline; }
-.st::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: 0; background: var(--line); }
-.st.live::before { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.st.gated::before { background: #c9a227; }
+/* ── index table ───────────────────────────────────── */
+.idx-table { list-style: none; border-top: 1px solid var(--ink); }
+.idx-table li { display: grid; grid-template-columns: 150px 1fr 110px 60px; gap: 16px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.idx-table .nm { font-family: var(--mono); font-size: 14.5px; font-weight: 500; text-decoration: none; }
+.idx-table .nm:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 4px; }
+.idx-table .ds { color: var(--ink-2); font-size: 14.5px; }
+.idx-table .status { font-family: var(--mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.idx-table li > a:last-child { font-family: var(--mono); font-size: 12px; color: var(--muted); text-align: right; text-decoration: none; }
+.idx-table li > a:last-child:hover { color: var(--accent); text-decoration: underline; }
+.more { margin-top: 14px; }
+.more summary { cursor: pointer; font-family: var(--mono); font-size: 13px; color: var(--muted); padding: 8px 0; }
+.more summary:hover { color: var(--ink); }
+.more .idx-table { border-top-color: var(--line); margin-top: 6px; }
+.status::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 7px; vertical-align: 0; background: var(--line); }
+.status.live::before { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.status.gated::before { background: #c9a227; }
 
 /* github contributions (custom renderer on github-contributions-api.jogruber.de) */
 .gh-card { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 14px; }
@@ -439,7 +468,7 @@ section.block { padding-top: 110px; }
 
 /* ── contact ───────────────────────────────────────── */
 .contact-block { margin-top: 120px; background: var(--ink); color: var(--paper); border-radius: 28px; padding: clamp(28px, 6vw, 72px); position: relative; overflow: hidden; }
-.contact-block h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(40px, 6.4vw, 84px); line-height: .96; letter-spacing: -.025em; max-width: 14ch; position: relative; }
+.contact-block h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(36px, 5vw, 64px); line-height: .96; letter-spacing: -.025em; max-width: 14ch; position: relative; }
 .contact-block h2 em { font-style: normal; color: var(--c-green); }
 .contact-block .mail { position: relative; display: inline-block; margin-top: 30px; font-family: var(--mono); font-size: clamp(17px, 2.4vw, 26px); text-decoration: none; border-bottom: 2px solid var(--c-green); padding-bottom: 2px; }
 .contact-block .mail:hover { color: var(--c-green); }
@@ -457,14 +486,20 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 /* ── responsive ─────────────────────────────────────── */
 @media (max-width: 980px) {
   .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 48px; }
+  .hero > div:first-child { padding-top: 0; }
   .lede { max-width: 56ch; }
   .try-r { display: none; } .try-d { display: inline; }
   .span-7, .span-5, .span-6 { grid-column: span 12; }
   .copilot { grid-template-columns: 1fr; }
+  .idx-table li { grid-template-columns: 1fr auto; gap: 3px 12px; }
+  .idx-table .ds { grid-column: 1 / -1; grid-row: 2; font-size: 14px; }
+  .idx-table .status { grid-row: 3; }
+  .idx-table li > a:last-child { grid-row: 1; grid-column: 2; }
   .role { grid-template-columns: 1fr; gap: 10px; }
 }
 @media (max-width: 760px) {
-  .mut { grid-template-columns: 1fr; }
+  .mut { grid-template-columns: minmax(0, 1fr); }
+  .mut > div:last-child { order: -1; }
 }
 @media (max-width: 640px) {
   :root { --gutter: 16px; }
@@ -482,8 +517,8 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   .tile h3 { font-size: 24px; }
   .wins { grid-template-columns: 1fr 1fr; }
   .wins b { font-size: 22px; }
-  .mutants { grid-template-columns: 1fr; }
   .gw-btns { display: flex; }
+  .lta-grid { grid-template-columns: minmax(0, 1fr); }
   section.block { padding-top: 84px; }
   .cal-stats { grid-template-columns: 1fr; }
   .cal-stats div { padding: 10px 4px; }
@@ -552,8 +587,8 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <button type="button" data-s="2" aria-pressed="false">Brief me for tomorrow</button>
         </div>
         <div class="bubble user"><span class="chan" id="c-chan">WhatsApp</span><span id="c-prompt">Move my 3pm with Andi to tomorrow, same time, and let him know.</span></div>
-        <div class="trace" role="img" id="c-trace-wrap" aria-label="Execution trace">
-          <div class="trace-head" aria-hidden="true"><span>span</span><span class="legend"><i class="lg-llm"></i>model <i class="lg-tool"></i>tool via gateway</span><span style="text-align:right">time</span></div>
+        <div class="trace" role="group" id="c-trace-wrap" aria-label="Execution trace">
+          <div class="trace-head" aria-hidden="true"><span>span</span><span class="legend"><i class="lg-llm"></i>model <i class="lg-tool"></i>tool (click to follow it)</span><span style="text-align:right">time</span></div>
           <div class="t-rows" id="c-rows"></div>
         </div>
         <div class="c-stats" aria-hidden="true">
@@ -597,7 +632,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
             <path d="M250 70 L330 70 L360 125 L330 180 L250 180 L220 125 Z"/>
             <text x="290" y="112" text-anchor="middle">sambungapi</text>
             <g transform="translate(279 122)"><rect class="lock" id="gw-lock" x="2" y="10" width="18" height="14" rx="3"/><path class="lock" id="gw-shackle" d="M6 10 V6 a5 5 0 0 1 10 0 V10"/></g>
-            <text x="290" y="164" text-anchor="middle" style="font-size:9.5px">encrypted vault</text>
+            <text x="290" y="164" text-anchor="middle" class="tok" id="gw-tok">sealed · 9f3a…c1</text>
           </g>
           <g id="gw-provs"></g>
           <circle class="packet" id="gw-packet" r="5" cx="-20" cy="-20"/>
@@ -613,7 +648,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div><span class="kicker">Bella · Metatech · core engineer</span><h3 id="bella-title">An AI chief of staff for a whole company</h3></div>
           <span class="badge">private</span>
         </div>
-        <p class="sub">Staff message it on WhatsApp, web or Lark and it handles email, meetings and cross-department updates. Reasoning engines are pluggable, and every tool call is scoped to the asker's role. I work on the worker that runs each turn and built the monitoring behind it.</p>
+        <p class="sub">Staff message it on WhatsApp, Lark or web. It runs email, meetings and cross-team updates, and every tool call is checked against the asker's role. I work on the worker that runs each turn.</p>
         <div class="pipe" aria-label="How a request flows"><span>chat</span><i>→</i><span>worker</span><i>→</i><span>gateway</span><i>→</i><span>console</span></div>
         <div class="perm">
           <p class="try">▶ Same request, different person. Who's asking?</p>
@@ -626,7 +661,6 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <ul class="perm-steps" id="perm-steps"></ul>
           <p class="perm-reply" id="perm-reply" aria-live="polite"></p>
         </div>
-        <div class="tlinks"><a href="#console">↑ the console up top simulates it</a></div>
       </article>
 
       <!-- mutation testing -->
@@ -687,9 +721,12 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div class="lane"><span>hear</span><span class="tr"><span class="seg stt" id="hj-stt"></span></span></div>
           <div class="lane"><span>think</span><span class="tr"><span class="seg llm" id="hj-llm"></span></span></div>
           <div class="lane"><span>speak</span><span class="tr"><span class="seg tts" id="hj-tts"></span></span></div>
-          <div class="mark300"><span id="hj-300">▲ audio starts mid-sentence (~300 ms budget)</span></div>
+          <div class="axis"><span></span><span><i>0</i><i>300</i><i>600</i><i>900</i><i>1200 ms</i></span></div>
+          <div class="mark300"><span id="hj-300">↑ first audio at ~300 ms (design budget), mid-sentence</span></div>
+          <span class="vline" id="hj-vline"></span>
         </div>
-        <button type="button" class="play" id="hj-play">▶ stream it</button>
+        <button type="button" class="play" id="hj-play">replay ↺</button>
+        <ul class="chips" aria-label="Stack"><li>Expo</li><li>FastAPI</li><li>WebSocket</li><li>Deepgram Nova-3</li><li>OpenRouter</li><li>ElevenLabs</li></ul>
         <div class="tlinks">
           <a href="https://honjang.zahranm.cloud" target="_blank" rel="noreferrer">try the live app ↗</a>
           <a href="https://github.com/SulthanZahran1/honjang" target="_blank" rel="noreferrer">source ↗</a>
@@ -714,12 +751,14 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <g id="fx-agvs"></g>
         </svg>
         <p class="fx-info" id="fx-info" aria-live="polite">▶ Click a station to see the software behind it.</p>
-        <ul class="wins tech">
-          <li><b>Dispatch logic</b><span>RTD rules deciding which vehicle moves which material, where</span></li>
-          <li><b>Log → timing diagram</b><span>Python + SQL analyzer that replays millions of AMHS events as signal timing</span></li>
-          <li><b>Equipment protocols</b><span>SECS/GEM and PLC handshakes between tools and the MES</span></li>
-          <li><b>KO–EN RAG</b><span>cross-language retrieval over Korean and English factory docs</span></li>
-        </ul>
+        <div class="lta">
+          <p class="try">▶ An illustrative incident. Run the analyzer on it.</p>
+          <div class="lta-grid">
+            <pre class="lta-log" id="lta-log" aria-label="Raw AMHS event log"></pre>
+            <svg class="lta-svg" id="lta-svg" viewBox="0 0 300 136" aria-hidden="true"></svg>
+          </div>
+          <div class="lta-ctl"><button type="button" class="play2" id="lta-run">▶ analyze log</button><span class="lta-out" id="lta-out" aria-live="polite"></span></div>
+        </div>
         <ul class="chips" aria-label="Stack"><li>MES</li><li>RTD</li><li>AMHS</li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
       </article>
 
@@ -786,7 +825,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 
     <ul class="skills" aria-label="Skills">
       <li class="ai">AI agents</li><li class="ai">tool use &amp; MCP</li><li class="ai">RAG</li><li class="ai">LLM observability</li><li class="ai">voice pipelines</li><li class="ai">evals &amp; mutation testing</li>
-      <li>Rust</li><li>Go</li><li>TypeScript</li><li>Python</li><li>C#</li><li>SQL</li><li>PostgreSQL</li><li>MongoDB</li><li>Redis</li><li>Docker</li><li>Traefik</li>
+      <li>Rust</li><li>Go</li><li>TypeScript</li><li>Python</li>
     </ul>
   </section>
 
@@ -810,24 +849,29 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <div><span class="idx">04 · index</span><h2 id="index-title">Everything running on zahranm.cloud</h2></div>
       <p>All self-hosted on one VPS behind Traefik. Gated demos are available on request.</p>
     </div>
-    <ul class="idx-grid">
-      <li><a class="nm" href="https://honjang.zahranm.cloud">honjang</a><span class="ds">English–Korean real-time voice translator with honorifics</span><span class="ft"><span class="st live">live</span><a href="https://github.com/SulthanZahran1/honjang">source</a></span></li>
-      <li><a class="nm" href="https://zahranm.cloud/recruit">recruit</a><span class="ds">Recruiter pitch generator: job description in, pitch out</span><span class="ft"><span class="st live">live</span><a href="https://github.com/SulthanZahran1/jd-pitcher">source</a></span></li>
-      <li><a class="nm" href="https://relay.zahranm.cloud">relay</a><span class="ds">AI-native CRM on an event-driven workflow engine</span><span class="ft"><span class="st live">live</span></span></li>
-      <li><a class="nm" href="https://teach.zahranm.cloud">teach</a><span class="ds">Harness Engineering: lessons on building an agent harness, modelled on Nous Research's Hermes</span><span class="ft"><span class="st live">live</span></span></li>
-      <li><a class="nm" href="https://wiki.zahranm.cloud">wiki</a><span class="ds">LLM-compiled wiki from 556 public LG Energy Solution blog posts, with chat and a graph</span><span class="ft"><span class="st gated">access token</span><a href="https://github.com/SulthanZahran1/lgensol-wiki">source</a></span></li>
-      <li><a class="nm" href="https://cv-search.zahranm.cloud">cv-search</a><span class="ds">Résumé search: Gemini extraction, hybrid retrieval, LLM rerank</span><span class="ft"><span class="st gated">access token</span><a href="https://github.com/SulthanZahran1/cv-search-prototype">source</a></span></li>
-      <li><a class="nm" href="https://emrisearch.zahranm.cloud">emrisearch</a><span class="ds">GUI for inspecting extreme-mass-ratio-inspiral search runs without Python</span><span class="ft"><span class="st live">live</span><a href="https://github.com/SulthanZahran1/emrisearch-gui">source</a></span></li>
-      <li><a class="nm" href="https://aquaflow.zahranm.cloud">aquaflow</a><span class="ds">Prepaid smart water metering for residents, managers and operators</span><span class="ft"><span class="st live">live demo</span></span></li>
-      <li><a class="nm" href="https://dcim.zahranm.cloud">dcim</a><span class="ds">Data-center infrastructure management on NetBox with a React front end</span><span class="ft"><span class="st gated">login</span></span></li>
-      <li><a class="nm" href="https://hkbp.zahranm.cloud">hkbp</a><span class="ds">Church admin system moved from Laravel to Vue and Go, with self-hosted OIDC</span><span class="ft"><span class="st gated">members</span><a href="https://github.com/SulthanZahran1/hkbp-jatinegara">source</a></span></li>
-      <li><a class="nm" href="https://blog.zahranm.cloud">blog</a><span class="ds">Writing</span><span class="ft"><span class="st">soon</span><a href="https://github.com/SulthanZahran1/zahranm-cloud">source</a></span></li>
+    <ul class="idx-table">
+      <li><a class="nm" href="https://honjang.zahranm.cloud">honjang</a><span class="ds">English–Korean real-time voice translator with honorifics</span><span class="status live">live</span><a href="https://github.com/SulthanZahran1/honjang">source</a></li>
+      <li><a class="nm" href="https://zahranm.cloud/recruit">recruit</a><span class="ds">LLM pitch generator: job description in, evidence-grounded pitch out</span><span class="status live">live</span><a href="https://github.com/SulthanZahran1/jd-pitcher">source</a></li>
+      <li><a class="nm" href="https://relay.zahranm.cloud">relay</a><span class="ds">AI-native CRM on an event-driven workflow engine</span><span class="status live">live</span><span></span></li>
+      <li><a class="nm" href="https://teach.zahranm.cloud">teach</a><span class="ds">Harness Engineering: building an agent harness, modelled on Hermes</span><span class="status live">live</span><span></span></li>
+      <li><a class="nm" href="https://wiki.zahranm.cloud">wiki</a><span class="ds">LLM-compiled wiki with chat and a knowledge graph, from 556 public LGES posts</span><span class="status gated">on request</span><a href="https://github.com/SulthanZahran1/lgensol-wiki">source</a></li>
+      <li><a class="nm" href="https://cv-search.zahranm.cloud">cv-search</a><span class="ds">Résumé search: Gemini extraction, hybrid retrieval, LLM rerank</span><span class="status gated">on request</span><a href="https://github.com/SulthanZahran1/cv-search-prototype">source</a></li>
     </ul>
+    <details class="more">
+      <summary>other builds (4)</summary>
+      <ul class="idx-table">
+        <li><a class="nm" href="https://emrisearch.zahranm.cloud">emrisearch</a><span class="ds">GUI for extreme-mass-ratio-inspiral search runs</span><span class="status live">live</span><a href="https://github.com/SulthanZahran1/emrisearch-gui">source</a></li>
+        <li><a class="nm" href="https://aquaflow.zahranm.cloud">aquaflow</a><span class="ds">Prepaid smart water metering, three roles</span><span class="status live">live</span><span></span></li>
+        <li><a class="nm" href="https://dcim.zahranm.cloud">dcim</a><span class="ds">Data-center infrastructure management on NetBox + React</span><span class="status gated">on request</span><span></span></li>
+        <li><a class="nm" href="https://hkbp.zahranm.cloud">hkbp</a><span class="ds">Church admin system: Laravel → Vue + Go, self-hosted OIDC</span><span class="status gated">on request</span><a href="https://github.com/SulthanZahran1/hkbp-jatinegara">source</a></li>
+      </ul>
+    </details>
   </section>
 
   <section class="block" id="activity" aria-labelledby="activity-title">
     <div class="head">
-      <div><span class="idx">05 · activity</span><h2 id="activity-title">Shipping, most days</h2></div>
+      <div><span class="idx">05 · activity</span><h2 id="activity-title">Recent commit rhythm</h2></div>
+      <p>Public and private GitHub activity, last six months.</p>
     </div>
     <div id="gh-calendar" class="gh-card"><p class="cal-loading">loading contributions…</p></div>
     <a class="gh-link" href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github.com/SulthanZahran1 ↗</a>
@@ -940,9 +984,9 @@ function whenVisible(el, fn) {
     var rows = s.spans.map(function (p) {
       var r = document.createElement("div");
       r.className = "t-row"; r.dataset.kind = p[4] ? "tool" : "llm";
-      r.innerHTML = '<span class="t-name"><span class="k">' + (p[4] ? "tool" : "llm") + "</span>" + p[1] +
-        '</span><span class="t-track"><span class="t-bar" style="left:' + (p[2] / total * 100) + '%"></span></span><span class="t-ms">' + (p[3] - p[2]) + "ms</span>";
-      r.setAttribute("aria-hidden", "true");
+      var nm = p[4] ? '<button type="button" class="t-link" data-tool="' + p[1] + '" aria-label="Follow ' + p[1] + ' through the gateway">' + p[1] + "</button>" : p[1];
+      r.innerHTML = '<span class="t-name"><span class="k">' + (p[4] ? "tool" : "llm") + "</span>" + nm +
+        '</span><span class="t-track" aria-hidden="true"><span class="t-bar" style="left:' + (p[2] / total * 100) + '%"></span></span><span class="t-ms">' + (p[3] - p[2]) + "ms</span>";
       rowsEl.appendChild(r); return r;
     });
     var track0 = rows[0].querySelector(".t-track");
@@ -982,11 +1026,18 @@ function whenVisible(el, fn) {
     })(performance.now());
   }
 
+  rowsEl.addEventListener("click", function (e) {
+    var b = e.target.closest(".t-link"); if (!b) return;
+    var tool = b.dataset.tool, gw = document.getElementById("gw-title").closest(".tile");
+    gw.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
+    if (window.gwCall) setTimeout(function () { window.gwCall(tool); }, REDUCED ? 0 : 550);
+  });
   btns.forEach(function (b, j) { b.addEventListener("click", function () { run(j); }); });
   document.getElementById("c-replay").addEventListener("click", function () { run(cur); });
   review.addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b || b.disabled) return;
     [].forEach.call(review.querySelectorAll("button"), function (x) { x.disabled = true; });
+    note.classList.toggle("bad", b.dataset.v !== "good");
     note.textContent = b.dataset.v === "good"
       ? "Saved as a ground-truth example. Future versions get tested against it."
       : "Flagged for review, then added to the eval set as a failure case.";
@@ -1044,15 +1095,17 @@ function whenVisible(el, fn) {
       if (f < 1) requestAnimationFrame(step); else cb();
     })(t0);
   }
-  function setLock(open) { lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
-  function call(i) {
+  var tokEl = document.getElementById("gw-tok");
+  function setLock(open) {
+    tokEl.textContent = open ? "ya29.a0Af…Qx9 · in use" : "sealed · 9f3a…c1"; tokEl.classList.toggle("open", open); lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
+  function call(i, verb) {
     var my = ++busy, p = provs[i], w = outWires[i];
     nodes.forEach(function (n, j) { n.classList.toggle("hot", j === i); });
     [].forEach.call(document.querySelectorAll("#gw-btns button"), function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
     outWires.forEach(function (x, j) { x.classList.toggle("hot", j === i); }); inWire.classList.add("hot");
     var lines = [
-      '<span class="key">→</span> agent calls <b>' + p[1] + "</b> for org acme",
-      '<span class="key">🔑</span> vault: token decrypted in memory, for this call only',
+      '<span class="key">→</span> agent calls <b>' + (verb || p[1]) + "</b> for org acme",
+      '<span class="key">◆</span> vault: token decrypted in memory, for this call only',
       '<span class="key">→</span> ' + p[0] + " API",
       '<span class="ok">← 200 OK</span> · event written to durable outbox · plaintext token dropped'
     ];
@@ -1071,6 +1124,11 @@ function whenVisible(el, fn) {
       }, 450);
     }, my);
   }
+  window.gwCall = function (tool) {
+    userTouched = true;
+    if (/^lark/.test(tool)) { log.innerHTML = '<span class="key">→</span> ' + tool + ' goes to Lark through its own connector, not this gateway'; return; }
+    call(0, tool);
+  };
   svg.addEventListener("pointerdown", function () { userTouched = true; });
   whenVisible(svg, function () {
     var k = 0;
@@ -1163,7 +1221,8 @@ function whenVisible(el, fn) {
     (function next() {
       apply(M[i], false); i++;
       if (i < M.length) { timer = setTimeout(next, REDUCED ? 0 : 650); return; }
-      var surv = M.filter(function (m) { return state[m.id] === "survived"; }).length;
+      var survivors = M.filter(function (m) { return state[m.id] === "survived"; }), surv = survivors.length;
+      if (surv) apply(survivors[0], false);
       verdict.innerHTML = surv
         ? "<b>" + surv + " of 4 mutants survived.</b> The tests pass, yet they'd miss real bugs at the boundary. Add the missing test."
         : "<b>All 4 mutants killed.</b> These tests actually pin the behaviour down.";
@@ -1196,7 +1255,7 @@ function whenVisible(el, fn) {
     { chunks: ["역이 어디에 있는지 ", "알려 ", "주시겠습니까?"], level: "합쇼체 · formal: deference to a superior" }
   ];
   var ko = document.getElementById("hj-ko"), lvl = document.getElementById("hj-level");
-  var stt = document.getElementById("hj-stt"), llm = document.getElementById("hj-llm"), tts = document.getElementById("hj-tts"), m300 = document.getElementById("hj-300");
+  var stt = document.getElementById("hj-stt"), llm = document.getElementById("hj-llm"), tts = document.getElementById("hj-tts"), m300 = document.getElementById("hj-300"), vline = document.getElementById("hj-vline");
   var btns = [].slice.call(document.querySelectorAll(".listeners button"));
   var cur = 1, tok = 0;
   function seg(el, a, b) { el.style.left = a + "%"; el.style.width = Math.max(0, b - a) + "%"; }
@@ -1211,16 +1270,16 @@ function whenVisible(el, fn) {
   function play(i) {
     var my = ++tok; cur = i;
     btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
-    if (REDUCED) { render(i, 3); seg(stt, 0, 45); seg(llm, 20, 70); seg(tts, 38, 100); m300.style.left = "38%"; m300.classList.add("on"); return; }
-    render(i, 0); seg(stt, 0, 0); seg(llm, 0, 0); seg(tts, 0, 0); m300.classList.remove("on"); m300.style.left = "38%";
+    if (REDUCED) { render(i, 3); seg(stt, 0, 45); seg(llm, 18, 70); seg(tts, 25, 100); m300.style.left = "25%"; m300.classList.add("on"); vline.classList.add("on"); return; }
+    render(i, 0); seg(stt, 0, 0); seg(llm, 0, 0); seg(tts, 0, 0); m300.classList.remove("on"); vline.classList.remove("on"); m300.style.left = "25%";
     var t0 = performance.now(), D = 2600;
     (function step(now) {
       if (my !== tok) return;
       var p = Math.min(100, (now - t0) / D * 100);
       seg(stt, 0, Math.min(p, 45));
-      if (p > 20) seg(llm, 20, Math.min(p, 70));
-      if (p > 38) { seg(tts, 38, p); m300.classList.add("on"); }
-      render(i, p > 70 ? 3 : p > 55 ? 2 : p > 38 ? 1 : 0);
+      if (p > 18) seg(llm, 18, Math.min(p, 70));
+      if (p > 25) { seg(tts, 25, p); m300.classList.add("on"); vline.classList.add("on"); }
+      render(i, p > 80 ? 3 : p > 55 ? 2 : p > 25 ? 1 : 0);
       if (p < 100) requestAnimationFrame(step); else render(i, 3);
     })(t0);
   }
@@ -1268,7 +1327,7 @@ function whenVisible(el, fn) {
     var my = ++tok, r = R[i];
     btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
     list.innerHTML = r.steps.map(function (st) {
-      return "<li><span>" + st[0] + "</span>" + (st[1] ? '<span class="ok">allowed</span>' : '<span class="no">blocked · ' + st[2] + "</span>") + "</li>";
+      return "<li><span>" + st[0] + "</span>" + (st[1] ? '<span class="ok">allowed</span>' : '<span class="no">blocked</span><small>' + st[2] + "</small>") + "</li>";
     }).join("");
     reply.textContent = "";
     var items = [].slice.call(list.children), k = 0;
@@ -1303,6 +1362,58 @@ function whenVisible(el, fn) {
 })();
 </script>
 <script>
+/* ── log -> timing diagram: replay a handshake log and spot the stuck signal ── */
+(function () {
+  var logEl = document.getElementById("lta-log"), svg = document.getElementById("lta-svg"), out = document.getElementById("lta-out");
+  if (!logEl) return;
+  var NS = "http://www.w3.org/2000/svg";
+  var EV = [
+    ["42:01.120", "AGV07", "LOAD_REQ", 1, 1.12],
+    ["42:01.480", "EQ12 ", "READY   ", 1, 1.48],
+    ["42:03.900", "AGV07", "BUSY    ", 1, 3.9],
+    ["42:09.210", "AGV07", "BUSY    ", 0, 9.21],
+    ["42:09.210", "AGV07", "COMPLETE", 1, 9.21],
+    ["42:09.300", "AGV07", "LOAD_REQ", 0, 9.3],
+    ["43:43.300", "EQ12 ", "READY   ", 0, 103.3]
+  ];
+  var SIG = ["LOAD_REQ", "READY", "BUSY", "COMPLETE"];
+  logEl.innerHTML = EV.map(function (e) { return "<span>" + e[0] + " " + e[1] + " " + e[2] + "=" + e[3] + "</span>"; }).join("\n");
+  function X(t) { return t <= 10.5 ? 62 + t / 10.5 * 168 : 246 + Math.min(1, (t - 10.5) / 93) * 46; }
+  function el(tag, a, txt) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); if (txt) n.textContent = txt; svg.appendChild(n); return n; }
+  function draw(upto) {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    if (upto >= EV.length) el("rect", { x: X(9.6), y: 42, width: X(103.3) - X(9.6), height: 14, rx: 2, "class": "stuck" });
+    SIG.forEach(function (name, r) {
+      var y0 = 28 + r * 28, hi = y0 - 12, lvl = 0, x = 62, d = "M62 " + y0;
+      el("text", { x: 4, y: y0 - 3, "class": "lbl" }, name);
+      EV.forEach(function (e, i) {
+        if (i >= upto || e[2].trim() !== name) return;
+        var nx = X(e[4]); d += " L" + nx + " " + (lvl ? hi : y0); lvl = e[3]; d += " L" + nx + " " + (lvl ? hi : y0); x = nx;
+      });
+      if (name === "COMPLETE" && upto > 4) { var cx = X(9.21) + 8; d += " L" + cx + " " + hi + " L" + cx + " " + y0; lvl = 0; x = cx; }
+      var endT = upto >= EV.length ? 103.3 : (upto ? EV[upto - 1][4] : 0);
+      d += " L" + Math.max(x, X(endT) + 3) + " " + (lvl ? hi : y0);
+      el("path", { d: d, "class": "sig" });
+    });
+    el("line", { x1: 240, y1: 8, x2: 236, y2: 122, "class": "brk" }); el("line", { x1: 244, y1: 8, x2: 240, y2: 122, "class": "brk" });
+    el("text", { x: 240, y: 133, "class": "lbl", "text-anchor": "middle" }, "~90 s later");
+  }
+  var tok = 0;
+  function run() {
+    var my = ++tok, i = 0; out.textContent = "";
+    [].forEach.call(logEl.children, function (x) { x.className = ""; });
+    (function step() {
+      if (my !== tok) return;
+      if (i < EV.length) { logEl.children[i].className = "on"; i++; draw(i); setTimeout(step, REDUCED ? 0 : 420); return; }
+      logEl.children[EV.length - 1].className = "bad";
+      out.textContent = "READY stayed high after COMPLETE: AGV blocked for 94 s";
+    })();
+  }
+  draw(0);
+  document.getElementById("lta-run").addEventListener("click", run);
+})();
+</script>
+<script>
 /* ── Career timing diagram: lanes are signals, spans are clickable roles. ── */
 (function () {
   var svg = document.getElementById("timeline");
@@ -1312,8 +1423,8 @@ function whenVisible(el, fn) {
   var today = new Date();
   var NOW = Math.min(today.getFullYear() + (today.getMonth() + today.getDate() / 31) / 12, 2026.95);
   var lanes = [
-    { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "Metatech", "hot", "metatech"]] },
-    { label: "FACTORY", spans: [[ym(2024, 4), ym(2025, 8), "LG Sinarmas", "", "lg"], [ym(2025, 8), ym(2025, 11), "Korea", "warm", "korea"], [ym(2025, 11), NOW, "LG Sinarmas", "", "lg"]] },
+    { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "Metatech", "", "metatech"]] },
+    { label: "FACTORY", spans: [[ym(2024, 4), ym(2025, 8), "LG Sinarmas", "", "lg"], [ym(2025, 8), ym(2025, 11), "Korea", "", "korea"], [ym(2025, 11), NOW, "LG Sinarmas", "", "lg"]] },
     { label: "LAB",     spans: [[ym(2023, 10), ym(2024, 4), "FAAN Lab", "", "faan"]] },
     { label: "FIELD",   spans: [[ym(2022, 6), ym(2022, 8), "PLC intern", "", "plc"], [ym(2024, 1), ym(2024, 4), "Instrumentation", "", "poly"]] },
     { label: "EDU",     spans: [[ym(2019, 8), ym(2023, 8), "B.Sc. Physics · Universitas Indonesia", "", "ui"]] }
@@ -1336,8 +1447,14 @@ function whenVisible(el, fn) {
     var top = 50, laneH = 42, half = 11, H = top + shown.length * laneH + 28;
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-    document.getElementById("td-caption").textContent = narrow ? "Showing 2024 onward; the full history is on wider screens. Dashed line = now." : "Dashed line = now.";
-    function x(t) { return X0 + (Math.max(t, T0) - T0) / (T1 - T0) * (X1 - X0); }
+    document.getElementById("td-caption").textContent = narrow ? "Showing 2024 onward; wider screens show the full history." : "Years before 2024 are compressed so recent work gets the room.";
+    /* desktop: 2019-2023 gets 30% of the width, 2024 -> now gets 70% */
+    var SPLIT = 2024, XS = X0 + 0.3 * (X1 - X0);
+    function x(t) {
+      t = Math.max(t, T0);
+      if (narrow) return X0 + (t - T0) / (T1 - T0) * (X1 - X0);
+      return t < SPLIT ? X0 + (t - T0) / (SPLIT - T0) * (XS - X0) : XS + (t - SPLIT) / (T1 - SPLIT) * (X1 - XS);
+    }
     function el(tag, attrs, text, parent) {
       var n = document.createElementNS(NS, tag);
       for (var k in attrs) n.setAttribute(k, attrs[k]);
@@ -1491,7 +1608,7 @@ function whenVisible(el, fn) {
   }
 
   function render(data) {
-    var days = data.contributions || [];
+    var days = (data.contributions || []).slice(-182);
     if (!days.length) throw new Error("empty payload");
 
     /* Grid: columns are ISO weeks, rows are Sun..Sat. Pad the leading days so
@@ -1550,7 +1667,7 @@ function whenVisible(el, fn) {
     }
     html += "</div></div>";
 
-    var gridLabel = "GitHub contributions in the last year: " + total +
+    var gridLabel = "GitHub contribution heatmap for the last six months." || total +
       " contributions, longest streak " + longest + " days" +
       (bestStart >= 0 ? " (" + fmtShort(new Date(days[bestStart].date + "T00:00:00Z")) +
         " - " + fmtShort(new Date(days[bestEnd].date + "T00:00:00Z")) + ")" : "") +
@@ -1573,15 +1690,6 @@ function whenVisible(el, fn) {
       }
     });
     html += "</div></div></div>";
-
-    html += '<div class="cal-stats">';
-    html += '<div><span class="num">' + total + "</span>contributions in the last year</div>";
-    html += '<div><span class="num">' + longest + "</span>longest streak" +
-            (bestStart >= 0 ? "<br>" + fmtShort(new Date(days[bestStart].date + "T00:00:00Z")) +
-             " - " + fmtShort(new Date(days[bestEnd].date + "T00:00:00Z")) : "") + "</div>";
-    html += '<div><span class="num">' + trailing + "</span>current streak" +
-            (lastContrib >= 0 ? "<br>up to " + fmtShort(new Date(days[lastContrib].date + "T00:00:00Z")) : "") + "</div>";
-    html += "</div>";
 
     html += '<div class="cal-legend" aria-hidden="true"><span>Less</span>';
     for (var lv = 0; lv <= 4; lv++) html += '<i data-level="' + lv + '"></i>';
