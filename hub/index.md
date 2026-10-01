@@ -54,9 +54,9 @@ Most of Bella's observability console is mine: the waterfall, per-span tokens an
 
 - Demo: inspect any span of the turn (token usage for model spans, minRole for tool calls, the gate decision, the outbox path for sambungapi spans), then review it: correct → confirmed-routing, wrong skill → hard-routing, bad reply → hard-quality.
 
-## Same problems, solo
+## Built solo, in the open
 
-Open source and personal builds: trusting the code agents write, retrieval that weighs evidence, and real-time voice.
+Open source and personal builds: trusting the code agents write, retrieval that weighs evidence, and real-time voice. Each card opens a full demo underneath the row.
 
 ### Would your tests catch a bug? (rust_mutant, dart-mutant, gopher_mutant)
 

@@ -145,7 +145,7 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .wf-row .bar { position: absolute; top: 0; height: 12px; border-radius: 3px; background: var(--c); width: 0; }
 .wf-row.mark .bar { border-radius: 50%; width: 12px !important; transform: scale(0); transition: transform .24s var(--out); }
 .wf-row.mark.on .bar { transform: none; }
-.wf-row .ms { font-family: var(--mono); font-size: 13px; color: var(--c-dim); text-align: right; padding-right: 8px; font-variant-numeric: tabular-nums; }
+.wf-row .ms { font-family: var(--mono); font-size: 13px; color: var(--c-dim); text-align: right; padding-right: 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .wf-row.fail .lbl, .wf-row.fail .ms { color: var(--c-red); }
 .wf-row.nr { opacity: .35; }
 .wf-row.nr .ms::after { content: "not run"; }
@@ -167,6 +167,8 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .act1 .wrap { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 48px; align-items: start; }
 .minimap { position: sticky; top: 88px; z-index: 5; font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); }
 .minimap .mm-h { display: flex; justify-content: space-between; font-family: var(--sans); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
+.minimap.paused .mm-wf, .minimap.paused .mm-strip { opacity: .35; }
+.minimap .mm-h .mm-l { font-family: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; }
 .minimap .mm-h span { font-family: var(--mono); letter-spacing: 0; text-transform: none; color: var(--c-text); font-variant-numeric: tabular-nums; }
 .mm-wf { position: relative; --lw: 64px; --f: 0; }
 .mm-row { display: grid; grid-template-columns: var(--lw) minmax(0, 1fr); gap: 8px; align-items: center; width: 100%; height: 22px; text-align: left; color: var(--c-dim); opacity: .5; transition: opacity .2s linear, color .2s linear; }
@@ -207,12 +209,17 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .try { font-size: 14px; color: var(--accent); }
 .dark .try { color: var(--c-green); }
 /* console chapter */
-.insp { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 12px; }
+.insp { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 16px; }
 .insp-list { display: grid; gap: 2px; align-content: start; }
-.insp-list button { display: grid; grid-template-columns: 8px 1fr; gap: 8px; align-items: center; text-align: left; padding: 7px 9px; border-radius: 7px; font-family: var(--mono); font-size: 12.5px; color: var(--c-dim); transition: background .12s linear, color .12s linear; }
-.insp-list button i { width: 8px; height: 8px; border-radius: 2px; background: var(--c); }
-.insp-list button:hover { color: var(--c-text); }
-.insp-list button[aria-pressed="true"] { background: var(--c-panel); color: var(--c-text); }
+.insp-list .wf-row { grid-template-columns: 214px minmax(0, 1fr) 76px; height: 30px; }
+.insp-list .wf-row .lbl, .insp-list .wf-row .ms { font-size: 12px; }
+.insp-list .wf-row .lbl { color: var(--c-dim); }
+.insp-list .wf-row:hover .lbl, .insp-list .wf-row[aria-pressed="true"] .lbl { color: var(--c-text); }
+.insp-list .wf-row[aria-pressed="true"] { background: var(--c-panel); }
+.insp-list .wf-row.nr .lbl { text-decoration: line-through; }
+.insp-list .wf-row.nr .ms::after { content: ""; }
+.insp-list .wf-row.mark .bar { transform: none; }
+.insp-list .wf-row.fail .lbl, .insp-list .wf-row.fail .ms { color: var(--c-red); }
 .insp-body { background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 12px; padding: 14px 16px; font-family: var(--mono); font-size: 12.5px; line-height: 1.75; color: var(--c-dim); min-height: 188px; }
 .insp-body b { color: var(--c-text); font-weight: 500; } .insp-body .ok { color: var(--c-green); } .insp-body .bad { color: var(--c-red); } .insp-body .key { color: var(--c-amber); }
 .insp-body .cap2 { display: block; color: #6b6f78; font-size: 12px; margin-bottom: 4px; }
@@ -240,16 +247,23 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .peek h3 { font-family: var(--cond); font-weight: 600; font-size: 28px; line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
 .peek .more { display: none; }
 .pk-body { display: grid; gap: 12px; align-content: start; min-width: 0; }
-.peek:not(.open) .pk-body { height: 392px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 calc(100% - 48px), transparent); mask-image: linear-gradient(#000 calc(100% - 48px), transparent); }
-.peek:not(.open) .rag-list li:nth-child(n+4), .peek:not(.open) .rag-note, .peek:not(.open) .mark300, .peek:not(.open) .hj-level small { display: none; }
-.peek:not(.open) .hj-ko { font-size: 22px; }
+.pk-body { height: 392px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 calc(100% - 24px), transparent); mask-image: linear-gradient(#000 calc(100% - 24px), transparent); }
+.peek .rag-list li:nth-child(n+4), .peek .hj-level small { display: none; }
+.peek .hj-ko { font-size: 22px; }
 .mstrip { display: flex; gap: 4px; }
 .mstrip span { flex: 1; font-family: var(--mono); font-size: 11px; text-align: center; padding: 6px 0; border-radius: 6px; background: rgba(11,122,86,.12); color: var(--accent); }
 .mstrip .sv { background: #fde2e2; color: #b91c1c; } .mstrip .eq { background: #fbefd5; color: #a16207; }
 .mstrip-cap { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
-.peek.open { grid-column: 1 / -1; order: -1; }
-.peek.open .more { display: grid; gap: 14px; }
-.peek.open .pv-only { display: none; }
+.peek.active { box-shadow: 0 0 0 2px var(--ink); }
+.peek.dark.active { box-shadow: 0 0 0 2px var(--c-green); }
+.stage { grid-column: 1 / -1; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 22px; animation: rise .3s var(--out) both; }
+.stage.dark { background: var(--night); color: var(--c-text); border-color: #000; }
+.stage .play { justify-self: start; }
+.stage:empty { display: none; }
+.stage .more { display: grid; gap: 14px; }
+.stage .stage-h { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.stage.dark .stage-h { color: var(--c-dim); }
+.stage #hj-300 { opacity: 1; color: var(--c-dim); font-family: var(--mono); font-size: 12px; }
 .expand { justify-self: start; font-size: 14px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--ink); transition: background .12s linear, color .12s linear; }
 .expand:hover { background: var(--ink); color: var(--paper); }
 .peek.dark .expand { border-color: var(--c-line); color: var(--c-text); }
@@ -368,7 +382,9 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .gw-log .ok { color: var(--c-green); } .gw-log .key { color: var(--c-amber); }
 #gw-provs, .gw .wire.ow { opacity: .35; transition: opacity .25s linear; }
 .gw.tools #gw-provs, .gw.tools .wire.ow, #gw-provs:hover, #gw-provs:focus-within { opacity: 1; }
-.gw .other { font-family: var(--mono); font-size: 10px; fill: var(--c-dim); }
+.gw .other { font-family: var(--mono); font-size: 10.5px; fill: var(--c-dim); }
+.gw-note { font-size: 13px; color: var(--c-dim); }
+.gw-log span { white-space: nowrap; }
 
 /* mutation playground */
 .mut { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 14px; }
@@ -509,6 +525,8 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .perm-res { margin: 0; background: var(--c-bg); border-radius: 8px; padding: 8px 10px; font-family: var(--mono); font-size: 10.5px; line-height: 1.55; color: var(--c-dim); white-space: pre-wrap; word-break: break-word; }
 .perm-res b { color: var(--c-red); font-weight: 400; }
 .perm-res:empty { display: none; }
+.perm .stale { opacity: .4; transition: opacity .2s linear; }
+.perm-res .okk { color: var(--c-green); }
 
 #timeline { display: block; width: 100%; height: auto; font-family: var(--mono); }
 #timeline .lane-label { font-size: 11px; fill: var(--muted); letter-spacing: .04em; }
@@ -539,6 +557,29 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .atoms.line svg#fx-svg { width: 100%; height: auto; }
 .gw-log { min-height: 112px; }
 
+/* ── round 8: wide layouts ── */
+@media (min-width: 1100px) {
+  .hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
+  .hero h1 { font-size: clamp(50px, 4.5vw, 66px); }
+  .hero .sub { font-size: 18px; }
+  .hero .turn { margin-top: 6px; border-top: 0; padding-top: 0; }
+  .hero .wf-row { grid-template-columns: 248px minmax(0, 1fr) 60px; height: 28px; }
+  .hero .wf-row .lbl { font-size: 12.5px; }
+  .hero .msg { max-width: none; }
+  .contact .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
+  .contact h2 { font-size: clamp(42px, 5vw, 76px); }
+  .contact .visit { margin-top: 8px; }
+  .contact .vt .wf-row { grid-template-columns: 200px minmax(0, 1fr) 60px; }
+}
+@media (min-width: 981px) {
+  .chap { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .chap > div:first-child { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "tag cap" "h cap"; column-gap: 48px; align-items: start; }
+  .chap > div:first-child .span-tag { grid-area: tag; }
+  .chap > div:first-child h2 { grid-area: h; }
+  .chap > div:first-child .cap { grid-area: cap; margin-top: 0; align-self: end; }
+  .gw svg { max-height: 300px; }
+}
+
 /* ── responsive ── */
 @media (max-width: 1100px) {
   .act1 .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
@@ -551,14 +592,15 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 @media (max-width: 980px) {
   .chap { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 56px 0; }
   .peeks { grid-template-columns: minmax(0, 1fr); }
-  .peek:not(.open) .pk-body { height: auto; max-height: 432px; }
+  .pk-body { height: auto; max-height: 432px; }
+  .stage { padding: 16px; }
   .atoms .grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .idx-table li { grid-template-columns: 1fr auto; gap: 3px 12px; }
   .idx-table .ds { grid-column: 1 / -1; grid-row: 2; font-size: 14px; }
   .idx-table .status { grid-row: 3; }
   .idx-table li > a:last-child { grid-row: 1; grid-column: 2; }
   .insp { grid-template-columns: minmax(0, 1fr); }
-  .insp-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mut { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 640px) {
   :root { --gutter: 16px; }
@@ -567,9 +609,11 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
   .bar nav .opt { display: none; }
   .hero { padding: 40px 0 40px; }
   .hero .sub { font-size: 17px; margin-top: 16px; }
-  .turn { margin-top: 28px; padding-top: 16px; }
+  .turn { margin-top: 16px; padding-top: 14px; }
   .msg { font-size: 14px; }
-  .wf-row { grid-template-columns: 132px minmax(0, 1fr) 60px; gap: 8px; height: 30px; }
+  .wf-row { grid-template-columns: 132px minmax(0, 1fr) 60px; gap: 8px; height: 24px; }
+  .wf { margin-top: 12px; }
+  .msg.out { margin-top: 10px; }
   .wf-row .lbl { font-size: 11.5px; padding-left: 4px; }
   .wf-row .lbl .svc, .wf-row .lg { display: none; }
   .wf-row .sh { display: inline; }
@@ -584,7 +628,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
   .atoms, .career { padding: 72px 0 24px; }
   .contact { margin-top: 84px; padding: 72px 0; }
   .visit { margin-top: 48px; padding: 16px; }
-  .insp-list { grid-template-columns: minmax(0, 1fr); }
+  .insp-list .wf-row { grid-template-columns: 132px minmax(0, 1fr) 60px; height: 28px; }
   .code { font-size: 12px; padding: 12px; }
   .code .tb .w, .code .cmx { display: none; }
   .t-top { flex-direction: column-reverse; align-items: flex-start; gap: 10px; }
@@ -624,10 +668,12 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 
 <section class="hero dark" aria-labelledby="hero-title">
   <div class="wrap">
+    <div class="hero-id">
     <p class="eyebrow">Sulthan Zahran Ma'ruf · AI engineer</p>
     <h1 id="hero-title">I build what<br>AI agents <em>run on.</em></h1>
     <p class="sub">Tool gateways, agent runtimes, and the traces and evals that keep them honest.</p>
     <p class="facts"><b>now</b>Metatech (AI agents) · LG Sinarmas (smart factory)<br>Indonesia (UTC+7) · Rust · TypeScript · Go · Python</p>
+    </div>
 
     <div class="turn" id="turn">
       <div class="turn-top">
@@ -644,10 +690,9 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 <section class="act1 dark" id="turn-chapters" aria-label="The turn, span by span">
   <div class="wrap">
     <aside class="minimap" aria-label="This turn, as you scroll">
-      <p class="mm-h">this turn <span id="mm-t">+0 ms</span></p>
+      <p class="mm-h"><span class="mm-l" id="mm-l">this turn</span> <span id="mm-t">+0 ms</span></p>
       <div class="mm-wf" id="mm"></div>
       <div class="mm-strip" id="mm-strip" aria-hidden="true"></div>
-      <p class="mm-visit" id="mm-visit">your visit: <b id="mm-n">1</b> span<span id="mm-s"></span><br><span id="mm-last">page.load</span></p>
     </aside>
     <div>
 
@@ -666,12 +711,13 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
             <path d="M250 70 L330 70 L360 125 L330 180 L250 180 L220 125 Z"/>
             <text x="290" y="112" text-anchor="middle">sambungapi</text>
             <g transform="translate(279 122)"><rect class="lock" id="gw-lock" x="2" y="10" width="18" height="14" rx="3"/><path class="lock" id="gw-shackle" d="M6 10 V6 a5 5 0 0 1 10 0 V10"/></g>
-            <text x="290" y="164" text-anchor="middle" class="tok" id="gw-tok">sealed · k3:9f3a…</text>
+            <text x="290" y="164" text-anchor="middle" class="tok" id="gw-tok">k3 · sealed</text>
           </g>
           <g id="gw-wanode"></g>
           <g id="gw-provs"></g>
-          <circle class="packet" id="gw-packet" r="5" cx="-20" cy="-20"/>
+          <circle class="packet" id="gw-packet" r="5" cx="-999" cy="-999"/>
         </svg>
+          <p class="gw-note">In this turn, sambungapi carries the WhatsApp messages; Bella's calendar calls go to Google directly. The vault serves other agents' OAuth tool calls.</p>
           <div class="gw-act" role="group" aria-label="Another path"><span>or:</span><button type="button" id="gw-exp">a tool call whose token is about to expire</button></div>
           <div class="gw-log" id="gw-log" aria-live="polite"><span class="key">$</span> waiting for the message…</div>
           <p class="stack">Rust · axum · PostgreSQL · OAuth 2.0 · AES-256-GCM · transactional outbox</p>
@@ -689,7 +735,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <p class="try">▶ Same message, <button type="button" class="who" id="perm-who">asked by a member ⇄</button></p>
           <p class="perm-ask" id="perm-ask"></p>
           <ul class="perm-steps" id="perm-steps"></ul>
-          <pre class="perm-res" id="perm-res" aria-label="What the model receives for the denied call"></pre>
+          <pre class="perm-res" id="perm-res" aria-label="The tool result the model receives"></pre>
           <p class="perm-reply" id="perm-reply" aria-live="polite"></p>
           <button type="button" class="harder" id="perm-harder">try a harder request ▸</button>
         </div>
@@ -724,7 +770,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 <section class="solo" id="solo" aria-labelledby="solo-title">
   <div class="wrap">
     <div class="sec-h">
-      <h2 id="solo-title">Same problems, solo</h2>
+      <h2 id="solo-title">Built solo, in the open</h2>
       <p>Open source and personal builds: trusting the code agents write, retrieval that weighs evidence, and real-time voice.</p>
     </div>
     <div class="peeks">
@@ -794,8 +840,8 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <button type="button" data-k="2" aria-pressed="false">3 · + rerank</button>
         </div>
         <ol class="rag-list" id="rag-list" aria-label="Ranked candidates"></ol>
-        <p class="rag-note" id="rag-note" aria-live="polite"></p>
         <div class="more">
+          <p class="rag-note" id="rag-note" aria-live="polite"></p>
           <ul class="chips" aria-label="Stack"><li>Go</li><li>React</li><li>Gemini extraction</li><li>LLM rerank</li></ul>
           <div class="tlinks"><a href="https://github.com/SulthanZahran1/cv-search-prototype/blob/main/api/main.go#L1228" target="_blank" rel="noreferrer">the scoring function ↗</a><a href="https://github.com/SulthanZahran1/cv-search-prototype" target="_blank" rel="noreferrer">source ↗</a></div>
         </div>
@@ -820,10 +866,10 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <div class="lane"><span>LLM</span><span class="tr"><span class="seg llm" id="hj-llm"></span></span></div>
           <div class="lane"><span>TTS</span><span class="tr"><span class="seg tts" id="hj-tts1"></span><span class="seg tts2" id="hj-tts2"></span></span></div>
           <div class="axis"><span></span><span><i>you stop</i><i>first audio</i></span></div>
-          <div class="mark300"><span id="hj-300">Waits for 1.2 s of silence, translates the whole reply, then speaks it clause by clause. Next (ADR-0004): stream LLM tokens into TTS.</span></div>
           <span class="vline" id="hj-vline"></span>
         </div>
         <div class="more">
+          <p id="hj-300">Waits for 1.2 s of silence (Deepgram UtteranceEnd), translates the whole reply, then speaks it clause by clause. Two speech levels; auto mode picks between them. Next (ADR-0004): stream LLM tokens into TTS.</p>
         <button type="button" class="play" id="hj-play">▶ replay</button>
           <ul class="chips" aria-label="Stack"><li>Expo</li><li>FastAPI</li><li>WebSocket</li><li>Deepgram Nova-3</li><li>OpenRouter</li><li>ElevenLabs</li></ul>
           <div class="tlinks">
@@ -836,6 +882,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
         <button type="button" class="expand" aria-expanded="false">▸ the pipeline</button>
       </article>
 
+      <div class="stage" id="pk-stage" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -949,6 +996,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 
 <section class="contact dark" id="contact" aria-labelledby="contact-title">
   <div class="wrap">
+    <div>
     <h2 id="contact-title">Building agents that touch <em>real systems?</em></h2>
     <div class="cta">
       <button type="button" class="copybig" data-copy="zsulthan9@gmail.com" aria-label="Copy email address">zsulthan9@gmail.com</button>
@@ -957,6 +1005,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
       <a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin ↗</a>
     </div>
     <p class="recruit">Recruiter? <a href="/recruit/">Paste a job description</a> and get a short, evidence-based pitch from my work profile.</p>
+    </div>
     <div class="visit" aria-labelledby="visit-title">
       <h3 id="visit-title">Your visit, traced like a Bella turn</h3>
       <p class="vsub">Every demo you touched emitted a span. Kept in this tab's memory only; nothing is sent anywhere.</p>
@@ -1032,9 +1081,6 @@ function whenVisible(el, fn, th) {
 var VISIT = [];
 function emit(svc, name, dur) {
   VISIT.push({ svc: svc, name: name, t: performance.now() - T0, d: dur || 300 });
-  var n = document.getElementById("mm-n"); if (!n) return;
-  n.textContent = VISIT.length; document.getElementById("mm-s").textContent = VISIT.length === 1 ? "" : "s";
-  var last = document.getElementById("mm-last"); last.textContent = svc + " · " + name;
   if (window.renderVisit) window.renderVisit();
 }
 emit("page", "load", Math.round(performance.now()));
@@ -1051,16 +1097,38 @@ emit("page", "load", Math.round(performance.now()));
 });
 /* touch devices tap, they don't click */
 if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(document.querySelectorAll(".tap-word"), function (w) { w.textContent = "Tap"; });
-/* peeks expand in place */
-[].forEach.call(document.querySelectorAll(".peek .expand"), function (b) {
-  var card = b.closest(".peek"), label = b.textContent;
-  b.addEventListener("click", function () {
-    var open = card.classList.toggle("open");
-    b.setAttribute("aria-expanded", String(open)); b.textContent = open ? "▴ close" : label;
-    emit("page", (open ? "open " : "close ") + card.id.replace("pk-", ""), 200);
-    card.scrollIntoView({ block: open ? "start" : "nearest", behavior: REDUCED ? "auto" : "smooth" });
+/* peeks: the cards keep their row; the opened card's detail moves onto the
+   stage under the row, one at a time */
+(function () {
+  var stage = document.getElementById("pk-stage"), cur = null;
+  var cards = [].map.call(document.querySelectorAll(".peek"), function (card) {
+    var b = card.querySelector(".expand"), more = card.querySelector(".more"), label = b.textContent;
+    b.setAttribute("aria-controls", "pk-stage");
+    return { card: card, b: b, more: more, label: label, home: more.parentNode, next: more.nextSibling };
   });
-});
+  function close(c) {
+    c.home.insertBefore(c.more, c.next); c.card.classList.remove("active");
+    c.b.setAttribute("aria-expanded", "false"); c.b.textContent = c.label;
+  }
+  cards.forEach(function (c) {
+    c.b.addEventListener("click", function () {
+      var opening = cur !== c;
+      if (cur) close(cur);
+      stage.innerHTML = ""; stage.classList.remove("dark"); cur = null;
+      emit("page", (opening ? "open " : "close ") + c.card.id.replace("pk-", ""), 200);
+      if (!opening) return;
+      cur = c; c.card.classList.add("active"); c.b.setAttribute("aria-expanded", "true"); c.b.textContent = "▴ close";
+      stage.classList.toggle("dark", c.card.classList.contains("dark"));
+      var h = document.createElement("p"); h.className = "stage-h"; h.textContent = c.card.querySelector(".pk-tag span").textContent + " · " + c.card.querySelector("h3").textContent;
+      stage.appendChild(h); stage.appendChild(c.more);
+      /* phones stack the cards, so the detail goes right under its own card */
+      if (window.matchMedia && matchMedia("(max-width: 980px)").matches) c.card.parentNode.insertBefore(stage, c.card.nextSibling);
+      else c.card.parentNode.appendChild(stage);
+      if (c.card.id === "pk-mut" && !document.querySelector('#m-list button[aria-pressed="true"]')) document.getElementById("m-runall").click();
+      stage.scrollIntoView({ block: "nearest", behavior: REDUCED ? "auto" : "smooth" });
+    });
+  });
+})();
 (function () {
   var a = document.getElementById("atoms"), b = document.getElementById("atoms-open");
   b.addEventListener("click", function () {
@@ -1103,7 +1171,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
         ["sambungapi", "whatsapp.inbound", 0, 70, "gw", "ch-gateway"],
         ["bella", "plan", 90, 610, "llm", "ch-console"],
         ["bella", "calendar.findEvent", 630, 900, "prov", "ch-gate"],
-        ["bella", "gate · calendar.update ✗", 910, 940, "fail", "ch-gate"],
+        ["bella", "gate ✗ · calendar.update", 910, 940, "fail", "ch-gate"],
         ["google", "calendar.update", 0, 0, "skip", "ch-gate"],
         ["bella", "reply", 960, 1300, "llm", "ch-console"],
         ["sambungapi", "whatsapp.send", 1320, 1400, "gw", "ch-gateway"],
@@ -1207,11 +1275,15 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
     return '<span class="cap2">span attributes · sample values</span><b>verb ' + p[1] + "</b> · CLIENT · " + dur + ' ms · <span class="ok">OK</span><br>' + (p[1] === "calendar.findEvent" ? "minRole allowlisted ✓ · read" : "minRole member ✓ · write · idempotency_key turn_8c1f:4") + '<br><span class="key">→</span> ' + (API[p[1].split(".")[0]] || "provider API") + ' · <span class="ok">200</span>';
   }
   function render() {
-    var T = window.TURN(); list.innerHTML = "";
-    T.turn.spans.forEach(function (p, k) {
-      var b = document.createElement("button"); b.type = "button"; b.setAttribute("aria-pressed", String(k === sel));
+    var T = window.TURN(), s = T.turn; list.innerHTML = "";
+    var llmTotal = s.spans.reduce(function (a, q) { return a + (q[4] === "llm" ? q[3] - q[2] : 0); }, 0);
+    s.spans.forEach(function (p, k) {
+      var b = document.createElement("button"), dur = p[3] - p[2];
+      b.type = "button"; b.setAttribute("aria-pressed", String(k === sel));
+      b.className = "wf-row" + (p[4] === "human" ? " mark" : "") + (p[4] === "fail" ? " fail" : "") + (p[4] === "skip" ? " nr" : "");
       b.style.setProperty("--c", T.C[p[4]] || T.C.prov);
-      b.innerHTML = "<i></i>" + p[1].replace(" ✗", "");
+      var val = p[4] === "skip" ? "not run" : p[4] === "human" ? "✓" : p[4] === "llm" ? fmt(Math.round(s.tok * dur / llmTotal)) + " tok" : dur + " ms";
+      b.innerHTML = '<span class="lbl"><i class="svc">' + p[0] + " · </i>" + p[1] + '</span><span class="tr">' + (p[4] === "skip" ? "" : '<span class="bar" style="left:' + (p[2] / T.axis * 100) + "%;width:" + (p[4] === "human" ? 0 : Math.max(0.6, dur / T.axis * 100)) + '%"></span>') + '</span><span class="ms">' + val + "</span>";
       b.addEventListener("click", function () { sel = k; render(); emit("console", "inspect " + p[1], 120); });
       list.appendChild(b);
     });
@@ -1286,6 +1358,11 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
   document.addEventListener("turn:role", build);
+  document.addEventListener("gate:request", function (e) {
+    var other = e.detail === 1, aside = mm.closest(".minimap");
+    aside.classList.toggle("paused", other);
+    document.getElementById("mm-l").textContent = other ? "paused · other request" : "this turn";
+  });
   build();
 })();
 
@@ -1319,7 +1396,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   document.getElementById("v-review").addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
     var good = b.dataset.v === "correct";
-    row.innerHTML = '<span class="' + (good ? "ok" : "bad") + '">decision ' + b.dataset.v + "</span> → " + (good ? "your next step: <b>email me</b> (button below copies the address)" : "fair. Thanks for looking, and the feedback is welcome by email.");
+    row.innerHTML = '<span class="' + (good ? "ok" : "bad") + '">decision ' + b.dataset.v + "</span> → " + (good ? "your next step: <b>email me</b> (the address above copies on click)" : "fair. Thanks for looking, and the feedback is welcome by email.");
     emit("console", "review visit · " + b.dataset.v, 200);
   });
 })();
@@ -1342,7 +1419,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   var lock = document.getElementById("gw-lock"), shackle = document.getElementById("gw-shackle");
   var agentG = document.getElementById("gw-agent"), hubG = document.getElementById("gw-hub");
   function el(tag, a, parent) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); (parent || svg).appendChild(n); return n; }
-  var inWire, waWire, outWires = [], nodes = [], narrow = null, sel = 0, busy = 0, userTouched = false;
+  var inWire, waWire, outWires = [], nodes = [], narrow = null, sel = 0, busy = 0, userTouched = false, other = null;
 
   function node(i, x, y, w, h) {
     var g = el("g", { "class": "node prov", tabindex: i === sel ? "0" : "-1", role: "button", "aria-label": "Call " + provs[i][0] + " through the gateway" }, pg);
@@ -1370,7 +1447,8 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
     while (wires.firstChild) wires.removeChild(wires.firstChild);
     while (pg.firstChild) pg.removeChild(pg.firstChild);
     while (wg.firstChild) wg.removeChild(wg.firstChild);
-    outWires = []; nodes = []; packet.setAttribute("cx", -20); setLock(null);
+    if (other) { other.parentNode.removeChild(other); other = null; }
+    outWires = []; nodes = []; packet.setAttribute("cx", -999); setLock(null);
     if (!n) {
       svg.setAttribute("viewBox", "0 0 600 250"); agentG.setAttribute("transform", "translate(0 -22)"); hubG.removeAttribute("transform");
       inWire = el("path", { d: "M116 103 C170 103 180 115 220 125", "class": "wire" }, wires);
@@ -1381,7 +1459,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
         outWires.push(el("path", { d: "M360 125 C420 125 420 " + (y + 11) + " 470 " + (y + 11), "class": "wire ow" }, wires));
         node(i, 470, y, 118, 22);
       });
-      el("text", { x: 588, y: 12, "text-anchor": "end", "class": "other" }, pg).textContent = "other agents' tool calls · not in this turn";
+      other = el("text", { x: 588, y: 12, "text-anchor": "end", "class": "other" }); other.textContent = "other agents' tool calls ↓";
     } else {
       /* agent + WhatsApp on top, vault in the middle, providers as a 4 + 3
          grid; the second row sits under the first row's gaps */
@@ -1395,7 +1473,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
         outWires.push(el("path", { d: "M170 183 C170 208 " + cx + " 204 " + cx + " 230 L" + cx + " " + y, "class": "wire ow" }, wires));
         node(i, x, y, w, 26);
       });
-      el("text", { x: 170, y: 324, "text-anchor": "middle", "class": "other" }, pg).textContent = "other agents' tool calls · not in this turn";
+      other = el("text", { x: 170, y: 324, "text-anchor": "middle", "class": "other" }); other.textContent = "other agents' tool calls ↑";
     }
   }
   function along(path, dur, cb, my, rev) {
@@ -1411,7 +1489,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   var tokEl = document.getElementById("gw-tok");
   function setLock(tokenText) {
     var open = !!tokenText;
-    tokEl.textContent = open ? tokenText : "sealed · k3:9f3a…"; tokEl.classList.toggle("open", open); lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
+    tokEl.textContent = open ? tokenText : "k3 · sealed"; tokEl.classList.toggle("open", open); lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
   function hot(i, wa) {
     nodes.forEach(function (n, j) { n.classList.toggle("hot", j === i); });
     outWires.forEach(function (x, j) { x.classList.toggle("hot", j === i); });
@@ -1441,7 +1519,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
         show(lines, 3);
         along(w, 600, function () {
           show(lines, 4);
-          along(w, 500, function () { setLock(null); along(inWire, 450, function () { packet.setAttribute("cx", -20); }, my, true); }, my, true);
+          along(w, 500, function () { setLock(null); along(inWire, 450, function () { packet.setAttribute("cx", -999); }, my, true); }, my, true);
         }, my);
       }, my);
     }, my);
@@ -1471,7 +1549,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
                 /* the reply leg: Bella → sambungapi → WhatsApp */
                 later(900, function () {
                   along(inWire, 450, function () {
-                    along(waWire, 500, function () { show(lines, 5); later(400, function () { packet.setAttribute("cx", -20); }, my); }, my, true);
+                    along(waWire, 500, function () { show(lines, 5); later(400, function () { packet.setAttribute("cx", -999); }, my); }, my, true);
                   }, my);
                 }, my);
               }, my, true);
@@ -1524,13 +1602,16 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
       return '<li class="' + (ok ? "" : "x") + '"><span>' + st[0] + " · " + st[1] + "</span>" + (ok ? '<span class="ok">allowed</span>' : '<span class="no">forbidden</span>') +
         "<small>minRole " + st[2] + " · asker " + role + (ok ? " ✓" : " ✗") + "</small></li>";
     }).join("");
-    reply.textContent = ""; res.textContent = "";
-    var items = [].slice.call(list.children), k = 0;
+    res.classList.add("stale"); reply.classList.add("stale");
+    var items = [].slice.call(list.children), k = 0, last = R.steps[R.steps.length - 1];
     (function next() {
       if (my !== tok) return;
       if (k < items.length) { items[k++].classList.add("on"); setTimeout(next, REDUCED ? 0 : 380); return; }
-      if (denied) res.innerHTML = '{ "ok": false, "verb": "' + denied[0] + '",\n  "error": { "code": <b>"forbidden"</b>,\n    "message": "Not authorised: ' + denied[0] + " requires role " + denied[2] + ", principal has " + role + '. …" } }';
+      res.innerHTML = denied
+        ? '{ "ok": false, "verb": "' + denied[0] + '",\n  "error": { "code": <b>"forbidden"</b>,\n    "message": "Not authorised: ' + denied[0] + " requires role " + denied[2] + ", principal has " + role + '. …" } }'
+        : '{ "ok": <span class="okk">true</span>, "verb": "' + last[0] + '", … }\n<span style="color:#6b6f78">every gate passed; the tool ran</span>';
       reply.textContent = "Bella: " + (R.reply ? R.reply[role] : T.turn.reply);
+      res.classList.remove("stale"); reply.classList.remove("stale");
     })();
   }
   who.addEventListener("click", function () {
@@ -1541,6 +1622,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   harder.addEventListener("click", function () {
     q = 1 - q; harder.textContent = q ? "◂ back to this turn" : "try a harder request ▸";
     emit("bella", q ? "gate · harder request" : "gate · this turn", 1200); show();
+    document.dispatchEvent(new CustomEvent("gate:request", { detail: q }));
   });
   document.addEventListener("turn:role", show);
   show();
@@ -1689,7 +1771,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   }
   function draw(i, p) {
     seg(you, P.you, p); seg(sil, P.sil, p); seg(llm, P.llm, p); seg(t1, P.t1, p); seg(t2, P.t2, p);
-    var on = p >= P.t1[0]; m300.classList.toggle("on", on); vline.classList.toggle("on", on);
+    vline.classList.toggle("on", p >= P.t1[0]);
     render(i, p);
   }
   function play(i) {
