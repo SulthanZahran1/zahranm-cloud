@@ -7,7 +7,7 @@ last_updated: 2026-10-01
 
 # About Sulthan Zahran Ma'ruf, AI engineer
 
-Sulthan Zahran Ma'ruf is an AI engineer in Indonesia. He builds AI agents that do real work, and the infrastructure they need in production: the gateway agents act through, the engine that runs each turn, and the monitoring that shows what they did. Now: AI agents at Metatech (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time). Based in Indonesia (UTC+7). [CV (PDF)](https://zahranm.cloud/cv.pdf).
+Sulthan Zahran Ma'ruf is an AI engineer in Indonesia. He builds what AI agents run on: tool gateways, agent runtimes, and the traces and evals that keep them honest. Now: AI agents at Metatech (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time). Based in Indonesia (UTC+7). [CV (PDF)](https://zahranm.cloud/cv.pdf).
 
 ## Agents and infrastructure
 

@@ -14,7 +14,7 @@ No credentials, API keys, account, or special headers are required for the publi
 
 ## Usage
 
-- Read https://zahranm.cloud/ for the summary, selected work, experience, and project directory (Markdown mirror: https://zahranm.cloud/index.md).
+- Read https://zahranm.cloud/ for the summary, the traced agent turn and its three chapters (sambungapi, Bella's role gate, the observability console), solo builds, factory work, career, and project index (Markdown mirror: https://zahranm.cloud/index.md).
 - Read https://zahranm.cloud/about for the bio and work context.
 - Read https://zahranm.cloud/contact for direct contact links.
 - Download https://zahranm.cloud/cv.pdf for the one-page CV (PDF).

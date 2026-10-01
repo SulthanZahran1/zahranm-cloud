@@ -10,7 +10,7 @@ This is a personal project hub. It is not an API, MCP server, commerce surface, 
 
 ## Key pages
 
-- [Home](https://zahranm.cloud/): interactive work demos, experience, and project directory ([markdown](https://zahranm.cloud/index.md))
+- [Home](https://zahranm.cloud/): a traced agent turn (gateway, role gate, observability console), solo builds, factory work, career, and project index ([markdown](https://zahranm.cloud/index.md))
 - [About](https://zahranm.cloud/about): bio, agent work, and background
 - [Contact](https://zahranm.cloud/contact): email and public profiles
 - [CV](https://zahranm.cloud/cv.pdf): one-page CV (PDF)
