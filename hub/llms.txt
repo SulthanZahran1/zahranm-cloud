@@ -1,6 +1,6 @@
 # Sulthan Zahran Ma'ruf
 
-> Personal project hub for Sulthan Zahran Ma'ruf, an AI engineer in Indonesia building agents and the infrastructure they need in production (Metatech). Background in smart-factory software for EV-battery lines (LG Sinarmas).
+> Personal project hub for Sulthan Zahran Ma'ruf, an AI engineer in Indonesia (UTC+7) building agents and the infrastructure they need in production. Now: AI agents at Metatech (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time).
 
 ## When to use this site
 
@@ -13,6 +13,7 @@ This is a personal project hub. It is not an API, MCP server, commerce surface, 
 - [Home](https://zahranm.cloud/): interactive work demos, experience, and project directory ([markdown](https://zahranm.cloud/index.md))
 - [About](https://zahranm.cloud/about): bio, agent work, and background
 - [Contact](https://zahranm.cloud/contact): email and public profiles
+- [CV](https://zahranm.cloud/cv.pdf): one-page CV (PDF)
 - [Privacy](https://zahranm.cloud/privacy): data and external-service notes
 - [Agent instructions](https://zahranm.cloud/agent-instructions.md): machine-readable usage guide
 - [Recruiter copilot](https://zahranm.cloud/recruit): public recruiter pitch generator
@@ -24,9 +25,9 @@ Status in brackets, as shown on the home page index. Gated demos are available o
 - [honjang](https://honjang.zahranm.cloud): English–Korean real-time voice translator with honorifics [live] ([source](https://github.com/SulthanZahran1/honjang))
 - [Recruiter copilot](https://zahranm.cloud/recruit): LLM pitch generator: job description in, evidence-grounded pitch out [live] ([source](https://github.com/SulthanZahran1/jd-pitcher))
 - [relay](https://relay.zahranm.cloud): AI-native CRM on an event-driven workflow engine [live]
-- [teach](https://teach.zahranm.cloud): Harness Engineering: building an agent harness, modelled on Hermes [live]
+- [teach](https://teach.zahranm.cloud): Course: build an agent harness from scratch [live]
 - [wiki](https://wiki.zahranm.cloud): LLM-compiled wiki with chat and a knowledge graph, from 556 public LGES posts [on request] ([source](https://github.com/SulthanZahran1/lgensol-wiki))
-- [cv-search](https://cv-search.zahranm.cloud): Résumé search: Gemini extraction, hybrid retrieval, LLM rerank [on request] ([source](https://github.com/SulthanZahran1/cv-search-prototype))
+- [cv-search](https://cv-search.zahranm.cloud): Résumé search: Gemini extraction, lexical + skill scoring, LLM rerank [on request] ([source](https://github.com/SulthanZahran1/cv-search-prototype))
 - [emrisearch](https://emrisearch.zahranm.cloud): GUI for extreme-mass-ratio-inspiral search runs [live] ([source](https://github.com/SulthanZahran1/emrisearch-gui))
 - [aquaflow](https://aquaflow.zahranm.cloud): Prepaid smart water metering, three roles [live]
 - [dcim](https://dcim.zahranm.cloud): Data-center infrastructure management on NetBox + React [on request]

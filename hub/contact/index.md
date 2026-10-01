@@ -1,24 +1,34 @@
 ---
 title: Contact Sulthan Zahran Ma'ruf
-description: Public contact links for Sulthan Zahran Ma'ruf, an AI engineer building agents and the infrastructure they need in production.
+description: Contact Sulthan Zahran Ma'ruf, an AI engineer building agents and the infrastructure they need in production, by email, GitHub, or LinkedIn.
 canonical_url: https://zahranm.cloud/contact
-last_updated: 2026-09-30
+last_updated: 2026-10-01
 ---
 
 # Contact Sulthan Zahran Ma'ruf
 
+Building agents that touch real systems, or hiring someone who does? Email is the fastest way to reach me.
+
 ## Email
 
-The primary contact channel is zsulthan9@gmail.com. Good fits: agents, the tools and infrastructure around them, or the evals that tell you whether they actually work. Tell me what you're working on and what's in the way.
+zsulthan9@gmail.com. I read every message myself.
 
-## Profiles
+## At a glance
 
-- [GitHub](https://github.com/SulthanZahran1)
+- Role: AI engineer: agents, the tool infrastructure they act through, and the evals that check them.
+- Now: AI agents at Metatech (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time).
+- Based in: Indonesia (UTC+7).
+- Stack: Rust, TypeScript, Go, Python.
+
+## CV and profiles
+
+- [CV (PDF)](https://zahranm.cloud/cv.pdf)
 - [LinkedIn](https://www.linkedin.com/in/sulthan-zahran-ui)
+- [GitHub](https://github.com/SulthanZahran1)
 
-## What to include
+## For recruiters
 
-Include the project or page, your goal or question, and relevant constraints. Do not send passwords, private credentials, or sensitive personal information through the public contact channel.
+Paste a job description into the [pitch copilot](https://zahranm.cloud/#copilot) for a short, evidence-based summary of how my work maps to the role. A sentence or two on the team and the problem is all I need to reply.
 
 ## Sitemap
 

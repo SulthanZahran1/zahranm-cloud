@@ -10,7 +10,11 @@
 <meta property="og:title" content="Sulthan Zahran Ma'ruf, AI engineer">
 <meta property="og:description" content="I build AI agents that do real work, and the infrastructure they run on.">
 <meta property="og:type" content="profile">
-<meta property="og:image" content="https://zahranm.cloud/og.svg">
+<meta property="og:image" content="https://zahranm.cloud/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sulthan Zahran Ma'ruf, AI engineer: I build AI agents that do real work.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f4f2ec">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%2316171a'/><path d='M3 11V5h3v6h3V5h4' fill='none' stroke='%2334d399' stroke-width='1.6'/></svg>">
 <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -140,6 +144,9 @@ main { overflow-x: clip; }
 .links { display: inline-flex; gap: 16px; margin-left: 6px; font-family: var(--mono); font-size: 13.5px; }
 .links a { color: var(--muted); text-decoration: none; padding: 6px 0; }
 .links a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+.facts { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px 14px; list-style: none; font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); }
+.facts li::before { content: "▪"; color: var(--accent); margin-right: 7px; }
+abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
 
 /* ── agent console (hero) ───────────────────────────── */
 .console { background: var(--c-bg); color: var(--c-text); border-radius: 18px; box-shadow: 0 30px 60px -30px rgba(22,23,26,.55), 0 0 0 1px #000; overflow: hidden; font-family: var(--mono); font-size: 12.5px; }
@@ -192,10 +199,20 @@ main { overflow-x: clip; }
 .c-review .note { color: var(--c-green); flex-basis: 100%; min-height: 18px; font-size: 11.5px; }
 .c-review .note.bad { color: var(--c-red); }
 .c-review .note.hint { color: var(--c-dim); }
-.t-link.pulse { animation: glow .6s ease-in-out 2; border-radius: 3px; }
+.t-span.pulse { animation: glow .6s ease-in-out 2; border-radius: 3px; }
 @keyframes glow { 50% { background: rgba(52,211,153,.25); box-shadow: 0 0 0 3px rgba(52,211,153,.25); } }
 .c-foot { padding: 10px 16px; border-top: 1px solid var(--c-line); color: var(--c-dim); font-size: 11px; display: flex; justify-content: space-between; gap: 10px; }
 .c-foot button { color: var(--c-text); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.t-name button.t-span { font: inherit; color: inherit; text-decoration: underline dotted; text-decoration-color: #5a5e67; text-underline-offset: 3px; padding: 2px 0; }
+.t-row[data-kind="tool"] .t-name button.t-span { color: var(--c-green); text-decoration-color: currentColor; }
+.t-name button.t-span:hover { text-decoration-style: solid; }
+.t-rows.live button.t-span { pointer-events: none; text-decoration: none; }
+.t-insp { margin: 1px 0 7px 44px; padding: 7px 10px; border-left: 2px solid var(--c-blue); background: rgba(124,183,255,.06); border-radius: 0 8px 8px 0; font-size: 11px; line-height: 1.7; color: var(--c-dim); }
+.t-insp.tool { border-left-color: var(--c-green); background: rgba(52,211,153,.06); }
+.t-insp b { color: var(--c-text); font-weight: 500; } .t-insp .ok { color: var(--c-green); } .t-insp .key { color: var(--c-amber); }
+.t-insp .cap { display: block; font-size: 10px; color: #6b6f78; }
+.c-row { flex-basis: 100%; margin: 0; background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 8px; padding: 8px 10px; font-size: 11px; line-height: 1.6; color: var(--c-dim); white-space: pre-wrap; word-break: break-word; }
+.c-row b { color: var(--c-text); font-weight: 500; } .c-row .ok { color: var(--c-green); } .c-row .bad { color: var(--c-red); }
 .t-route { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 7px; margin: 1px 0 7px 44px; padding: 7px 10px; border-left: 2px solid var(--c-green); background: rgba(52,211,153,.06); border-radius: 0 8px 8px 0; font-size: 11px; color: var(--c-dim); }
 .t-route .rt { opacity: 0; transition: opacity .2s; } .t-route .rt.on { opacity: 1; }
 .t-route .key { color: var(--c-amber); } .t-route .ok { color: var(--c-green); } .t-route .nt { color: var(--c-dim); }
@@ -250,7 +267,13 @@ section.block { padding-top: 92px; }
 .gw .packet { fill: var(--c-green); filter: drop-shadow(0 0 6px var(--c-green)); }
 .gw .lock { fill: none; stroke: var(--c-amber); stroke-width: 1.6; transition: stroke .2s; }
 .gw .lock.open { stroke: var(--c-green); }
-.gw-log { font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); background: var(--c-panel); border-radius: 10px; padding: 10px 12px; min-height: 92px; line-height: 1.6; }
+.gw-log { font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); background: var(--c-panel); border-radius: 10px; padding: 10px 12px; min-height: 104px; line-height: 1.6; }
+.gw-log .bad { color: var(--c-red); }
+.gw-act { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); }
+.gw-act button { padding: 6px 11px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-text); font-size: 11.5px; font-family: var(--mono); }
+.gw-act button:hover { border-color: var(--c-green); color: var(--c-green); }
+.gw .wa rect { stroke: #3b6b4f; }
+.gw .packet.bad { fill: var(--c-red); filter: drop-shadow(0 0 6px var(--c-red)); }
 .gw-log .ok { color: var(--c-green); } .gw-log .key { color: var(--c-amber); }
 
 /* mutation playground */
@@ -259,11 +282,17 @@ section.block { padding-top: 92px; }
 .code .kw { color: #c792ea; } .code .fn { color: var(--c-blue); } .code .ty { color: var(--c-amber); } .code .cm { color: #6b6f78; }
 .code .mt { border-radius: 4px; padding: 1px 2px; transition: background .2s, color .2s; }
 .code .mt.mutated { background: var(--c-red); color: #1b0b0b; }
+.code .mt.equiv { background: var(--c-amber); color: #1b1405; }
 .code .added { background: rgba(52,211,153,.12); display: inline-block; width: 100%; animation: fadein .4s; }
 @keyframes fadein { from { opacity: 0; } }
 .code .tb { font-size: 11px; padding: 1px 6px; border-radius: 4px; }
 .code .tb.pass { color: var(--c-green); background: rgba(52,211,153,.12); }
 .code .tb.fail { color: #1b0b0b; background: var(--c-red); }
+.m-rec { background: var(--c-bg); color: var(--c-dim); border-radius: 10px; padding: 10px 12px; font-family: var(--mono); font-size: 11px; line-height: 1.55; white-space: pre; overflow-x: auto; height: 172px; margin: 0; }
+.m-rec .k { color: #8e939c; } .m-rec .v { color: var(--c-text); } .m-rec .s-killed { color: var(--c-green); } .m-rec .s-survived { color: var(--c-red); } .m-rec .s-equivalent { color: var(--c-amber); }
+.m-cap { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: -6px; }
+.m-note { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.mutants button.equivalent .st { color: #a16207; }
 .verdict .ir { display: block; margin-top: 8px; background: var(--c-bg); color: var(--c-dim); border-radius: 8px; padding: 8px 10px; font-family: var(--mono); font-size: 11.5px; line-height: 1.6; white-space: pre; overflow-x: auto; }
 .verdict .ir b { color: var(--c-text); font-weight: 400; }
 .mutants { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -272,7 +301,6 @@ section.block { padding-top: 92px; }
 .mutants button[aria-pressed="true"] { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
 .mutants button .st { display: block; margin-top: 3px; font-size: 11px; color: var(--muted); }
 .mutants button.killed .st { color: var(--accent); } .mutants button.survived .st { color: #b91c1c; }
-.mutants button.eq { grid-column: 1 / -1; }
 .mut-ctl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .mut-ctl button { font-family: var(--mono); font-size: 12.5px; padding: 9px 13px; border-radius: 999px; border: 1px solid var(--ink); }
 .mut-ctl button.primary { background: var(--ink); color: var(--paper); }
@@ -280,7 +308,7 @@ section.block { padding-top: 92px; }
 .score { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .meter { flex: 1; height: 8px; border-radius: 99px; background: var(--line-2); overflow: hidden; min-width: 80px; }
 .meter i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .5s cubic-bezier(.2,.8,.2,1); }
-.verdict { font-size: 14px; min-height: 42px; color: var(--ink-2); }
+.verdict { font-size: 14px; min-height: 64px; color: var(--ink-2); }
 .verdict b { font-weight: 600; }
 
 /* honjang */
@@ -294,20 +322,22 @@ section.block { padding-top: 92px; }
 .hj-ko .ck.end.on { color: var(--c-text); text-decoration-color: var(--c-blue); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .hj-ko .ck.speaking { background: rgba(52,211,153,.18); color: var(--c-green); }
 .hj-level { font-family: var(--mono); font-size: 11px; color: var(--c-blue); }
+.hj-level small { color: var(--c-dim); font-size: 11px; }
+.hj-ko .ck { opacity: .35; } .hj-ko .ck.on, .hj-ko .ck.speaking { opacity: 1; }
 .lanes { display: grid; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--c-dim); }
 .lane { display: grid; grid-template-columns: 48px 1fr; gap: 8px; align-items: center; }
 .lane .tr { position: relative; height: 12px; background: var(--c-panel); border-radius: 4px; overflow: hidden; }
 .lane .seg { position: absolute; top: 0; bottom: 0; border-radius: 4px; width: 0; }
-.lane .seg.stt { background: #6b6f78; } .lane .seg.llm { background: var(--c-blue); } .lane .seg.tts { background: var(--c-green); }
+.lane .seg.you { background: #6b6f78; } .lane .seg.sil { background: repeating-linear-gradient(90deg, rgba(245,180,84,.55) 0 4px, transparent 4px 7px); } .lane .seg.llm { background: var(--c-blue); } .lane .seg.tts { background: var(--c-green); } .lane .seg.tts2 { background: #2aa87b; }
 .lanes { position: relative; }
-.lanes .vline { position: absolute; top: 0; height: 58px; left: calc(56px + (100% - 56px) * .25); width: 0; border-left: 1px dashed var(--c-amber); opacity: 0; transition: opacity .3s; }
+.lanes .vline { position: absolute; top: 0; height: 76px; left: calc(56px + (100% - 56px) * .72); width: 0; border-left: 1px dashed var(--c-amber); opacity: 0; transition: opacity .3s; }
 .lanes .vline.on { opacity: 1; }
 .lanes .axis { display: grid; grid-template-columns: 48px 1fr; gap: 8px; }
 .lanes .axis span:last-child { position: relative; display: block; height: 14px; color: #6b6f78; }
 .lanes .axis i { font-style: normal; position: absolute; transform: translateX(-50%); white-space: nowrap; }
-.lanes .axis i:nth-child(1) { left: 0; transform: none; } .lanes .axis i:nth-child(2) { left: 25%; } .lanes .axis i:nth-child(3) { left: 50%; } .lanes .axis i:nth-child(4) { left: 75%; } .lanes .axis i:nth-child(5) { right: 0; transform: none; }
-.lanes .mark300 { margin-left: 56px; padding-bottom: 14px; }
-.lanes .mark300 span { display: block; margin-left: calc(25% - 8px); color: var(--c-amber); opacity: 0; transition: opacity .3s; }
+.lanes .axis i:nth-child(1) { left: 35%; } .lanes .axis i:nth-child(2) { left: 72%; color: var(--c-amber); }
+.lanes .mark300 { margin-left: 56px; padding-bottom: 4px; }
+.lanes .mark300 span { display: block; color: var(--c-amber); opacity: 0; transition: opacity .3s; line-height: 1.5; }
 .lanes .mark300 span.on { opacity: 1; }
 .play { align-self: start; font-family: var(--mono); font-size: 12.5px; padding: 8px 13px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-text); }
 .play:hover { border-color: var(--c-green); color: var(--c-green); }
@@ -379,6 +409,9 @@ section.block { padding-top: 92px; }
 .perm-steps small { grid-column: 1 / -1; font-size: 11px; color: var(--c-dim); }
 .perm-steps li.x small { color: #d99a9a; }
 .perm-reply { font-size: 14px; color: #c9c7c0; min-height: 42px; }
+.perm-res { margin: 0; background: var(--c-bg); border-radius: 8px; padding: 8px 10px; font-family: var(--mono); font-size: 10.5px; line-height: 1.55; color: var(--c-dim); white-space: pre-wrap; word-break: break-word; }
+.perm-res b { color: var(--c-red); font-weight: 400; }
+.perm-res:empty { display: none; }
 
 /* ── experience ─────────────────────────────────────── */
 .td { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 22px 22px 16px; }
@@ -508,13 +541,16 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   .tile h3 { font-size: 24px; }
   .t-top { flex-direction: column-reverse; align-items: flex-start; gap: 10px; }
   .code { font-size: 12px; padding: 12px; }
-  .code .tb .w { display: none; }
+  .code .tb .w, .code .cmx { display: none; }
+  .t-insp { margin-left: 0; }
   .lta-grid { grid-template-columns: minmax(0, 1fr); }
   section.block { padding-top: 84px; }
   .contact-block { margin-top: 88px; border-radius: 20px; }
 }
-@media (max-width: 380px) {
+@media (max-width: 430px) {
   .bar nav a[href="#experience"] { display: none; }
+}
+@media (max-width: 380px) {
   .hj-ko { font-size: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -537,6 +573,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <a href="#work">work</a>
       <a href="#experience">experience</a>
       <a class="opt" href="#index">index</a>
+      <a href="/about">about</a>
       <a href="#contact">contact</a>
     </nav>
   </div>
@@ -547,9 +584,14 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
 
   <section class="hero" aria-labelledby="hero-title">
     <div>
-      <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf<span class="ey-x"> · AI engineer at Metatech · Indonesia</span><span class="ey-m"> · AI engineer</span></span></p>
+      <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span>Sulthan Zahran Ma'ruf · AI engineer</span></p>
       <h1 id="hero-title">I build AI agents<br> that <em>do real work.</em></h1>
       <p class="lede">Right now: a Rust OAuth gateway for agents, and the console that traces every turn. <span class="try-r">Try&nbsp;one&nbsp;→</span><span class="try-d">Try&nbsp;one&nbsp;below&nbsp;↓</span></p>
+      <ul class="facts" aria-label="At a glance">
+        <li>Indonesia · UTC+7</li>
+        <li>Rust · TypeScript · Go · Python</li>
+        <li>Metatech (AI) + LG Sinarmas</li>
+      </ul>
       <div class="cta">
         <a class="btn primary" href="#work">See the work ↓</a>
         <a class="btn ghost" href="#copilot">Recruiter? Get a pitch</a>
@@ -557,6 +599,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <a href="mailto:zsulthan9@gmail.com">email</a>
           <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github</a>
           <a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin</a>
+          <a href="/cv.pdf">cv (pdf)</a>
         </span>
       </div>
     </div>
@@ -565,7 +608,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <div class="c-head">
         <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
         <span class="ttl">agent console</span>
-        <span class="sim">simulated run</span>
+        <span class="sim" title="Replays a real turn shape with sample data">replay · sample data</span>
       </div>
       <div class="c-body">
         <div class="c-tasks" role="group" aria-label="Pick a request for the agent">
@@ -587,8 +630,9 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
         <div class="bubble agent" id="c-reply" aria-live="polite"><span class="chan">agent</span><span id="c-reply-text"><span class="typing" aria-label="working"><i></i><i></i><i></i></span></span></div>
         <div class="c-review" id="c-review">
           <span>Review this turn:</span>
-          <button type="button" data-v="good" disabled>✓ correct</button>
-          <button type="button" data-v="bad" disabled>✗ wrong</button>
+          <button type="button" data-v="correct" disabled>✓ correct</button>
+          <button type="button" data-v="wrong-skill" disabled>✗ wrong skill</button>
+          <button type="button" data-v="bad-reply" disabled>✗ bad reply</button>
           <span class="note" id="c-note" aria-live="polite"></span>
         </div>
       </div>
@@ -607,9 +651,9 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <article class="tile dark span-7 gw" aria-labelledby="gw-title">
         <div class="t-top">
           <div><span class="kicker">sambungapi · Metatech · primary engineer</span><h3 id="gw-title">The gateway agents act through</h3></div>
-          <span class="badge">private · simulated</span>
+          <span class="badge" title="Employer code is private. This replays the real design with sample data.">private code · replica</span>
         </div>
-        <p class="sub">One API for agents. OAuth tokens stay sealed until the call.</p>
+        <p class="sub">One API for agents. OAuth tokens stay sealed until the call; inbound webhooks go through a durable outbox.</p>
         <p class="try">▶ <span class="tap-word">Click</span> a provider to send a call through the vault.</p>
         <svg viewBox="0 0 600 250" id="gw-svg" role="group" aria-label="Gateway diagram: agent, gateway with encrypted token vault, and seven providers">
           <g id="gw-wires"></g>
@@ -618,11 +662,12 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
             <path d="M250 70 L330 70 L360 125 L330 180 L250 180 L220 125 Z"/>
             <text x="290" y="112" text-anchor="middle">sambungapi</text>
             <g transform="translate(279 122)"><rect class="lock" id="gw-lock" x="2" y="10" width="18" height="14" rx="3"/><path class="lock" id="gw-shackle" d="M6 10 V6 a5 5 0 0 1 10 0 V10"/></g>
-            <text x="290" y="164" text-anchor="middle" class="tok" id="gw-tok">sealed · 9f3a…c1</text>
+            <text x="290" y="164" text-anchor="middle" class="tok" id="gw-tok">sealed · k3:9f3a…</text>
           </g>
           <g id="gw-provs"></g>
           <circle class="packet" id="gw-packet" r="5" cx="-20" cy="-20"/>
         </svg>
+        <div class="gw-act" role="group" aria-label="Other paths"><span>or:</span><button type="button" id="gw-exp">token about to expire</button><button type="button" id="gw-wa">incoming WhatsApp message</button></div>
         <div class="gw-log" id="gw-log" aria-live="polite"><span class="key">$</span> waiting for a tool call…</div>
         <ul class="chips" aria-label="Stack"><li>Rust</li><li>axum</li><li>PostgreSQL</li><li>OAuth 2.0</li><li>durable outbox</li><li>multi-tenant</li></ul>
       </article>
@@ -631,18 +676,19 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <article class="tile dark span-5" aria-labelledby="bella-title">
         <div class="t-top">
           <div><span class="kicker">Bella · Metatech · core engineer</span><h3 id="bella-title">An AI chief of staff for a whole company</h3></div>
-          <span class="badge">private · simulated</span>
+          <span class="badge" title="Employer code is private. This replays the real design with sample data.">private code · replica</span>
         </div>
-        <p class="sub">On WhatsApp, Lark and web. Every tool call is checked against the asker's role.</p>
+        <p class="sub">On WhatsApp, Lark, Teams and web. Every tool call passes a role gate before it runs.</p>
         <div class="perm">
           <p class="try">▶ Same request, different person. Who's asking?</p>
           <div class="roles-pick" role="group" aria-label="Who is asking">
-            <button type="button" data-r="0" aria-pressed="true">director</button>
-            <button type="button" data-r="1" aria-pressed="false">staff</button>
-            <button type="button" data-r="2" aria-pressed="false">intern</button>
+            <button type="button" data-r="0" aria-pressed="true">admin</button>
+            <button type="button" data-r="1" aria-pressed="false">member</button>
+            <button type="button" data-r="2" aria-pressed="false">allowlisted</button>
           </div>
-          <p class="perm-ask">“Book the whole sales team for 10:00 tomorrow.”</p>
+          <p class="perm-ask">“Book the sales sync for 10:00 tomorrow, and remind the team every Monday.”</p>
           <ul class="perm-steps" id="perm-steps"></ul>
+          <pre class="perm-res" id="perm-res" aria-label="What the model receives for the denied call"></pre>
           <p class="perm-reply" id="perm-reply" aria-live="polite"></p>
         </div>
         <ul class="chips" aria-label="Stack"><li>TypeScript</li><li>Hono</li><li>React</li><li>Go</li><li>MongoDB</li><li>Redis</li><li>LLM tool use</li></ul>
@@ -654,25 +700,31 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div><span class="kicker">rust_mutant · dart-mutant · gopher_mutant · open source</span><h3 id="mut-title">Would your tests catch a bug? Break the code and see.</h3></div>
           <span class="badge live">on crates.io</span>
         </div>
-        <p class="sub">Plant small bugs in the code; good tests should fail.</p>
+        <p class="sub">Plant small bugs; good tests fail. Everything below is real rust-mutant output for this exact code.</p>
         <p class="try">▶ Plant a mutant, or run them all. Then add the missing test.</p>
         <div class="mut">
-          <div>
-<pre class="code" aria-label="Code under test"><span class="kw">fn</span> <span class="fn">can_vote</span>(age: <span class="ty">u32</span>) -&gt; <span class="ty">bool</span> {
-    <span class="mt" id="m-body">age <span class="mt" id="m-op">&gt;=</span> <span class="mt" id="m-num">18</span></span>
+          <div style="display:grid;gap:10px;align-content:start">
+<pre class="code" aria-label="Code under test"><span class="kw">fn</span> <span class="fn">fare</span>(age: <span class="ty">u32</span>, base: <span class="ty">u32</span>) -&gt; <span class="ty">u32</span> {
+    <span class="kw">if</span> age <span class="mt" id="op1">&lt;</span> <span class="ty">3</span> <span class="mt" id="op2">||</span> age <span class="mt" id="op3">&gt;=</span> <span class="ty">65</span> {
+        <span class="kw">return</span> <span class="ty">0</span>;  <span class="cm cmx">// toddlers, seniors ride free</span>
+    }
+    <span class="kw">if</span> age <span class="mt" id="op4">&gt;=</span> <span class="ty">18</span> { base } <span class="kw">else</span> { base <span class="mt" id="op5">/</span> <span class="ty">2</span> }
 }
 
 <span class="cm">// tests</span>
-<span class="fn">assert!</span>(can_vote(<span class="ty">30</span>));   <span class="cm">// adult</span>  <span class="tb" id="tb0"></span>
-<span class="fn">assert!</span>(!can_vote(<span class="ty">10</span>));  <span class="cm">// child</span>  <span class="tb" id="tb1"></span>
+<span class="fn">assert_eq!</span>(fare(<span class="ty">30</span>, <span class="ty">100</span>), <span class="ty">100</span>); <span class="cm cmx">// adult</span>  <span class="tb" id="tb0"></span>
+<span class="fn">assert_eq!</span>(fare(<span class="ty">10</span>, <span class="ty">100</span>), <span class="ty">50</span>);  <span class="cm cmx">// child</span>  <span class="tb" id="tb1"></span>
 <span id="m-added"></span></pre>
+            <p class="m-cap">rust-mutant 1.0.1 · --format json · <span id="m-rec-id">pick a mutant</span></p>
+            <pre class="m-rec" id="m-rec" aria-live="polite"></pre>
           </div>
           <div style="display:grid;gap:12px;align-content:start">
             <div class="mutants" id="m-list" role="group" aria-label="Mutants"></div>
-            <div class="score"><span id="m-score">mutation score —</span><span class="meter" aria-hidden="true"><i id="m-meter"></i></span></div>
+            <p class="m-note">+ 4 mutants that don't compile (COR, LCR, RVR, AOD): excluded from the score, as rust-mutant does.</p>
+            <div class="score"><span id="m-score">MSI —</span><span class="meter" aria-hidden="true"><i id="m-meter"></i></span></div>
             <div class="mut-ctl">
               <button type="button" class="primary" id="m-runall">▶ run all mutants</button>
-              <button type="button" id="m-add">+ add boundary test</button>
+              <button type="button" id="m-add">+ add the missing test</button>
               <button type="button" id="m-reset">reset</button>
             </div>
             <p class="verdict" id="m-verdict" aria-live="polite">Pick a mutant to plant it in the code.</p>
@@ -683,6 +735,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <a href="https://crates.io/crates/rust-mutant" target="_blank" rel="noreferrer">crates.io ↗</a>
           <a href="https://github.com/SulthanZahran1/dart-mutant" target="_blank" rel="noreferrer">dart-mutant (Homebrew) ↗</a>
           <a href="https://github.com/SulthanZahran1/gopher_mutant" target="_blank" rel="noreferrer">gopher_mutant ↗</a>
+          <a href="https://github.com/SulthanZahran1/rust_mutant/blob/main/crates/rust-mutant-tce/src/lib.rs" target="_blank" rel="noreferrer">how the IR check works ↗</a>
         </div>
       </article>
 
@@ -692,21 +745,21 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <div><span class="kicker">honjang · personal · voice</span><h3 id="hj-title">Real-time English → Korean that knows who you're talking to</h3></div>
           <span class="badge live">live</span>
         </div>
-        <p class="try">▶ Pick who you're talking to. Watch the ending change.</p>
+        <p class="try">▶ Pick who you're talking to. Watch the speech level change.</p>
         <div class="listeners" role="group" aria-label="Who are you talking to?">
-          <button type="button" data-l="0" aria-pressed="false">a friend</button>
-          <button type="button" data-l="1" aria-pressed="true">a shopkeeper</button>
-          <button type="button" data-l="2" aria-pressed="false">your boss</button>
+          <button type="button" data-l="0" aria-pressed="true">a shopkeeper</button>
+          <button type="button" data-l="1" aria-pressed="false">your manager</button>
         </div>
-        <p class="hj-say">“Could you tell me where the station is?”</p>
+        <p class="hj-say">“I'm looking for the station. Could you tell me where it is?”</p>
         <p class="hj-ko" lang="ko" id="hj-ko" aria-live="polite"></p>
         <span class="hj-level" id="hj-level"></span>
         <div class="lanes" aria-hidden="true">
-          <div class="lane"><span>hear</span><span class="tr"><span class="seg stt" id="hj-stt"></span></span></div>
-          <div class="lane"><span>think</span><span class="tr"><span class="seg llm" id="hj-llm"></span></span></div>
-          <div class="lane"><span>speak</span><span class="tr"><span class="seg tts" id="hj-tts"></span></span></div>
-          <div class="axis"><span></span><span><i>0</i><i>300</i><i>600</i><i>900</i><i>1200 ms</i></span></div>
-          <div class="mark300"><span id="hj-300">↑ first audio ≈300 ms, mid-sentence (design budget)</span></div>
+          <div class="lane"><span>you</span><span class="tr"><span class="seg you" id="hj-you"></span></span></div>
+          <div class="lane"><span>wait</span><span class="tr"><span class="seg sil" id="hj-sil"></span></span></div>
+          <div class="lane"><span>LLM</span><span class="tr"><span class="seg llm" id="hj-llm"></span></span></div>
+          <div class="lane"><span>TTS</span><span class="tr"><span class="seg tts" id="hj-tts1"></span><span class="seg tts2" id="hj-tts2"></span></span></div>
+          <div class="axis"><span></span><span><i>you stop</i><i>first audio</i></span></div>
+          <div class="mark300"><span id="hj-300">Waits for 1.2 s of silence, translates the whole reply, then speaks it clause by clause. Next (ADR-0004): stream LLM tokens into TTS.</span></div>
           <span class="vline" id="hj-vline"></span>
         </div>
         <button type="button" class="play" id="hj-play">▶ replay</button>
@@ -714,13 +767,14 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
         <div class="tlinks">
           <a href="https://honjang.zahranm.cloud" target="_blank" rel="noreferrer">try the live app ↗</a>
           <a href="https://github.com/SulthanZahran1/honjang" target="_blank" rel="noreferrer">source ↗</a>
+          <a href="https://github.com/SulthanZahran1/honjang/blob/main/docs/adr/0004-hybrid-llm-tts-streaming.md" target="_blank" rel="noreferrer">ADR-0004 ↗</a>
         </div>
       </article>
 
       <!-- retrieval -->
       <article class="tile span-6" aria-labelledby="rag-title">
         <div class="t-top">
-          <div><span class="kicker">cv-search · personal · retrieval</span><h3 id="rag-title">Search that reads the résumé, not just the keywords</h3></div>
+          <div><span class="kicker">cv-search · personal · retrieval</span><h3 id="rag-title">Search that weighs real skills, not keyword hits</h3></div>
           <span class="badge">on request</span>
         </div>
         <p class="try">▶ Step through the pipeline. Watch the right candidate climb.</p>
@@ -733,7 +787,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
         <ol class="rag-list" id="rag-list" aria-label="Ranked candidates"></ol>
         <p class="rag-note" id="rag-note" aria-live="polite"></p>
         <ul class="chips" aria-label="Stack"><li>Go</li><li>React</li><li>Gemini extraction</li><li>LLM rerank</li></ul>
-        <div class="tlinks"><a href="https://github.com/SulthanZahran1/cv-search-prototype" target="_blank" rel="noreferrer">source ↗</a></div>
+        <div class="tlinks"><a href="https://github.com/SulthanZahran1/cv-search-prototype/blob/main/api/main.go#L1228" target="_blank" rel="noreferrer">the scoring function ↗</a><a href="https://github.com/SulthanZahran1/cv-search-prototype" target="_blank" rel="noreferrer">source ↗</a></div>
       </article>
 
       <!-- factory -->
@@ -742,7 +796,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
         <div>
         <div class="t-top">
           <div><span class="kicker">LG Sinarmas · 2024–now</span><h3 id="fx-title">Software that keeps battery lines moving, 24/7</h3></div>
-          <span class="badge">private · simulated</span>
+          <span class="badge" title="Employer code is private. This replays the real design with sample data.">private code · replica</span>
         </div>
         <svg viewBox="0 0 520 170" id="fx-svg" aria-hidden="true">
           <path id="fx-path" class="track" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
@@ -755,10 +809,10 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
           <g class="st"><rect x="212" y="132" width="96" height="24" rx="5"/><text x="260" y="148" text-anchor="middle">dispatch (RTD)</text></g>
           <g id="fx-agvs"></g>
         </svg>
-        <ul class="chips" aria-label="Stack"><li>MES</li><li>RTD</li><li>AMHS</li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
+        <ul class="chips" aria-label="Stack"><li><abbr title="manufacturing execution system">MES</abbr></li><li><abbr title="real-time dispatching: which vehicle moves what, next">RTD</abbr></li><li><abbr title="automated material handling: AGVs, conveyors, stockers">AMHS</abbr></li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
         </div>
         <div class="lta">
-          <p class="try">▶ An AGV is stuck at EQ12. Replay the log and find out why.</p>
+          <p class="try">▶ Illustrative incident: an AGV is stuck at EQ12. Replay the <abbr title="SEMI E84: the handshake between a vehicle and a load port">E84</abbr> log and find out why.</p>
           <div class="lta-grid">
             <pre class="lta-log" id="lta-log" aria-label="Raw AMHS event log"></pre>
             <svg class="lta-svg" id="lta-svg" viewBox="0 0 300 136" aria-hidden="true"></svg>
@@ -774,7 +828,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
   <section class="block" id="experience" aria-labelledby="exp-title">
     <div class="head">
       <div><span class="idx">02 · experience</span><h2 id="exp-title">Career as a timing diagram</h2></div>
-      <p>Each lane is a signal, each box a role. Click one.</p>
+      <p>Each lane is a track, each box a role. Click one.</p>
     </div>
     <figure class="td">
       <svg id="timeline" viewBox="0 0 1000 285" role="group" aria-label="Career timing diagram, 2019 to now. Each role is a button that shows details below."></svg>
@@ -786,7 +840,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
         <div><span class="when">Apr 2026 → now</span><span class="org">Metatech · part-time, remote</span></div>
         <div><h3>Software Engineer, AI agents</h3><ul>
           <li>Built sambungapi in Rust (axum): an OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira.</li>
-          <li>Core engineer on Bella's agent worker (TypeScript): the runtime that plans, calls tools and replies on every turn, across WhatsApp, Gmail, Calendar and Lark.</li>
+          <li>Core engineer on Bella's agent worker (TypeScript): the runtime that plans, calls tools (Gmail, Calendar, Lark and more) and replies on every turn, over WhatsApp, Lark, Teams and web.</li>
           <li>Built the messaging engine between apps and chat platforms, and the observability behind it: per-turn cost, execution waterfalls, and a human-review loop that produces ground-truth datasets.</li>
         </ul></div>
       </div>
@@ -840,7 +894,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
     </div>
 
     <ul class="skills" aria-label="Skills">
-      <li class="ai">AI agents</li><li class="ai">tool use &amp; MCP</li><li class="ai">RAG</li><li class="ai">LLM observability</li><li class="ai">voice pipelines</li><li class="ai">evals &amp; mutation testing</li>
+      <li class="ai">AI agents</li><li class="ai">tool use &amp; MCP</li><li class="ai">RAG</li><li class="ai">LLM observability</li><li class="ai">voice pipelines</li><li class="ai">evals</li><li class="ai">mutation testing</li>
       <li>Rust</li><li>Go</li><li>TypeScript</li><li>Python</li>
     </ul>
   </section>
@@ -869,9 +923,9 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
       <li><a class="nm" href="https://honjang.zahranm.cloud">honjang</a><span class="ds">English–Korean real-time voice translator with honorifics</span><span class="status live">live</span><a href="https://github.com/SulthanZahran1/honjang">source</a></li>
       <li><a class="nm" href="https://zahranm.cloud/recruit">recruit</a><span class="ds">LLM pitch generator: job description in, evidence-grounded pitch out</span><span class="status live">live</span><a href="https://github.com/SulthanZahran1/jd-pitcher">source</a></li>
       <li><a class="nm" href="https://relay.zahranm.cloud">relay</a><span class="ds">AI-native CRM on an event-driven workflow engine</span><span class="status live">live</span><span></span></li>
-      <li><a class="nm" href="https://teach.zahranm.cloud">teach</a><span class="ds">Harness Engineering: building an agent harness, modelled on Hermes</span><span class="status live">live</span><span></span></li>
+      <li><a class="nm" href="https://teach.zahranm.cloud">teach</a><span class="ds">Course: build an agent harness from scratch</span><span class="status live">live</span><span></span></li>
       <li><a class="nm" href="https://wiki.zahranm.cloud">wiki</a><span class="ds">LLM-compiled wiki with chat and a knowledge graph, from 556 public LGES posts</span><span class="status gated">on request</span><a href="https://github.com/SulthanZahran1/lgensol-wiki">source</a></li>
-      <li><a class="nm" href="https://cv-search.zahranm.cloud">cv-search</a><span class="ds">Résumé search: Gemini extraction, hybrid retrieval, LLM rerank</span><span class="status gated">on request</span><a href="https://github.com/SulthanZahran1/cv-search-prototype">source</a></li>
+      <li><a class="nm" href="https://cv-search.zahranm.cloud">cv-search</a><span class="ds">Résumé search: Gemini extraction, lexical + skill scoring, LLM rerank</span><span class="status gated">on request</span><a href="https://github.com/SulthanZahran1/cv-search-prototype">source</a></li>
     </ul>
     <details class="more">
       <summary>other builds (4)</summary>
@@ -893,7 +947,7 @@ footer { margin-top: 40px; padding: 20px 0 48px; border-top: 1px solid var(--lin
     <svg class="bgwave" viewBox="0 0 600 160" aria-hidden="true"><path d="M0 120 L60 120 L60 40 L120 40 L120 120 L170 120 L170 40 L200 40 L200 120 L230 120 L230 40 L250 40 L250 120 L270 120 L270 40 L285 40 L285 120 L300 120 C320 60 330 150 345 80 C360 20 370 140 385 90 C400 50 410 120 425 85 C440 60 455 110 470 88 C490 70 510 100 530 86 C555 76 575 92 600 84"/></svg>
     <h2 id="contact-title">Building agents that touch <em>real systems?</em></h2>
     <a class="mail" href="mailto:zsulthan9@gmail.com">zsulthan9@gmail.com</a>
-    <div class="alt"><a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github ↗</a><a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin ↗</a></div>
+    <div class="alt"><a href="/cv.pdf">cv (pdf) ↓</a><a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github ↗</a><a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin ↗</a></div>
   </section>
 
   <footer>
@@ -932,20 +986,20 @@ function whenVisible(el, fn) {
 
 <script>
 /* ── Agent console: a scripted replay of one agent turn, drawn the way the
-   observability console shows it (waterfall of LLM and tool spans). ── */
+   observability console shows it. Tool names, span attributes and the review
+   → dataset mapping follow Bella's real schema; the values are samples. ── */
 (function () {
   var S = [
-    { chan: "WhatsApp", prompt: "Move my 3pm with Andi to tomorrow, same time, and let him know.",
+    { chan: "WhatsApp", skill: "calendar", prompt: "Move my 3pm with Andi to tomorrow, same time, and let him know.",
       spans: [
-        ["llm", "plan", 0, 540],
-        ["tool", "calendar.upcoming", 560, 860, 1],
-        ["llm", "pick new slot", 880, 1310],
-        ["tool", "calendar.update", 1330, 1720, 1],
-        ["tool", "gmail.send", 1740, 2080, 1],
-        ["llm", "reply", 2100, 2480]
+        ["llm", "plan", 0, 520],
+        ["tool", "calendar.findEvent", 540, 840, 1],
+        ["tool", "calendar.freebusy", 860, 1200, 1],
+        ["tool", "calendar.update", 1220, 1640, 1],
+        ["llm", "reply", 1660, 2040]
       ], tok: 3412, cost: 0.0023,
-      reply: "Done. “Sync with Andi” is now tomorrow 15:00–15:30, and I emailed him the new time." },
-    { chan: "Lark", prompt: "What in my inbox actually needs me today?",
+      reply: "Done. “Sync with Andi” is now tomorrow 15:00–15:30. You're both free, and he has the updated invite." },
+    { chan: "Lark", skill: "inbox", prompt: "What in my inbox actually needs me today?",
       spans: [
         ["llm", "plan", 0, 420],
         ["tool", "gmail.unread", 440, 900, 1],
@@ -954,17 +1008,19 @@ function whenVisible(el, fn) {
         ["llm", "reply", 2070, 2520]
       ], tok: 9870, cost: 0.0063,
       reply: "3 need you: the vendor contract (due 17:00), Rina's budget question, and a reschedule request that clashes with your 14:00. The other 20 can wait." },
-    { chan: "web", prompt: "Brief me for tomorrow's meetings.",
+    { chan: "web", skill: "briefing", prompt: "Brief me for tomorrow's meetings.",
       spans: [
         ["llm", "plan", 0, 380],
         ["tool", "calendar.upcoming", 400, 700, 1],
         ["tool", "gmail.search", 720, 1350, 4],
-        ["tool", "lark.docs", 720, 1180, 1],
+        ["tool", "lark.readChat", 720, 1180, 1],
         ["llm", "write brief", 1370, 2360],
         ["llm", "reply", 2380, 2700]
       ], tok: 14250, cost: 0.0092,
-      reply: "4 meetings tomorrow. Heads-up: the 10:00 with Finance will ask about Q3 variance. Last thread and the doc are linked in your brief." }
+      reply: "4 meetings tomorrow. Heads-up: the 10:00 with Finance will ask about Q3 variance. The last email thread and the Lark discussion are linked in your brief." }
   ];
+  var API = { calendar: "Google Calendar API", gmail: "Gmail API", lark: "Lark Open API" };
+  var WRITES = { "calendar.update": 1 };
   var rowsEl = document.getElementById("c-rows");
   var promptEl = document.getElementById("c-prompt"), chanEl = document.getElementById("c-chan");
   var replyEl = document.getElementById("c-reply-text");
@@ -976,55 +1032,69 @@ function whenVisible(el, fn) {
   var TYPING = '<span class="typing" aria-label="working"><i></i><i></i><i></i></span>';
 
   function fmt(n) { return n.toLocaleString("en-US"); }
+  function llmTotal(s) { return s.spans.reduce(function (a, p) { return a + (p[0] === "llm" ? p[3] - p[2] : 0); }, 0); }
+  /* tokens and cost accrue only while a model span runs; tool spans add none */
+  function llmDone(s, t) { return s.spans.reduce(function (a, p) { return a + (p[0] === "llm" ? Math.max(0, Math.min(t, p[3]) - p[2]) : 0); }, 0); }
+
+  function inspector(s, k) {
+    var p = s.spans[k], dur = p[3] - p[2];
+    if (p[0] === "llm") {
+      var share = Math.round(s.tok * dur / llmTotal(s)), out = Math.round(share * 0.07), inp = share - out;
+      var firstLlm = s.spans.findIndex(function (x) { return x[0] === "llm"; }) === k;
+      return '<span class="cap">span attributes · sample values</span><b>engine ' + p[1] + "</b> · INTERNAL · " + dur + " ms · <span class=\"ok\">OK</span><br>" +
+        "gen_ai.usage · input " + fmt(inp) + " · output " + fmt(out) + " · cache_read " + fmt(firstLlm ? 0 : Math.round(inp * 0.8));
+    }
+    var fam = p[1].split(".")[0], n = p[4];
+    return '<span class="cap">span attributes · sample values</span><b>verb ' + p[1] + "</b>" + (n > 1 ? " ×" + n + " (parallel)" : "") + " · CLIENT · " + dur + " ms · <span class=\"ok\">OK</span><br>" +
+      "gates: validate ✓ → role-authz ✓ → recipient-authz ✓ → confirmation ✓" + (WRITES[p[1]] ? "<br>idempotency_key turn_8c1f:" + k : "") +
+      '<br><span class="key">→</span> ' + (API[fam] || "provider API") + ' · <span class="ok">200' + (n > 1 ? " ×" + n : "") + "</span>";
+  }
 
   function run(i) {
     cancelAnimationFrame(raf); token++;
     var my = token, s = S[i]; cur = i;
     btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
     chanEl.textContent = s.chan; promptEl.textContent = s.prompt;
-    replyEl.innerHTML = TYPING; note.textContent = "";
+    replyEl.innerHTML = TYPING; note.textContent = ""; note.className = "note";
     [].forEach.call(review.querySelectorAll("button"), function (b) { b.disabled = true; });
     var total = s.spans[s.spans.length - 1][3];
-    traceWrap.setAttribute("aria-label", "Execution trace: " + s.spans.map(function (p) { return (p[0] === "llm" ? "model " : "tool ") + p[1] + " " + (p[3] - p[2]) + " ms"; }).join(", ") + ". Total " + total + " ms.");
-    rowsEl.innerHTML = "";
+    traceWrap.setAttribute("aria-label", "Execution trace: " + s.spans.map(function (p) { return (p[0] === "llm" ? "model " : "tool ") + p[1] + (p[4] > 1 ? " ×" + p[4] : "") + " " + (p[3] - p[2]) + " ms"; }).join(", ") + ". Total " + total + " ms.");
+    rowsEl.innerHTML = ""; rowsEl.classList.add("live");
     var head = document.createElement("div"); head.className = "playhead"; head.setAttribute("aria-hidden", "true");
-    var rows = s.spans.map(function (p) {
+    var rows = s.spans.map(function (p, k) {
       var r = document.createElement("div");
-      r.className = "t-row"; r.dataset.kind = p[4] ? "tool" : "llm";
+      r.className = "t-row"; r.dataset.kind = p[0]; r.dataset.k = k;
       var label = p[1] + (p[4] > 1 ? " ×" + p[4] : "");
-      var nm = p[4] ? '<button type="button" class="t-link" data-tool="' + p[1] + '" data-n="' + p[4] + '" aria-expanded="false" aria-label="Where does ' + label + ' go?">' + label + "</button>" : p[1];
-      r.innerHTML = '<span class="t-name"><span class="k">' + (p[4] ? "tool" : "llm") + "</span>" + nm +
+      r.innerHTML = '<span class="t-name"><span class="k">' + (p[0] === "llm" ? "llm" : "tool") + '</span><button type="button" class="t-span" aria-expanded="false" aria-label="Inspect ' + label + '">' + label + "</button>" +
         '</span><span class="t-track" aria-hidden="true"><span class="t-bar" style="left:' + (p[2] / total * 100) + '%"></span></span><span class="t-ms">' + (p[3] - p[2]) + "ms</span>";
       rowsEl.appendChild(r); return r;
     });
     var track0 = rows[0].querySelector(".t-track");
     rowsEl.appendChild(head);
-    var nTools = s.spans.reduce(function (a, p) { return a + (p[4] || 0); }, 0);
+    var nTools = s.spans.reduce(function (a, p) { return a + (p[4] || 0); }, 0), LT = llmTotal(s);
 
     function frame(t) {
       if (my !== token) return;
       rows.forEach(function (r, k) {
         var p = s.spans[k];
         if (t >= p[2]) r.classList.add("on");
-        var w = Math.max(0, Math.min(t, p[3]) - p[2]) / total * 100;
-        r.querySelector(".t-bar").style.width = w + "%";
+        r.querySelector(".t-bar").style.width = Math.max(0, Math.min(t, p[3]) - p[2]) / total * 100 + "%";
       });
-      var f = Math.min(1, t / total);
-      var trackLeft = track0.offsetLeft, trackW = track0.offsetWidth;
-      head.style.left = (trackLeft + f * trackW) + "px";
+      var f = llmDone(s, t) / LT;
+      head.style.left = (track0.offsetLeft + Math.min(1, t / total) * track0.offsetWidth) + "px";
       lat.textContent = fmt(Math.round(Math.min(t, total))) + " ms";
       tools.textContent = s.spans.reduce(function (a, p) { return a + (p[4] && t >= p[3] ? p[4] : 0); }, 0);
       tok.textContent = fmt(Math.round(s.tok * f));
       cost.textContent = "$" + (s.cost * f).toFixed(4);
     }
     function done() {
-      frame(total); head.style.opacity = "0";
+      frame(total); head.remove(); rowsEl.classList.remove("live");
       tools.textContent = nTools;
       replyEl.textContent = s.reply;
       [].forEach.call(review.querySelectorAll("button"), function (b) { b.disabled = false; });
-      note.classList.remove("bad"); note.classList.add("hint");
-      note.textContent = "↳ " + (matchMedia("(hover: none)").matches ? "tap" : "click") + " a green tool name to see where the call goes";
-      var first = rowsEl.querySelector(".t-link"); if (first && !REDUCED) { first.classList.remove("pulse"); void first.offsetWidth; first.classList.add("pulse"); }
+      note.className = "note hint";
+      note.textContent = "↳ " + (matchMedia("(hover: none)").matches ? "tap" : "click") + " any span to inspect it";
+      var first = rowsEl.querySelector('.t-row[data-kind="tool"] .t-span'); if (first && !REDUCED) { first.classList.remove("pulse"); void first.offsetWidth; first.classList.add("pulse"); }
     }
     if (REDUCED) { done(); return; }
     var SPEED = 1.35, t0 = performance.now() + 450;
@@ -1037,43 +1107,28 @@ function whenVisible(el, fn) {
     })(performance.now());
   }
 
-  /* A tool name expands, in place, the route that call takes. */
-  var API = { calendar: "Google Calendar API", gmail: "Gmail API" };
-  var routeTok = 0;
   rowsEl.addEventListener("click", function (e) {
-    var more = e.target.closest(".t-more");
-    if (more) {
-      var gw = document.getElementById("gw-title").closest(".tile"), t = more.dataset.tool, n = +more.dataset.n;
-      if (window.gwHold) window.gwHold();
-      gw.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
-      if (window.gwCall) setTimeout(function () { window.gwCall(t, n); }, REDUCED ? 0 : 550);
-      return;
-    }
-    var b = e.target.closest(".t-link"); if (!b) return;
-    var open = rowsEl.querySelector(".t-route"), was = open && open.previousSibling === b.closest(".t-row");
+    var b = e.target.closest(".t-span"); if (!b) return;
+    var row = b.closest(".t-row"), open = rowsEl.querySelector(".t-insp"), was = open && open.previousSibling === row;
     if (open) open.remove();
-    [].forEach.call(rowsEl.querySelectorAll(".t-link"), function (x) { x.setAttribute("aria-expanded", "false"); });
+    [].forEach.call(rowsEl.querySelectorAll(".t-span"), function (x) { x.setAttribute("aria-expanded", "false"); });
     if (was) return;
-    var tool = b.dataset.tool, n = +b.dataset.n, lark = /^lark/.test(tool);
-    var steps = lark
-      ? [["agent", ""], ["→", ""], ["Lark connector", "key"], ["→", ""], ["Lark API", ""], ["→", ""], ["200 OK", "ok"], ["· separate path, not sambungapi", "nt"]]
-      : [["agent", ""], ["→", ""], ["◆ sambungapi · token unsealed", "key"], ["→", ""], [API[tool.split(".")[0]] || "provider API", ""], ["→", ""], ["200 OK" + (n > 1 ? " ×" + n : ""), "ok"]];
-    var r = document.createElement("div"); r.className = "t-route";
-    r.innerHTML = steps.map(function (x) { return '<span class="rt ' + x[1] + '">' + x[0] + "</span>"; }).join("") +
-      (lark ? "" : '<button type="button" class="t-more" data-tool="' + tool + '" data-n="' + n + '">watch it in the gateway ↓</button>');
-    b.closest(".t-row").after(r); b.setAttribute("aria-expanded", "true");
-    var items = [].slice.call(r.querySelectorAll(".rt")), k = 0, my = ++routeTok;
-    (function next() { if (my !== routeTok || k >= items.length) return; items[k++].classList.add("on"); setTimeout(next, REDUCED ? 0 : 140); })();
+    var d = document.createElement("div"); d.className = "t-insp" + (row.dataset.kind === "tool" ? " tool" : "");
+    d.innerHTML = inspector(S[cur], +row.dataset.k);
+    row.after(d); b.setAttribute("aria-expanded", "true");
   });
   btns.forEach(function (b, j) { b.addEventListener("click", function () { run(j); }); });
   document.getElementById("c-replay").addEventListener("click", function () { run(cur); });
+  /* a review decision becomes a dataset case (decision → dataset as in the review console) */
+  var DS = { "correct": ["confirmed-routing", '"' + "SKILL" + '"'], "wrong-skill": ["hard-routing", "‹the skill you pick›"], "bad-reply": ["hard-quality", "‹your note on the right reply›"] };
   review.addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b || b.disabled) return;
     [].forEach.call(review.querySelectorAll("button"), function (x) { x.disabled = true; });
-    note.classList.remove("hint"); note.classList.toggle("bad", b.dataset.v !== "good");
-    note.textContent = b.dataset.v === "good"
-      ? "Saved as a ground-truth example. Future versions get tested against it."
-      : "Flagged for review, then added to the eval set as a failure case.";
+    var v = b.dataset.v, ds = DS[v], s = S[cur];
+    var expected = v === "correct" ? '"' + s.skill + '"' : ds[1];
+    note.className = "note";
+    note.innerHTML = '<pre class="c-row"><span class="' + (v === "correct" ? "ok" : "bad") + '">decision ' + v + "</span> → dataset <b>" + ds[0] + "</b>\n" +
+      '{ "input": "' + s.prompt.slice(0, 34) + '…",\n  "expected": ' + expected + ',\n  "sourceTurnId": "turn_8c1f" }</pre>';
   });
   whenVisible(document.getElementById("console"), function () { run(0); });
 })();
@@ -1081,22 +1136,24 @@ function whenVisible(el, fn) {
 
 
 <script>
-/* ── Gateway diagram: click a provider, watch a call go agent → vault → provider.
+/* ── Gateway diagram (sambungapi). Outbound: a tool call unseals the provider
+   token for that call only. Inbound: a WhatsApp webhook is committed to the
+   outbox in the same transaction, then a worker delivers it at-least-once.
    Wide screens lay it out left→right; phones get a top→bottom version. ── */
 (function () {
   var NS = "http://www.w3.org/2000/svg";
   var svg = document.getElementById("gw-svg");
   if (!svg) return;
   var provs = [
-    ["Google", "calendar.update"], ["Microsoft", "outlook.send"], ["GitHub", "issues.create"],
-    ["Slack", "chat.post"], ["Notion", "pages.append"], ["Linear", "issue.update"], ["Jira", "issue.transition"]
+    ["Google", "GOOGLECALENDAR_CREATE_EVENT", "ya29.a0…"], ["Microsoft", "OUTLOOK_SEND_EMAIL", "EwB4A…"], ["GitHub", "GITHUB_CREATE_AN_ISSUE", "gho_…"],
+    ["Slack", "SLACK_SEND_MESSAGE", "xoxb-…"], ["Notion", "NOTION_CREATE_PAGE", "ntn_…"], ["Linear", "LINEAR_CREATE_ISSUE", "lin_oauth_…"], ["Jira", "JIRA_CREATE_ISSUE", "eyJhb…"]
   ];
   var wires = document.getElementById("gw-wires"), pg = document.getElementById("gw-provs");
   var packet = document.getElementById("gw-packet"), log = document.getElementById("gw-log");
   var lock = document.getElementById("gw-lock"), shackle = document.getElementById("gw-shackle");
   var agentG = document.getElementById("gw-agent"), hubG = document.getElementById("gw-hub");
   function el(tag, a, parent) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); (parent || svg).appendChild(n); return n; }
-  var inWire, outWires = [], nodes = [], narrow = null, sel = 0, busy = 0, userTouched = false;
+  var inWire, waWire, outWires = [], nodes = [], narrow = null, sel = 0, busy = 0, userTouched = false;
 
   function node(i, x, y, w, h) {
     var g = el("g", { "class": "node prov", tabindex: i === sel ? "0" : "-1", role: "button", "aria-label": "Call " + provs[i][0] + " through the gateway" }, pg);
@@ -1111,6 +1168,11 @@ function whenVisible(el, fn) {
     g.addEventListener("focus", function () { userTouched = true; });
     nodes.push(g);
   }
+  function waNode(x, y, w, h) {
+    var g = el("g", { "class": "node wa", "aria-hidden": "true" }, pg);
+    el("rect", { x: x, y: y, width: w, height: h, rx: 8 }, g);
+    var t = el("text", { x: x + w / 2, y: y + h / 2 + 4, "text-anchor": "middle" }, g); t.textContent = "WhatsApp";
+  }
   function rove() { nodes.forEach(function (n, j) { n.setAttribute("tabindex", j === sel ? "0" : "-1"); }); }
   function build() {
     var n = svg.parentNode.clientWidth < 560;
@@ -1118,20 +1180,24 @@ function whenVisible(el, fn) {
     narrow = n; busy++;
     while (wires.firstChild) wires.removeChild(wires.firstChild);
     while (pg.firstChild) pg.removeChild(pg.firstChild);
-    outWires = []; nodes = []; packet.setAttribute("cx", -20); setLock(false);
+    outWires = []; nodes = []; packet.setAttribute("cx", -20); setLock(null);
     if (!n) {
-      svg.setAttribute("viewBox", "0 0 600 250"); agentG.removeAttribute("transform"); hubG.removeAttribute("transform");
-      inWire = el("path", { d: "M116 125 L220 125", "class": "wire" }, wires);
+      svg.setAttribute("viewBox", "0 0 600 250"); agentG.setAttribute("transform", "translate(0 -22)"); hubG.removeAttribute("transform");
+      inWire = el("path", { d: "M116 103 C170 103 180 115 220 125", "class": "wire" }, wires);
+      waWire = el("path", { d: "M116 191 C175 191 200 160 235 152", "class": "wire" }, wires);
+      waNode(12, 174, 104, 34);
       provs.forEach(function (p, i) {
         var y = 22 + i * 32;
         outWires.push(el("path", { d: "M360 125 C420 125 420 " + (y + 11) + " 470 " + (y + 11), "class": "wire" }, wires));
         node(i, 470, y, 118, 22);
       });
     } else {
-      /* agent on top, vault in the middle, providers as a 4 + 3 grid; the
-         second row sits under the first row's gaps so its wires pass through */
-      svg.setAttribute("viewBox", "0 0 340 312"); agentG.setAttribute("transform", "translate(106 -95)"); hubG.setAttribute("transform", "translate(-120 3)");
-      inWire = el("path", { d: "M170 55 L170 73", "class": "wire" }, wires);
+      /* agent + WhatsApp on top, vault in the middle, providers as a 4 + 3
+         grid; the second row sits under the first row's gaps */
+      svg.setAttribute("viewBox", "0 0 340 312"); agentG.setAttribute("transform", "translate(50 -95)"); hubG.setAttribute("transform", "translate(-120 3)");
+      inWire = el("path", { d: "M114 55 C114 70 135 72 150 78", "class": "wire" }, wires);
+      waWire = el("path", { d: "M226 48 C226 66 205 72 192 78", "class": "wire" }, wires);
+      waNode(176, 12, 100, 36);
       provs.forEach(function (p, i) {
         var row = i < 4 ? 0 : 1, cols = row ? 3 : 4, col = row ? i - 4 : i, w = 76, gap = 6;
         var x = (340 - (cols * w + (cols - 1) * gap)) / 2 + col * (w + gap), y = row ? 280 : 238, cx = x + w / 2;
@@ -1149,39 +1215,75 @@ function whenVisible(el, fn) {
       if (f < 1) requestAnimationFrame(step); else cb();
     })(t0);
   }
+  function later(ms, fn, my) { setTimeout(function () { if (my === busy) fn(); }, REDUCED ? 0 : ms); }
   var tokEl = document.getElementById("gw-tok");
-  function setLock(open) {
-    tokEl.textContent = open ? "ya29…Qx9" : "sealed · 9f3a…c1"; tokEl.classList.toggle("open", open); lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
-  function call(i, verb, times) {
-    var my = ++busy, p = provs[i], w = outWires[i];
+  function setLock(tokenText) {
+    var open = !!tokenText;
+    tokEl.textContent = open ? tokenText : "sealed · k3:9f3a…"; tokEl.classList.toggle("open", open); lock.classList.toggle("open", open); shackle.classList.toggle("open", open); shackle.setAttribute("d", open ? "M6 10 V6 a5 5 0 0 1 10 0 V4" : "M6 10 V6 a5 5 0 0 1 10 0 V10"); }
+  function hot(i, wa) {
     nodes.forEach(function (n, j) { n.classList.toggle("hot", j === i); });
-    outWires.forEach(function (x, j) { x.classList.toggle("hot", j === i); }); inWire.classList.add("hot");
-    var lines = [
-      '<span class="key">→</span> agent calls <b>' + (times > 1 ? times + " × " : "") + (verb || p[1]) + "</b> for org acme",
-      '<span class="key">◆</span> vault: token decrypted in memory, for this call only',
+    outWires.forEach(function (x, j) { x.classList.toggle("hot", j === i); });
+    inWire.classList.add("hot"); waWire.classList.toggle("hot", !!wa);
+  }
+  function show(lines, n) { log.innerHTML = lines.slice(0, n).join("<br>"); }
+  function call(i, expiring) {
+    var my = ++busy, p = provs[i], w = outWires[i];
+    hot(i, false); packet.classList.remove("bad");
+    var lines = expiring ? [
+      '<span class="key">→</span> execute <b>' + p[1] + "</b> · idempotency key claimed",
+      '<span class="key">◆</span> token k3 decrypted · expires in 40 s → refresh first',
+      '<span class="key">→</span> ' + p[0] + " token endpoint ← new access token · re-encrypted, fresh nonce",
+      '<span class="key">→</span> ' + p[0] + ' API <span class="ok">← 200 OK</span> · usage settled · execution_logs row'
+    ] : [
+      '<span class="key">→</span> execute <b>' + p[1] + "</b> · idempotency key claimed",
+      '<span class="key">◆</span> token decrypted (AES-256-GCM, key k3) for this call only',
       '<span class="key">→</span> ' + p[0] + " API",
-      '<span class="ok">← 200 OK</span> · event written to durable outbox · plaintext token dropped'
+      '<span class="ok">← 200 OK</span> · usage settled · execution_logs row written'
     ];
-    function show(n) { log.innerHTML = lines.slice(0, n).join("<br>"); }
-    if (REDUCED) { show(4); setLock(false); return; }
-    show(1); setLock(false);
+    if (REDUCED) { show(lines, 4); setLock(null); return; }
+    show(lines, 1); setLock(null);
     along(inWire, 500, function () {
-      setLock(true); show(2);
-      setTimeout(function () {
-        if (my !== busy) return;
-        show(3);
+      setLock(p[2]); show(lines, 2);
+      later(expiring ? 1100 : 450, function () {
+        show(lines, 3);
         along(w, 600, function () {
-          show(4);
-          along(w, 500, function () { setLock(false); along(inWire, 450, function () { packet.setAttribute("cx", -20); }, my, true); }, my, true);
+          show(lines, 4);
+          along(w, 500, function () { setLock(null); along(inWire, 450, function () { packet.setAttribute("cx", -20); }, my, true); }, my, true);
         }, my);
-      }, 450);
+      }, my);
+    }, my);
+  }
+  function inbound() {
+    var my = ++busy; userTouched = true;
+    hot(-1, true); packet.classList.remove("bad"); setLock(null);
+    var lines = [
+      '<span class="key">←</span> WhatsApp webhook · <b>message.received</b>',
+      '<span class="key">◆</span> tx: outbox_deliveries row + HMAC signature · commit',
+      '<span class="key">→</span> worker claims row (SKIP LOCKED) · POST to agent <span class="bad">← 503 · retry in 10 s</span>',
+      '<span class="key">→</span> attempt 2 <span class="ok">← 200 · delivered</span> · same Idempotency-Key'
+    ];
+    if (REDUCED) { show(lines, 4); return; }
+    show(lines, 1);
+    along(waWire, 550, function () {
+      show(lines, 2);
+      later(600, function () {
+        along(inWire, 500, function () {
+          show(lines, 3); packet.classList.add("bad");
+          along(inWire, 350, function () {
+            later(700, function () {
+              packet.classList.remove("bad");
+              along(inWire, 500, function () { show(lines, 4); later(500, function () { packet.setAttribute("cx", -20); waWire.classList.remove("hot"); }, my); }, my, true);
+            }, my);
+          }, my);
+        }, my, true);
+      }, my);
     }, my);
   }
   build();
   var pend = 0;
   window.addEventListener("resize", function () { cancelAnimationFrame(pend); pend = requestAnimationFrame(build); });
-  window.gwHold = function () { userTouched = true; busy++; };
-  window.gwCall = function (tool, times) { userTouched = true; call(0, tool, times); };
+  document.getElementById("gw-exp").addEventListener("click", function () { userTouched = true; call(0, true); });
+  document.getElementById("gw-wa").addEventListener("click", inbound);
   svg.addEventListener("pointerdown", function () { userTouched = true; });
   whenVisible(svg, function () {
     var k = 0;
@@ -1195,81 +1297,87 @@ function whenVisible(el, fn) {
 </script>
 
 <script>
-/* ── Mutation playground: real evaluation of each mutant against the tests. ── */
+/* ── Mutation playground. The mutants, ids, statuses and IR hashes are the
+   real output of `rust-mutant --format json` (v1.0.1) on this exact code,
+   before and after the toddler test. The tests are evaluated live here. ── */
 (function () {
+  function orig(a, b) { return (a < 3 || a >= 65) ? 0 : (a >= 18 ? b : Math.floor(b / 2)); }
   var M = [
-    { id: "m1", label: ">=  →  <", target: "m-op", text: "<", f: function (a) { return a < 18; } },
-    { id: "m2", label: ">=  →  >", target: "m-op", text: ">", f: function (a) { return a > 18; } },
-    { id: "m3", label: "18  →  19", target: "m-num", text: "19", f: function (a) { return a >= 19; } },
-    { id: "m4", label: "body  →  true", target: "m-body", text: "true", f: function () { return true; } },
-    { id: "m5", label: ">= 18  →  > 17", target: "m-body", text: "age > 17", eq: true, f: function (a) { return a > 17; } }
+    { id: "m0001-ce458b2cbdd944de", fam: "ROR", sub: "relational-swap", o: "<", r: ">", label: "age < 3  →  age > 3", target: "op1", f: function (a, b) { return (a > 3 || a >= 65) ? 0 : (a >= 18 ? b : Math.floor(b / 2)); } },
+    { id: "m0004-39c348de81d77816", fam: "LOR", sub: "logical-swap", o: "||", r: "&&", label: "||  →  &&", target: "op2", tce: ["different", "8006e1ce36fd82eb", "019e99709a2b174a"], f: function (a, b) { return (a < 3 && a >= 65) ? 0 : (a >= 18 ? b : Math.floor(b / 2)); } },
+    { id: "m0005-ce45892cbdd94178", fam: "ROR", sub: "relational-swap", o: ">=", r: "<", label: "age >= 65  →  age < 65", target: "op3", f: function (a, b) { return (a < 3 || a < 65) ? 0 : (a >= 18 ? b : Math.floor(b / 2)); } },
+    { id: "m0007-539476341d47491d", fam: "ROR", sub: "relational-swap", o: ">=", r: "<", label: "age >= 18  →  age < 18", target: "op4", f: function (a, b) { return (a < 3 || a >= 65) ? 0 : (a < 18 ? b : Math.floor(b / 2)); } },
+    { id: "m0009-88ff18e8e1556929", fam: "AOI", sub: "arithmetic-insertion", o: "/", r: "/ 1 /", label: "base / 2  →  base / 1 / 2", target: "op5", eq: true, tce: ["equivalent", "8006e1ce36fd82eb", "8006e1ce36fd82eb"], f: orig },
+    { id: "m0010-bc249f2a83b63ab5", fam: "AOR", sub: "arithmetic-swap", o: "/", r: "*", label: "base / 2  →  base * 2", target: "op5", f: function (a, b) { return (a < 3 || a >= 65) ? 0 : (a >= 18 ? b : b * 2); } }
   ];
-  var REAL = M.filter(function (m) { return !m.eq; }).length;
-  var T = [
-    { name: "can_vote(30)", arg: 30, want: true },
-    { name: "!can_vote(10)", arg: 10, want: false }
-  ];
-  var BOUNDARY = { name: "can_vote(18)", arg: 18, want: true };
-  var listEl = document.getElementById("m-list");
+  var T = [{ a: 30, b: 100, want: 100 }, { a: 10, b: 100, want: 50 }];
+  var MISSING = { a: 2, b: 100, want: 0 };
+  var listEl = document.getElementById("m-list"), rec = document.getElementById("m-rec"), recId = document.getElementById("m-rec-id");
   var verdict = document.getElementById("m-verdict"), scoreEl = document.getElementById("m-score"), meter = document.getElementById("m-meter");
-  var addBtn = document.getElementById("m-add"), runAll = document.getElementById("m-runall");
-  var body = document.getElementById("m-body"), bodyHTML = body.innerHTML, added = document.getElementById("m-added");
+  var addBtn = document.getElementById("m-add"), runAll = document.getElementById("m-runall"), added = document.getElementById("m-added");
+  var OPS = {}; ["op1", "op2", "op3", "op4", "op5"].forEach(function (k) { var e = document.getElementById(k); OPS[k] = [e, e.textContent]; });
   var state = {}, tests = T.slice(), timer = 0;
+  var ST = { killed: "killed ✓", survived: "survived ✗", equivalent: "equivalent · same IR" };
 
   var btns = M.map(function (m) {
     var b = document.createElement("button");
-    b.type = "button"; b.setAttribute("aria-pressed", "false"); b.className = m.eq ? "eq" : "";
-    b.innerHTML = "mutant: " + m.label.replace(/</g, "&lt;").replace(/>/g, "&gt;") + '<span class="st">not run</span>';
-    b.setAttribute("aria-label", "mutant " + m.label + ", not run");
+    b.type = "button"; b.setAttribute("aria-pressed", "false");
+    b.innerHTML = "<span>" + m.fam + " · " + m.label.replace(/</g, "&lt;").replace(/>/g, "&gt;") + '</span><span class="st">not run</span>';
+    b.setAttribute("aria-label", "mutant " + m.fam + " " + m.label + ", not run");
     b.addEventListener("click", function () { clearTimeout(timer); apply(m, true); });
     listEl.appendChild(b); return b;
   });
 
   function plant(m) {
-    body.innerHTML = bodyHTML;
-    [].forEach.call(body.querySelectorAll(".mt"), function (x) { x.classList.remove("mutated"); });
-    body.classList.remove("mutated");
+    for (var k in OPS) { OPS[k][0].textContent = OPS[k][1]; OPS[k][0].classList.remove("mutated", "equiv"); }
     if (!m) return;
-    var t = document.getElementById(m.target);
-    t.textContent = m.text; t.classList.add("mutated");
+    var e = OPS[m.target][0]; e.textContent = m.r; e.classList.add(m.eq ? "equiv" : "mutated");
   }
-  function renderTests(m) {
+  function runTests(m) {
     var fails = 0;
     tests.forEach(function (t, k) {
-      var got = m ? m.f(t.arg) : t.arg >= 18, ok = got === t.want;
+      var ok = (m ? m.f(t.a, t.b) : orig(t.a, t.b)) === t.want;
       if (!ok) fails++;
       var tb = document.getElementById("tb" + k);
       if (tb) { tb.className = "tb " + (ok ? "pass" : "fail"); tb.innerHTML = ok ? '✓<span class="w"> pass</span>' : '✗<span class="w"> FAIL</span>'; }
     });
     return fails;
   }
+  function q(v) { return '<span class="v">"' + v + '"</span>'; }
+  function record(m, status) {
+    var lines = ['{ <span class="k">"id"</span>: ' + q(m.id) + ",",
+      '  <span class="k">"family"</span>: ' + q(m.fam) + ', <span class="k">"subtype"</span>: ' + q(m.sub) + ",",
+      '  <span class="k">"original"</span>: ' + q(m.o.replace(/</g, "&lt;").replace(/>/g, "&gt;")) + ', <span class="k">"replacement"</span>: ' + q(m.r.replace(/</g, "&lt;").replace(/>/g, "&gt;")) + ",",
+      '  <span class="k">"status"</span>: <span class="s-' + status + '">"' + status + '"</span>,'];
+    if (status === "killed" || !m.tce) lines.push('  <span class="k">"tce"</span>: <span class="v">null</span> }');
+    else lines.push('  <span class="k">"tce"</span>: { <span class="k">"status"</span>: ' + q(m.tce[0]) + ",",
+      '           <span class="k">"originalIrHash"</span>: ' + q(m.tce[1]) + ",",
+      '           <span class="k">"mutantIrHash"</span>:   ' + q(m.tce[2]) + " } }");
+    rec.innerHTML = lines.join("\n"); recId.textContent = m.id.slice(0, 5) + " · " + status;
+  }
   function score() {
-    var run = M.filter(function (m) { return state[m.id]; });
-    if (!run.length) { scoreEl.textContent = "mutation score —"; meter.style.width = "0"; return; }
-    var killed = run.filter(function (m) { return state[m.id] === "killed"; }).length;
-    var skipped = run.filter(function (m) { return state[m.id] === "skipped"; }).length;
-    var pct = Math.round(killed / REAL * 100);
-    scoreEl.textContent = "mutation score " + killed + "/" + REAL + (skipped ? " · 1 skipped" : "");
+    var run = M.filter(function (m) { return state[m.id] && state[m.id] !== "equivalent"; });
+    var eq = M.filter(function (m) { return state[m.id] === "equivalent"; }).length;
+    if (!run.length) { scoreEl.textContent = eq ? "MSI — · 1 equivalent excluded" : "MSI —"; meter.style.width = "0"; return; }
+    var killed = run.filter(function (m) { return state[m.id] === "killed"; }).length, pct = Math.round(killed / run.length * 100);
+    scoreEl.textContent = "MSI " + pct + "% · " + killed + "/" + run.length + " killed" + (eq ? " · 1 equivalent excluded" : "");
     meter.style.width = pct + "%";
   }
   function apply(m, announce) {
     btns.forEach(function (b, i) { b.setAttribute("aria-pressed", String(M[i] === m)); });
     plant(m);
-    var fails = renderTests(m);
-    var res = m.eq ? "skipped" : fails ? "killed" : "survived";
+    var fails = runTests(m);
+    /* the IR check (TCE) only runs on survivors */
+    var res = fails ? "killed" : (m.eq ? "equivalent" : "survived");
     state[m.id] = res;
-    var b = btns[M.indexOf(m)], st = { killed: "killed ✓", survived: "survived ✗", skipped: "skipped · same IR" }[res];
-    b.className = res + (m.eq ? " eq" : ""); b.querySelector(".st").textContent = st;
-    b.setAttribute("aria-label", "mutant " + m.label + ", " + st);
-    score();
-    if (announce && m.eq) {
-      verdict.innerHTML = "<b>Skipped, not survived.</b> For a <code>u32</code>, <code>age &gt; 17</code> is the same function, so no test could ever kill it. rust_mutant compiles both and compares the LLVM IR:" +
-        '<span class="ir">original  <b>%r = icmp ugt i32 %age, 17</b>\nmutant    <b>%r = icmp ugt i32 %age, 17</b>   ← identical</span>';
-    } else if (announce) {
-      verdict.innerHTML = res === "killed"
-        ? "<b>Killed.</b> " + fails + " test" + (fails > 1 ? "s" : "") + " failed on the planted bug, as they should."
-        : "<b>Survived.</b> The code is wrong but every test still passes. " + (tests.length < 3 ? "Nothing checks age 18 exactly. Add the boundary test." : "");
-    }
+    var b = btns[M.indexOf(m)];
+    b.className = res + (m.eq ? " eq" : ""); b.querySelector(".st").textContent = ST[res];
+    b.setAttribute("aria-label", "mutant " + m.fam + " " + m.label + ", " + ST[res]);
+    record(m, res); score();
+    if (!announce) return res;
+    if (res === "killed") verdict.innerHTML = "<b>Killed.</b> " + fails + " test" + (fails > 1 ? "s" : "") + " failed on the planted bug, as they should.";
+    else if (res === "equivalent") verdict.innerHTML = "<b>Survived the tests, then marked equivalent.</b> <code>base / 1 / 2</code> compiles (at opt-level=2) to the same IR as <code>base / 2</code>: identical hashes, so it is excluded instead of counted as a gap.";
+    else verdict.innerHTML = "<b>Survived.</b> Every test passes and the IR differs, so this is a real gap: nothing tests anyone who rides free." + (tests.length < 3 ? " Add the missing test." : "");
     return res;
   }
   runAll.addEventListener("click", function () {
@@ -1277,73 +1385,77 @@ function whenVisible(el, fn) {
     var i = 0;
     (function next() {
       apply(M[i], false); i++;
-      if (i < M.length) { timer = setTimeout(next, REDUCED ? 0 : 650); return; }
-      var survivors = M.filter(function (m) { return state[m.id] === "survived"; }), surv = survivors.length;
-      if (surv) apply(survivors[0], false);
-      if (!surv) { plant(null); renderTests(null); btns.forEach(function (b) { b.setAttribute("aria-pressed", "false"); }); }
-      verdict.innerHTML = surv
-        ? "<b>" + surv + " of " + REAL + " mutants survived.</b> The tests pass, yet they'd miss real bugs at the boundary. Add the missing test."
-        : "<b>All " + REAL + " mutants killed,</b> and 1 skipped because it compiles to identical IR. These tests pin the behaviour down.";
+      if (i < M.length) { timer = setTimeout(next, REDUCED ? 0 : 520); return; }
+      var surv = M.filter(function (m) { return state[m.id] === "survived"; });
+      if (surv.length) apply(surv[0], false); else { plant(null); runTests(null); btns.forEach(function (b) { b.setAttribute("aria-pressed", "false"); }); record(M[4], "equivalent"); }
+      verdict.innerHTML = surv.length
+        ? "<b>MSI 80%.</b> LOR <code>||</code> → <code>&amp;&amp;</code> survives: the tests never check a rider who goes free. Add the missing test."
+        : "<b>MSI 100%.</b> Every real mutant is killed. The AOI mutant is excluded as equivalent (same IR hash), exactly as rust-mutant reports it.";
     })();
   });
   addBtn.addEventListener("click", function () {
     if (tests.length > 2) return;
-    tests.push(BOUNDARY);
-    added.innerHTML = '<span class="added"><span class="fn">assert!</span>(can_vote(<span class="ty">18</span>));   <span class="cm">// boundary</span>  <span class="tb" id="tb2"></span></span>';
+    tests.push(MISSING);
+    added.innerHTML = '<span class="added"><span class="fn">assert_eq!</span>(fare(<span class="ty">2</span>, <span class="ty">100</span>), <span class="ty">0</span>);    <span class="cm cmx">// toddler</span>  <span class="tb" id="tb2"></span></span>';
     addBtn.disabled = true;
     var any = M.some(function (m) { return state[m.id]; });
-    if (any) { runAll.click(); } else { verdict.innerHTML = "<b>Boundary test added.</b> Now run the mutants again."; }
+    if (any) runAll.click(); else { runTests(null); verdict.innerHTML = "<b>Toddler test added.</b> Now run the mutants again."; }
   });
   document.getElementById("m-reset").addEventListener("click", function () {
     clearTimeout(timer); state = {}; tests = T.slice(); added.innerHTML = ""; addBtn.disabled = false;
-    btns.forEach(function (b, i) { b.className = M[i].eq ? "eq" : ""; b.setAttribute("aria-pressed", "false"); b.querySelector(".st").textContent = "not run"; b.setAttribute("aria-label", "mutant " + M[i].label + ", not run"); });
-    plant(null); renderTests(null); score();
+    btns.forEach(function (b, i) { b.className = M[i].eq ? "eq" : ""; b.setAttribute("aria-pressed", "false"); b.querySelector(".st").textContent = "not run"; b.setAttribute("aria-label", "mutant " + M[i].fam + " " + M[i].label + ", not run"); });
+    plant(null); runTests(null); score(); rec.innerHTML = ""; recId.textContent = "pick a mutant";
     verdict.textContent = "Pick a mutant to plant it in the code.";
   });
-  renderTests(null);
+  runTests(null);
 })();
 </script>
 
 <script>
-/* ── honjang: honorific level follows the listener; speech streams by clause. ── */
+/* ── honjang: the speech level follows the listener (해요체 / 합쇼체; "auto"
+   picks between them). The pipeline as it runs today: wait for Deepgram's
+   UtteranceEnd (1.2 s of silence), translate the whole reply, then speak it
+   clause by clause (split_korean_clauses). Proportions are illustrative. ── */
 (function () {
   var L = [
-    { chunks: ["역이 어디 있는지 ", "알려 ", "줄래?"], level: "반말 · casual: close friends" },
-    { chunks: ["역이 어디 있는지 ", "알려 ", "주실 수 있어요?"], level: "해요체 · polite: everyday respect" },
-    { chunks: ["역이 어디에 있는지 ", "알려 ", "주시겠습니까?"], level: "합쇼체 · formal: deference to a superior" }
+    { chunks: ["역을 찾고 있는데요, ", "어디 있는지 알려 주실 수 있어요?"], level: "해요체 · polite, everyday" },
+    { chunks: ["역을 찾고 있습니다. ", "어디에 있는지 알려 주시겠습니까?"], level: "합쇼체 · formal, to a senior" }
   ];
   var ko = document.getElementById("hj-ko"), lvl = document.getElementById("hj-level");
-  var stt = document.getElementById("hj-stt"), llm = document.getElementById("hj-llm"), tts = document.getElementById("hj-tts"), m300 = document.getElementById("hj-300"), vline = document.getElementById("hj-vline");
+  var you = document.getElementById("hj-you"), sil = document.getElementById("hj-sil"), llm = document.getElementById("hj-llm"),
+      t1 = document.getElementById("hj-tts1"), t2 = document.getElementById("hj-tts2"), m300 = document.getElementById("hj-300"), vline = document.getElementById("hj-vline");
   var btns = [].slice.call(document.querySelectorAll(".listeners button"));
-  var cur = 1, tok = 0;
-  function seg(el, a, b) { el.style.left = a + "%"; el.style.width = Math.max(0, b - a) + "%"; }
-  function render(i, phase) {
+  var cur = 0, tok = 0;
+  var P = { you: [0, 35], sil: [35, 55], llm: [55, 72], t1: [72, 86], t2: [86, 100] };
+  function seg(el, r, p) { el.style.left = r[0] + "%"; el.style.width = Math.max(0, Math.min(p, r[1]) - r[0]) + "%"; }
+  function render(i, p) {
     var c = L[i].chunks;
     ko.innerHTML = c.map(function (t, k) {
-      var cls = "ck" + (phase > k ? " on" : "") + (phase === k + 1 && phase < 3 ? " speaking" : "") + (k === c.length - 1 ? " end" : "");
+      var r = k ? P.t2 : P.t1, cls = "ck" + (p >= r[1] ? " on" : "") + (p >= r[0] && p < r[1] ? " speaking" : "") + (k === c.length - 1 ? " end" : "");
       return '<span class="' + cls + '">' + t + "</span>";
     }).join("");
-    lvl.textContent = L[i].level;
+    lvl.innerHTML = L[i].level + " <small>· auto mode picks between the two</small>";
+  }
+  function draw(i, p) {
+    seg(you, P.you, p); seg(sil, P.sil, p); seg(llm, P.llm, p); seg(t1, P.t1, p); seg(t2, P.t2, p);
+    var on = p >= P.t1[0]; m300.classList.toggle("on", on); vline.classList.toggle("on", on);
+    render(i, p);
   }
   function play(i) {
     var my = ++tok; cur = i;
     btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
-    if (REDUCED) { render(i, 3); seg(stt, 0, 45); seg(llm, 18, 70); seg(tts, 25, 100); m300.style.left = "25%"; m300.classList.add("on"); vline.classList.add("on"); return; }
-    render(i, 0); seg(stt, 0, 0); seg(llm, 0, 0); seg(tts, 0, 0); m300.classList.remove("on"); vline.classList.remove("on"); m300.style.left = "25%";
-    var t0 = performance.now(), D = 2600;
+    if (REDUCED) { draw(i, 100); return; }
+    var t0 = performance.now(), D = 3600;
     (function step(now) {
       if (my !== tok) return;
       var p = Math.min(100, (now - t0) / D * 100);
-      seg(stt, 0, Math.min(p, 45));
-      if (p > 18) seg(llm, 18, Math.min(p, 70));
-      if (p > 25) { seg(tts, 25, p); m300.classList.add("on"); vline.classList.add("on"); }
-      render(i, p > 80 ? 3 : p > 55 ? 2 : p > 25 ? 1 : 0);
-      if (p < 100) requestAnimationFrame(step); else render(i, 3);
+      draw(i, p);
+      if (p < 100) requestAnimationFrame(step);
     })(t0);
   }
   btns.forEach(function (b, j) { b.addEventListener("click", function () { play(j); }); });
   document.getElementById("hj-play").addEventListener("click", function () { play(cur); });
-  render(cur, 3);
+  draw(cur, 100);
   whenVisible(ko, function () { play(cur); });
 })();
 </script>
@@ -1367,55 +1479,64 @@ function whenVisible(el, fn) {
 </script>
 
 <script>
-/* ── Bella: the same request resolves differently per role (illustrative). ── */
+/* ── Bella: every tool declares a minRole; the role gate compares it with the
+   asker's role (blocked < unknown < allowlisted < member < admin). A denial
+   goes back to the model as a forbidden tool result, and the model tells the
+   user. Tool names and minRoles are Bella's; the request is a sample. ── */
 (function () {
-  var R = [
-    { steps: [["calendar.freebusy · sales team", 1, "policy director · calendars: org ✓"], ["calendar.create · 12 invitees", 1, "policy director · invitees: any ✓"]],
-      reply: "Booked \u201cSales sync\u201d tomorrow 10:00 for the whole team. Invites are out." },
-    { steps: [["calendar.freebusy · sales team", 1, "policy staff · calendars: org (read) ✓"], ["calendar.create · 12 invitees", 0, "policy staff · invitees ≤ own team ✗"]],
-      reply: "Your role can't book the whole department. Want me to book it with your own team instead?" },
-    { steps: [["calendar.freebusy · sales team", 0, "policy intern · calendars: self ✗"], ["calendar.create · 12 invitees", 0, "policy intern · calendars: self ✗"]],
-      reply: "I can only add things to your own calendar. I've put a 10:00 hold there for you." }
-  ];
-  var list = document.getElementById("perm-steps"), reply = document.getElementById("perm-reply");
+  var ORDER = ["blocked", "unknown", "allowlisted", "member", "admin"];
+  var ROLES = ["admin", "member", "allowlisted"];
+  var STEPS = [["calendar.freebusy", "sales team", "allowlisted"], ["calendar.create", "Sales sync 10:00", "member"], ["workflow.create", "Monday reminder", "admin"]];
+  var REPLY = {
+    admin: "Booked “Sales sync” for 10:00 tomorrow and set up a Monday reminder for the team.",
+    member: "Booked “Sales sync” for 10:00 tomorrow. A recurring reminder needs an admin, so I couldn't set that up.",
+    allowlisted: "Everyone's free at 10:00, but booking needs a member account and reminders need an admin. Ask a teammate to book it."
+  };
+  var list = document.getElementById("perm-steps"), reply = document.getElementById("perm-reply"), res = document.getElementById("perm-res");
   var btns = [].slice.call(document.querySelectorAll(".roles-pick button"));
   if (!list) return;
   var tok = 0;
   function show(i) {
-    var my = ++tok, r = R[i];
+    var my = ++tok, role = ROLES[i], rank = ORDER.indexOf(role), denied = null;
     btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
-    list.innerHTML = r.steps.map(function (st) {
-      return '<li class="' + (st[1] ? "" : "x") + '"><span>' + st[0] + "</span>" + (st[1] ? '<span class="ok">allowed</span>' : '<span class="no">blocked</span>') + "<small>" + st[2] + "</small></li>";
+    list.innerHTML = STEPS.map(function (st) {
+      var ok = rank >= ORDER.indexOf(st[2]);
+      if (!ok && !denied) denied = st;
+      return '<li class="' + (ok ? "" : "x") + '"><span>' + st[0] + " · " + st[1] + "</span>" + (ok ? '<span class="ok">allowed</span>' : '<span class="no">forbidden</span>') +
+        "<small>minRole " + st[2] + " · asker " + role + (ok ? " ✓" : " ✗") + "</small></li>";
     }).join("");
-    reply.textContent = "";
+    reply.textContent = ""; res.textContent = "";
     var items = [].slice.call(list.children), k = 0;
     (function next() {
       if (my !== tok) return;
-      if (k < items.length) { items[k++].classList.add("on"); setTimeout(next, REDUCED ? 0 : 380); }
-      else reply.textContent = r.reply;
+      if (k < items.length) { items[k++].classList.add("on"); setTimeout(next, REDUCED ? 0 : 380); return; }
+      if (denied) res.innerHTML = '{ "ok": false, "verb": "' + denied[0] + '",\n  "error": { "code": <b>"forbidden"</b>,\n    "message": "Not authorised: ' + denied[0] + " requires role " + denied[2] + ", principal has " + role + '. …" } }';
+      reply.textContent = REPLY[role];
     })();
   }
   btns.forEach(function (b, j) { b.addEventListener("click", function () { show(j); }); });
   show(0);
 })();
-
 </script>
 <script>
-/* ── log -> timing diagram: replay a handshake log and spot the stuck signal ── */
+/* ── log -> timing diagram: replay an (illustrative) E84 handshake between
+   AGV07 and load port EQ12, and flag the step that never completed. ── */
 (function () {
   var logEl = document.getElementById("lta-log"), svg = document.getElementById("lta-svg"), out = document.getElementById("lta-out");
   if (!logEl) return;
   var NS = "http://www.w3.org/2000/svg";
   var EV = [
-    ["42:01.120", "AGV07", "LOAD_REQ", 1, 1.12],
-    ["42:01.480", "EQ12 ", "READY   ", 1, 1.48],
-    ["42:03.900", "AGV07", "BUSY    ", 1, 3.9],
-    ["42:09.210", "AGV07", "BUSY    ", 0, 9.21],
-    ["42:09.210", "AGV07", "COMPLETE", 1, 9.21],
-    ["42:09.300", "AGV07", "LOAD_REQ", 0, 9.3],
-    ["43:43.300", "EQ12 ", "READY   ", 0, 103.3]
+    ["42:01.120", "EQ12 ", "L_REQ", 1, 1.12],
+    ["42:01.480", "EQ12 ", "READY", 1, 1.48],
+    ["42:03.900", "AGV07", "BUSY ", 1, 3.9],
+    ["42:09.110", "EQ12 ", "L_REQ", 0, 9.11],
+    ["42:09.210", "AGV07", "BUSY ", 0, 9.21],
+    ["42:09.210", "AGV07", "COMPT", 1, 9.21],
+    ["43:43.300", "EQ12 ", "READY", 0, 103.3],
+    ["43:43.400", "AGV07", "COMPT", 0, 103.4]
   ];
-  var SIG = ["LOAD_REQ", "READY", "BUSY", "COMPLETE"];
+  var BAD = 6;
+  var SIG = [["L_REQ", "EQ"], ["READY", "EQ"], ["BUSY", "AGV"], ["COMPT", "AGV"]];
   logEl.innerHTML = EV.map(function (e) { return "<span>" + e[0] + " " + e[1] + " " + e[2] + "=" + e[3] + "</span>"; }).join("\n");
   function X(t) { return t <= 10.5 ? 72 + t / 10.5 * 160 : 248 + Math.min(1, (t - 10.5) / 93) * 44; }
   function el(tag, a, txt) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); if (txt) n.textContent = txt; svg.appendChild(n); return n; }
@@ -1425,18 +1546,17 @@ function whenVisible(el, fn) {
       if (i >= upto || e[2].trim() !== name) return;
       var nx = X(e[4]); d += " L" + nx + " " + (lvl ? hi : y0); lvl = e[3]; d += " L" + nx + " " + (lvl ? hi : y0); x = nx;
     });
-    if (name === "COMPLETE" && upto > 4) { var cx = X(9.21) + 8; d += " L" + cx + " " + hi + " L" + cx + " " + y0; lvl = 0; x = cx; }
-    var endT = upto >= EV.length ? 103.3 : (upto ? EV[upto - 1][4] : 0);
+    var endT = upto >= EV.length ? 103.4 : (upto ? EV[upto - 1][4] : 0);
     return d + " L" + Math.max(x, X(endT) + 3) + " " + (lvl ? hi : y0);
   }
   function draw(upto) {
     while (svg.firstChild) svg.removeChild(svg.firstChild);
-    SIG.forEach(function (name, r) { var y0 = 28 + r * 28; el("path", { d: "M" + X(0) + " " + y0 + " L" + (X(103.3) + 3) + " " + y0, "class": "ghost" }); });
-    if (upto >= EV.length) el("rect", { x: X(9.6), y: 42, width: X(103.3) - X(9.6), height: 14, rx: 2, "class": "stuck" });
-    SIG.forEach(function (name, r) {
+    SIG.forEach(function (sg, r) { var y0 = 28 + r * 28; el("path", { d: "M" + X(0) + " " + y0 + " L" + (X(103.4) + 3) + " " + y0, "class": "ghost" }); });
+    if (upto > BAD) el("rect", { x: X(9.21), y: 42, width: X(103.3) - X(9.21), height: 14, rx: 2, "class": "stuck" });
+    SIG.forEach(function (sg, r) {
       var y0 = 28 + r * 28;
-      el("text", { x: 4, y: y0 - 3, "class": "lbl" }, name);
-      if (upto) el("path", { d: trace(name, upto, y0, y0 - 12), "class": "sig" });
+      el("text", { x: 4, y: y0 - 3, "class": "lbl" }, sg[0] + " · " + sg[1]);
+      if (upto) el("path", { d: trace(sg[0], upto, y0, y0 - 12), "class": "sig" });
     });
     el("line", { x1: 240, y1: 8, x2: 236, y2: 122, "class": "brk" }); el("line", { x1: 244, y1: 8, x2: 240, y2: 122, "class": "brk" });
     el("text", { x: 240, y: 133, "class": "lbl", "text-anchor": "middle" }, "94 s later");
@@ -1451,9 +1571,9 @@ function whenVisible(el, fn) {
     [].forEach.call(logEl.children, function (x) { x.className = ""; });
     (function step() {
       if (my !== tok) return;
-      if (i < EV.length) { logEl.children[i].className = "on"; i++; draw(i); setTimeout(step, REDUCED ? 0 : 420); return; }
-      logEl.children[EV.length - 1].className = "bad";
-      out.textContent = "READY stayed high after COMPLETE: AGV blocked for 94 s"; halt(true);
+      if (i < EV.length) { logEl.children[i].className = "on"; i++; draw(i); setTimeout(step, REDUCED ? 0 : 380); return; }
+      logEl.children[BAD].className = "bad";
+      out.textContent = "TA3 timeout: READY took 94 s to drop after COMPT. AGV07 was held at EQ12."; halt(true);
     })();
   }
   draw(0);
@@ -1468,7 +1588,7 @@ function whenVisible(el, fn) {
   var NS = "http://www.w3.org/2000/svg";
   function ym(y, m) { return y + (m - 1) / 12; }
   var today = new Date();
-  var NOW = Math.min(today.getFullYear() + (today.getMonth() + today.getDate() / 31) / 12, 2026.95);
+  var NOW = today.getFullYear() + (today.getMonth() + today.getDate() / 31) / 12;
   var lanes = [
     { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "Metatech", "", "metatech"]] },
     { label: "BUILDS",  spans: [[ym(2026, 6), NOW, "AI builds", "", "builds", [ym(2026, 6.2), ym(2026, 6.9), ym(2026, 7.2), ym(2026, 8.1), ym(2026, 8.3)]]] },
@@ -1500,7 +1620,7 @@ function whenVisible(el, fn) {
     var top = 50, laneH = 42, half = 11, H = top + shown.length * laneH + 28;
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-    document.getElementById("td-caption").textContent = narrow ? "Showing 2024 onward, with 2026 stretched. Wider screens show the full history." : "Time is compressed before 2026 so recent work gets the room.";
+    document.getElementById("td-caption").textContent = (narrow ? "Earlier: B.Sc. Physics (Instrumentation), Universitas Indonesia, 2019–2023. " : "") + "Now: AI agents at Metatech (part-time, remote) alongside smart-factory software at LG Sinarmas (full-time). Time before 2026 is compressed.";
     /* piecewise time scale: [year, fraction of width] stops */
     var STOPS = narrow ? [[T0, 0], [2026, 0.42], [T1, 1]] : [[T0, 0], [2024, 0.2], [2026, 0.5], [T1, 1]];
     function x(t) {
@@ -1598,9 +1718,9 @@ function whenVisible(el, fn) {
     return { sc: sc, hit: hit };
   }
   var NOTE = [
-    "<b>+8 per query term</b> found anywhere in the text. The blogger who mentions every word wins.",
-    "<b>+18 when a term is a skill</b> Gemini extracted into the structured profile. Real skills beat mentions.",
-    "<b>An LLM reads the candidates</b> against the query and scores evidence 0–100, with a reason."
+    "<b>+8 per query term</b> found anywhere in the text (cv-search scores stages 1–2 in one pass; split here). The blogger who mentions every word wins.",
+    "<b>+18 when a term is a skill</b> Gemini extracted into the structured profile. Real skills beat mentions. (52 = 52: the stable sort keeps input order.)",
+    "<b>An LLM rescores the lexical hits</b> from their extracted profiles, 0–100, with a reason."
   ];
   var btns = [].slice.call(document.querySelectorAll(".rag-pick button")), stage = 0;
   function render(k) {

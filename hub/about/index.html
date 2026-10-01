@@ -10,7 +10,11 @@
 <meta property="og:title" content="About | Sulthan Zahran Ma'ruf, AI engineer">
 <meta property="og:description" content="AI engineer building agents and the infrastructure they need in production: tool gateways, observability, and tests for agent-written code.">
 <meta property="og:type" content="profile">
-<meta property="og:image" content="https://zahranm.cloud/og.svg">
+<meta property="og:image" content="https://zahranm.cloud/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sulthan Zahran Ma'ruf, AI engineer: I build AI agents that do real work.">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f4f2ec">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' rx='3' fill='%2316171a'/><path d='M3 11V5h3v6h3V5h4' fill='none' stroke='%2334d399' stroke-width='1.6'/></svg>">
 <link rel="preload" href="/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -44,20 +48,20 @@
   </header>
   <section class="prose">
     <h1>About</h1>
-    <p class="lede">Sulthan Zahran Ma'ruf is an <strong>AI engineer</strong> in Indonesia. He builds <strong>AI agents that do real work</strong>, and the infrastructure they need in production: the gateway agents act through, the engine that runs each turn, and the monitoring that shows what they did.</p>
+    <p class="lede">Sulthan Zahran Ma'ruf is an <strong>AI engineer</strong> in Indonesia. He builds <strong>AI agents that do real work</strong>, and the infrastructure they need in production: the gateway agents act through, the engine that runs each turn, and the monitoring that shows what they did. Now: AI agents at Metatech (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time). Based in Indonesia (UTC+7). <a href="/cv.pdf">CV (PDF)</a>.</p>
 
     <h2>agents and infrastructure</h2>
     <h3>Software Engineer, AI agents <span>· Metatech · part-time, remote · Apr 2026 to now</span></h3>
     <ul>
-      <li><strong>sambungapi</strong>: a Rust (axum) OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira. Agents call one API; the gateway unlocks a token only for the call and talks to the provider. Built in-house to replace a third-party vendor.</li>
-      <li><strong>Bella</strong>: core engineer on the agent worker (TypeScript) of an AI chief of staff for a whole company: the runtime that plans, calls tools and replies on every turn, across WhatsApp, Gmail, Calendar and Lark. Pluggable engines swap the reasoning backend without touching channels or tools, and what the agent may do follows the permissions of whoever asked.</li>
+      <li><strong>sambungapi</strong>: a Rust (axum) OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira. Agents call one API; each tool call unseals the provider token for that call only, is idempotency-keyed and writes an execution_logs row, and tokens are refreshed before expiry or once on a 401. The durable outbox carries inbound webhooks (such as a WhatsApp message.received): written in the same transaction, then delivered at-least-once by a worker that retries with the same Idempotency-Key. Built in-house to replace a third-party vendor.</li>
+      <li><strong>Bella</strong>: core engineer on the agent worker (TypeScript) of an AI chief of staff for a whole company: the runtime that plans, calls tools and replies on every turn, for staff on WhatsApp, Lark, Teams and web. Pluggable engines swap the reasoning backend without touching channels or tools, and every tool declares a minRole (admin, member or allowlisted) checked by a role gate before each call; a denial goes back to the model as a forbidden tool result, and the model tells the user.</li>
       <li><strong>Messaging and observability</strong>: built the messaging engine between apps and chat platforms, and the observability behind it: per-turn cost, execution waterfalls, and a human-review loop that produces ground-truth datasets.</li>
     </ul>
 
     <h2>open source</h2>
     <ul>
-      <li><strong>Mutation testers for Rust, Go and Dart</strong> (<a href="https://github.com/SulthanZahran1/rust_mutant">rust_mutant</a>, <a href="https://github.com/SulthanZahran1/gopher_mutant">gopher_mutant</a>, <a href="https://github.com/SulthanZahran1/dart-mutant">dart-mutant</a>). Coding agents write a lot of tests; mutation testing plants small bugs and checks whether the tests notice. rust_mutant is on <a href="https://crates.io/crates/rust-mutant">crates.io</a>.</li>
-      <li><strong>honjang</strong>: a real-time English–Korean voice translator that adjusts politeness to who you're talking to. Recognition, LLM and speech synthesis stream in overlapping stages so audio starts mid-sentence, within a ~300 ms design budget. <a href="https://honjang.zahranm.cloud">Live demo</a>, <a href="https://github.com/SulthanZahran1/honjang">source</a>.</li>
+      <li><strong>Mutation testers for Rust, Go and Dart</strong> (<a href="https://github.com/SulthanZahran1/rust_mutant">rust_mutant</a>, <a href="https://github.com/SulthanZahran1/gopher_mutant">gopher_mutant</a>, <a href="https://github.com/SulthanZahran1/dart-mutant">dart-mutant</a>). Coding agents write a lot of tests; mutation testing plants small bugs and checks whether the tests notice; rust_mutant then compares the LLVM IR of surviving mutants to mark equivalent ones. rust_mutant is on <a href="https://crates.io/crates/rust-mutant">crates.io</a>.</li>
+      <li><strong>honjang</strong>: an English–Korean voice translator that picks the speech level for who you're talking to: 해요체 or 합쇼체, plus an auto mode that chooses between them. It waits for Deepgram's end-of-utterance signal (1.2 s of silence), translates the whole reply, then speaks it clause by clause; streaming LLM tokens into TTS is the planned next step (ADR-0004). <a href="https://honjang.zahranm.cloud">Live demo</a>, <a href="https://github.com/SulthanZahran1/honjang">source</a>.</li>
     </ul>
     <p>AI: AI agents, tool use and MCP, RAG, LLM observability, voice pipelines, evals and mutation testing. Languages and infrastructure: Rust, Go, TypeScript, Python, C#, SQL, PostgreSQL, MongoDB, Redis, Docker, Traefik.</p>
 
@@ -79,7 +83,7 @@
     </ul>
 
     <h2>how to use this site</h2>
-    <p>Use this page for identity and context, the <a href="/">home page</a> for interactive work demos, experience and the index of public projects, and the <a href="/contact">contact page</a> for direct communication. The recruiter copilot is at <a href="/recruit">/recruit</a>. Agents can start with <a href="/llms.txt">llms.txt</a>, <a href="/agent-instructions.md">agent-instructions.md</a>, or the <a href="/sitemap.xml">XML sitemap</a>. These files describe the same public information without requiring client-side JavaScript.</p>
+    <p>Use this page for identity and context, the <a href="/">home page</a> for interactive work demos, experience and the index of public projects, the <a href="/contact">contact page</a> for direct communication, and the <a href="/cv.pdf">CV (PDF)</a> for a one-file summary. The recruiter copilot is at <a href="/recruit">/recruit</a>. Agents can start with <a href="/llms.txt">llms.txt</a>, <a href="/agent-instructions.md">agent-instructions.md</a>, or the <a href="/sitemap.xml">XML sitemap</a>. These files describe the same public information without requiring client-side JavaScript.</p>
 
     <h2>scope</h2>
     <p>This is a personal project hub, not a general-purpose software service. It does not offer an API, account system, paid checkout, MCP server, or automated support channel. Employer work is described, not linked. Follow the linked project site for the capabilities and terms of each individual project.</p>

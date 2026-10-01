@@ -7,65 +7,73 @@ last_updated: 2026-10-01
 
 # Sulthan Zahran Ma'ruf, AI engineer: I build AI agents that do real work
 
-Sulthan Zahran Ma'ruf · AI engineer at Metatech · Indonesia.
+Sulthan Zahran Ma'ruf · AI engineer.
 
 Right now: a Rust OAuth gateway for agents, and the console that traces every turn.
 
-The home page opens with a simulated agent console, modelled on the observability console built for Bella. A visitor picks a request ("Move my 3pm" on WhatsApp, "What needs me today?" on Lark, "Brief me for tomorrow" on web) and watches the execution trace of model and tool spans with latency, tool calls, tokens and cost. Clicking a tool name expands the route that call takes inline (agent → sambungapi, token unsealed → provider API → 200 OK), with a link to watch it in the gateway tile. The visitor then reads the agent's reply and marks the turn correct or wrong, as a human reviewer would.
+At a glance: Indonesia (UTC+7) · Rust, TypeScript, Go, Python · Now: AI agents at Metatech (part-time, remote) alongside smart-factory software at LG Sinarmas (full-time). [CV (PDF)](https://zahranm.cloud/cv.pdf).
+
+The home page opens with an agent console that replays a real turn shape with sample data, modelled on the observability console built for Bella. A visitor picks a request ("Move my 3pm" on WhatsApp, "What needs me today?" on Lark, "Brief me for tomorrow" on web) and watches the execution trace of model and tool spans (calendar.findEvent, calendar.freebusy, calendar.update, gmail.unread, calendar.upcoming, gmail.search ×4, lark.readChat) with latency, tool calls, tokens and cost. Clicking a span opens an inspector with Bella's span attributes (token usage for model spans; gates, idempotency key and provider API for tool spans). Reviewing the turn turns it into a dataset case: correct → confirmed-routing, wrong skill → hard-routing, bad reply → hard-quality.
 
 ## Selected work
 
-Don't read about it. Play with it. Employer systems are simulated; personal projects link to source.
+Don't read about it. Play with it. Employer code is private, so those tiles replay the real design with sample data; personal projects link to source.
 
 ### The gateway agents act through (sambungapi)
 
-Metatech, primary engineer. Private, simulated.
+Metatech, primary engineer. Private code, replica.
 
-One API for agents. OAuth tokens stay sealed until the call.
+One API for agents. OAuth tokens stay sealed until the call; inbound webhooks go through a durable outbox.
 
-- Demo: agent → gateway (encrypted token vault) → seven providers; clicking a provider sends a call through the vault and prints its log.
+- Tool call: claims an idempotency key, decrypts the provider's AES-256-GCM token for that call only, calls the provider and writes an execution_logs row. Tool calls do not go through the outbox.
+- Token refresh: a token close to expiry is refreshed before the call (or once on a 401) and re-encrypted with a fresh nonce.
+- Inbound webhook (e.g. WhatsApp message.received): written to the outbox in the same transaction, then a worker delivers it at-least-once, retrying with the same Idempotency-Key.
+- Demo: agent → gateway (encrypted token vault) → seven providers; click a provider, a token about to expire, or an incoming WhatsApp message.
 - Stack: Rust, axum, PostgreSQL, OAuth 2.0, durable outbox, multi-tenant.
 
 ### An AI chief of staff for a whole company (Bella)
 
-Metatech, core engineer. Private, simulated.
+Metatech, core engineer. Private code, replica.
 
-On WhatsApp, Lark and web. Every tool call is checked against the asker's role.
+On WhatsApp, Lark, Teams and web. Every tool call passes a role gate before it runs.
 
-- Demo: the same request ("Book the whole sales team for 10:00 tomorrow.") asked as a director, staff member or intern. Each tool call (calendar free/busy, calendar create) is allowed or blocked, the policy rule that fired is shown (for example "policy staff · invitees ≤ own team ✗"), and the reply changes to match.
+- Roles: admin, member, allowlisted. Each tool declares a minRole, and the role gate compares it with the asker's role before every call.
+- Demo: the same request ("Book the sales sync for 10:00 tomorrow, and remind the team every Monday.") asked as admin, member or allowlisted. Each call (calendar.freebusy, calendar.create, workflow.create) is allowed or forbidden; a denial goes back to the model as `{ "ok": false, "verb": …, "error": { "code": "forbidden" } }`, and the model tells the user.
 - Stack: TypeScript, Hono, React, Go, MongoDB, Redis, LLM tool use.
 
 ### Would your tests catch a bug? Break the code and see (rust_mutant, dart-mutant, gopher_mutant)
 
 Open source. rust_mutant is on crates.io.
 
-Plant small bugs ("mutants") in the code; good tests should fail.
+Plant small bugs; good tests fail. The demo is real rust-mutant 1.0.1 output (`--format json`) for a `fare(age, base)` function with two tests (adult, child).
 
-- Demo: a small Rust function (`age >= 18`) with two tests. Plant four real mutants one at a time or run them all, watch the mutation score, then add the missing boundary test and see the survivors get killed.
-- A fifth mutant (`>= 18` → `> 17`) is equivalent for a `u32`, so no test could kill it. rust_mutant compiles both, sees identical LLVM IR, and skips it instead of counting it as survived.
-- Links: [rust_mutant](https://github.com/SulthanZahran1/rust_mutant), [crates.io](https://crates.io/crates/rust-mutant), [dart-mutant (Homebrew)](https://github.com/SulthanZahran1/dart-mutant), [gopher_mutant](https://github.com/SulthanZahran1/gopher_mutant).
+- Before the missing test: MSI 80%. LOR `||` → `&&` survives, and the IR check (TCE) confirms it is real: the IR differs. After adding a toddler test: MSI 100%.
+- AOI `/` → `/ 1 /` survives the tests but is marked `equivalent`: at opt-level=2 it compiles to the same IR hash, so it is excluded from the score instead of counted as a gap. TCE runs only on survivors.
+- 4 mutants (COR, LCR, RVR, AOD) don't compile and are excluded.
+- Links: [rust_mutant](https://github.com/SulthanZahran1/rust_mutant), [crates.io](https://crates.io/crates/rust-mutant), [dart-mutant (Homebrew)](https://github.com/SulthanZahran1/dart-mutant), [gopher_mutant](https://github.com/SulthanZahran1/gopher_mutant), [how the IR check works](https://github.com/SulthanZahran1/rust_mutant/blob/main/crates/rust-mutant-tce/src/lib.rs).
 
 ### Real-time English → Korean that knows who you're talking to (honjang)
 
 Personal, voice. Live.
 
-- Demo: pick a listener (a friend, a shopkeeper, your boss) and the same English sentence is rendered in Korean at the matching politeness level; hear, think and speak lanes overlap so first audio starts mid-sentence (≈300 ms design budget).
+- Demo: pick a listener (a shopkeeper or your manager) and the same English sentence is rendered in 해요체 (polite, everyday) or 합쇼체 (formal); an auto mode picks between the two.
+- Pipeline: it waits for Deepgram's UtteranceEnd (1.2 s of silence), translates the whole reply, then speaks it clause by clause. Next (ADR-0004): stream LLM tokens into TTS.
 - Stack: Expo, FastAPI, WebSocket, Deepgram Nova-3, OpenRouter, ElevenLabs.
-- Links: [live app](https://honjang.zahranm.cloud), [source](https://github.com/SulthanZahran1/honjang).
+- Links: [live app](https://honjang.zahranm.cloud), [source](https://github.com/SulthanZahran1/honjang), [ADR-0004](https://github.com/SulthanZahran1/honjang/blob/main/docs/adr/0004-hybrid-llm-tts-streaming.md).
 
-### Search that reads the résumé, not just the keywords (cv-search)
+### Search that weighs real skills, not keyword hits (cv-search)
 
 Personal, retrieval. On request.
 
-- Demo: the query "rust backend oauth integrations" over illustrative candidates, stepped through three stages: term match (+8 per query term found anywhere), skill fields (+18 when a term is a skill Gemini extracted into the structured profile), then an LLM rerank that scores evidence 0–100 with a reason. The candidate with direct evidence climbs to the top.
+- Demo: the query "rust backend oauth integrations" over illustrative candidates, stepped through lexical + skill-field scoring (+8 per query term found anywhere, +18 when a term is a skill Gemini extracted into the structured profile), then an LLM rerank that rescores the lexical hits 0–100 with a reason. The candidate with direct evidence climbs to the top.
 - Stack: Go, React, Gemini extraction, LLM rerank.
 - Links: [source](https://github.com/SulthanZahran1/cv-search-prototype).
 
 ### Software that keeps battery lines moving, 24/7 (LG Sinarmas)
 
-EV-battery production, 2024 to now. Private, simulated.
+EV-battery production, 2024 to now. Private code, replica.
 
-- Demo: an animated MES → RTD → AMHS loop with an AGV stuck at EQ12. Running the log → timing diagram analyzer on the AMHS handshake log redraws it as signal timing, flags EQ12 (READY stayed high after COMPLETE, blocking the AGV for 94 s) and halts the loop.
+- Demo: an illustrative incident on an MES → RTD → AMHS loop: an AGV is stuck at EQ12. The analyzer replays the SEMI E84 handshake log (L_REQ and READY from the equipment, BUSY and COMPT from the AGV) as a timing diagram and diagnoses a TA3 timeout: READY took 94 s to drop after COMPT, so AGV07 was held at EQ12. The loop halts on the alarm.
 - Stack: MES, RTD, AMHS, C# / .NET, SQL Server, Python, KO–EN RAG.
 
 ## Experience
@@ -74,7 +82,7 @@ On the home page the career is drawn as a clickable timing diagram. Lanes, top t
 
 - **Software Engineer, AI agents.** Metatech, part-time, remote. Apr 2026 to now.
   - Built sambungapi in Rust (axum): an OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira.
-  - Core engineer on Bella's agent worker (TypeScript): the runtime that plans, calls tools and replies on every turn, across WhatsApp, Gmail, Calendar and Lark.
+  - Core engineer on Bella's agent worker (TypeScript): the runtime that plans, calls tools (Gmail, Calendar, Lark and more) and replies on every turn, over WhatsApp, Lark, Teams and web.
   - Built the messaging engine between apps and chat platforms, and the observability behind it: per-turn cost, execution waterfalls, and a human-review loop that produces ground-truth datasets.
 - **AI builds, shipped.** Personal, open source, self-hosted. Jun 2026 to now.
   - lgensol-wiki (Jun): an LLM-compiled wiki with chat and a knowledge graph over public LGES posts.
@@ -100,7 +108,7 @@ On the home page the career is drawn as a clickable timing diagram. Lanes, top t
 
 ## Skills
 
-- AI: AI agents, tool use & MCP, RAG, LLM observability, voice pipelines, evals & mutation testing.
+- AI: AI agents, tool use & MCP, RAG, LLM observability, voice pipelines, evals, mutation testing.
 - Languages: Rust, Go, TypeScript, Python.
 
 ## Recruiter copilot
@@ -116,9 +124,9 @@ All self-hosted on one VPS behind Traefik. Gated demos are available on request.
 | [honjang](https://honjang.zahranm.cloud) | English–Korean real-time voice translator with honorifics | live | [source](https://github.com/SulthanZahran1/honjang) |
 | [recruit](https://zahranm.cloud/recruit) | LLM pitch generator: job description in, evidence-grounded pitch out | live | [source](https://github.com/SulthanZahran1/jd-pitcher) |
 | [relay](https://relay.zahranm.cloud) | AI-native CRM on an event-driven workflow engine | live | |
-| [teach](https://teach.zahranm.cloud) | Harness Engineering: building an agent harness, modelled on Hermes | live | |
+| [teach](https://teach.zahranm.cloud) | Course: build an agent harness from scratch | live | |
 | [wiki](https://wiki.zahranm.cloud) | LLM-compiled wiki with chat and a knowledge graph, from 556 public LGES posts | on request | [source](https://github.com/SulthanZahran1/lgensol-wiki) |
-| [cv-search](https://cv-search.zahranm.cloud) | Résumé search: Gemini extraction, hybrid retrieval, LLM rerank | on request | [source](https://github.com/SulthanZahran1/cv-search-prototype) |
+| [cv-search](https://cv-search.zahranm.cloud) | Résumé search: Gemini extraction, lexical + skill scoring, LLM rerank | on request | [source](https://github.com/SulthanZahran1/cv-search-prototype) |
 
 Other builds:
 
@@ -136,6 +144,7 @@ Building agents that touch real systems?
 - Email: zsulthan9@gmail.com
 - GitHub: https://github.com/SulthanZahran1
 - LinkedIn: https://www.linkedin.com/in/sulthan-zahran-ui
+- CV (PDF): https://zahranm.cloud/cv.pdf
 
 ## Sitemap
 

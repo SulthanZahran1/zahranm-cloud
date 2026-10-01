@@ -17,6 +17,7 @@ No credentials, API keys, account, or special headers are required for the publi
 - Read https://zahranm.cloud/ for the summary, selected work, experience, and project directory (Markdown mirror: https://zahranm.cloud/index.md).
 - Read https://zahranm.cloud/about for the bio and work context.
 - Read https://zahranm.cloud/contact for direct contact links.
+- Download https://zahranm.cloud/cv.pdf for the one-page CV (PDF).
 - Read https://zahranm.cloud/privacy for the hub's data and external-service notes.
 - Read https://zahranm.cloud/llms.txt for a compact machine-readable summary.
 - Read https://zahranm.cloud/sitemap.xml to enumerate indexable pages.
