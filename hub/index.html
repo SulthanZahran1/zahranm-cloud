@@ -222,7 +222,7 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .insp-list .wf-row.fail .lbl, .insp-list .wf-row.fail .ms { color: var(--c-red); }
 .insp-body { background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 12px; padding: 14px 16px; font-family: var(--mono); font-size: 12.5px; line-height: 1.75; color: var(--c-dim); min-height: 188px; }
 .insp-body b { color: var(--c-text); font-weight: 500; } .insp-body .ok { color: var(--c-green); } .insp-body .bad { color: var(--c-red); } .insp-body .key { color: var(--c-amber); }
-.insp-body .cap2 { display: block; color: #6b6f78; font-size: 12px; margin-bottom: 4px; }
+.insp-body .cap2 { display: block; color: var(--c-dim); font-size: 12px; margin-bottom: 4px; }
 .review { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; color: var(--c-dim); }
 .review button { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--c-line); color: var(--c-text); font-size: 13px; transition: border-color .12s linear, color .12s linear; }
 .review button:hover:not([disabled]) { border-color: var(--c-green); color: var(--c-green); }
@@ -236,6 +236,7 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .sec-h { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
 .sec-h h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(34px, 4.4vw, 60px); line-height: .95; letter-spacing: -.025em; text-wrap: balance; }
 .sec-h p { color: var(--ink-2); max-width: 44ch; font-size: 16px; }
+.sec-h p.kicker { font-size: 12.5px; color: var(--accent); max-width: none; }
 .peeks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: start; }
 .peek { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 22px; display: grid; gap: 14px; min-width: 0; transition: box-shadow .2s var(--out); }
 .peek:hover { box-shadow: 0 10px 30px -18px rgba(22,23,26,.35); }
@@ -244,6 +245,8 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .peek.dark .pk-tag { color: var(--c-dim); }
 .peek .pk-tag .st { color: var(--accent); }
 .peek.dark .pk-tag .st { color: var(--c-green); }
+.peek .tagline { margin-top: -10px; font-size: 15px; color: var(--ink-2); }
+.peek.dark .tagline { color: #c9c7c0; }
 .peek h3 { font-family: var(--cond); font-weight: 600; font-size: 28px; line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
 .peek .more { display: none; }
 .pk-body { display: grid; gap: 12px; align-content: start; min-width: 0; }
@@ -285,6 +288,11 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .atoms .lta-wrap { margin-top: 36px; display: none; }
 .atoms.open .lta-wrap { display: block; }
 .atoms .expand { margin-top: 22px; }
+.atoms .role { margin-top: 8px; font-family: var(--mono); font-size: 13px; color: var(--accent); }
+.atoms .x { border-color: var(--line); background: var(--paper); }
+.atoms .xbar { border-color: var(--line); color: var(--muted); }
+.atoms .xbar b { color: var(--ink); }
+.atoms .rchip { border-color: var(--line); }
 
 /* ── career ── */
 .career { padding: 100px 0 40px; }
@@ -382,7 +390,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .gw .wa rect { stroke: #3b6b4f; }
 .gw .packet.bad { fill: var(--c-red); filter: drop-shadow(0 0 6px var(--c-red)); }
 .gw-log .ok { color: var(--c-green); } .gw-log .key { color: var(--c-amber); }
-#gw-provs, .gw .wire.ow { opacity: .35; transition: opacity .25s linear; }
+#gw-provs, .gw .wire.ow { opacity: .62; transition: opacity .25s linear; }
 .gw.tools #gw-provs, .gw.tools .wire.ow, #gw-provs:hover, #gw-provs:focus-within { opacity: 1; }
 .gw .other { font-family: var(--mono); font-size: 10.5px; fill: var(--c-dim); }
 .gw-note { font-size: 13px; color: var(--c-dim); }
@@ -445,7 +453,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .lanes .vline { position: absolute; top: 0; height: 76px; left: calc(56px + (100% - 56px) * .72); width: 0; border-left: 1px dashed var(--c-amber); opacity: 0; transition: opacity .3s; }
 .lanes .vline.on { opacity: 1; }
 .lanes .axis { display: grid; grid-template-columns: 48px 1fr; gap: 8px; }
-.lanes .axis span:last-child { position: relative; display: block; height: 14px; color: #6b6f78; }
+.lanes .axis span:last-child { position: relative; display: block; height: 14px; color: var(--c-dim); }
 .lanes .axis i { font-style: normal; position: absolute; transform: translateX(-50%); white-space: nowrap; }
 .lanes .axis i:nth-child(1) { left: 35%; } .lanes .axis i:nth-child(2) { left: 72%; color: var(--c-amber); }
 .lanes .mark300 { margin-left: 56px; padding-bottom: 4px; }
@@ -502,7 +510,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .rag-list .nm i { font-style: normal; color: var(--accent); margin-left: 6px; font-size: 12px; }
 .rag-list .sc { font-family: var(--mono); font-size: 12px; color: var(--ink-2); text-align: right; }
 .rag-list small { grid-column: 2 / -1; font-family: var(--mono); font-size: 11px; color: var(--muted); }
-.rag-note { font-size: 14px; color: var(--ink-2); min-height: 42px; }
+.rag-note { font-size: 14px; color: var(--ink-2); }
 .rag-note code { font-family: var(--mono); font-size: 12.5px; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
 
 /* bella tile */
@@ -570,6 +578,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .rchip { flex: none; border: 1px solid var(--c-line); border-radius: 999px; padding: 1px 8px; font-size: 11px; white-space: nowrap; }
 .x .perm { background: none; padding: 0; }
 .turn.x { padding-top: 0; }
+.turn.x .turn-top { margin-top: 12px; }
 .kicker { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
 .dark .kicker { color: var(--c-green); }
 .act-h { padding: 24px 0 8px; }
@@ -647,9 +656,10 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
   .atoms, .career { padding: 72px 0 24px; }
   .contact { margin-top: 84px; padding: 72px 0; }
   .visit { margin-top: 48px; padding: 16px; }
-  .insp-list .wf-row { grid-template-columns: 132px minmax(0, 1fr) 60px; height: 28px; }
+  .insp-list .wf-row { grid-template-columns: 124px minmax(0, 1fr) 68px; height: 28px; }
   .code { font-size: 12px; padding: 12px; }
   .code .tb .w, .code .cmx { display: none; }
+  .lta-grid { grid-template-columns: minmax(0, 1fr); }
   .t-top { flex-direction: column-reverse; align-items: flex-start; gap: 10px; }
 }
 @media (max-width: 380px) {
@@ -673,7 +683,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
       zahranm.cloud
     </a>
     <nav aria-label="Site">
-      <a class="opt" href="#solo">work</a>
+      <a class="opt" href="#turn-chapters">work</a>
       <a href="/about">about</a>
       <a class="opt" href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github ↗</a>
       <a href="/cv.pdf">cv ↓</a>
@@ -795,8 +805,9 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 
       <article class="peek" id="pk-mut" aria-labelledby="mut-title">
         <div class="pk-body">
-        <p class="pk-tag"><span>rust_mutant · dart-mutant · gopher_mutant</span><span class="st">crates.io</span></p>
-        <h3 id="mut-title">Would your tests catch a bug?</h3>
+        <p class="pk-tag"><span>mutation testing · + dart-mutant, gopher_mutant</span><span class="st">crates.io</span></p>
+        <h3 id="mut-title">rust_mutant</h3>
+        <p class="tagline">Would your tests catch a bug?</p>
 <pre class="mini pv-only" aria-label="A surviving mutant"><span class="kw">if</span> age &lt; <span class="ty">3</span> <span class="bad">&amp;&amp;</span> age &gt;= <span class="ty">65</span> {   <span class="cm">// was ||</span>
     <span class="kw">return</span> <span class="ty">0</span>;
 }
@@ -849,8 +860,9 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 
       <article class="peek" id="pk-rag" aria-labelledby="rag-title">
         <div class="pk-body">
-        <p class="pk-tag"><span>cv-search · retrieval</span><span class="st">on request</span></p>
-        <h3 id="rag-title">Search that weighs real skills</h3>
+        <p class="pk-tag"><span>retrieval</span><span class="st">on request</span></p>
+        <h3 id="rag-title">cv-search</h3>
+        <p class="tagline">Search that weighs real skills</p>
         <p class="rag-q"><span>query</span>rust backend oauth integrations</p>
         <div class="rag-pick" role="group" aria-label="Retrieval stage">
           <button type="button" data-k="0" aria-pressed="true">1 · terms</button><span aria-hidden="true">→</span>
@@ -864,13 +876,14 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <div class="tlinks"><a href="https://github.com/SulthanZahran1/cv-search-prototype/blob/main/api/main.go#L1228" target="_blank" rel="noreferrer">the scoring function ↗</a><a href="https://github.com/SulthanZahran1/cv-search-prototype" target="_blank" rel="noreferrer">source ↗</a></div>
         </div>
         </div>
-        <button type="button" class="expand" aria-expanded="false">▸ how it scores</button>
+        <button type="button" class="expand" aria-expanded="false">▸ details &amp; source</button>
       </article>
 
       <article class="peek dark" id="pk-voice" aria-labelledby="hj-title">
         <div class="pk-body">
-        <p class="pk-tag"><span>honjang · voice</span><span class="st">live</span></p>
-        <h3 id="hj-title">English → Korean, at the right speech level</h3>
+        <p class="pk-tag"><span>real-time voice</span><span class="st">live</span></p>
+        <h3 id="hj-title">honjang</h3>
+        <p class="tagline">English → Korean, at the right speech level</p>
         <div class="listeners" role="group" aria-label="Who are you talking to?">
           <button type="button" data-l="0" aria-pressed="true">a shopkeeper</button>
           <button type="button" data-l="1" aria-pressed="false">your manager</button>
@@ -897,7 +910,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
         </div>
         </div>
         </div>
-        <button type="button" class="expand" aria-expanded="false">▸ the pipeline</button>
+        <button type="button" class="expand" aria-expanded="false">▸ details &amp; source</button>
       </article>
 
       <div class="stage" id="pk-stage" aria-live="polite"></div>
@@ -909,8 +922,9 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
   <div class="wrap">
     <div class="grid">
       <div>
-        <p class="kicker">Work · LG Sinarmas · 2024–now · full-time</p>
-        <h2 id="fx-title">And software that moves atoms</h2>
+        <p class="kicker">Work · LG Sinarmas · 2024–now</p>
+        <h2 id="fx-title">Smart-factory software</h2>
+        <p class="role">MES · real-time dispatching · AMHS · C# / .NET · software engineer</p>
         <p class="cap">MES, dispatching and AMHS integration for a 24/7 EV-battery plant, plus a log analyzer that replays equipment handshakes.</p>
         <ul class="chips" aria-label="Stack"><li><abbr title="manufacturing execution system">MES</abbr></li><li><abbr title="real-time dispatching: which vehicle moves what, next">RTD</abbr></li><li><abbr title="automated material handling: AGVs, conveyors, stockers">AMHS</abbr></li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
         <button type="button" class="expand" id="atoms-open" aria-expanded="false">▸ replay an incident</button>
@@ -919,7 +933,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <path id="fx-path" class="track" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
           <path class="belt" d="M60 45 H460 A40 40 0 0 1 460 125 H60 A40 40 0 0 1 60 45 Z"/>
           <text x="260" y="94" text-anchor="middle" class="fx-big">MES → RTD → AMHS</text>
-          <text x="260" y="112" text-anchor="middle" class="fx-small">EV-battery production, around the clock</text>
+          <text x="260" y="112" text-anchor="middle" class="fx-small">diagram · EV-battery production, around the clock</text>
           <g class="st"><rect x="60" y="14" width="96" height="24" rx="5"/><text x="108" y="30" text-anchor="middle">stocker</text></g>
           <g class="st" id="fx-eq12"><rect x="202" y="14" width="116" height="24" rx="5"/><text x="260" y="30" text-anchor="middle">EQ12 · process</text></g>
           <g class="st"><rect x="364" y="14" width="96" height="24" rx="5"/><text x="412" y="30" text-anchor="middle">conveyor</text></g>
@@ -928,7 +942,8 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
         </svg>
     </div>
     <div class="lta-wrap">
-      <div class="lta">
+      <div class="lta x">
+          <div class="xbar"><span><b>AMHS log analyzer</b> · incident replay</span><span class="rchip">replica · illustrative log</span></div>
           <p class="try">▶ Illustrative incident: an AGV is stuck at EQ12. Replay the <abbr title="SEMI E84: the handshake between a vehicle and a load port">E84</abbr> log and find out why.</p>
           <div class="lta-grid">
             <pre class="lta-log" id="lta-log" aria-label="Raw AMHS event log"></pre>
@@ -1136,7 +1151,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
       if (!opening) return;
       cur = c; c.card.classList.add("active"); c.b.setAttribute("aria-expanded", "true"); c.b.textContent = "▴ close";
       stage.classList.toggle("dark", c.card.classList.contains("dark"));
-      var h = document.createElement("p"); h.className = "stage-h"; h.textContent = c.card.querySelector(".pk-tag span").textContent + " · " + c.card.querySelector("h3").textContent;
+      var h = document.createElement("p"); h.className = "stage-h"; h.textContent = c.card.querySelector("h3").textContent + " · " + c.card.querySelector(".tagline").textContent;
       stage.appendChild(h); stage.appendChild(c.more);
       /* phones stack the cards, so the detail goes right under its own card */
       if (window.matchMedia && matchMedia("(max-width: 980px)").matches) c.card.parentNode.insertBefore(stage, c.card.nextSibling);

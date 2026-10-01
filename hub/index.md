@@ -58,7 +58,7 @@ Most of Bella's observability console is mine: the waterfall, per-span tokens an
 
 Open source and personal builds: trusting the code agents write, retrieval that weighs evidence, and real-time voice. Each card opens a full demo underneath the row.
 
-### Would your tests catch a bug? (rust_mutant, dart-mutant, gopher_mutant)
+### rust_mutant (and dart-mutant, gopher_mutant): would your tests catch a bug?
 
 On crates.io. Plant small bugs; good tests fail. The card shows the six mutants at a glance: four killed, one survived (LOR), one equivalent (AOI). The playground is real rust-mutant 1.0.1 output (`--format json`) for a `fare(age, base)` function with two tests (adult, child).
 
@@ -67,7 +67,7 @@ On crates.io. Plant small bugs; good tests fail. The card shows the six mutants 
 - 4 mutants (COR, LCR, RVR, AOD) don't compile and are excluded.
 - Links: [rust_mutant](https://github.com/SulthanZahran1/rust_mutant), [crates.io](https://crates.io/crates/rust-mutant), [dart-mutant (Homebrew)](https://github.com/SulthanZahran1/dart-mutant), [gopher_mutant](https://github.com/SulthanZahran1/gopher_mutant), [how the IR check works](https://github.com/SulthanZahran1/rust_mutant/blob/main/crates/rust-mutant-tce/src/lib.rs).
 
-### Search that weighs real skills (cv-search)
+### cv-search: search that weighs real skills
 
 Retrieval, on request.
 
@@ -75,7 +75,7 @@ Retrieval, on request.
 - Stack: Go, React, Gemini extraction, LLM rerank.
 - Links: [the scoring function](https://github.com/SulthanZahran1/cv-search-prototype/blob/main/api/main.go#L1228), [source](https://github.com/SulthanZahran1/cv-search-prototype).
 
-### English → Korean, at the right speech level (honjang)
+### honjang: English → Korean, at the right speech level
 
 Voice, live.
 
@@ -84,7 +84,7 @@ Voice, live.
 - Stack: Expo, FastAPI, WebSocket, Deepgram Nova-3, OpenRouter, ElevenLabs.
 - Links: [live app](https://honjang.zahranm.cloud), [source](https://github.com/SulthanZahran1/honjang), [ADR-0004](https://github.com/SulthanZahran1/honjang/blob/main/docs/adr/0004-hybrid-llm-tts-streaming.md).
 
-## And software that moves atoms
+## Smart-factory software (LG Sinarmas)
 
 LG Sinarmas, 2024 to now, EV-battery plant. MES, real-time dispatching and AMHS integration for a plant that runs around the clock, and a log analyzer that replays equipment handshakes as timing diagrams.
 
