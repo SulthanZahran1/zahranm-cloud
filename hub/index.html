@@ -164,7 +164,7 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 
 /* ── act I: the turn, span by span ── */
 .act1 { padding: 32px 0 64px; }
-.act1 .wrap { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 48px; align-items: start; }
+.act1 .wrap { display: block; }
 .minimap { position: sticky; top: 88px; z-index: 5; font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); }
 .minimap .mm-h { display: flex; justify-content: space-between; font-family: var(--sans); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
 .minimap.paused .mm-wf, .minimap.paused .mm-strip { opacity: .35; }
@@ -248,7 +248,8 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .peek .more { display: none; }
 .pk-body { display: grid; gap: 12px; align-content: start; min-width: 0; }
 .pk-body { height: 392px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 calc(100% - 24px), transparent); mask-image: linear-gradient(#000 calc(100% - 24px), transparent); }
-.peek .rag-list li:nth-child(n+4), .peek .hj-level small { display: none; }
+.peek:not(.active) .rag-list li:nth-child(n+4), .peek .hj-level small { display: none; }
+.peek.active .pk-body { height: auto; max-height: none; -webkit-mask-image: none; mask-image: none; }
 .peek .hj-ko { font-size: 22px; }
 .mstrip { display: flex; gap: 4px; }
 .mstrip span { flex: 1; font-family: var(--mono); font-size: 11px; text-align: center; padding: 6px 0; border-radius: 6px; background: rgba(11,122,86,.12); color: var(--accent); }
@@ -306,7 +307,8 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 
 /* ── contact + your visit ── */
 .contact { margin-top: 100px; padding: 100px 0 90px; }
-.visit { border: 1px solid var(--c-line); border-radius: 18px; padding: 22px; margin-top: 64px; }
+.visit { border: 1px solid var(--c-line); border-radius: 18px; padding: 18px 22px; margin-top: 56px; }
+.visit[open] .legend { margin-top: 14px; }
 .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--c-dim); }
 .legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; background: var(--c); margin-right: 6px; }
 .visit h3 { font-family: var(--cond); font-weight: 600; font-size: 26px; letter-spacing: -.01em; }
@@ -557,6 +559,29 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .atoms.line svg#fx-svg { width: 100%; height: auto; }
 .gw-log { min-height: 112px; }
 
+/* ── exhibits: every replica of the work sits in a framed window, titled with
+   the project, so it can't be mistaken for the page itself ── */
+.x { border: 1px solid var(--c-line); border-radius: 14px; padding: 0 16px 16px; background: rgba(255,255,255,.015); }
+.xbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 0 -16px 4px; padding: 9px 16px; border-bottom: 1px solid var(--c-line); font-family: var(--mono); font-size: 12px; color: var(--c-dim); }
+.xbar b { color: var(--c-text); font-weight: 500; }
+.xbar { flex-wrap: wrap; row-gap: 4px; }
+.xbar > span:first-child { min-width: 0; }
+.demo.x { grid-template-columns: minmax(0, 1fr); }
+.rchip { flex: none; border: 1px solid var(--c-line); border-radius: 999px; padding: 1px 8px; font-size: 11px; white-space: nowrap; }
+.x .perm { background: none; padding: 0; }
+.turn.x { padding-top: 0; }
+.kicker { font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.dark .kicker { color: var(--c-green); }
+.act-h { padding: 24px 0 8px; }
+.act-h h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(34px, 4.4vw, 60px); line-height: .95; letter-spacing: -.025em; margin-top: 10px; text-wrap: balance; }
+.chap .role { margin-top: 8px; font-family: var(--mono); font-size: 13px; color: var(--c-green); }
+.visit summary { cursor: pointer; list-style: none; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.visit summary::-webkit-details-marker { display: none; }
+.visit summary b { font-family: var(--cond); font-weight: 600; font-size: 22px; color: var(--c-text); }
+.visit summary b::before { content: "▸ "; color: var(--c-dim); }
+.visit[open] summary b::before { content: "▾ "; }
+.visit summary span { font-size: 14px; color: var(--c-dim); }
+
 /* ── round 8: wide layouts ── */
 @media (min-width: 1100px) {
   .hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
@@ -566,14 +591,13 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
   .hero .wf-row { grid-template-columns: 248px minmax(0, 1fr) 60px; height: 28px; }
   .hero .wf-row .lbl { font-size: 12.5px; }
   .hero .msg { max-width: none; }
-  .contact .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 56px; align-items: start; }
   .contact h2 { font-size: clamp(42px, 5vw, 76px); }
-  .contact .visit { margin-top: 8px; }
   .contact .vt .wf-row { grid-template-columns: 200px minmax(0, 1fr) 60px; }
 }
 @media (min-width: 981px) {
   .chap { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-  .chap > div:first-child { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "tag cap" "h cap"; column-gap: 48px; align-items: start; }
+  .chap > div:first-child { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "tag cap" "h cap" "role cap"; column-gap: 48px; align-items: start; }
+  .chap > div:first-child .role { grid-area: role; }
   .chap > div:first-child .span-tag { grid-area: tag; }
   .chap > div:first-child h2 { grid-area: h; }
   .chap > div:first-child .cap { grid-area: cap; margin-top: 0; align-self: end; }
@@ -582,17 +606,12 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 
 /* ── responsive ── */
 @media (max-width: 1100px) {
-  .act1 .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .progress { display: none; }
-  .minimap { top: 56px; z-index: 20; display: flex; align-items: center; gap: 12px; margin: 0 calc(-1 * var(--gutter)); padding: 10px var(--gutter); background: rgba(15,16,18,.94); border-bottom: 1px solid var(--c-line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-  .minimap .mm-h { margin: 0; gap: 10px; flex: none; }
-  .mm-wf, .minimap .mm-visit { display: none; }
-  .mm-strip { display: block; }
 }
 @media (max-width: 980px) {
   .chap { grid-template-columns: minmax(0, 1fr); gap: 22px; padding: 56px 0; }
   .peeks { grid-template-columns: minmax(0, 1fr); }
   .pk-body { height: auto; max-height: 432px; }
+  .peek.active .pk-body { max-height: none; }
   .stage { padding: 16px; }
   .atoms .grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .idx-table li { grid-template-columns: 1fr auto; gap: 3px 12px; }
@@ -675,38 +694,36 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
     <p class="facts"><b>now</b>Metatech (AI agents) · LG Sinarmas (smart factory)<br>Indonesia (UTC+7) · Rust · TypeScript · Go · Python</p>
     </div>
 
-    <div class="turn" id="turn">
+    <div class="turn x" id="turn">
+      <div class="xbar"><span><b>Bella</b> · the AI chief of staff I build at Metatech</span><span class="rchip">replica · sample data</span></div>
       <div class="turn-top">
         <div class="msg in"><span class="ch">WhatsApp</span>Move my 3pm with Andi to tomorrow, same time, and let him know.</div>
-        <div class="asker" role="group" aria-label="Who is asking"><span>asked by</span><button type="button" data-r="member" aria-pressed="true">a member</button><button type="button" data-r="allowlisted" aria-pressed="false">an allowlisted guest</button></div>
+        <div class="asker" role="group" aria-label="Who is asking"><span>try it as</span><button type="button" data-r="member" aria-pressed="true">a member</button><button type="button" data-r="allowlisted" aria-pressed="false">an allowlisted guest</button></div>
       </div>
       <div class="wf" id="wf" role="group" aria-label="One agent turn, span by span"></div>
       <div class="msg out" id="turn-reply" aria-live="polite"><span class="ch">Bella</span><span id="turn-reply-text"></span></div>
-      <div class="turn-foot"><span class="meta" id="turn-meta"></span><span class="tf-act"><button type="button" id="turn-replay">▶ replay</button><a class="follow" href="#ch-gateway">↓ follow it</a></span></div>
+      <div class="turn-foot"><span class="meta" id="turn-meta"></span><span class="tf-act"><button type="button" id="turn-replay">▶ replay</button><a class="follow" href="#turn-chapters">↓ the systems behind it</a></span></div>
     </div>
   </div>
 </section>
 
 <section class="act1 dark" id="turn-chapters" aria-label="The turn, span by span">
   <div class="wrap">
-    <aside class="minimap" aria-label="This turn, as you scroll">
-      <p class="mm-h"><span class="mm-l" id="mm-l">this turn</span> <span id="mm-t">+0 ms</span></p>
-      <div class="mm-wf" id="mm"></div>
-      <div class="mm-strip" id="mm-strip" aria-hidden="true"></div>
-    </aside>
+    <div class="act-h"><p class="kicker">Work · Metatech · 2026–now</p><h2>The systems behind that turn</h2></div>
     <div>
 
       <article class="chap" id="ch-gateway" aria-labelledby="ch1-title">
         <div>
-          <p class="span-tag" style="--c:var(--s-gw)"><i></i>sambungapi · whatsapp.inbound / send<abbr class="rep" title="Replica of private code, with sample data">◇</abbr></p>
-          <h2 id="ch1-title">The pipe the message came through</h2>
-          <p class="cap">sambungapi is the Rust gateway I'm primary engineer on at Metatech: a durable outbox for webhooks, and a token vault for agents' OAuth tool calls.</p>
+          <p class="span-tag" style="--c:var(--s-gw)"><i></i>in the turn: whatsapp.inbound / send</p>
+          <h2 id="ch1-title">sambungapi</h2>
+          <p class="role">OAuth tool gateway for AI agents · Rust · primary engineer</p>
+          <p class="cap">Webhooks land in a durable outbox. Agents' OAuth tokens stay sealed until the call.</p>
         </div>
-        <div class="demo gw" id="gw-demo">
-          <p class="try">▶ <button type="button" class="tl" id="gw-wa">Replay the inbound delivery</button>, or send another agent's tool call through the vault: pick a provider.</p>
+        <div class="demo gw x" id="gw-demo">
+          <div class="xbar"><span><b>sambungapi</b> · the gateway</span><span class="rchip">replica · sample data</span></div>
           <svg viewBox="0 0 600 250" id="gw-svg" role="group" aria-label="Gateway diagram: WhatsApp and the agent, the gateway with its encrypted token vault, and seven providers">
           <g id="gw-wires"></g>
-          <g class="node" id="gw-agent" aria-hidden="true"><rect x="12" y="100" width="104" height="50" rx="10"/><text x="64" y="122" text-anchor="middle">Bella</text><text x="64" y="138" text-anchor="middle" style="fill:#9a9ca3;font-size:10px">agent</text></g>
+          <g class="node" id="gw-agent" aria-hidden="true"><rect x="12" y="100" width="104" height="50" rx="10"/><text x="64" y="122" text-anchor="middle" id="gw-an">Bella</text><text x="64" y="138" text-anchor="middle" style="fill:#9a9ca3;font-size:10px" id="gw-as">agent</text></g>
           <g class="hub" id="gw-hub" aria-hidden="true">
             <path d="M250 70 L330 70 L360 125 L330 180 L250 180 L220 125 Z"/>
             <text x="290" y="112" text-anchor="middle">sambungapi</text>
@@ -717,39 +734,40 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <g id="gw-provs"></g>
           <circle class="packet" id="gw-packet" r="5" cx="-999" cy="-999"/>
         </svg>
-          <p class="gw-note">In this turn, sambungapi carries the WhatsApp messages; Bella's calendar calls go to Google directly. The vault serves other agents' OAuth tool calls.</p>
-          <div class="gw-act" role="group" aria-label="Another path"><span>or:</span><button type="button" id="gw-exp">a tool call whose token is about to expire</button></div>
+          <div class="gw-act" role="group" aria-label="Paths"><button type="button" id="gw-wa">▶ replay this message</button><button type="button" id="gw-exp">token about to expire</button><span>or click a provider</span></div>
           <div class="gw-log" id="gw-log" aria-live="polite"><span class="key">$</span> waiting for the message…</div>
-          <p class="stack">Rust · axum · PostgreSQL · OAuth 2.0 · AES-256-GCM · transactional outbox</p>
         </div>
       </article>
 
       <article class="chap" id="ch-gate" aria-labelledby="ch2-title">
         <div>
-          <p class="span-tag" style="--c:var(--s-gate)"><i></i>bella · gate → google · calendar.update<abbr class="rep" title="Real tool names and roles; sample request">◇</abbr></p>
-          <h2 id="ch2-title">One role short</h2>
-          <p class="cap">Bella is the AI chief of staff I'm a core engineer on. Every tool declares a minimum role, and a gate checks it before the call runs.</p>
+          <p class="span-tag" style="--c:var(--s-gate)"><i></i>in the turn: gate → calendar.update</p>
+          <h2 id="ch2-title">Bella</h2>
+          <p class="role">AI chief of staff · TypeScript agent worker · core engineer</p>
+          <p class="cap">Every tool declares a minimum role. A gate checks it before the call runs.</p>
         </div>
-        <div class="demo">
+        <div class="demo x">
+        <div class="xbar"><span><b>Bella</b> · the role gate</span><span class="rchip">real tool names · sample request</span></div>
         <div class="perm">
-          <p class="try">▶ Same message, <button type="button" class="who" id="perm-who">asked by a member ⇄</button></p>
+          <p class="try">▶ <span id="perm-pre">This turn,</span> <button type="button" class="who" id="perm-who">asked by a member ⇄</button></p>
           <p class="perm-ask" id="perm-ask"></p>
           <ul class="perm-steps" id="perm-steps"></ul>
           <pre class="perm-res" id="perm-res" aria-label="The tool result the model receives"></pre>
           <p class="perm-reply" id="perm-reply" aria-live="polite"></p>
           <button type="button" class="harder" id="perm-harder">try a harder request ▸</button>
         </div>
-          <p class="stack">TypeScript · Hono · Go · MongoDB · Redis · LLM tool use</p>
         </div>
       </article>
 
       <article class="chap" id="ch-console" aria-labelledby="ch3-title">
         <div>
-          <p class="span-tag" style="--c:var(--s-human)"><i></i>console · review → dataset<abbr class="rep" title="Real span attributes and dataset names, sample values">◇</abbr></p>
-          <h2 id="ch3-title">Every turn, traced and reviewed</h2>
-          <p class="cap">Most of Bella's observability console is mine: this waterfall, per-span tokens and cost, and a review loop that turns verdicts into eval cases.</p>
+          <p class="span-tag" style="--c:var(--s-human)"><i></i>in the turn: every span</p>
+          <h2 id="ch3-title">Bella console</h2>
+          <p class="role">Observability and evals · built most of it</p>
+          <p class="cap">Per-span tokens and cost, and human reviews that become eval cases.</p>
         </div>
-        <div class="demo">
+        <div class="demo x">
+          <div class="xbar"><span><b>Bella console</b> · trace inspector</span><span class="rchip">real attributes · sample values</span></div>
           <div class="insp">
             <div class="insp-list" id="insp-list" role="group" aria-label="Spans"></div>
             <div class="insp-body" id="insp-body" aria-live="polite"></div>
@@ -770,8 +788,8 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 <section class="solo" id="solo" aria-labelledby="solo-title">
   <div class="wrap">
     <div class="sec-h">
-      <h2 id="solo-title">Built solo, in the open</h2>
-      <p>Open source and personal builds: trusting the code agents write, retrieval that weighs evidence, and real-time voice.</p>
+      <div><p class="kicker">Work · solo · open source</p><h2 id="solo-title" style="margin-top:10px">Built solo, in the open</h2></div>
+      <p>Each card is a project. Open one for its working demo.</p>
     </div>
     <div class="peeks">
 
@@ -891,9 +909,9 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
   <div class="wrap">
     <div class="grid">
       <div>
-        <p class="tag">LG Sinarmas · 2024–now · full-time · EV-battery plant</p>
+        <p class="kicker">Work · LG Sinarmas · 2024–now · full-time</p>
         <h2 id="fx-title">And software that moves atoms</h2>
-        <p class="cap">MES, real-time dispatching and AMHS integration for a plant that runs around the clock, and a log analyzer that replays equipment handshakes as timing diagrams.</p>
+        <p class="cap">MES, dispatching and AMHS integration for a 24/7 EV-battery plant, plus a log analyzer that replays equipment handshakes.</p>
         <ul class="chips" aria-label="Stack"><li><abbr title="manufacturing execution system">MES</abbr></li><li><abbr title="real-time dispatching: which vehicle moves what, next">RTD</abbr></li><li><abbr title="automated material handling: AGVs, conveyors, stockers">AMHS</abbr></li><li>C# / .NET</li><li>SQL Server</li><li>Python</li><li>KO–EN RAG</li></ul>
         <button type="button" class="expand" id="atoms-open" aria-expanded="false">▸ replay an incident</button>
       </div>
@@ -1006,9 +1024,8 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
     </div>
     <p class="recruit">Recruiter? <a href="/recruit/">Paste a job description</a> and get a short, evidence-based pitch from my work profile.</p>
     </div>
-    <div class="visit" aria-labelledby="visit-title">
-      <h3 id="visit-title">Your visit, traced like a Bella turn</h3>
-      <p class="vsub">Every demo you touched emitted a span. Kept in this tab's memory only; nothing is sent anywhere.</p>
+    <details class="visit">
+      <summary><b>Bonus: this page traces your visit</b><span>a toy, kept in this tab's memory; nothing is sent</span></summary>
       <p class="legend" aria-hidden="true"><span><i style="--c:#6b6f78"></i>page</span><span><i style="--c:var(--s-gw)"></i>gateway</span><span><i style="--c:var(--s-llm)"></i>model</span><span><i style="--c:var(--s-gate)"></i>gate</span><span><i style="--c:var(--s-prov)"></i>tool</span><span><i style="--c:var(--s-human)"></i>human</span><span><i style="--c:var(--s-fail)"></i>failure</span></p>
       <div class="vt" id="vt"></div>
       <div class="review" id="v-review" style="margin-top:14px"><span>Review this visit:</span>
@@ -1016,7 +1033,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
         <button type="button" data-v="bad-reply">✗ not for us</button>
       </div>
       <pre class="ds-row" id="v-row" style="margin-top:10px;min-height:0" aria-live="polite"></pre>
-    </div>
+    </details>
   </div>
 </section>
 
@@ -1303,67 +1320,11 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   });
 })();
 
-/* ── minimap: the same turn as a mini waterfall. Scrolling through the three
-   chapters moves a playhead along the turn's time axis. ── */
+/* ── reading progress ── */
 (function () {
-  var mm = document.getElementById("mm"), strip = document.getElementById("mm-strip"), tEl = document.getElementById("mm-t");
-  var bar = document.getElementById("progress"), act = document.getElementById("turn-chapters");
-  var CH = ["ch-gateway", "ch-gate", "ch-console"];
-  var SHORT = { "whatsapp.inbound": "inbound", "calendar.findEvent": "findEvent", "calendar.update": "update", "whatsapp.send": "send", "review → dataset": "review" };
-  var rows = [], segs = [], X;
-  function pct(v) { return (v / X.axis * 100) + "%"; }
-  function build() {
-    X = window.TURN(); mm.innerHTML = ""; strip.innerHTML = ""; rows = []; segs = [];
-    X.turn.spans.forEach(function (p) {
-      var b = document.createElement("button"), c = X.C[p[4]] || X.C.prov, w = pct(Math.max(30, p[3] - p[2]));
-      b.type = "button"; b.className = "mm-row" + (p[4] === "skip" ? " nr" : "") + (p[4] === "human" ? " mark" : "");
-      b.style.setProperty("--c", c); b.dataset.ch = p[5];
-      b.setAttribute("aria-label", p[0] + " " + p[1] + ": go to its chapter");
-      b.innerHTML = '<span class="n">' + (/^gate/.test(p[1]) ? "gate " + (p[4] === "fail" ? "✗" : "✓") : SHORT[p[1]] || p[1]) + '</span><span class="tr">' +
-        (p[4] === "skip" ? "" : '<span class="g" style="left:' + pct(p[2]) + ";width:" + w + '"></span><span class="b" style="left:' + pct(p[2]) + '"></span>') + "</span>";
-      b.addEventListener("click", function () { document.getElementById(p[5]).scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" }); });
-      mm.appendChild(b); rows.push([b, p]);
-      if (p[4] === "skip") return;
-      var i = document.createElement("i"); i.style.setProperty("--c", c); i.style.left = pct(p[2]); i.style.width = w; i.dataset.ch = p[5];
-      strip.appendChild(i); segs.push(i);
-    });
-    var ph = document.createElement("span"); ph.className = "mm-ph"; mm.appendChild(ph);
-    onScroll();
-  }
-  function onScroll() {
-    var h = document.documentElement;
-    bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight) * 100) + "%";
-    var s = X.turn.spans, total = s[s.length - 1][3];
-    /* chapter time windows: up to the first gate-chapter span, the gate chapter, then the rest */
-    var gs = s.filter(function (p) { return p[5] === "ch-gate" && p[4] !== "skip"; });
-    var W = [[0, gs[0][2]], [gs[0][2], gs[gs.length - 1][3] + 20], [gs[gs.length - 1][3] + 20, total]];
-    var line = innerHeight * 0.5, cur = null, t = 0;
-    CH.forEach(function (id, k) {
-      var r = document.getElementById(id).getBoundingClientRect();
-      if (r.top <= line) { cur = id; t = W[k][0] + Math.min(1, (line - r.top) / r.height) * (W[k][1] - W[k][0]); }
-    });
-    var ar = act.getBoundingClientRect(); if (ar.bottom < line) { t = total; cur = null; }
-    rows.forEach(function (x) {
-      var b = x[0], p = x[1];
-      b.classList.toggle("on", p[5] === cur);
-      if (p[4] === "human") b.classList.toggle("done", t >= p[2]);
-      else if (p[4] !== "skip") b.querySelector(".b").style.width = pct(Math.max(0, Math.min(t, p[3]) - p[2]));
-    });
-    segs.forEach(function (i) { i.classList.toggle("on", i.dataset.ch === cur); });
-    mm.style.setProperty("--f", t / X.axis); strip.style.setProperty("--f", t / X.axis);
-    tEl.textContent = "+" + Math.round(t).toLocaleString("en-US") + " ms";
-    var K = { "ch-gateway": "var(--s-gw)", "ch-gate": "var(--s-gate)", "ch-console": "var(--s-human)" };
-    bar.style.backgroundColor = cur ? K[cur] : "var(--c-green)";
-  }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  document.addEventListener("turn:role", build);
-  document.addEventListener("gate:request", function (e) {
-    var other = e.detail === 1, aside = mm.closest(".minimap");
-    aside.classList.toggle("paused", other);
-    document.getElementById("mm-l").textContent = other ? "paused · other request" : "this turn";
-  });
-  build();
+  var bar = document.getElementById("progress");
+  function onScroll() { var h = document.documentElement; bar.style.width = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight) * 100) + "%"; }
+  window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
 })();
 
 /* ── your visit, as a waterfall ── */
@@ -1418,6 +1379,9 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   var packet = document.getElementById("gw-packet"), log = document.getElementById("gw-log");
   var lock = document.getElementById("gw-lock"), shackle = document.getElementById("gw-shackle");
   var agentG = document.getElementById("gw-agent"), hubG = document.getElementById("gw-hub");
+  var an = document.getElementById("gw-an"), as = document.getElementById("gw-as");
+  /* Bella's own calendar calls don't use the vault; provider calls here come from another agent */
+  function who(other) { an.textContent = other ? "other agent" : "Bella"; as.textContent = other ? "e.g. a Slack bot" : "agent"; }
   function el(tag, a, parent) { var n = document.createElementNS(NS, tag); for (var k in a) n.setAttribute(k, a[k]); (parent || svg).appendChild(n); return n; }
   var inWire, waWire, outWires = [], nodes = [], narrow = null, sel = 0, busy = 0, userTouched = false, other = null;
 
@@ -1499,7 +1463,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   function call(i, expiring) {
     var my = ++busy, p = provs[i], w = outWires[i];
     emit("sambungapi", (expiring ? "refresh + " : "") + p[1], expiring ? 2300 : 1600);
-    hot(i, false); packet.classList.remove("bad"); demo.classList.add("tools");
+    hot(i, false); packet.classList.remove("bad"); demo.classList.add("tools"); who(true);
     var lines = expiring ? [
       '<span class="key">→</span> execute <b>' + p[1] + "</b> · idempotency key claimed",
       '<span class="key">◆</span> token k3 decrypted · expires in 40 s → refresh first',
@@ -1526,7 +1490,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   }
   function inbound(auto) {
     var my = ++busy; if (!auto) { userTouched = true; emit("sambungapi", "whatsapp.inbound · retry", 3600); }
-    hot(-1, true); packet.classList.remove("bad"); setLock(null); demo.classList.remove("tools");
+    hot(-1, true); packet.classList.remove("bad"); setLock(null); demo.classList.remove("tools"); who(false);
     var lines = [
       '<span class="key">←</span> WhatsApp webhook · <b>message.received</b>',
       '<span class="key">◆</span> tx: outbox_deliveries row + HMAC signature · commit',
@@ -1595,6 +1559,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   function show() {
     var my = ++tok, T = window.TURN(), role = T.role, rank = ORDER.indexOf(role), R = REQ[q], denied = null;
     who.textContent = "asked by " + WHO[role] + " ⇄";
+    document.getElementById("perm-pre").textContent = q ? "Harder request," : "This turn,";
     ask.textContent = R.ask;
     list.innerHTML = R.steps.map(function (st) {
       var ok = rank >= ORDER.indexOf(st[2]);

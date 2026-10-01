@@ -28,18 +28,18 @@ The home page opens on one Bella turn drawn as a trace (timings and token counts
 7. sambungapi · whatsapp.send
 8. console · review → dataset
 
-A toggle switches who is asking. As a member, the gate passes and the event moves. As an allowlisted guest, the gate refuses calendar.update, Google is never contacted, and Bella replies that moving events needs a member account. Scrolling (or clicking a span) follows the turn through three chapters, while a mini waterfall beside them moves a playhead along the turn's time axis.
+A toggle switches who is asking. As a member, the gate passes and the event moves. As an allowlisted guest, the gate refuses calendar.update, Google is never contacted, and Bella replies that moving events needs a member account. Scrolling (or clicking a span) follows the turn through three chapters. Each chapter is one of the systems I built, and every demo is a framed replica titled with its project name.
 
-### 1. The pipe the message came through (sambungapi)
+### 1. sambungapi: OAuth tool gateway for AI agents (Rust, primary engineer)
 
 sambungapi is the Rust gateway I'm primary engineer on at Metatech: a durable outbox for webhooks, and a token vault for agents' OAuth tool calls. Replica of private code, sample data.
 
 - Inbound webhooks (e.g. WhatsApp message.received) are committed to a durable outbox in the same transaction and delivered at-least-once by a worker that retries with the same Idempotency-Key.
 - Tool calls don't go through the outbox: each one is idempotency-keyed, unseals the AES-256-GCM OAuth token for that call only, and writes an execution_logs row. Tokens are refreshed before expiry, or once on a 401.
-- Demo: the chapter plays this turn's path: the WhatsApp webhook is committed to the outbox, the first delivery to Bella gets a 503 and is retried with the same Idempotency-Key, and Bella's reply goes back out through whatsapp.send. Other agents' OAuth tool calls are shown dimmed; pick one of seven providers to send one through the vault, or try a tool call whose token is about to expire.
+- Demo: the chapter plays this turn's path: the WhatsApp webhook is committed to the outbox, the first delivery to Bella gets a 503 and is retried with the same Idempotency-Key, and Bella's reply goes back out through whatsapp.send. Bella's own calendar calls go to Google directly, so other agents' OAuth tool calls are shown dimmed; pick one of seven providers to send one through the vault (the agent node switches to "other agent"), or try a tool call whose token is about to expire.
 - Stack: Rust, axum, PostgreSQL, OAuth 2.0, AES-256-GCM, transactional outbox.
 
-### 2. One role short (Bella's role gate)
+### 2. Bella: AI chief of staff (TypeScript agent worker, core engineer)
 
 Bella is the AI chief of staff I'm a core engineer on: WhatsApp, Lark, Teams and web, one agent worker behind them. Every tool declares a minimum role, and a gate checks it before the call runs. Real tool names and roles, sample requests.
 
@@ -48,7 +48,7 @@ Bella is the AI chief of staff I'm a core engineer on: WhatsApp, Lark, Teams and
 - A harder request, "Book the sales sync for 10:00 tomorrow, and remind the team every Monday.", adds calendar.freebusy, calendar.create and workflow.create (minRole admin), so even a member is one role short.
 - Stack: TypeScript, Hono, Go, MongoDB, Redis, LLM tool use.
 
-### 3. Every turn, traced and reviewed (the observability console)
+### 3. Bella console: observability and evals (built most of it)
 
 Most of Bella's observability console is mine: the waterfall, per-span tokens and cost, and a review loop that turns verdicts into eval cases. Real span attributes and dataset names, sample values.
 
@@ -123,7 +123,7 @@ Each lane is a track, each box a role; clicking one shows a one-line readout and
 
 ## Your visit, traced
 
-Every demo a visitor touches emits a span, and the page draws the visit as a waterfall, like a Bella turn, coloured by span kind (page, gateway, model, gate, tool, human, failure), with a playful "review this visit" step. The trace is kept in the tab's memory only; nothing is stored or sent anywhere.
+Every demo a visitor touches emits a span, and the page draws the visit as a waterfall, like a Bella turn, coloured by span kind (page, gateway, model, gate, tool, human, failure), with a playful "review this visit" step. It is a collapsed bonus at the end, clearly separate from the work. The trace is kept in the tab's memory only; nothing is stored or sent anywhere.
 
 ## Contact
 
