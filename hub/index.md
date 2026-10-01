@@ -9,7 +9,11 @@ last_updated: 2026-10-01
 
 Tool gateways, agent runtimes, and the traces and evals that keep them honest.
 
-Indonesia (UTC+7) · Rust · TypeScript · Go · Python · [CV (PDF)](https://zahranm.cloud/cv.pdf)
+Now: Metatech (AI agents) · LG Sinarmas (smart factory)
+
+Indonesia (UTC+7) · Rust · TypeScript · Go · Python · [CV (PDF)](https://zahranm.cloud/cv.pdf) · [GitHub](https://github.com/SulthanZahran1)
+
+Skills: AI agents · tool use / MCP · RAG · LLM observability · agent harnesses · voice pipelines · mutation testing
 
 ## One agent turn, traced
 
@@ -24,28 +28,29 @@ The home page opens on one Bella turn drawn as a trace (timings and token counts
 7. sambungapi · whatsapp.send
 8. console · review → dataset
 
-A toggle switches who is asking. As a member, the gate passes and the event moves. As an allowlisted guest, the gate refuses calendar.update, Google is never contacted, and Bella replies that moving events needs a member account. Scrolling (or clicking a span) follows the turn through three chapters.
+A toggle switches who is asking. As a member, the gate passes and the event moves. As an allowlisted guest, the gate refuses calendar.update, Google is never contacted, and Bella replies that moving events needs a member account. Scrolling (or clicking a span) follows the turn through three chapters, while a mini waterfall beside them moves a playhead along the turn's time axis.
 
-### 1. The gateway the message came through (sambungapi)
+### 1. The pipe the message came through (sambungapi)
 
-sambungapi is the Rust gateway I'm primary engineer on at Metatech. Replica of private code, sample data.
+sambungapi is the Rust gateway I'm primary engineer on at Metatech: a durable outbox for webhooks, and a token vault for agents' OAuth tool calls. Replica of private code, sample data.
 
 - Inbound webhooks (e.g. WhatsApp message.received) are committed to a durable outbox in the same transaction and delivered at-least-once by a worker that retries with the same Idempotency-Key.
 - Tool calls don't go through the outbox: each one is idempotency-keyed, unseals the AES-256-GCM OAuth token for that call only, and writes an execution_logs row. Tokens are refreshed before expiry, or once on a 401.
-- Demo: click one of seven providers to send a tool call, or try "token about to expire" and "incoming WhatsApp message".
-- Stack: Rust, axum, PostgreSQL, OAuth 2.0, AES-256-GCM, outbox.
+- Demo: the chapter plays this turn's path: the WhatsApp webhook is committed to the outbox, the first delivery to Bella gets a 503 and is retried with the same Idempotency-Key, and Bella's reply goes back out through whatsapp.send. Other agents' OAuth tool calls are shown dimmed; pick one of seven providers to send one through the vault, or try a tool call whose token is about to expire.
+- Stack: Rust, axum, PostgreSQL, OAuth 2.0, AES-256-GCM, transactional outbox.
 
-### 2. Same request, different person (Bella's role gate)
+### 2. One role short (Bella's role gate)
 
-Bella is the AI chief of staff I'm a core engineer on: WhatsApp, Lark, Teams and web, one agent worker behind them. Real tool names and roles, sample request.
+Bella is the AI chief of staff I'm a core engineer on: WhatsApp, Lark, Teams and web, one agent worker behind them. Every tool declares a minimum role, and a gate checks it before the call runs. Real tool names and roles, sample requests.
 
 - Every tool declares a minimum role (admin, member, allowlisted), and a gate checks it before the call runs. A denial goes back to the model as `{ "ok": false, "verb": …, "error": { "code": "forbidden" } }`, and the model tells the user.
-- Demo: "Book the sales sync for 10:00 tomorrow, and remind the team every Monday." asked as admin, member or allowlisted; calendar.freebusy, calendar.create and workflow.create are allowed or forbidden, and the reply changes to match.
+- Demo: the same message as the hero turn, checked by the gate: calendar.findEvent (minRole allowlisted) and calendar.update (minRole member). The asker is shared with the hero toggle; as an allowlisted guest, calendar.update is forbidden and the denial shown is the tool result the model receives.
+- A harder request, "Book the sales sync for 10:00 tomorrow, and remind the team every Monday.", adds calendar.freebusy, calendar.create and workflow.create (minRole admin), so even a member is one role short.
 - Stack: TypeScript, Hono, Go, MongoDB, Redis, LLM tool use.
 
 ### 3. Every turn, traced and reviewed (the observability console)
 
-I built most of Bella's observability console: the waterfall, per-span tokens and cost, and a review loop where each verdict becomes a case in an eval dataset. Real span attributes and dataset names, sample values.
+Most of Bella's observability console is mine: the waterfall, per-span tokens and cost, and a review loop that turns verdicts into eval cases. Real span attributes and dataset names, sample values.
 
 - Demo: inspect any span of the turn (token usage for model spans, minRole for tool calls, the gate decision, the outbox path for sambungapi spans), then review it: correct → confirmed-routing, wrong skill → hard-routing, bad reply → hard-quality.
 
@@ -55,7 +60,7 @@ Open source and personal builds: trusting the code agents write, retrieval that 
 
 ### Would your tests catch a bug? (rust_mutant, dart-mutant, gopher_mutant)
 
-On crates.io. Plant small bugs; good tests fail. The playground is real rust-mutant 1.0.1 output (`--format json`) for a `fare(age, base)` function with two tests (adult, child).
+On crates.io. Plant small bugs; good tests fail. The card shows the six mutants at a glance: four killed, one survived (LOR), one equivalent (AOI). The playground is real rust-mutant 1.0.1 output (`--format json`) for a `fare(age, base)` function with two tests (adult, child).
 
 - Before the missing test: MSI 80%. LOR `||` → `&&` survives, and the IR check (TCE) confirms it is real: the IR differs. After adding a toddler test: MSI 100%.
 - AOI `/` → `/ 1 /` survives the tests but is marked `equivalent`: at opt-level=2 it compiles to the same IR hash, so it is excluded from the score. TCE runs only on survivors.
@@ -118,7 +123,7 @@ Each lane is a track, each box a role; clicking one shows a one-line readout and
 
 ## Your visit, traced
 
-Every demo a visitor touches emits a span, and the page draws the visit as a waterfall, like a Bella turn, with a playful "review this visit" step. The trace is kept in the tab's memory only; nothing is stored or sent anywhere.
+Every demo a visitor touches emits a span, and the page draws the visit as a waterfall, like a Bella turn, coloured by span kind (page, gateway, model, gate, tool, human, failure), with a playful "review this visit" step. The trace is kept in the tab's memory only; nothing is stored or sent anywhere.
 
 ## Contact
 
