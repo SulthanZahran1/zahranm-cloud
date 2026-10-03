@@ -147,7 +147,8 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .wf-row.mark.on .bar { transform: none; }
 .wf-row .ms { font-family: var(--mono); font-size: 13px; color: var(--c-dim); text-align: right; padding-right: 8px; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .wf-row.fail .lbl, .wf-row.fail .ms { color: var(--c-red); }
-.wf-row.nr { opacity: .35; }
+.wf-row.nr .lbl, .wf-row.nr .lbl i, .wf-row.nr .ms { color: var(--c-dim); }
+.wf-row.nr .lbl { text-decoration: line-through; }
 .wf-row.nr .ms::after { content: "not run"; }
 .xh { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px solid rgba(233,231,225,.5); pointer-events: none; opacity: 0; transition: opacity .12s linear; }
 .xh span { position: absolute; top: -22px; left: 6px; font-family: var(--mono); font-size: 12px; color: var(--c-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -192,7 +193,7 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .chap:first-child { border-top: 0; padding-top: 24px; }
 .span-tag { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px; color: var(--c-dim); }
 .span-tag i { width: 10px; height: 10px; border-radius: 2px; background: var(--c); }
-.chap h2 { font-family: var(--cond); font-weight: 600; font-size: clamp(30px, 3vw, 40px); line-height: 1; letter-spacing: -.02em; margin-top: 14px; text-wrap: balance; }
+.chap h3 { font-family: var(--cond); font-weight: 600; font-size: clamp(30px, 3vw, 40px); line-height: 1; letter-spacing: -.02em; margin-top: 14px; text-wrap: balance; }
 .chap .cap { margin-top: 16px; color: #c9c7c0; font-size: 16px; }
 .chap .cap + .cap { margin-top: 10px; }
 .span-tag .rep { color: var(--c-amber); text-decoration: none; margin-left: 4px; }
@@ -255,8 +256,8 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .peek.active .pk-body { height: auto; max-height: none; -webkit-mask-image: none; mask-image: none; }
 .peek .hj-ko { font-size: 22px; }
 .mstrip { display: flex; gap: 4px; }
-.mstrip span { flex: 1; font-family: var(--mono); font-size: 11px; text-align: center; padding: 6px 0; border-radius: 6px; background: rgba(11,122,86,.12); color: var(--accent); }
-.mstrip .sv { background: #fde2e2; color: #b91c1c; } .mstrip .eq { background: #fbefd5; color: #a16207; }
+.mstrip span { flex: 1; font-family: var(--mono); font-size: 11px; text-align: center; padding: 6px 0; border-radius: 6px; background: rgba(11,122,86,.12); color: #08603f; }
+.mstrip .sv { background: #fde2e2; color: #b91c1c; } .mstrip .eq { background: #fbefd5; color: #8a5306; }
 .mstrip-cap { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
 .peek.active { box-shadow: 0 0 0 2px var(--ink); }
 .peek.dark.active { box-shadow: 0 0 0 2px var(--c-green); }
@@ -264,6 +265,9 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .stage.dark { background: var(--night); color: var(--c-text); border-color: #000; }
 .stage .play { justify-self: start; }
 .stage:empty { display: none; }
+@media (min-width: 981px) { .stage { grid-row: 2; } }
+.stage h3.stage-h { font-weight: 400; }
+.stage h3.stage-h:focus { outline: none; }
 .stage .more { display: grid; gap: 14px; }
 .stage .stage-h { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
 .stage.dark .stage-h { color: var(--c-dim); }
@@ -274,7 +278,7 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .peek.dark .expand:hover { background: var(--c-text); color: var(--night); }
 .mini { background: var(--c-bg); color: var(--c-text); border-radius: 12px; padding: 14px 16px; font-family: var(--mono); font-size: 13px; line-height: 1.7; white-space: pre; overflow-x: auto; }
 .mini .bad { background: var(--c-red); color: #1b0b0b; border-radius: 4px; padding: 0 3px; }
-.mini .cm { color: #6b6f78; } .mini .kw { color: #c792ea; } .mini .ty { color: var(--c-amber); } .mini .ok { color: var(--c-green); }
+.mini .cm { color: #8e939c; } .mini .kw { color: #c792ea; } .mini .ty { color: var(--c-amber); } .mini .ok { color: var(--c-green); }
 .pk-meter { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
 .pk-meter .m { flex: 1; height: 8px; border-radius: 99px; background: var(--line-2); overflow: hidden; }
 .pk-meter .m i { display: block; height: 100%; width: 80%; background: var(--accent); }
@@ -310,6 +314,12 @@ abbr[title] { text-decoration: underline dotted; text-underline-offset: 3px; cur
 .readout .ro-line { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
 .td-hint { margin-top: 10px; font-size: 13px; color: var(--muted); }
 .js #roles { display: none; }
+.no-js .asker, .no-js .wf, .no-js .turn-foot, .no-js .chap .demo, .no-js .expand, .no-js #atoms-open, .no-js .visit,
+.no-js .mut, .no-js #pk-mut .more > p, .no-js .play, .no-js .rag-note, .no-js .rag-pick, .no-js .rag-list, .no-js .listeners,
+.no-js .hj-ko, .no-js .hj-level, .no-js .lanes { display: none; }
+.no-js .peek .more { display: grid; gap: 14px; }
+.no-js .pk-body { height: auto; -webkit-mask-image: none; mask-image: none; }
+.no-js .msg.out { opacity: 1; transform: none; }
 .no-js .td-scroll { display: none; }
 .role { margin-top: 12px; } .role h3 { font-size: 18px; } .role .when, .role .org { display: block; font-size: 14px; color: var(--muted); }
 
@@ -399,7 +409,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 /* mutation playground */
 .mut { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 14px; }
 .code { background: var(--c-bg); color: var(--c-text); border-radius: 12px; padding: 14px 16px; font-family: var(--mono); font-size: 13px; line-height: 1.7; overflow-x: auto; white-space: pre; }
-.code .kw { color: #c792ea; } .code .fn { color: var(--c-blue); } .code .ty { color: var(--c-amber); } .code .cm { color: #6b6f78; }
+.code .kw { color: #c792ea; } .code .fn { color: var(--c-blue); } .code .ty { color: var(--c-amber); } .code .cm { color: #8e939c; }
 .code .mt { border-radius: 4px; padding: 1px 2px; transition: background .2s, color .2s; }
 .code .mt.mutated { background: var(--c-red); color: #1b0b0b; }
 .code .mt.equiv { background: var(--c-amber); color: #1b1405; }
@@ -437,13 +447,13 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .listeners button[aria-pressed="true"] { background: var(--c-text); color: var(--c-bg); border-color: var(--c-text); }
 .hj-say { font-family: var(--sans); font-size: 15px; color: var(--c-dim); }
 .hj-ko { font-size: 24px; line-height: 1.35; word-break: keep-all; font-family: "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", var(--sans); }
-.hj-ko .ck { transition: color .3s, background .3s; border-radius: 4px; color: #4a4d55; }
+.hj-ko .ck { transition: color .3s, background .3s; border-radius: 4px; color: #74777f; }
 .hj-ko .ck.on { color: var(--c-text); }
 .hj-ko .ck.end.on { color: var(--c-text); text-decoration-color: var(--c-blue); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .hj-ko .ck.speaking { background: rgba(52,211,153,.18); color: var(--c-green); }
 .hj-level { font-family: var(--mono); font-size: 11px; color: var(--c-blue); }
 .hj-level small { color: var(--c-dim); font-size: 11px; }
-.hj-ko .ck { opacity: .35; } .hj-ko .ck.on, .hj-ko .ck.speaking { opacity: 1; }
+
 .lanes { display: grid; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--c-dim); }
 .lane { display: grid; grid-template-columns: 48px 1fr; gap: 8px; align-items: center; }
 .lane .tr { position: relative; height: 12px; background: var(--c-panel); border-radius: 4px; overflow: hidden; }
@@ -477,7 +487,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .line-grid > div { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
 .lta { display: grid; gap: 10px; }
 .lta-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 10px; align-items: stretch; }
-.lta-log { background: var(--c-bg); color: #6f737b; border-radius: 10px; padding: 10px; font-family: var(--mono); font-size: 10.5px; line-height: 1.75; overflow-x: auto; white-space: pre; margin: 0; }
+.lta-log { background: var(--c-bg); color: #8e939c; border-radius: 10px; padding: 10px; font-family: var(--mono); font-size: 10.5px; line-height: 1.75; overflow-x: auto; white-space: pre; margin: 0; }
 .lta-log .on { color: var(--c-text); }
 .lta-log .bad { color: var(--c-amber); }
 .lta-svg { width: 100%; height: auto; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; }
@@ -507,7 +517,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 .rag-list li.want { border-color: var(--accent); background: var(--accent-soft); }
 .rag-list .rk { font-family: var(--mono); font-size: 12px; color: var(--muted); }
 .rag-list .nm { font-size: 14px; font-weight: 500; }
-.rag-list .nm i { font-style: normal; color: var(--accent); margin-left: 6px; font-size: 12px; }
+.rag-list .nm i { font-style: normal; color: #08603f; margin-left: 6px; font-size: 12px; }
 .rag-list .sc { font-family: var(--mono); font-size: 12px; color: var(--ink-2); text-align: right; }
 .rag-list small { grid-column: 2 / -1; font-family: var(--mono); font-size: 11px; color: var(--muted); }
 .rag-note { font-size: 14px; color: var(--ink-2); }
@@ -608,7 +618,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
   .chap > div:first-child { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "tag cap" "h cap" "role cap"; column-gap: 48px; align-items: start; }
   .chap > div:first-child .role { grid-area: role; }
   .chap > div:first-child .span-tag { grid-area: tag; }
-  .chap > div:first-child h2 { grid-area: h; }
+  .chap > div:first-child h3 { grid-area: h; }
   .chap > div:first-child .cap { grid-area: cap; margin-top: 0; align-self: end; }
   .gw svg { max-height: 300px; }
 }
@@ -675,10 +685,11 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 <body class="no-js">
 <script>document.body.className = "js";</script>
 <a class="skip" href="#main">Skip to content</a>
+<span class="sr" role="status" id="copy-sr"></span>
 
 <header class="bar" id="bar">
   <div class="wrap">
-    <a class="mark" href="/" aria-label="Sulthan Zahran Ma'ruf, home">
+    <a class="mark" href="/" aria-label="zahranm.cloud, home">
       <svg width="22" height="22" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="3" fill="#e9e7e1"/><path d="M3 11V5h3v6h3V5h4" fill="none" stroke="#0b7a56" stroke-width="1.6"/></svg>
       zahranm.cloud
     </a>
@@ -687,7 +698,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
       <a href="/about">about</a>
       <a class="opt" href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github ↗</a>
       <a href="/cv.pdf">cv ↓</a>
-      <button type="button" class="copy" data-copy="zsulthan9@gmail.com" aria-label="Copy email address">email</button>
+      <a class="copy" href="mailto:zsulthan9@gmail.com" data-copy="zsulthan9@gmail.com" title="Copy email address">email</a>
     </nav>
   </div>
   <span class="progress" id="progress" aria-hidden="true"></span>
@@ -711,7 +722,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
         <div class="asker" role="group" aria-label="Who is asking"><span>try it as</span><button type="button" data-r="member" aria-pressed="true">a member</button><button type="button" data-r="allowlisted" aria-pressed="false">an allowlisted guest</button></div>
       </div>
       <div class="wf" id="wf" role="group" aria-label="One agent turn, span by span"></div>
-      <div class="msg out" id="turn-reply" aria-live="polite"><span class="ch">Bella</span><span id="turn-reply-text"></span></div>
+      <div class="msg out" id="turn-reply" aria-live="polite"><span class="ch">Bella</span><span id="turn-reply-text">Done. “Sync with Andi” is now tomorrow 15:00–15:30, and he has the updated invite.</span></div>
       <div class="turn-foot"><span class="meta" id="turn-meta"></span><span class="tf-act"><button type="button" id="turn-replay">▶ replay</button><a class="follow" href="#turn-chapters">↓ the systems behind it</a></span></div>
     </div>
   </div>
@@ -725,7 +736,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
       <article class="chap" id="ch-gateway" aria-labelledby="ch1-title">
         <div>
           <p class="span-tag" style="--c:var(--s-gw)"><i></i>in the turn: whatsapp.inbound / send</p>
-          <h2 id="ch1-title">sambungapi</h2>
+          <h3 id="ch1-title">sambungapi</h3>
           <p class="role">OAuth tool gateway for AI agents · Rust · primary engineer</p>
           <p class="cap">Webhooks land in a durable outbox. Agents' OAuth tokens stay sealed until the call.</p>
         </div>
@@ -745,14 +756,15 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <circle class="packet" id="gw-packet" r="5" cx="-999" cy="-999"/>
         </svg>
           <div class="gw-act" role="group" aria-label="Paths"><button type="button" id="gw-wa">▶ replay this message</button><button type="button" id="gw-exp">token about to expire</button><span>or click a provider</span></div>
-          <div class="gw-log" id="gw-log" aria-live="polite"><span class="key">$</span> waiting for the message…</div>
+          <span class="sr" role="status" id="gw-sr"></span>
+          <div class="gw-log" id="gw-log"><span class="key">$</span> waiting for the message…</div>
         </div>
       </article>
 
       <article class="chap" id="ch-gate" aria-labelledby="ch2-title">
         <div>
           <p class="span-tag" style="--c:var(--s-gate)"><i></i>in the turn: gate → calendar.update</p>
-          <h2 id="ch2-title">Bella</h2>
+          <h3 id="ch2-title">Bella</h3>
           <p class="role">AI chief of staff · TypeScript agent worker · core engineer</p>
           <p class="cap">Every tool declares a minimum role. A gate checks it before the call runs.</p>
         </div>
@@ -762,7 +774,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <p class="try">▶ <span id="perm-pre">This turn,</span> <button type="button" class="who" id="perm-who">asked by a member ⇄</button></p>
           <p class="perm-ask" id="perm-ask"></p>
           <ul class="perm-steps" id="perm-steps"></ul>
-          <pre class="perm-res" id="perm-res" aria-label="The tool result the model receives"></pre>
+          <pre class="perm-res" id="perm-res" role="figure" aria-label="The tool result the model receives"></pre>
           <p class="perm-reply" id="perm-reply" aria-live="polite"></p>
           <button type="button" class="harder" id="perm-harder">try a harder request ▸</button>
         </div>
@@ -772,7 +784,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
       <article class="chap" id="ch-console" aria-labelledby="ch3-title">
         <div>
           <p class="span-tag" style="--c:var(--s-human)"><i></i>in the turn: every span</p>
-          <h2 id="ch3-title">Bella console</h2>
+          <h3 id="ch3-title">Bella console</h3>
           <p class="role">Observability and evals · built most of it</p>
           <p class="cap">Per-span tokens and cost, and human reviews that become eval cases.</p>
         </div>
@@ -808,18 +820,18 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
         <p class="pk-tag"><span>mutation testing · + dart-mutant, gopher_mutant</span><span class="st">crates.io</span></p>
         <h3 id="mut-title">rust_mutant</h3>
         <p class="tagline">Would your tests catch a bug?</p>
-<pre class="mini pv-only" aria-label="A surviving mutant"><span class="kw">if</span> age &lt; <span class="ty">3</span> <span class="bad">&amp;&amp;</span> age &gt;= <span class="ty">65</span> {   <span class="cm">// was ||</span>
+<pre class="mini pv-only" role="figure" aria-label="A surviving mutant"><span class="kw">if</span> age &lt; <span class="ty">3</span> <span class="bad">&amp;&amp;</span> age &gt;= <span class="ty">65</span> {   <span class="cm">// was ||</span>
     <span class="kw">return</span> <span class="ty">0</span>;
 }
 <span class="cm">// tests: adult ✓  child ✓</span>  <span class="cm">→ survived</span></pre>
-        <div class="mstrip pv-only" aria-label="Six mutants: four killed, one survived, one equivalent"><span>ROR ✓</span><span class="sv">LOR ✗</span><span>ROR ✓</span><span>ROR ✓</span><span class="eq">AOI ≡</span><span>AOR ✓</span></div>
+        <div class="mstrip pv-only" role="img" aria-label="Six mutants: four killed, one survived, one equivalent"><span>ROR ✓</span><span class="sv">LOR ✗</span><span>ROR ✓</span><span>ROR ✓</span><span class="eq">AOI ≡</span><span>AOR ✓</span></div>
         <p class="mstrip-cap pv-only">6 mutants · 4 killed · 1 survived · 1 equivalent (same IR)</p>
         <div class="pk-meter pv-only"><span>MSI 80%</span><span class="m"><i></i></span><span>→ 100% with one test</span></div>
         <div class="more">
           <p>Plant small bugs; good tests fail. Everything here is real rust-mutant 1.0.1 output for this exact code.</p>
           <div class="mut">
           <div style="display:grid;gap:10px;align-content:start">
-<pre class="code" aria-label="Code under test"><span class="kw">fn</span> <span class="fn">fare</span>(age: <span class="ty">u32</span>, base: <span class="ty">u32</span>) -&gt; <span class="ty">u32</span> {
+<pre class="code" tabindex="0" role="figure" aria-label="Code under test"><span class="kw">fn</span> <span class="fn">fare</span>(age: <span class="ty">u32</span>, base: <span class="ty">u32</span>) -&gt; <span class="ty">u32</span> {
     <span class="kw">if</span> age <span class="mt" id="op1">&lt;</span> <span class="ty">3</span> <span class="mt" id="op2">||</span> age <span class="mt" id="op3">&gt;=</span> <span class="ty">65</span> {
         <span class="kw">return</span> <span class="ty">0</span>;  <span class="cm cmx">// toddlers, seniors ride free</span>
     }
@@ -831,7 +843,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 <span class="fn">assert_eq!</span>(fare(<span class="ty">10</span>, <span class="ty">100</span>), <span class="ty">50</span>);  <span class="cm cmx">// child</span>  <span class="tb" id="tb1"></span>
 <span id="m-added"></span></pre>
             <p class="m-cap">rust-mutant 1.0.1 · --format json · <span id="m-rec-id">pick a mutant</span></p>
-            <pre class="m-rec" id="m-rec" aria-live="polite"></pre>
+            <pre class="m-rec" id="m-rec" tabindex="0" role="figure" aria-label="rust-mutant JSON record for the selected mutant"></pre>
           </div>
           <div style="display:grid;gap:12px;align-content:start">
             <div class="mutants" id="m-list" role="group" aria-label="Mutants"></div>
@@ -889,7 +901,8 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <button type="button" data-l="1" aria-pressed="false">your manager</button>
         </div>
         <p class="hj-say">“I'm looking for the station. Could you tell me where it is?”</p>
-        <p class="hj-ko" lang="ko" id="hj-ko" aria-live="polite"></p>
+        <p class="hj-ko" lang="ko" id="hj-ko"></p>
+        <span class="sr" role="status" id="hj-sr"></span>
         <span class="hj-level" id="hj-level"></span>
           <div class="lanes" aria-hidden="true">
           <div class="lane"><span>you</span><span class="tr"><span class="seg you" id="hj-you"></span></span></div>
@@ -913,7 +926,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
         <button type="button" class="expand" aria-expanded="false">▸ details &amp; source</button>
       </article>
 
-      <div class="stage" id="pk-stage" aria-live="polite"></div>
+      <div class="stage" id="pk-stage"></div>
     </div>
   </div>
 </section>
@@ -946,7 +959,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
           <div class="xbar"><span><b>AMHS log analyzer</b> · incident replay</span><span class="rchip">replica · illustrative log</span></div>
           <p class="try">▶ Illustrative incident: an AGV is stuck at EQ12. Replay the <abbr title="SEMI E84: the handshake between a vehicle and a load port">E84</abbr> log and find out why.</p>
           <div class="lta-grid">
-            <pre class="lta-log" id="lta-log" aria-label="Raw AMHS event log"></pre>
+            <pre class="lta-log" id="lta-log" role="figure" aria-label="Raw AMHS event log"></pre>
             <svg class="lta-svg" id="lta-svg" viewBox="0 0 300 136" aria-hidden="true"></svg>
           </div>
           <div class="lta-ctl"><button type="button" class="play2" id="lta-run">▶ analyze log</button><span class="lta-out" id="lta-out" aria-live="polite"></span></div>
@@ -1032,7 +1045,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
     <div>
     <h2 id="contact-title">Building agents that touch <em>real systems?</em></h2>
     <div class="cta">
-      <button type="button" class="copybig" data-copy="zsulthan9@gmail.com" aria-label="Copy email address">zsulthan9@gmail.com</button>
+      <a class="copybig" href="mailto:zsulthan9@gmail.com" data-copy="zsulthan9@gmail.com" title="Copy email address">zsulthan9@gmail.com</a>
       <a href="/cv.pdf">cv (pdf) ↓</a>
       <a href="https://github.com/SulthanZahran1" target="_blank" rel="noreferrer">github ↗</a>
       <a href="https://www.linkedin.com/in/sulthan-zahran-ui" target="_blank" rel="noreferrer">linkedin ↗</a>
@@ -1041,7 +1054,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
     </div>
     <details class="visit">
       <summary><b>Bonus: this page traces your visit</b><span>a toy, kept in this tab's memory; nothing is sent</span></summary>
-      <p class="legend" aria-hidden="true"><span><i style="--c:#6b6f78"></i>page</span><span><i style="--c:var(--s-gw)"></i>gateway</span><span><i style="--c:var(--s-llm)"></i>model</span><span><i style="--c:var(--s-gate)"></i>gate</span><span><i style="--c:var(--s-prov)"></i>tool</span><span><i style="--c:var(--s-human)"></i>human</span><span><i style="--c:var(--s-fail)"></i>failure</span></p>
+      <p class="legend" aria-hidden="true"><span><i style="--c:#8e939c"></i>page</span><span><i style="--c:var(--s-gw)"></i>gateway</span><span><i style="--c:var(--s-llm)"></i>model</span><span><i style="--c:var(--s-gate)"></i>gate</span><span><i style="--c:var(--s-prov)"></i>tool</span><span><i style="--c:var(--s-human)"></i>human</span><span><i style="--c:var(--s-fail)"></i>failure</span></p>
       <div class="vt" id="vt"></div>
       <div class="review" id="v-review" style="margin-top:14px"><span>Review this visit:</span>
         <button type="button" data-v="correct">✓ worth a chat</button>
@@ -1119,12 +1132,15 @@ emit("page", "load", Math.round(performance.now()));
 /* copy email */
 [].forEach.call(document.querySelectorAll("[data-copy]"), function (b) {
   var label = b.textContent;
-  b.addEventListener("click", function () {
+  b.addEventListener("click", function (e) {
     var v = b.dataset.copy;
-    (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(function () {
-      b.textContent = "copied ✓"; emit("page", "copy email", 200);
+    if (!navigator.clipboard) return;  /* no clipboard: the mailto link does its job */
+    e.preventDefault();
+    navigator.clipboard.writeText(v).then(function () {
+      b.textContent = "copied ✓"; document.getElementById("copy-sr").textContent = "Email address copied: " + v;
+      emit("page", "copy email", 200);
+      setTimeout(function () { b.textContent = label; document.getElementById("copy-sr").textContent = ""; }, 1400);
     }, function () { location.href = "mailto:" + v; });
-    setTimeout(function () { b.textContent = label; }, 1400);
   });
 });
 /* touch devices tap, they don't click */
@@ -1135,7 +1151,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   var stage = document.getElementById("pk-stage"), cur = null;
   var cards = [].map.call(document.querySelectorAll(".peek"), function (card) {
     var b = card.querySelector(".expand"), more = card.querySelector(".more"), label = b.textContent;
-    b.setAttribute("aria-controls", "pk-stage");
+    b.setAttribute("aria-controls", "pk-stage"); b.setAttribute("aria-describedby", card.querySelector("h3").id);
     return { card: card, b: b, more: more, label: label, home: more.parentNode, next: more.nextSibling };
   });
   function close(c) {
@@ -1151,13 +1167,15 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
       if (!opening) return;
       cur = c; c.card.classList.add("active"); c.b.setAttribute("aria-expanded", "true"); c.b.textContent = "▴ close";
       stage.classList.toggle("dark", c.card.classList.contains("dark"));
-      var h = document.createElement("p"); h.className = "stage-h"; h.textContent = c.card.querySelector("h3").textContent + " · " + c.card.querySelector(".tagline").textContent;
+      var h = document.createElement("h3"); h.className = "stage-h"; h.tabIndex = -1; h.textContent = c.card.querySelector("h3").textContent + " · " + c.card.querySelector(".tagline").textContent;
       stage.appendChild(h); stage.appendChild(c.more);
-      /* phones stack the cards, so the detail goes right under its own card */
-      if (window.matchMedia && matchMedia("(max-width: 980px)").matches) c.card.parentNode.insertBefore(stage, c.card.nextSibling);
-      else c.card.parentNode.appendChild(stage);
+      /* right after its card in the DOM (and tab order); wide screens still
+         lay it out as a full-width second row */
+      c.card.parentNode.insertBefore(stage, c.card.nextSibling);
       if (c.card.id === "pk-mut" && !document.querySelector('#m-list button[aria-pressed="true"]')) document.getElementById("m-runall").click();
-      stage.scrollIntoView({ block: "nearest", behavior: REDUCED ? "auto" : "smooth" });
+      h.focus({ preventScroll: true });
+      var phone = window.matchMedia && matchMedia("(max-width: 980px)").matches;
+      stage.scrollIntoView({ block: phone ? "start" : "nearest", behavior: REDUCED ? "auto" : "smooth" });
     });
   });
 })();
@@ -1215,6 +1233,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   var wf = document.getElementById("wf"), reply = document.getElementById("turn-reply"), replyText = document.getElementById("turn-reply-text"), meta = document.getElementById("turn-meta");
   var askBtns = [].slice.call(document.querySelectorAll(".asker button"));
   var role = "member", raf = 0, tok = 0, rows = [], xh;
+  replyText.textContent = "";  /* the markup carries the reply for no-JS readers */
   function fmt(n) { return n.toLocaleString("en-US"); }
   function llmMs(s, t) { return s.spans.reduce(function (a, p) { return a + (p[4] === "llm" ? Math.max(0, Math.min(t, p[3]) - p[2]) : 0); }, 0); }
 
@@ -1229,7 +1248,12 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
       r.setAttribute("aria-label", p[0] + " " + p[1] + (p[4] === "skip" ? ", not run" : ", " + (p[3] - p[2]) + " milliseconds") + ". Go to its chapter.");
       var name = /^gate/.test(p[1]) ? '<span class="lg">' + p[1] + '</span><span class="sh">gate ' + (p[4] === "fail" ? "✗" : "✓") + "</span>" : p[1];
       r.innerHTML = '<span class="lbl"><i class="svc">' + p[0] + ' · </i>' + name + '</span><span class="tr"><span class="bar" style="left:' + (p[2] / AXIS * 100) + '%"></span></span><span class="ms">' + (p[4] === "skip" ? "" : p[4] === "human" ? "✓" : (p[3] - p[2]) + " ms") + "</span>";
-      r.addEventListener("click", function () { var ch = document.getElementById(p[5]); if (ch) ch.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" }); emit("page", "jump to " + p[5], 100); });
+      r.addEventListener("click", function () {
+        var ch = document.getElementById(p[5]); if (!ch) return;
+        ch.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "start" });
+        var h = ch.querySelector("h3"); if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); }
+        emit("page", "jump to " + p[5], 100);
+      });
       wf.appendChild(r); rows.push(r);
     });
     xh = document.createElement("div"); xh.className = "xh"; xh.innerHTML = "<span></span>"; wf.appendChild(xh);
@@ -1244,7 +1268,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
     });
     var done = s.spans.filter(function (p) { return (p[4] === "prov" || p[4] === "gate") && t >= p[3]; }).length;
     meta.innerHTML = "turn_8c1f · <b>" + fmt(Math.round(Math.min(t, total))) + " ms</b> · " + Math.min(s.tools, s.spans.filter(function (p) { return p[4] === "prov" && t >= p[3]; }).length) + " tool call" + (s.tools === 1 ? "" : "s") + " · <b>" + fmt(Math.round(s.tok * f)) + "</b> tokens · $" + (s.cost * f).toFixed(4);
-    if (t >= s.spans[5][2] - 10) { reply.classList.add("on"); replyText.textContent = s.reply; }
+    if (t >= s.spans[5][2] - 10 && !reply.classList.contains("on")) { reply.classList.add("on"); replyText.textContent = s.reply; }
     return done;
   }
   function run() {
@@ -1316,7 +1340,10 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
       b.style.setProperty("--c", T.C[p[4]] || T.C.prov);
       var val = p[4] === "skip" ? "not run" : p[4] === "human" ? "✓" : p[4] === "llm" ? fmt(Math.round(s.tok * dur / llmTotal)) + " tok" : dur + " ms";
       b.innerHTML = '<span class="lbl"><i class="svc">' + p[0] + " · </i>" + p[1] + '</span><span class="tr">' + (p[4] === "skip" ? "" : '<span class="bar" style="left:' + (p[2] / T.axis * 100) + "%;width:" + (p[4] === "human" ? 0 : Math.max(0.6, dur / T.axis * 100)) + '%"></span>') + '</span><span class="ms">' + val + "</span>";
-      b.addEventListener("click", function () { sel = k; render(); emit("console", "inspect " + p[1], 120); });
+      b.addEventListener("click", function () {
+        sel = k; [].forEach.call(list.children, function (x, j) { x.setAttribute("aria-pressed", String(j === k)); });
+        body.innerHTML = detail(window.TURN(), k); emit("console", "inspect " + p[1], 120);
+      });
       list.appendChild(b);
     });
     body.innerHTML = detail(T, sel);
@@ -1345,7 +1372,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
 /* ── your visit, as a waterfall ── */
 (function () {
   var vt = document.getElementById("vt");
-  var KC = { page: "#6b6f78", gw: "var(--s-gw)", llm: "var(--s-llm)", gate: "var(--s-gate)", tool: "var(--s-prov)", human: "var(--s-human)", fail: "var(--s-fail)" };
+  var KC = { page: "#8e939c", gw: "var(--s-gw)", llm: "var(--s-llm)", gate: "var(--s-gate)", tool: "var(--s-prov)", human: "var(--s-human)", fail: "var(--s-fail)" };
   /* one colour meaning everywhere: the colour is the span's kind, not its service */
   function kind(v) {
     if (v.svc === "sambungapi") return "gw";
@@ -1474,7 +1501,12 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
     outWires.forEach(function (x, j) { x.classList.toggle("hot", j === i); });
     inWire.classList.add("hot"); waWire.classList.toggle("hot", !!wa);
   }
-  function show(lines, n) { log.innerHTML = lines.slice(0, n).join("<br>"); }
+  var gwSr = document.getElementById("gw-sr"), strip = document.createElement("div");
+  function show(lines, n) {
+    log.innerHTML = lines.slice(0, n).join("<br>");
+    /* screen readers hear only the outcome, not every animation step */
+    if (n >= lines.length) { strip.innerHTML = lines[n - 1]; gwSr.textContent = strip.textContent; }
+  }
   function call(i, expiring) {
     var my = ++busy, p = provs[i], w = outWires[i];
     emit("sambungapi", (expiring ? "refresh + " : "") + p[1], expiring ? 2300 : 1600);
@@ -1589,7 +1621,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
       if (k < items.length) { items[k++].classList.add("on"); setTimeout(next, REDUCED ? 0 : 380); return; }
       res.innerHTML = denied
         ? '{ "ok": false, "verb": "' + denied[0] + '",\n  "error": { "code": <b>"forbidden"</b>,\n    "message": "Not authorised: ' + denied[0] + " requires role " + denied[2] + ", principal has " + role + '. …" } }'
-        : '{ "ok": <span class="okk">true</span>, "verb": "' + last[0] + '", … }\n<span style="color:#6b6f78">every gate passed; the tool ran</span>';
+        : '{ "ok": <span class="okk">true</span>, "verb": "' + last[0] + '", … }\n<span style="color:#8e939c">every gate passed; the tool ran</span>';
       reply.textContent = "Bella: " + (R.reply ? R.reply[role] : T.turn.reply);
       res.classList.remove("stale"); reply.classList.remove("stale");
     })();
@@ -1747,15 +1779,18 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
       var r = k ? P.t2 : P.t1, cls = "ck" + (p >= r[1] ? " on" : "") + (p >= r[0] && p < r[1] ? " speaking" : "") + (k === c.length - 1 ? " end" : "");
       return '<span class="' + cls + '">' + t + "</span>";
     }).join("");
-    lvl.innerHTML = L[i].level + " <small>· auto mode picks between the two</small>";
+    var lv = L[i].level.split(" · ");
+    lvl.innerHTML = '<span lang="ko">' + lv[0] + "</span> · " + lv.slice(1).join(" · ") + " <small>· auto mode picks between the two</small>";
   }
   function draw(i, p) {
     seg(you, P.you, p); seg(sil, P.sil, p); seg(llm, P.llm, p); seg(t1, P.t1, p); seg(t2, P.t2, p);
     vline.classList.toggle("on", p >= P.t1[0]);
     render(i, p);
   }
-  function play(i) {
+  var hjSr = document.getElementById("hj-sr");
+  function play(i, say) {
     var my = ++tok; cur = i;
+    if (say) hjSr.textContent = L[i].chunks.join("") + " (" + L[i].level + ")";
     btns.forEach(function (b, j) { b.setAttribute("aria-pressed", String(j === i)); });
     if (REDUCED) { draw(i, 100); return; }
     var t0 = performance.now(), D = 3600;
@@ -1766,7 +1801,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
       if (p < 100) requestAnimationFrame(step);
     })(t0);
   }
-  btns.forEach(function (b, j) { b.addEventListener("click", function () { play(j); emit("honjang", L[j].level.split(" ")[0], 3600); }); });
+  btns.forEach(function (b, j) { b.addEventListener("click", function () { play(j, true); emit("honjang", L[j].level.split(" ")[0], 3600); }); });
   document.getElementById("hj-play").addEventListener("click", function () { play(cur); });
   draw(cur, 100);
   whenVisible(ko, function () { play(cur); });
@@ -1894,6 +1929,8 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
     el("text", { x: 240, y: 133, "class": "lbl", "text-anchor": "middle" }, "94 s later");
   }
   var tok = 0, fx = document.getElementById("fx-svg"), eq = document.getElementById("fx-eq12"), tile = svg.closest(".atoms");
+  /* the decorative loop runs a few seconds after it scrolls in, then stops */
+  whenVisible(fx, function () { setTimeout(function () { if (tok) return; try { fx.pauseAnimations(); } catch (e) {} tile.classList.add("halt"); }, REDUCED ? 0 : 6000); });
   function halt(on) {
     eq.classList.toggle("alarm", on); tile.classList.toggle("halt", on);
     try { on ? fx.pauseAnimations() : fx.unpauseAnimations(); } catch (e) {}
