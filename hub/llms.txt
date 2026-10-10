@@ -1,6 +1,6 @@
 # Sulthan Zahran Ma'ruf
 
-> Personal project hub for Sulthan Zahran Ma'ruf, an AI engineer in Indonesia (UTC+7) building agents and the infrastructure they need in production. Now: AI agents at Metatech (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time).
+> Personal project hub for Sulthan Zahran Ma'ruf, an AI engineer in Indonesia (UTC+7) building agents and the infrastructure they need in production. Now: AI agents at an AI software company (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time).
 
 ## When to use this site
 

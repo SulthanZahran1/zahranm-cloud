@@ -40,7 +40,7 @@
       ],
       "worksFor": [
         {"@type": "Organization", "name": "LG Sinarmas Technology Solutions"},
-        {"@type": "Organization", "name": "Metatech"}
+        {"@type": "Organization", "name": "an AI software company"}
       ]
     },
     {
@@ -712,11 +712,11 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
     <p class="eyebrow">Sulthan Zahran Ma'ruf · AI engineer</p>
     <h1 id="hero-title">I build what<br>AI agents <em>run on.</em></h1>
     <p class="sub">Tool gateways, agent runtimes, and the traces and evals that keep them honest.</p>
-    <p class="facts"><b>now</b>Metatech (AI agents) · LG Sinarmas (smart factory)<br>Indonesia (UTC+7) · Rust · TypeScript · Go · Python</p>
+    <p class="facts"><b>now</b>AI agents at an AI software company · LG Sinarmas (smart factory)<br>Indonesia (UTC+7) · Rust · TypeScript · Go · Python</p>
     </div>
 
     <div class="turn x" id="turn">
-      <div class="xbar"><span><b>Bella</b> · the AI chief of staff I build at Metatech</span><span class="rchip">replica · sample data</span></div>
+      <div class="xbar"><span><b>Bella</b> · the AI chief of staff I build at an AI software company</span><span class="rchip">replica · sample data</span></div>
       <div class="turn-top">
         <div class="msg in"><span class="ch">WhatsApp</span>Move my 3pm with Andi to tomorrow, same time, and let him know.</div>
         <div class="asker" role="group" aria-label="Who is asking"><span>try it as</span><button type="button" data-r="member" aria-pressed="true">a member</button><button type="button" data-r="allowlisted" aria-pressed="false">an allowlisted guest</button></div>
@@ -730,7 +730,7 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
 
 <section class="act1 dark" id="turn-chapters" aria-label="The turn, span by span">
   <div class="wrap">
-    <div class="act-h"><p class="kicker">Work · Metatech · 2026–now</p><h2>The systems behind that turn</h2></div>
+    <div class="act-h"><p class="kicker">Work · an AI software company · now</p><h2>The systems behind that turn</h2></div>
     <div>
 
       <article class="chap" id="ch-gateway" aria-labelledby="ch1-title">
@@ -981,8 +981,8 @@ footer { margin-top: 60px; padding: 22px 0 48px; border-top: 1px solid var(--lin
     </figure>
     <p class="skills"><b>skills</b>AI agents · tool use / MCP · RAG · LLM observability · agent harnesses · voice pipelines · mutation testing</p>
     <div class="roles" id="roles">
-      <div class="role" id="role-metatech">
-        <div><span class="when">Apr 2026 → now</span><span class="org">Metatech · part-time, remote</span></div>
+      <div class="role" id="role-agents">
+        <div><span class="when">now</span><span class="org">an AI software company · part-time, remote</span></div>
         <div><h3>Software Engineer, AI agents</h3><ul>
           <li>Built sambungapi in Rust (axum): an OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira.</li>
           <li>Core engineer on Bella's agent worker (TypeScript): the runtime that plans, calls tools (Gmail, Calendar, Lark and more) and replies on every turn, over WhatsApp, Lark, Teams and web.</li>
@@ -1959,7 +1959,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
   var today = new Date();
   var NOW = today.getFullYear() + (today.getMonth() + today.getDate() / 31) / 12;
   var lanes = [
-    { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "Metatech", "", "metatech"]] },
+    { label: "AGENTS",  spans: [[ym(2026, 4), NOW, "an AI software company", "", "agents"]] },
     { label: "BUILDS",  spans: [[ym(2026, 6), NOW, "AI builds", "", "builds", [ym(2026, 6.2), ym(2026, 6.9), ym(2026, 7.2), ym(2026, 8.1), ym(2026, 8.3)]]] },
     { label: "FACTORY", spans: [[ym(2024, 4), ym(2025, 8), "LG Sinarmas", "", "lg"], [ym(2025, 8), ym(2025, 11), "Korea", "", "korea"], [ym(2025, 11), NOW, "LG Sinarmas", "", "lg"]] },
     { label: "LAB",     spans: [[ym(2023, 10), ym(2024, 4), "FAAN Lab", "", "faan"]] },
@@ -1967,7 +1967,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
     { label: "EDU",     spans: [[ym(2019, 8), ym(2023, 8), "B.Sc. Physics · Universitas Indonesia", "", "ui"]] }
   ];
   var roles = [].slice.call(document.querySelectorAll(".role"));
-  var selected = "metatech";
+  var selected = "agents";
 
   function select(key, focusPanel) {
     selected = key;
@@ -1995,7 +1995,7 @@ if (window.matchMedia && matchMedia("(hover: none)").matches) [].forEach.call(do
     var top = 50, laneH = 42, half = 11, H = top + shown.length * laneH + 28;
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-    document.getElementById("td-caption").textContent = (narrow ? "Earlier: B.Sc. Physics (Instrumentation), Universitas Indonesia, 2019–2023. " : "") + "Now: AI agents at Metatech (part-time, remote) alongside smart-factory software at LG Sinarmas (full-time). Time before 2026 is compressed.";
+    document.getElementById("td-caption").textContent = (narrow ? "Earlier: B.Sc. Physics (Instrumentation), Universitas Indonesia, 2019–2023. " : "") + "Now: AI agents at an AI software company (part-time, remote) alongside smart-factory software at LG Sinarmas (full-time). Time before 2026 is compressed.";
     /* piecewise time scale: [year, fraction of width] stops */
     var STOPS = narrow ? [[T0, 0], [2026, 0.42], [T1, 1]] : [[T0, 0], [2024, 0.2], [2026, 0.5], [T1, 1]];
     function x(t) {

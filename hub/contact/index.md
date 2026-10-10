@@ -2,7 +2,7 @@
 title: Contact Sulthan Zahran Ma'ruf
 description: Contact Sulthan Zahran Ma'ruf, an AI engineer building agents and the infrastructure they need in production, by email, GitHub, or LinkedIn.
 canonical_url: https://zahranm.cloud/contact
-last_updated: 2026-10-01
+last_updated: 2026-10-10
 ---
 
 # Contact Sulthan Zahran Ma'ruf
@@ -16,7 +16,7 @@ zsulthan9@gmail.com. I read every message myself.
 ## At a glance
 
 - Role: AI engineer: agents, the tool infrastructure they act through, and the evals that check them.
-- Now: AI agents at Metatech (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time).
+- Now: AI agents at an AI software company (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time).
 - Based in: Indonesia (UTC+7).
 - Stack: Rust, TypeScript, Go, Python.
 

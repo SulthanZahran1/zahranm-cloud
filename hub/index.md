@@ -2,14 +2,14 @@
 title: Sulthan Zahran Ma'ruf, AI engineer
 description: AI engineer in Indonesia building AI agents and the infrastructure they need in production: tool gateways, observability, and tests for agent-written code.
 canonical_url: https://zahranm.cloud/
-last_updated: 2026-10-01
+last_updated: 2026-10-10
 ---
 
 # Sulthan Zahran Ma'ruf, AI engineer: I build what AI agents run on
 
 Tool gateways, agent runtimes, and the traces and evals that keep them honest.
 
-Now: Metatech (AI agents) · LG Sinarmas (smart factory)
+Now: AI agents at an AI software company · LG Sinarmas (smart factory)
 
 Indonesia (UTC+7) · Rust · TypeScript · Go · Python · [CV (PDF)](https://zahranm.cloud/cv.pdf) · [GitHub](https://github.com/SulthanZahran1)
 
@@ -32,7 +32,7 @@ A toggle switches who is asking. As a member, the gate passes and the event move
 
 ### 1. sambungapi: OAuth tool gateway for AI agents (Rust, primary engineer)
 
-sambungapi is the Rust gateway I'm primary engineer on at Metatech: a durable outbox for webhooks, and a token vault for agents' OAuth tool calls. Replica of private code, sample data.
+sambungapi is the Rust gateway I'm primary engineer on at an AI software company: a durable outbox for webhooks, and a token vault for agents' OAuth tool calls. Replica of private code, sample data.
 
 - Inbound webhooks (e.g. WhatsApp message.received) are committed to a durable outbox in the same transaction and delivered at-least-once by a worker that retries with the same Idempotency-Key.
 - Tool calls don't go through the outbox: each one is idempotency-keyed, unseals the AES-256-GCM OAuth token for that call only, and writes an execution_logs row. Tokens are refreshed before expiry, or once on a 401.
@@ -93,9 +93,9 @@ LG Sinarmas, 2024 to now, EV-battery plant. MES, real-time dispatching and AMHS 
 
 ## Career, as a timing diagram
 
-Each lane is a track, each box a role; clicking one shows a one-line readout and the details. Lanes, top to bottom: AGENTS (Metatech), BUILDS (personal AI builds), FACTORY (LG Sinarmas, including the Korea deployment), LAB (FAAN Lab), FIELD (PLC internship, instrumentation engineer), EDU (B.Sc. Physics). Full history in the [CV (PDF)](https://zahranm.cloud/cv.pdf).
+Each lane is a track, each box a role; clicking one shows a one-line readout and the details. Lanes, top to bottom: AGENTS (an AI software company), BUILDS (personal AI builds), FACTORY (LG Sinarmas, including the Korea deployment), LAB (FAAN Lab), FIELD (PLC internship, instrumentation engineer), EDU (B.Sc. Physics). Full history in the [CV (PDF)](https://zahranm.cloud/cv.pdf).
 
-- **Software Engineer, AI agents.** Metatech, part-time, remote. Apr 2026 to now.
+- **Software Engineer, AI agents.** An AI software company, part-time, remote.
   - Built sambungapi in Rust (axum): an OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira.
   - Core engineer on Bella's agent worker (TypeScript): the runtime that plans, calls tools (Gmail, Calendar, Lark and more) and replies on every turn, over WhatsApp, Lark, Teams and web.
   - Built the messaging engine between apps and chat platforms, and the observability behind it: per-turn cost, execution waterfalls, and a human-review loop that produces ground-truth datasets.

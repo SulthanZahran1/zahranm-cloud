@@ -2,16 +2,16 @@
 title: About Sulthan Zahran Ma'ruf, AI engineer
 description: About Sulthan Zahran Ma'ruf, an AI engineer in Indonesia building agents and the infrastructure they need in production.
 canonical_url: https://zahranm.cloud/about
-last_updated: 2026-10-01
+last_updated: 2026-10-10
 ---
 
 # About Sulthan Zahran Ma'ruf, AI engineer
 
-Sulthan Zahran Ma'ruf is an AI engineer in Indonesia. He builds what AI agents run on: tool gateways, agent runtimes, and the traces and evals that keep them honest. Now: AI agents at Metatech (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time). Based in Indonesia (UTC+7). [CV (PDF)](https://zahranm.cloud/cv.pdf).
+Sulthan Zahran Ma'ruf is an AI engineer in Indonesia. He builds what AI agents run on: tool gateways, agent runtimes, and the traces and evals that keep them honest. Now: AI agents at an AI software company (part-time, remote), alongside smart-factory software at LG Sinarmas (full-time). Based in Indonesia (UTC+7). [CV (PDF)](https://zahranm.cloud/cv.pdf).
 
 ## Agents and infrastructure
 
-**Software Engineer, AI agents. Metatech, part-time, remote, Apr 2026 to now.**
+**Software Engineer, AI agents. An AI software company, part-time, remote.**
 
 - sambungapi: a Rust (axum) OAuth tool gateway with an AES-256-GCM token vault, multi-org tenancy and a durable outbox, through which agents act on Google, Microsoft, GitHub, Slack, Notion, Linear and Jira. Agents call one API; each tool call unseals the provider token for that call only, is idempotency-keyed and writes an execution_logs row, and tokens are refreshed before expiry or once on a 401. The durable outbox carries inbound webhooks (such as a WhatsApp message.received): written in the same transaction, then delivered at-least-once by a worker that retries with the same Idempotency-Key. Built in-house to replace a third-party vendor.
 - Bella: core engineer on the agent worker (TypeScript) of an AI chief of staff for a whole company: the runtime that plans, calls tools and replies on every turn, for staff on WhatsApp, Lark, Teams and web. Pluggable engines swap the reasoning backend without touching channels or tools, and every tool declares a minRole (admin, member or allowlisted) checked by a role gate before each call; a denial goes back to the model as a forbidden tool result, and the model tells the user.
