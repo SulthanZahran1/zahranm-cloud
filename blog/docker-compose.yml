@@ -10,6 +10,7 @@ services:
       WRITEFREELY_HOST: "https://blog.zahranm.cloud"
     volumes:
       - ./data:/data
+      - ./templates-ga:/writefreely/templates:ro
     networks:
       - web
     healthcheck:
